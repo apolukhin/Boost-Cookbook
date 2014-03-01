@@ -1,0 +1,27 @@
+# This file is used by ALL recipes and it contains ...
+
+# ... QMake specific settings that shall not be modified
+TEMPLATE = app
+CONFIG -= console
+CONFIG -= qt
+
+# ... and a big portion of settings that reader may modify:
+
+# Flag to set your compiller into C++11 mode
+# (required for GCC and Clang, comment out in MSVC)
+CPP11FLAG = -std=c++0x
+
+# Paths to boost headers and libraries
+# (is you are using Linux and installed Boost 1.53 from repository
+# you may comment out those lines)
+INCLUDEPATH += /home/antoshkka/boost_maintain/boost_1_53_0
+LIBS += -L/home/antoshkka/boost_maintain/boost_1_53_0/stage/lib
+
+# Compiler to use (comment out to use default one)
+#QMAKE_CXX = clang++
+
+# Boost specific defines
+DEFINES += BOOST_THREAD_VERSION=4
+
+# Disabling MSVC specific warnings
+DEFINES += _CRT_SECURE_NO_WARNINGS
