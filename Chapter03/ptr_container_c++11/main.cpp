@@ -16,6 +16,13 @@ struct ptr_cmp: public std::binary_function<T, T, bool> {
     }
 };
 
+template <class T>
+struct ptr_deleter: public std::unary_function<T, void> {
+    void operator()(T* ptr) {
+        delete ptr;
+    }
+};
+
 void example1() {
 
     std::set<int*, ptr_cmp<int> > s;
@@ -29,7 +36,7 @@ void example1() {
     // Deallocating resources
     // Any exception in this code will lead to
     // memory leak
-    std::for_each(s.begin(), s.end(), boost::bind(::operator delete, _1));
+    std::for_each(s.begin(), s.end(), ptr_deleter<int>());
 }
 
 //void example2_a() {
