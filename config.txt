@@ -7,7 +7,7 @@ CONFIG -= qt
 
 # ... and a big portion of settings that reader may modify:
 
-# Flag to set your compiller into C++11 mode
+# Flag to set your compiler into C++11 mode
 # (required for GCC and Clang, comment out in MSVC)
 CPP11FLAG = -std=c++0x
 

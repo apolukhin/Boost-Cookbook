@@ -10,7 +10,7 @@ std::string between_str(const std::string& input, char starts, char ends) {
     ++ pos_beg;
 
     std::string::const_iterator pos_end 
-        = std::find(input.begin(), input.end(), ends);
+        = std::find(pos_beg, input.end(), ends);
 
     return std::string(pos_beg, pos_end);
 }
@@ -29,7 +29,7 @@ boost::string_ref between(
     ++ pos_beg;
 
     boost::string_ref::const_iterator pos_end 
-        = std::find(input.cbegin(), input.cend(), ends);
+        = std::find(pos_beg, input.cend(), ends);
     // ...
     if (pos_end == input.cend()) {
         return boost::string_ref(pos_beg, input.end() - pos_beg);

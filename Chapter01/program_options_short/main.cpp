@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // Adding missing options from "aples_oranges.cfg" config file.
+    // Adding missing options from "apples_oranges.cfg" config file.
     // You can also provide an istreamable object as a first
     // parameter for 'parse_config_file'
     // 'char' template parameter will be passed to underlying

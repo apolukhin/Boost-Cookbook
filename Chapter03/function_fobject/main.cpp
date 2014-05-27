@@ -57,8 +57,8 @@ bool g_is_triggered = false;
 void set_functional_object(fobject_t& f) {
     int_processor fo( 100, 200, g_is_triggered);
     f = fo;
-    // fo leavs scope and will be destroyed,
-    // but 'f' will be usable eve inouter scope
+    // fo leaves scope and will be destroyed,
+    // but 'f' will be usable even in outer scope
 }
 
 #include <vector>
