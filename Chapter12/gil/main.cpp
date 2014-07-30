@@ -10,9 +10,9 @@ struct negate {
     template <class View>
     void operator()(const View& source) const {
 
-// This codes formatting is shafted left to fit in book
+// Code formatting is shifted left to fit page width
 boost::gil::gil_function_requires<
-        boost::gil::ImageViewConcept<View>
+    boost::gil::ImageViewConcept<View>
 >();
 
 typedef typename View::value_type value_type;
