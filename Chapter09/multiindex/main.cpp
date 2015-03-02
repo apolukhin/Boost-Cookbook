@@ -20,6 +20,7 @@ inline bool operator < (const person& p1, const person& p2) {
     return p1.name_ < p2.name_;
 }
 
+#include <iostream>
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/ordered_index.hpp>
 #include <boost/multi_index/hashed_index.hpp>

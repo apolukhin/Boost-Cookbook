@@ -1,6 +1,7 @@
 void example1();
 void example2();
 
+#include <iostream>
 #include <boost/bimap.hpp>
 #include <boost/bimap/multiset_of.hpp>
 

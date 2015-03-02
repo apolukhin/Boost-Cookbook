@@ -84,6 +84,7 @@ void test_lists() {
     list_specific(list, it);
 }
 
+#include <iostream>
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         test_slist();

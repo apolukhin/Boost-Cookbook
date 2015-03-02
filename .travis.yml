@@ -48,7 +48,7 @@ before_install:
     - git status
     - ./bootstrap.sh
     - ./b2 headers
-    - ./b2 -j4 --with-program_options --with-filesystem --with-system --with-test --with-thread --with-chrono --with-regex --with-random stage
+    - ./b2 -j4 --with-program_options --with-filesystem --with-system --with-test --with-thread --with-chrono --with-regex --with-random --with-context stage
     - cd $PROJECT_DIR
 
 script:
