@@ -4,6 +4,7 @@
 #include <fstream>
 #include <cassert>
 #include <iostream>
+#include <iterator>
 
 int main(int argc, char* argv[]) {
     static const std::size_t filesize = 1024 * 1024 * 128;
