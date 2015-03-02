@@ -28,7 +28,7 @@ before_install:
     - PROJECT_TO_TEST=`basename $TRAVIS_BUILD_DIR`
     - echo "Testing $PROJECT_TO_TEST"
     # Cloning Boost libraries (fast nondeep cloning)
-    - sudo apt-get install boost-dev qtcreator
+    - sudo apt-get install -qq libboost-dev qtcreator
 
 script:
     # `--coverage` flags required to generate coverage info for Coveralls
