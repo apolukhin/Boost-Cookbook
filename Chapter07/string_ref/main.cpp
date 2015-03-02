@@ -57,6 +57,7 @@ void string_ref_init_examples() {
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/lexical_cast.hpp>
 #include <iterator>
+#include <iostream>
 void string_ref_algorithms_examples() {
     boost::string_ref r("O_O");
     // Finding symbol
