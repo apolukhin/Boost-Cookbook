@@ -51,12 +51,12 @@ before_install:
     - PROJECT_DIR=$BOOST/libs/$PROJECT_TO_TEST
     - ./bootstrap.sh
     - ./b2 headers
-    - ./b2 --with-libraries=program_options,filesystem,system,thread,chrono,regex
+    - ./b2 --with-program_options --with-filesystem --with-system --with-thread --with-chrono --with-regex stage
 
 
 script:
     # `--coverage` flags required to generate coverage info for Coveralls
-    - qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LDFLAGS+=--coverage" BoostBook.pro
+    - qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LDFLAGS+=--coverage" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro
     - make
 
 after_success:
