@@ -26,6 +26,7 @@ typename boost::fusion::result_of::remove_if<
 #include <boost/fusion/include/vector.hpp>
 #include <cassert>
 #include <boost/fusion/include/at_c.hpp>
+#include <boost/blank.hpp>
 int main() {
 
     typedef boost::fusion::vector<
