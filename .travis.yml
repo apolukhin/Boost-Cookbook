@@ -46,13 +46,10 @@ before_install:
     - git submodule foreach "git reset --quiet --hard; git clean -fxd"
     - git reset --hard; git clean -fxd
     - git status
-    - rm -rf $BOOST/libs/$PROJECT_TO_TEST
-    - mv $PROJECT_DIR/../$PROJECT_TO_TEST/ $BOOST/libs/$PROJECT_TO_TEST
-    - PROJECT_DIR=$BOOST/libs/$PROJECT_TO_TEST
     - ./bootstrap.sh
     - ./b2 headers
-    - ./b2 --with-program_options --with-filesystem --with-system --with-thread --with-chrono --with-regex stage
-
+    - ./b2 -j4 --with-program_options --with-filesystem --with-system --with-thread --with-chrono --with-regex --with-random stage
+    - cd $PROJECT_DIR
 
 script:
     # `--coverage` flags required to generate coverage info for Coveralls
@@ -72,7 +69,7 @@ after_success:
     - lcov --directory $TRAVIS_BUILD_DIR/coverals --base-directory ./ --capture --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info
 
     # ... erasing /test/ /example/ folder data
-    - lcov --remove $TRAVIS_BUILD_DIR/coverals/coverage.info "/usr*" $IGNORE_COVERAGE -o $TRAVIS_BUILD_DIR/coverals/coverage.info
+    - lcov --remove $TRAVIS_BUILD_DIR/coverals/coverage.info "/usr*" $BOOST $IGNORE_COVERAGE -o $TRAVIS_BUILD_DIR/coverals/coverage.info
 
     # Sending data to Coveralls
     - cd $TRAVIS_BUILD_DIR
