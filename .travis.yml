@@ -48,12 +48,12 @@ before_install:
     - git status
     - ./bootstrap.sh
     - ./b2 headers
-    - ./b2 -j4 --with-program_options --with-filesystem --with-system --with-thread --with-chrono --with-regex --with-random stage
+    - ./b2 -j4 --with-program_options --with-filesystem --with-system --with-test --with-thread --with-chrono --with-regex --with-random stage
     - cd $PROJECT_DIR
 
 script:
     # `--coverage` flags required to generate coverage info for Coveralls
-    - qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LDFLAGS+=--coverage" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro
+    - qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LFLAGS+=--coverage" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro
     - make
 
 after_success:
