@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
-RESOURCES += Readme.txt LICENSE_1_0.txt
+RESOURCES += Readme.md LICENSE_1_0.txt
 
 SUBDIRS += \
     Chapter01 \

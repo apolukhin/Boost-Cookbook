@@ -1,0 +1,56 @@
+# Use, modification, and distribution are
+# subject to the Boost Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#
+# Copyright Antony Polukhin 2014-2015.
+
+#
+# See https://svn.boost.org/trac/boost/wiki/TravisCoverals for description of this file
+# and how it can be used with Boost libraries.
+#
+# File revision X2
+
+os:
+    - linux
+
+env:
+    global:
+        # Autodetect Boost branch by using the following code: - BRANCH_TO_TEST=`git rev-parse --abbrev-ref HEAD`
+        # or by - BRANCH_TO_TEST=$TRAVIS_BRANCH or just directly specify it
+        - BRANCH_TO_TEST=$TRAVIS_BRANCH
+
+        # Files, which coverage results must be ignored (files from other projects).
+        # Example: - IGNORE_COVERAGE='*/boost/progress.hpp */filesystem/src/*'
+        - IGNORE_COVERAGE=''
+
+before_install:
+    # Set this to the name of the library
+    - PROJECT_TO_TEST=`basename $TRAVIS_BUILD_DIR`
+    - echo "Testing $PROJECT_TO_TEST"
+    # Cloning Boost libraries (fast nondeep cloning)
+    - sudo apt-get install boost-dev qtcreator
+
+script:
+    # `--coverage` flags required to generate coverage info for Coveralls
+    - qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LDFLAGS+=--coverage" BoostBook.pro
+    - make -j4
+
+after_success:
+    # Copying Coveralls data to a separate folder
+    - mkdir -p $TRAVIS_BUILD_DIR/coverals
+    - find ./ -name "*.gcda" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
+    - find ./ -name "*.gcno" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
+
+    # Preparing Coveralls data by
+    # ... installing the tools
+    - sudo apt-get install -qq python-yaml lcov
+    # ... changind data format to a readable one
+    - lcov --directory $TRAVIS_BUILD_DIR/coverals --base-directory ./ --capture --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info
+
+    # ... erasing /test/ /example/ folder data
+    - lcov --remove $TRAVIS_BUILD_DIR/coverals/coverage.info "/usr*" $IGNORE_COVERAGE -o $TRAVIS_BUILD_DIR/coverals/coverage.info
+
+    # Sending data to Coveralls
+    - cd $TRAVIS_BUILD_DIR
+    - gem install coveralls-lcov
+    - coveralls-lcov coverals/coverage.info
