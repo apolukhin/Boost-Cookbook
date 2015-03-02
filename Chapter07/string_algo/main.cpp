@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 const std::string str = "Hello, hello, dear Reader.";
 
