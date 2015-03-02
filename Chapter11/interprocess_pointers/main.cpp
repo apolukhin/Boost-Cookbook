@@ -1,3 +1,5 @@
+#include <iostream>
+
 struct with_pointer {
     int* pointer_;
     // ...
