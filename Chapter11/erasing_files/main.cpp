@@ -1,6 +1,7 @@
 #include <boost/filesystem/operations.hpp>
 #include <cassert>
 #include <fstream>
+#include <iostream>
 
 int main() {
     boost::system::error_code error;
