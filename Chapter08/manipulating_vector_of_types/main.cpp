@@ -93,6 +93,11 @@ BOOST_STATIC_ASSERT((boost::is_same<
     unsigned long
 >::value));
 
+// GCC4.6 has problems with variadic templates:
+// # sorry, unimplemented: cannot expand ‘T ...’ into a fixed-length argument list
+// NOTE: Clang compiler defines __GNUC__
+#if defined(__clang__) || !(defined(__GNUC__) && (__GNUC__ == 4) && (__GNUC_MINOR__ < 7))
+
 #include <boost/config.hpp>
 #ifndef BOOST_NO_CXX11_VARIADIC_TEMPLATES
 
@@ -108,6 +113,7 @@ BOOST_STATIC_ASSERT((boost::is_same<
 
 #endif
 
+#endif // gcc4.6 workaround
 
 #include <iostream>
 #include <typeinfo>
