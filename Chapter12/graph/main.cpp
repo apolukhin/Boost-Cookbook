@@ -10,6 +10,7 @@ typedef boost::adjacency_list<
 > graph_type;
 
 #include <boost/utility/string_ref.hpp>
+#include <iostream>
 template <class GraphT>
 void find_and_print(const GraphT& g, boost::string_ref name) {
     typedef typename boost::graph_traits<graph_type>

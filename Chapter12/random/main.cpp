@@ -1,6 +1,7 @@
 #include <boost/config.hpp>
 #include <boost/random/random_device.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
+#include <iostream>
 
 int main() {
     static const std::string provider =

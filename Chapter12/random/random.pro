@@ -3,4 +3,4 @@ if (!include(../../config.txt)) {
 }
 
 SOURCES += main.cpp
-LIBS += -lboost_random
+LIBS += -lboost_random -lboost_system
