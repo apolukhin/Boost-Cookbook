@@ -38,3 +38,18 @@ this class defined?'.
 ### Thanks
 Thanks to Heather Gopsill from Packt Publishing for giving a permission to make sources publicly available. 
 
+### Testing
+[![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS.svg?branch=master)](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS) [![Coverage Status](https://coveralls.io/repos/apolukhin/Boost-Cookbook-4880OS/badge.svg)](https://coveralls.io/r/apolukhin/Boost-Cookbook-4880OS)
+
+### Notes for book update
+* Chapter 10 "Detecting RTTI support" - add Boost.TypeIndex example
+* Optional and Variant now understand rvalue references
+* Boost will have an unique_ptr in 1.58
+* How about describing boost::future?
+* Coroutine interface changed in Boost 1.56
+* LexicalCast now has a try_lexical_convert method
+* Filesystem is accepted into the Standard
+* RCU example using atomics?
+* add *_pointer_cast examples?
+* add a note to the book about source code availability at github
+* sync code and book

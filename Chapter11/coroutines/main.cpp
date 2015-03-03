@@ -77,7 +77,7 @@ int main() {
 
 #include <boost/coroutine/coroutine.hpp>
 
-typedef boost::coroutines::symmetric_coroutine<std::size_t> corout_t;
+typedef boost::coroutines::asymmetric_coroutine<std::size_t> corout_t;
 
 struct coroutine_task {
     std::string& result;
@@ -86,7 +86,7 @@ struct coroutine_task {
         : result(result_in)
     {}
 
-    void operator()(corout_t::yield_type& yield) {
+    void operator()(corout_t::pull_type& yield) {
         // Returning back to main programm
         yield();
 
@@ -107,7 +107,7 @@ struct coroutine_task {
 int main() {
     std::string result;
     coroutine_task task(result);
-    corout_t::call_type coroutine(task);
+    corout_t::push_type coroutine(task);
 
     // Doing some work
     // ...
