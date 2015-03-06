@@ -61,15 +61,13 @@ script:
     - if [ "$CC" == "clang" ]; then qmake "QMAKE_CXX=$CXX" "QMAKE_LFLAGS+=-Wl,-rpath=$BOOST/stage/lib" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
     - if [ "$CC" == "gcc" ]; then qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LFLAGS+=--coverage -Wl,-rpath=$BOOST/stage/lib" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
     - make -j4
-    - mkdir -p $TRAVIS_BUILD_DIR/coverals
-    - cd $TRAVIS_BUILD_DIR/coverals
 
     # Executing tests
-    - for i in `find ../Chapter* -type f -executable`; do echo "************* Running $i"; ./$i; if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi; done
-    - cd ../
+    - for i in `find ./ -type f -executable`; do echo "************* Running $i"; cd $(dirname $i); ./$(basename $i); if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi; cd $TRAVIS_BUILD_DIR; done
 
 after_success:
     # Copying Coveralls data to a separate folder if any
+    - mkdir -p $TRAVIS_BUILD_DIR/coverals
     - find ./Chapter* -name "*.gcda" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
     - find ./Chapter* -name "*.gcno" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
 
