@@ -60,12 +60,12 @@ script:
     # `--coverage` flags required to generate coverage info for Coveralls
     - if [ "$CC" == "clang" ]; then qmake "QMAKE_CXX=$CXX" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
     - if [ "$CC" == "gcc" ]; then qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LFLAGS+=--coverage" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
-    - make
+    - make -j4
     - mkdir -p $TRAVIS_BUILD_DIR/coverals
     - cd $TRAVIS_BUILD_DIR/coverals
 
     # Executing tests
-    - for i in `find ./Chapter* -type f -executable`; do echo "************* Running $i"; ../$i; if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi; done
+    - for i in `find ../Chapter* -type f -executable`; do echo "************* Running $i"; ../$i; if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi; done
     - cd ../
 
 after_success:
