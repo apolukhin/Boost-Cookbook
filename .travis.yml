@@ -33,7 +33,7 @@ before_install:
     - PROJECT_TO_TEST=`basename $TRAVIS_BUILD_DIR`
     - echo "Testing $PROJECT_TO_TEST"
 
-    - sudo apt-get install -qq libboost-dev qt4-make
+    - sudo apt-get install -qq libboost-dev qt4-qmake
 
     # Cloning Boost libraries (fast nondeep cloning)
     - PROJECT_DIR=`pwd`
