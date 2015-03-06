@@ -12,7 +12,7 @@
 
 language: cpp
 compiler:
-    - clang
+#    - clang
     - gcc
 
 os:
@@ -61,10 +61,15 @@ script:
     - if [ "$CC" == "clang" ]; then qmake "QMAKE_CXX=$CXX" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
     - if [ "$CC" == "gcc" ]; then qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LFLAGS+=--coverage" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
     - make
+    - mkdir -p $TRAVIS_BUILD_DIR/coverals
+    - cd $TRAVIS_BUILD_DIR/coverals
+
+    # Executing tests
+    - for i in `find ./Chapter* -type f -executable`; do echo "************* Running $i"; ../$i; if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi; done
+    - cd ../
 
 after_success:
-    # Copying Coveralls data to a separate folder
-    - mkdir -p $TRAVIS_BUILD_DIR/coverals
+    # Copying Coveralls data to a separate folder if any
     - find ./Chapter* -name "*.gcda" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
     - find ./Chapter* -name "*.gcno" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
 
