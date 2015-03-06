@@ -8,14 +8,15 @@
 # See https://svn.boost.org/trac/boost/wiki/TravisCoverals for description of this file
 # and how it can be used with Boost libraries.
 #
-# File revision X2
+# File revision 2 simplified
 
-os:
-    - linux
-
+language: cpp
 compiler:
     - clang
     - gcc
+
+os:
+    - linux
 
 env:
     global:
@@ -32,7 +33,7 @@ before_install:
     - PROJECT_TO_TEST=`basename $TRAVIS_BUILD_DIR`
     - echo "Testing $PROJECT_TO_TEST"
 
-    - sudo apt-get install -qq libboost-dev qtcreator
+    - sudo apt-get install -qq libboost-dev qt4-make
 
     # Cloning Boost libraries (fast nondeep cloning)
     - PROJECT_DIR=`pwd`
@@ -63,8 +64,8 @@ script:
 after_success:
     # Copying Coveralls data to a separate folder
     - mkdir -p $TRAVIS_BUILD_DIR/coverals
-    - find ./ -name "*.gcda" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
-    - find ./ -name "*.gcno" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
+    - find ./Chapter* -name "*.gcda" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
+    - find ./Chapter* -name "*.gcno" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
 
     # Preparing Coveralls data by
     # ... installing the tools
