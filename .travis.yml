@@ -63,7 +63,7 @@ script:
     - make -j4
 
     # Executing tests
-    - for i in `find ./ -type f -executable`; do echo "************* Running $i"; cd $(dirname $i); ./$(basename $i); if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi; cd $TRAVIS_BUILD_DIR; done
+    - for i in `find ./Chapter* -type f -executable`; do echo "************* Running $i"; cd $(dirname $i); ./$(basename $i); if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi; cd $TRAVIS_BUILD_DIR; done
 
 after_success:
     # Copying Coveralls data to a separate folder if any
