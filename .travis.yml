@@ -53,13 +53,13 @@ before_install:
     - git status
     - ./bootstrap.sh
     - ./b2 headers
-    - ./b2 -j4 toolset=$CC address-model=64 architecture=x86 link=static --with-program_options --with-filesystem --with-system --with-test --with-thread --with-chrono --with-regex --with-random --with-context --with-coroutine stage
+    - ./b2 -j4 toolset=$CC address-model=64 architecture=x86 --with-program_options --with-filesystem --with-system --with-test --with-thread --with-chrono --with-regex --with-random --with-context --with-coroutine stage
     - cd $PROJECT_DIR
 
 script:
     # `--coverage` flags required to generate coverage info for Coveralls
-    - if [ "$CC" == "clang" ]; then qmake "QMAKE_CXX=$CXX" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
-    - if [ "$CC" == "gcc" ]; then qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LFLAGS+=--coverage" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
+    - if [ "$CC" == "clang" ]; then qmake "QMAKE_CXX=$CXX" "QMAKE_LFLAGS+=-Wl,-rpath=$BOOST/stage/lib" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
+    - if [ "$CC" == "gcc" ]; then qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LFLAGS+=--coverage -Wl,-rpath=$BOOST/stage/lib" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
     - make -j4
     - mkdir -p $TRAVIS_BUILD_DIR/coverals
     - cd $TRAVIS_BUILD_DIR/coverals
