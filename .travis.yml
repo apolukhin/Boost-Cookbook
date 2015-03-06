@@ -65,7 +65,7 @@ script:
     - cd $TRAVIS_BUILD_DIR/coverals
 
     # Executing tests
-    - for i in `find ../Chapter* -type f -executable`; do echo "************* Running $i"; ../$i; if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi; done
+    - for i in `find ../Chapter* -type f -executable`; do echo "************* Running $i"; ./$i; if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi; done
     - cd ../
 
 after_success:
