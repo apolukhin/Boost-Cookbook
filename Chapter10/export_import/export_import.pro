@@ -11,3 +11,8 @@ SOURCES += main.cpp
 HEADERS += ../my_library/my_library.hpp
 DEFINES += MY_LIBRARY_LINK_DYNAMIC
 LIBS += -L../my_library -lmy_library
+
+# We compile-in the path to the library
+unix|macos {
+    QMAKE_LFLAGS+=-Wl,-rpath=../my_library/
+}
