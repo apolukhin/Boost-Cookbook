@@ -64,7 +64,7 @@ script:
 
     # Executing tests
     - declare -A optionsmap
-    - optionsmap[program_options_short] = --apples=10 --oranges=20
+    - optionsmap[program_options_short]="--apples=10 --oranges=20"
     - for i in `find ./Chapter* -type f -executable`; do echo "************* Running $i"; cd $(dirname $i); progname=$(basename $i); ./$progname ${optionsmap[$progname]}; if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; $(exit -1); break; fi; cd $TRAVIS_BUILD_DIR; done
 
 after_success:
