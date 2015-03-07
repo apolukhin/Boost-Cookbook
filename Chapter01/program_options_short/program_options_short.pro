@@ -6,3 +6,5 @@ LIBS += -lboost_program_options
 
 SOURCES += main.cpp
 
+RESOURCES += apples_oranges.cfg
+
