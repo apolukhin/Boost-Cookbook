@@ -64,9 +64,9 @@ script:
 
     # Creating script for examples execution
     - echo 'declare -A optionsmap'                                                  >run_examples.sh
-    - echo 'optionsmap[program_options_short]="--apples=10 --oranges=20"'           >>run_examples.sh
+    - echo 'optionsmap["program_options_base"]="--apples=10 --oranges=20"'          >>run_examples.sh
     - echo 'for i in `find ./Chapter* -type f -executable`; do '                    >>run_examples.sh
-    - echo '    echo -e "\n************* Running $i"'                               >>run_examples.sh
+    - echo '    echo -e "\n************* Running $i ${optionsmap[${progname}]}"'    >>run_examples.sh
     - echo '    cd "$(dirname $i)"'                                                 >>run_examples.sh
     - echo '    progname="$(basename $i)"'                                          >>run_examples.sh
     - echo '    ./"${progname}" ${optionsmap["${progname}"]}'                       >>run_examples.sh
