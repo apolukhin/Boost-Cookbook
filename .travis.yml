@@ -57,10 +57,10 @@ before_install:
     - echo '        $i c; time $i m; time $i r; time $i a; continue; '              >>run_examples.sh
     - echo '    fi'                                                                 >>run_examples.sh
     - echo '    if [ "${progname}" == "interprocess_basics" ]; then '               >>run_examples.sh
-    - echo '        mkfifo fifo1; $i <fifo1&;  '                                    >>run_examples.sh
-    - echo '        echo "0" | $i &; echo "0" | $i &; echo "0" | $i &;  '           >>run_examples.sh
-    - echo '        echo "0">fifo1; '                                               >>run_examples.sh
-    - echo '        rm fifo1; '                                                     >>run_examples.sh
+    - echo '        mkfifo fifo1; $i<fifo1 & '                                      >>run_examples.sh
+    - echo '        echo "0" | $i & ; echo "0" | $i & ; echo "0" | $i & '           >>run_examples.sh
+    - echo '        echo "0">fifo1 '                                                >>run_examples.sh
+    - echo '        rm fifo1 '                                                      >>run_examples.sh
     - echo '    fi'                                                                 >>run_examples.sh
     - echo '    if [ "${progname}" == "interprocess_queue" ]; then '                >>run_examples.sh
     - echo '        $i&; $i&; '                                                     >>run_examples.sh
