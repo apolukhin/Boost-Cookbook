@@ -53,6 +53,8 @@ before_install:
     - echo '    if [ "${progname}" == "tasks_processor_signals" ]; then '           >>run_examples.sh
     - echo '        tasks_processor_signals_helper & '                              >>run_examples.sh
     - echo '    fi'                                                                 >>run_examples.sh
+    - echo '    if [ "${progname}" == "regex_search" ]; then continue; fi '         >>run_examples.sh
+    - echo '    if [ "${progname}" == "regex_replace" ]; then continue; fi '        >>run_examples.sh
     - echo '    ./"${progname}" ${optionsmap["${progname}"]}'                       >>run_examples.sh
     - echo '    if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi'          >>run_examples.sh
     - echo '    cd $TRAVIS_BUILD_DIR'                                               >>run_examples.sh
