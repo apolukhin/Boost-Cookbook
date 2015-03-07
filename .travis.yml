@@ -70,6 +70,14 @@ script:
     - echo '    echo -e "\n************* Running $i ${optionsmap[${progname}]}"'    >>run_examples.sh
     - echo '    cd "$(dirname $i)"'                                                 >>run_examples.sh
     - echo '    progname="$(basename $i)"'                                          >>run_examples.sh
+    - echo '    if [ "${progname}" == "tasks_processor_signals" ]; then '           >>run_examples.sh
+    - echo '        {'                                                              >>run_examples.sh
+    - echo '            sleep 2; '                                                  >>run_examples.sh
+    - echo '            killall tasks_processor_signals -SIGINT; sleep 1; '         >>run_examples.sh
+    - echo '            killall tasks_processor_signals -SIGINT; sleep 1; '         >>run_examples.sh
+    - echo '            killall tasks_processor_signals -SIGINT; sleep 1; '         >>run_examples.sh
+    - echo '        }& # async run'                                                 >>run_examples.sh
+    - echo '    fi'                                                                 >>run_examples.sh
     - echo '    ./"${progname}" ${optionsmap["${progname}"]}'                       >>run_examples.sh
     - echo '    if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi'          >>run_examples.sh
     - echo '    cd $TRAVIS_BUILD_DIR'                                               >>run_examples.sh
