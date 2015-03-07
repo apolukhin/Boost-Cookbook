@@ -34,7 +34,7 @@ before_install:
     - echo "Testing $PROJECT_TO_TEST"
 
     - sudo apt-get install -qq libboost-dev qt4-qmake
-    - sudo locale-gen ru_RU ru_RU.UTF8
+    - sudo locale-gen ru_RU.UTF8
 
     # Cloning Boost libraries (fast nondeep cloning)
     - PROJECT_DIR=`pwd`
