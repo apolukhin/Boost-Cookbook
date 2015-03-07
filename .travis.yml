@@ -36,6 +36,30 @@ before_install:
     - sudo apt-get install -qq libboost-dev qt4-qmake
     - sudo locale-gen ru_RU.utf8
 
+    # Creating script for examples execution
+    - echo 'declare -A optionsmap'                                                  >run_examples.sh
+    - echo 'optionsmap["program_options_base"]="--apples=10 --oranges=20"'          >>run_examples.sh
+    - echo 'tasks_processor_signals_helper() {'                                     >>run_examples.sh
+    - echo '    sleep 2; '                                                          >>run_examples.sh
+    - echo '    killall tasks_processor_signals -SIGINT; sleep 1; '                 >>run_examples.sh
+    - echo '    killall tasks_processor_signals -SIGINT; sleep 1; '                 >>run_examples.sh
+    - echo '    killall tasks_processor_signals -SIGINT; sleep 1; '                 >>run_examples.sh
+    - echo '} '                                                                     >>run_examples.sh
+    - echo ''                                                                       >>run_examples.sh
+    - echo 'for i in `find ./Chapter* -type f -executable`; do '                    >>run_examples.sh
+    - echo '    echo -e "\n************* Running $i ${optionsmap[${progname}]}"'    >>run_examples.sh
+    - echo '    cd "$(dirname $i)"'                                                 >>run_examples.sh
+    - echo '    progname="$(basename $i)"'                                          >>run_examples.sh
+    - echo '    if [ "${progname}" == "tasks_processor_signals" ]; then '           >>run_examples.sh
+    - echo '        tasks_processor_signals_helper & '                              >>run_examples.sh
+    - echo '    fi'                                                                 >>run_examples.sh
+    - echo '    ./"${progname}" ${optionsmap["${progname}"]}'                       >>run_examples.sh
+    - echo '    if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi'          >>run_examples.sh
+    - echo '    cd $TRAVIS_BUILD_DIR'                                               >>run_examples.sh
+    - echo 'done'                                                                   >>run_examples.sh
+    - cat ./run_examples.sh
+    - chmod +x ./run_examples.sh
+
     # Cloning Boost libraries (fast nondeep cloning)
     - PROJECT_DIR=`pwd`
     - BOOST=$HOME/boost-local
@@ -62,28 +86,6 @@ script:
     - if [ "$CC" == "clang" ]; then qmake "QMAKE_CXX=$CXX" "QMAKE_LFLAGS+=-Wl,-rpath=$BOOST/stage/lib" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
     - if [ "$CC" == "gcc" ]; then qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LFLAGS+=--coverage -Wl,-rpath=$BOOST/stage/lib" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
     - make -j4
-
-    # Creating script for examples execution
-    - echo 'declare -A optionsmap'                                                  >run_examples.sh
-    - echo 'optionsmap["program_options_base"]="--apples=10 --oranges=20"'          >>run_examples.sh
-    - echo 'for i in `find ./Chapter* -type f -executable`; do '                    >>run_examples.sh
-    - echo '    echo -e "\n************* Running $i ${optionsmap[${progname}]}"'    >>run_examples.sh
-    - echo '    cd "$(dirname $i)"'                                                 >>run_examples.sh
-    - echo '    progname="$(basename $i)"'                                          >>run_examples.sh
-    - echo '    if [ "${progname}" == "tasks_processor_signals" ]; then '           >>run_examples.sh
-    - echo '        {'                                                              >>run_examples.sh
-    - echo '            sleep 2; '                                                  >>run_examples.sh
-    - echo '            killall tasks_processor_signals -SIGINT; sleep 1; '         >>run_examples.sh
-    - echo '            killall tasks_processor_signals -SIGINT; sleep 1; '         >>run_examples.sh
-    - echo '            killall tasks_processor_signals -SIGINT; sleep 1; '         >>run_examples.sh
-    - echo '        }& # async run'                                                 >>run_examples.sh
-    - echo '    fi'                                                                 >>run_examples.sh
-    - echo '    ./"${progname}" ${optionsmap["${progname}"]}'                       >>run_examples.sh
-    - echo '    if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi'          >>run_examples.sh
-    - echo '    cd $TRAVIS_BUILD_DIR'                                               >>run_examples.sh
-    - echo 'done'                                                                   >>run_examples.sh
-    - cat ./run_examples.sh
-    - chmod +x ./run_examples.sh
 
     # Executing examples
     - ./run_examples.sh
