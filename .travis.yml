@@ -46,6 +46,7 @@ before_install:
     - echo '    killall tasks_processor_signals -SIGINT; sleep 1; '                 >>run_examples.sh
     - echo '} '                                                                     >>run_examples.sh
     - echo ''                                                                       >>run_examples.sh
+    - echo 'chmod -x ./Chapter10/my_library/*'                                      >>run_examples.sh
     - echo 'for i in `find ./Chapter* -type f -executable`; do '                    >>run_examples.sh
     - echo '    echo -e "\n************* Running $i ${optionsmap[${progname}]}"'    >>run_examples.sh
     - echo '    progname="$(basename $i)"'                                          >>run_examples.sh
