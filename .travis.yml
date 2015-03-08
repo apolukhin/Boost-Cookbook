@@ -126,6 +126,7 @@ after_success:
     - mkdir -p $TRAVIS_BUILD_DIR/coverals
     - find ./Chapter* -name "*.gcda" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
     - find ./Chapter* -name "*.gcno" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
+    - ls $TRAVIS_BUILD_DIR/coverals/
 
     # Preparing Coveralls data by
     # ... installing the tools
