@@ -87,9 +87,6 @@ struct coroutine_task {
     {}
 
     void operator()(corout_t::pull_type& yield) {
-        // Returning back to main programm
-        yield();
-
         while (1) {
             std::size_t max_characters_to_process = yield.get();
 
