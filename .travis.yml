@@ -47,12 +47,12 @@ before_install:
     - echo '    killall tasks_processor_signals -SIGINT; sleep 1; '                 >>run_examples.sh
     - echo '} '                                                                     >>run_examples.sh
     - echo 'interprocess_basics_run() {'                                            >>run_examples.sh
-    - echo '    echo "0" | ./interprocess_basics '                                  >>run_examples.sh
+    - echo '    echo "0" | ./Chapter11/interprocess_basics/interprocess_basics '    >>run_examples.sh
     - echo '} '                                                                     >>run_examples.sh
     - echo ''                                                                       >>run_examples.sh
     - echo 'chmod -x ./Chapter10/my_library/*'                                      >>run_examples.sh
     - echo 'for i in `find ./Chapter* -type f -executable`; do '                    >>run_examples.sh
-    - echo '    echo -e "\n************* Running $i ${optionsmap[${progname}]}"'    >>run_examples.sh
+    - echo '    echo -e "\n************* Running $i"'                               >>run_examples.sh
     - echo '    progname="$(basename $i)"'                                          >>run_examples.sh
     - echo '    if [ "${progname}" == "tasks_processor_signals" ]; then '           >>run_examples.sh
     - echo '        tasks_processor_signals_helper & '                              >>run_examples.sh
@@ -80,6 +80,7 @@ before_install:
     - echo '    if [ "${progname}" == "regex_replace" ]; then continue; fi '        >>run_examples.sh
     - echo '    if [ "${progname}" == "gil" ]; then '                               >>run_examples.sh
     - echo '        wget http://www.boost.org/style-v2/css_0/get-boost.png '        >>run_examples.sh
+    - echo '        sudo chmod 666 get-boost.png '                                  >>run_examples.sh
     - echo '    fi'                                                                 >>run_examples.sh
     - echo '    cd "$(dirname $i)"'                                                 >>run_examples.sh
     - echo '    ./"${progname}" ${optionsmap["${progname}"]}'                       >>run_examples.sh
