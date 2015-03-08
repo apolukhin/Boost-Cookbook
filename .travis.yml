@@ -39,11 +39,15 @@ before_install:
     # Creating script for examples execution
     - echo 'declare -A optionsmap'                                                  >run_examples.sh
     - echo 'optionsmap["program_options_base"]="--apples=10 --oranges=20"'          >>run_examples.sh
+    - echo 'optionsmap["gil"]="get-boost.png"'                                      >>run_examples.sh
     - echo 'tasks_processor_signals_helper() {'                                     >>run_examples.sh
     - echo '    sleep 2; '                                                          >>run_examples.sh
     - echo '    killall tasks_processor_signals -SIGINT; sleep 1; '                 >>run_examples.sh
     - echo '    killall tasks_processor_signals -SIGINT; sleep 1; '                 >>run_examples.sh
     - echo '    killall tasks_processor_signals -SIGINT; sleep 1; '                 >>run_examples.sh
+    - echo '} '                                                                     >>run_examples.sh
+    - echo 'interprocess_basics_run() {'                                            >>run_examples.sh
+    - echo '    echo "0" | ./interprocess_basics '                                  >>run_examples.sh
     - echo '} '                                                                     >>run_examples.sh
     - echo ''                                                                       >>run_examples.sh
     - echo 'chmod -x ./Chapter10/my_library/*'                                      >>run_examples.sh
@@ -58,11 +62,11 @@ before_install:
     - echo '    fi'                                                                 >>run_examples.sh
     - echo '    if [ "${progname}" == "interprocess_basics" ]; then '               >>run_examples.sh
     - echo '        mkfifo fifo1; $i<fifo1 & '                                      >>run_examples.sh
-    - echo '        echo "0" | $i & '                                               >>run_examples.sh
-    - echo '        echo "0" | $i & '                                               >>run_examples.sh
-    - echo '        echo "0" | $i & '                                               >>run_examples.sh
-    - echo '        echo "0" | $i & '                                               >>run_examples.sh
-    - echo '        echo "0" | $i & '                                               >>run_examples.sh
+    - echo '        interprocess_basics_run & '                                     >>run_examples.sh
+    - echo '        interprocess_basics_run & '                                     >>run_examples.sh
+    - echo '        interprocess_basics_run & '                                     >>run_examples.sh
+    - echo '        interprocess_basics_run & '                                     >>run_examples.sh
+    - echo '        interprocess_basics_run & '                                     >>run_examples.sh
     - echo '        echo "0">fifo1 '                                                >>run_examples.sh
     - echo '        rm fifo1; continue; '                                           >>run_examples.sh
     - echo '    fi'                                                                 >>run_examples.sh
@@ -74,6 +78,9 @@ before_install:
     - echo '    fi'                                                                 >>run_examples.sh
     - echo '    if [ "${progname}" == "regex_match" ]; then continue; fi '          >>run_examples.sh
     - echo '    if [ "${progname}" == "regex_replace" ]; then continue; fi '        >>run_examples.sh
+    - echo '    if [ "${progname}" == "gil" ]; then '                               >>run_examples.sh
+    - echo '        wget http://www.boost.org/style-v2/css_0/get-boost.png '        >>run_examples.sh
+    - echo '    fi'                                                                 >>run_examples.sh
     - echo '    cd "$(dirname $i)"'                                                 >>run_examples.sh
     - echo '    ./"${progname}" ${optionsmap["${progname}"]}'                       >>run_examples.sh
     - echo '    if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi'          >>run_examples.sh
