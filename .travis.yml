@@ -26,7 +26,7 @@ env:
 
         # Files, which coverage results must be ignored (files from other projects).
         # Example: - IGNORE_COVERAGE='*/boost/progress.hpp */filesystem/src/*'
-        - IGNORE_COVERAGE=''
+        - IGNORE_COVERAGE='*/boost-local/*'
 
 before_install:
     # Set this to the name of the library
@@ -62,12 +62,13 @@ before_install:
     - echo '    fi'                                                                 >>run_examples.sh
     - echo '    if [ "${progname}" == "interprocess_basics" ]; then '               >>run_examples.sh
     - echo '        mkfifo fifo1; $i<fifo1 & '                                      >>run_examples.sh
+    - echo '        sleep 1 '                                                       >>run_examples.sh
     - echo '        interprocess_basics_run & '                                     >>run_examples.sh
     - echo '        interprocess_basics_run & '                                     >>run_examples.sh
     - echo '        interprocess_basics_run & '                                     >>run_examples.sh
     - echo '        interprocess_basics_run & '                                     >>run_examples.sh
     - echo '        interprocess_basics_run & '                                     >>run_examples.sh
-    - echo '        sleep 2 '                                                       >>run_examples.sh
+    - echo '        sleep 1 '                                                       >>run_examples.sh
     - echo '        echo "0">fifo1 '                                                >>run_examples.sh
     - echo '        rm fifo1; continue; '                                           >>run_examples.sh
     - echo '    fi'                                                                 >>run_examples.sh
@@ -133,7 +134,7 @@ after_success:
     - lcov --directory $TRAVIS_BUILD_DIR/coverals --base-directory ./ --capture --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info
 
     # ... erasing /test/ /example/ folder data
-    - lcov --remove $TRAVIS_BUILD_DIR/coverals/coverage.info "/usr*" $BOOST $IGNORE_COVERAGE -o $TRAVIS_BUILD_DIR/coverals/coverage.info
+    - lcov --remove $TRAVIS_BUILD_DIR/coverals/coverage.info "/usr*" $IGNORE_COVERAGE -o $TRAVIS_BUILD_DIR/coverals/coverage.info
 
     # Sending data to Coveralls
     - cd $TRAVIS_BUILD_DIR
