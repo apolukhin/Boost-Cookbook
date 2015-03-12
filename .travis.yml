@@ -108,7 +108,7 @@ before_install:
     - git reset --hard; git clean -fxd
     - git status
     - ./bootstrap.sh
-    - ./b2 headers
+    #- ./b2 headers
     - ./b2 -j4 toolset=$CC address-model=64 architecture=x86 --with-program_options --with-filesystem --with-system --with-test --with-thread --with-chrono --with-regex --with-random --with-context --with-coroutine stage
     - cd $PROJECT_DIR
 
