@@ -134,7 +134,7 @@ after_success:
 
     # ... changing data format to a readable one
     - find Chapter*/* -type d -exec lcov --directory "{}" --base-directory ./"{}" --capture --output-file "{}"/tmp_coverage.info \;
-    - FILES=$(find Chapter*/ -name tmp_coverage.info); lcov -a $FILES --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info 
+    - FILES=$(find Chapter*/ -name tmp_coverage.info -print0 | xargs -0 -I {} echo '-a "{}" '); lcov $FILES --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info 
 
 
     # ... erasing /test/ /example/ folder data
