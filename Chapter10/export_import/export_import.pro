@@ -15,4 +15,5 @@ LIBS += -L../my_library -lmy_library
 # We compile-in the path to the library
 unix|macos {
     QMAKE_LFLAGS+=-Wl,-rpath=../my_library/
+    QMAKE_LFLAGS+=-Wl,-rpath=Chapter10/my_library/
 }
