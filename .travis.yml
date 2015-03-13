@@ -134,11 +134,10 @@ after_success:
 
     # ... changing data format to a readable one
     - find Chapter*/* -type d -exec lcov --directory "{}" --base-directory ./"{}" --capture --output-file "{}"/tmp_coverage.info \;
-    - FILES=$(find Chapter*/ -name tmp_coverage.info -print0 | xargs -0 -I {} echo "-a {} "); lcov $FILES --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info 
-
-
     # ... erasing /test/ /example/ folder data
-    - lcov --remove $TRAVIS_BUILD_DIR/coverals/coverage.info "/usr*" $IGNORE_COVERAGE -o $TRAVIS_BUILD_DIR/coverals/coverage.info
+    - find Chapter*/ -name tmp_coverage.info -print0 | xargs -0 -I {} lcov --remove "{}" "/usr*" $IGNORE_COVERAGE -o "{}"
+    - mv Chapter01/variant_db_example/tmp_coverage.info $TRAVIS_BUILD_DIR/coverals/coverage.info
+    - find Chapter*/ -name tmp_coverage.info -print0 | xargs -0 -I {} lcov -a $TRAVIS_BUILD_DIR/coverals/coverage.info -a {} --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info 
     - cat $TRAVIS_BUILD_DIR/coverals/coverage.info
 
     # Sending data to Coveralls
