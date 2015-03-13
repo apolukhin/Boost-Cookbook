@@ -123,20 +123,18 @@ script:
     - ./run_examples.sh
 
 after_success:
-    # Copying Coveralls data to a separate folder if any
     - mkdir -p $TRAVIS_BUILD_DIR/coverals
-    - find ./Chapter* -name "*.gcda" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
-    - find ./Chapter* -name "*.gcno" -exec cp "{}" $TRAVIS_BUILD_DIR/coverals/ \;
-    - ls $TRAVIS_BUILD_DIR/coverals/
-
     # Preparing Coveralls data by
     # ... installing the tools
     - sudo apt-get install -qq python-yaml lcov
-    # ... changind data format to a readable one
-    - lcov --directory $TRAVIS_BUILD_DIR/coverals --base-directory ./ --capture --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info
+
+    # ... changing data format to a readable one
+    - find Chapter*/ -type d -exec lcov --directory "{}" --base-directory ./ --capture --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info \;
+
 
     # ... erasing /test/ /example/ folder data
     - lcov --remove $TRAVIS_BUILD_DIR/coverals/coverage.info "/usr*" $IGNORE_COVERAGE -o $TRAVIS_BUILD_DIR/coverals/coverage.info
+    - cat $TRAVIS_BUILD_DIR/coverals/coverage.info
 
     # Sending data to Coveralls
     - cd $TRAVIS_BUILD_DIR
