@@ -129,7 +129,7 @@ after_success:
     - sudo apt-get install -qq python-yaml lcov
 
     # ... changing data format to a readable one
-    - find Chapter*/ -type d -exec lcov --directory "{}" --base-directory ./ --capture --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info \;
+    - find Chapter*/ -type d -exec lcov --directory "{}" --base-directory ./"{}" --capture --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info \;
 
 
     # ... erasing /test/ /example/ folder data
