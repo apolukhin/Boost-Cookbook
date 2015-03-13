@@ -54,13 +54,14 @@ before_install:
     - echo 'for i in `find ./Chapter* -type f -executable`; do '                    >>run_examples.sh
     - echo '    echo -e "\n************* Running $i"'                               >>run_examples.sh
     - echo '    progname="$(basename $i)"'                                          >>run_examples.sh
-    - echo '    if [ "${progname}" == "tasks_processor_signals" ]; then '           >>run_examples.sh
+    - echo '    case "${progname}" in '                                             >>run_examples.sh
+    - echo '    "tasks_processor_signals") '                                        >>run_examples.sh
     - echo '        tasks_processor_signals_helper & '                              >>run_examples.sh
-    - echo '    fi'                                                                 >>run_examples.sh
-    - echo '    if [ "${progname}" == "reading_files" ]; then '                     >>run_examples.sh
-    - echo '        $i c; time $i m; time $i r; time $i a; continue; '              >>run_examples.sh
-    - echo '    fi'                                                                 >>run_examples.sh
-    - echo '    if [ "${progname}" == "interprocess_basics" ]; then '               >>run_examples.sh
+    - echo '        ;; '                                                            >>run_examples.sh
+    - echo '    "reading_files") '                                                  >>run_examples.sh
+    - echo '        $i c; time $i m; time $i r; time $i a; continue '               >>run_examples.sh
+    - echo '        ;; '                                                            >>run_examples.sh
+    - echo '    "interprocess_basics") '                                            >>run_examples.sh
     - echo '        mkfifo fifo1; $i<fifo1 & '                                      >>run_examples.sh
     - echo '        sleep 1 '                                                       >>run_examples.sh
     - echo '        interprocess_basics_run & '                                     >>run_examples.sh
@@ -70,22 +71,25 @@ before_install:
     - echo '        interprocess_basics_run & '                                     >>run_examples.sh
     - echo '        sleep 1 '                                                       >>run_examples.sh
     - echo '        echo "0">fifo1 '                                                >>run_examples.sh
-    - echo '        rm fifo1; continue; '                                           >>run_examples.sh
-    - echo '    fi'                                                                 >>run_examples.sh
-    - echo '    if [ "${progname}" == "interprocess_queue" ]; then '                >>run_examples.sh
+    - echo '        rm fifo1; continue '                                            >>run_examples.sh
+    - echo '        ;; '                                                            >>run_examples.sh
+    - echo '    "interprocess_queue") '                                             >>run_examples.sh
     - echo '        $i & '                                                          >>run_examples.sh
-    - echo '    fi'                                                                 >>run_examples.sh
-    - echo '    if [ "${progname}" == "interprocess_pointers" ]; then '             >>run_examples.sh
+    - echo '        ;; '                                                            >>run_examples.sh
+    - echo '    "interprocess_pointers") '                                          >>run_examples.sh
     - echo '        $i '                                                            >>run_examples.sh
-    - echo '    fi'                                                                 >>run_examples.sh
-    - echo '    if [ "${progname}" == "regex_match" ]; then continue; fi '          >>run_examples.sh
-    - echo '    if [ "${progname}" == "regex_replace" ]; then continue; fi '        >>run_examples.sh
-    - echo '    if [ "${progname}" == "gil" ]; then '                               >>run_examples.sh
+    - echo '        ;; '                                                            >>run_examples.sh
+    - echo '    "regex_match" | "regex_replace") '                                  >>run_examples.sh
+    - echo '        continue '                                                      >>run_examples.sh
+    - echo '        ;; '                                                            >>run_examples.sh
+    - echo '    "gil") '                                                            >>run_examples.sh
     - echo '        wget http://www.boost.org/style-v2/css_0/get-boost.png '        >>run_examples.sh
-    - echo '    fi'                                                                 >>run_examples.sh
-    - echo '    if [ "${progname}" == "program_options_short" ]; then '             >>run_examples.sh
+    - echo '        ;; '                                                            >>run_examples.sh
+    - echo '    "program_options_short") '                                          >>run_examples.sh
     - echo '        cp Chapter01/program_options_short/apples_oranges.cfg ./ '      >>run_examples.sh
-    - echo '    fi'                                                                 >>run_examples.sh
+    - echo '        ;; '                                                            >>run_examples.sh
+    - echo '    esac'                                                               >>run_examples.sh
+    - echo ''                                                                       >>run_examples.sh
     - echo '    ./"$i" ${optionsmap["${progname}"]}'                                >>run_examples.sh
     - echo '    if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi'          >>run_examples.sh
     - echo 'done'                                                                   >>run_examples.sh
@@ -129,7 +133,8 @@ after_success:
     - sudo apt-get install -qq python-yaml lcov
 
     # ... changing data format to a readable one
-    - find Chapter*/ -type d -exec lcov --directory "{}" --base-directory ./"{}" --capture --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info \;
+    #- find Chapter*/ -type d -exec lcov --directory "{}" --base-directory ./"{}" --capture --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info \;
+    - lcov --directory ./ --base-directory ./ --capture --output-file $TRAVIS_BUILD_DIR/coverals/coverage.info
 
 
     # ... erasing /test/ /example/ folder data
