@@ -67,11 +67,11 @@ struct int_ {
 #include <iostream>
 int main() {
     std::cout
-        << ' ' << process(int(0));
-        << ' ' << process(double(1));
-        << ' ' << process(float(2));
-        << ' ' << process(char(3));
-        << ' ' << process(unsigned(4));
+        << ' ' << process(int(0))
+        << ' ' << process(double(1))
+        << ' ' << process(float(2))
+        << ' ' << process(char(3))
+        << ' ' << process(unsigned(4))
         << ' ' << process(short(5))
         << std::endl;
 }
