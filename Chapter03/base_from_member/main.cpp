@@ -83,8 +83,8 @@ public:
 
 int main() {
     fake_tasks_processor_fixed tp;
-    tp.do_process();
+    tp.process();
 
     fake_tasks_processor2 tp2;
-    tp2.do_process();
+    tp2.process();
 }
