@@ -44,5 +44,8 @@ int main() {
     // We can make this assert work at compile time.
     // Interested? See recipe 'Check sizes at compile tim'e
     assert(sizeof(val) == sizeof(char) * array4_t::static_size);
+
+    array4_t ethalon = {{1, 2, 3, 4}};    
+    assert(val_res == ethalon);
     return 0;
 }

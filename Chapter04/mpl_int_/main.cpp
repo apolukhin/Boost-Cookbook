@@ -64,11 +64,14 @@ struct int_ {
     typedef int value_type;
 };
 
+#include <iostream>
 int main() {
-    process(1);
-    process(double());
-    process(float());
-    process(char());
-    process(unsigned());
-    process(short());
+    std::cout
+        << ' ' << process(int(0));
+        << ' ' << process(double(1));
+        << ' ' << process(float(2));
+        << ' ' << process(char(3));
+        << ' ' << process(unsigned(4));
+        << ' ' << process(short(5))
+        << std::endl;
 }

@@ -90,10 +90,12 @@ int main() {
 
     std::cout << "\n\n\n";
     // Somewhere in code
+    short val = 0;
     try {
-        my_numeric_cast<short>(100000);
+        val = my_numeric_cast<short>(100000); // <-- This must throw
     } catch (const std::logic_error& e) {
-        std::cout << "It works! " << e.what() << std::endl;
+        std::cout << "It works! val = " << val
+            << " Error msg: "  << e.what() << std::endl;
     }
 }
 

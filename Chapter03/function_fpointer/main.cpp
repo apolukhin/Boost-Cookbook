@@ -12,4 +12,4 @@ int main() {
 }
 
 void my_ints_function(int /*i*/) {}
-void process_integers(const fobject_t& /*f*/) {}
+void process_integers(const fobject_t& f) { f(10); }
