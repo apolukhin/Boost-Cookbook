@@ -1,3 +1,31 @@
+function chapter_show_base(chapter) {
+    $('#Chapter01').hide();
+    $('#Chapter02').hide();
+    $('#Chapter03').hide();
+    $('#Chapter04').hide();
+    $('#Chapter05').hide();
+    $('#Chapter06').hide();
+    $('#Chapter07').hide();
+    $('#Chapter08').hide();
+    $('#Chapter09').hide();
+    $('#Chapter10').hide();
+    $('#Chapter11').hide();
+    $('#Chapter12').hide();
+
+    $('#Chapter' + chapter).show();
+    var num = parseInt(chapter);
+    num = num - 1;
+    num = num + "";
+    if (num.length < 2) {
+        num = '0' + num;
+    }
+}
+
+function chapter_show(chapter) {
+    chapter_show_base(chapter);
+    window.location = '#Chapter' + num + "_ref";
+}
+
 var editor = (function() {
     var content = [
         {
@@ -395,6 +423,7 @@ var editor = (function() {
     var command_line;
     var output;
     var recipe_title;
+    var compile;
 
     function getUrlParameter(sParam) {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -417,7 +446,11 @@ var editor = (function() {
             code.text(data);
             command_line.val(content[index]['run']);
             output.text('');
-            recipe_title.text("Recipe: " + content[index]["title"]);
+            recipe_title.text("Recipe: " + content[index]["title"]);            
+            if (!content[index]['compile']) {
+                content[index]['compile'] = "";
+            }
+            compile.val("g++ -Wall main.cpp " + content[index]['compile'] + " -o main_prog");
             hljs.highlightBlock(code[0]);
         })
     };
@@ -427,7 +460,6 @@ var editor = (function() {
     };
 
     function process_remote_impl(cmd) {
-        code.prop("contenteditable", false);
         output.text('');
         var to_compile = {
             "src": code.text(),
@@ -436,40 +468,36 @@ var editor = (function() {
 
         output.text("Executing...");
         $.post("http://coliru.stacked-crooked.com/compile", JSON.stringify(to_compile), function(data) {
-            code.prop("contenteditable", true);
             output.text(data);
             hljs.highlightBlock(output[0]);
         });
     };
 
     function compile_impl() {
-        if (!content[index]['compile']) {
-            content[index]['compile'] = "";
-        }
-        process_remote_impl("g++ -Wall main.cpp " + content[index]['compile'] + " -o main_prog && echo 'Compilation: SUCCESS' ");
+        process_remote_impl(
+            compile.val() + " && echo 'Compilation: SUCCESS' "
+        );
     };
 
     function run_impl() {
         if (!command_line.val()) {
             command_line.val("");
         }
-        if (!content[index]['compile']) {
-            content[index]['compile'] = "";
-        }
-
         process_remote_impl(
-            "g++ -Wall main.cpp " + content[index]['compile'] + " -o main_prog "
-            + "&& echo 'Compilation: SUCCESS\n\nProgram output:\n'  && ./main_prog " + command_line.val() + " && echo '\n\nRun: SUCCESS'"
+            compile.val()
+            + " && echo 'Compilation: SUCCESS\n\nProgram output:\n'  && ./main_prog " + command_line.val() + " && echo '\n\nRun: SUCCESS'"
         );
     };
 
-    function init_impl(code_block, command_line_block, output_block, recipe_title_block) {
+    function init_impl(code_block, command_line_block, output_block, recipe_title_block, compile_block) {
         code = code_block;
         command_line = command_line_block;
         output = output_block;
         recipe_title = recipe_title_block;
+        compile = compile_block;
 
         download_impl_base(0);
+        chapter_show('01');
     };
 
     return {

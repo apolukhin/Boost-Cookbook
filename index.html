@@ -47,6 +47,7 @@
 							<ul>
 								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Home</span></a></li>
 								<li><a href="#chapters" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Chapters</span></a></li>
+                                <li><a href="#online_run" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-gear">Compile&Run</span></a></li>
 								<li><a href="#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-user">About</span></a></li>
 								<li><a href="#acknowledgements" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Thanks</span></a></li>
 							</ul>
@@ -148,11 +149,18 @@
                                 </ul>
                             </div>
 
+                        </div>
+					</section>
+
+					<section id="online_run" class="three">
+						<div class="container">
                             <div class="width100 left" id="online_example">
                                 <h3 id="recipe_title"></h3>
                                 <button id="run" onclick='editor.run()'>Compile & Run</button> 
                                 <button id="compile" onclick='editor.compile()'>Compile</button>
-                                Program arguments: <input id="input"/>
+                                <button onclick='window.location="#chapters"'>Choose another recipe</button>
+                                <pre><br><span class="nowrap">Program arguments: <input class="width65" id="input"/></span>
+                                <br><span class="nowrap">Compilation command: <input class="width65" id="compile_command"/></span></pre>
                                 <pre>Output:<code id="output" class="">---</code></pre>
                                 <pre>Code (editable):<code id="code" contenteditable="true">... downloading ...</code></pre>
                             </div>
@@ -160,7 +168,7 @@
                         </div>
 					</section>
 
-					<section id="about" class="three">
+					<section id="about" class="four">
 						<div class="container">
 
 							<header>
@@ -186,7 +194,7 @@
 						</div>
 					</section>
 
-					<section id="acknowledgements" class="four">
+					<section id="acknowledgements" class="two">
 						<div class="container">
 
 							<header>
@@ -239,32 +247,8 @@
             <script src="assets/js/cppeditor.js"></script>
             <script>
                 $(function() {
-                    editor.init($("#code"), $("#input"), $("#output"), $("#recipe_title"));
+                    editor.init($("#code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
                 });
-
-                function chapter_show(chapter) {
-                    $('#Chapter01').hide();
-                    $('#Chapter02').hide();
-                    $('#Chapter03').hide();
-                    $('#Chapter04').hide();
-                    $('#Chapter05').hide();
-                    $('#Chapter06').hide();
-                    $('#Chapter07').hide();
-                    $('#Chapter08').hide();
-                    $('#Chapter09').hide();
-                    $('#Chapter10').hide();
-                    $('#Chapter11').hide();
-                    $('#Chapter12').hide();
-
-                    $('#Chapter' + chapter).show();
-                    var num = parseInt(chapter);
-                    num = num - 1;
-                    num = num + "";
-                    if (num.length < 2) {
-                        num = '0' + num;
-                    }
-                    window.location = '#Chapter' + num + "_ref";
-                }
             </script>
 	</body>
 </html>
