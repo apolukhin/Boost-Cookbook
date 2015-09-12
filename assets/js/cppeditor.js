@@ -411,7 +411,7 @@ var editor = (function() {
         }
     };
 
-    function download_impl(ind) {
+    function download_impl_base(ind) {
         index = ind;
         $.get("https://raw.githubusercontent.com/apolukhin/Boost-Cookbook-4880OS/master/" + content[index]["source"][0], function(data) {
             code.text(data);
@@ -419,8 +419,11 @@ var editor = (function() {
             output.text('');
             recipe_title.text("Recipe: " + content[index]["title"]);
             hljs.highlightBlock(code[0]);
-            window.location="#online_example";
         })
+    };
+    function download_impl(ind) {
+        download_impl_base(ind);
+        window.location="#online_example";
     };
 
     function process_remote_impl(cmd) {
@@ -466,19 +469,7 @@ var editor = (function() {
         output = output_block;
         recipe_title = recipe_title_block;
 
-        var default_recipe = Number.MAX_VALUE;
-        $.each(content, function(index, value) {
-            var chapter_name = "#" + value["chapter"];
-            if ($(chapter_name).length !== 0) {
-                $("#" + value["chapter"]).append("<li><a href='javascript:editor.download(" + index + ")'>" + value["title"] + "</a></li>");
-                if (default_recipe > index) {
-                    default_recipe = index;
-                }
-            }
-        });
-
-
-        download_impl(default_recipe);
+        download_impl_base(0);
     };
 
     return {
