@@ -19,11 +19,12 @@ function chapter_show_base(chapter) {
     if (num.length < 2) {
         num = '0' + num;
     }
+
+    return num;
 }
 
 function chapter_show(chapter) {
-    chapter_show_base(chapter);
-    window.location = '#Chapter' + num + "_ref";
+    window.location = '#Chapter' + chapter_show_base(chapter) + "_ref";
 }
 
 var editor = (function() {
