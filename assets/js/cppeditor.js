@@ -528,7 +528,7 @@ var editor = (function() {
         compile = compile_block;
 
         download_impl_base(0);
-        chapter_show('01');
+        chapter_show_base('01');
     };
 
     return {
