@@ -394,6 +394,22 @@ var editor = (function() {
     var code;
     var command_line;
     var output;
+    var recipe_title;
+
+    function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
 
     function download_impl(ind) {
         index = ind;
@@ -401,7 +417,9 @@ var editor = (function() {
             code.text(data);
             command_line.val(content[index]['run']);
             output.text('');
+            recipe_title.text("Recipe: " + content[index]["title"]);
             hljs.highlightBlock(code[0]);
+            window.location="#online_example";
         })
     };
 
@@ -413,6 +431,7 @@ var editor = (function() {
             "cmd": cmd,
         };
 
+        output.text("Executing...");
         $.post("http://coliru.stacked-crooked.com/compile", JSON.stringify(to_compile), function(data) {
             code.prop("contenteditable", true);
             output.text(data);
@@ -421,17 +440,31 @@ var editor = (function() {
     };
 
     function compile_impl() {
-        process_remote_impl("g++ -Wall main.cpp " + content[index]['compile'] + " -o main_prog && echo 'Compilation: SUCESS' ");
+        if (!content[index]['compile']) {
+            content[index]['compile'] = "";
+        }
+        process_remote_impl("g++ -Wall main.cpp " + content[index]['compile'] + " -o main_prog && echo 'Compilation: SUCCESS' ");
     };
 
     function run_impl() {
-        process_remote_impl("g++ -Wall main.cpp " + content[index]['compile'] + " -o main_prog && ./main_prog " + command_line.val() + "Run: SUCESS");
+        if (!command_line.val()) {
+            command_line.val("");
+        }
+        if (!content[index]['compile']) {
+            content[index]['compile'] = "";
+        }
+
+        process_remote_impl(
+            "g++ -Wall main.cpp " + content[index]['compile'] + " -o main_prog "
+            + "&& echo 'Compilation: SUCCESS\n\nProgram output:\n'  && ./main_prog " + command_line.val() + " && echo '\n\nRun: SUCCESS'"
+        );
     };
 
-    function init_impl(code_block, command_line_block, output_block) {
+    function init_impl(code_block, command_line_block, output_block, recipe_title_block) {
         code = code_block;
         command_line = command_line_block;
         output = output_block;
+        recipe_title = recipe_title_block;
 
         var default_recipe = Number.MAX_VALUE;
         $.each(content, function(index, value) {
@@ -443,6 +476,7 @@ var editor = (function() {
                 }
             }
         });
+
 
         download_impl(default_recipe);
     };
