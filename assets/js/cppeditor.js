@@ -122,6 +122,7 @@ var editor = (function() {
             "title":    "Reference counting of pointers to classes used across methods",
             "chapter":  "Chapter03",
             "source":   ['Chapter03/shared_ptr/main.cpp'],
+            "compile":  "-lboost_thread -lboost_system",
         }, {
             "title":    "Managing pointers to arrays that do not leave scope",
             "chapter":  "Chapter03",
@@ -130,6 +131,7 @@ var editor = (function() {
             "title":    "Reference counting pointers to arrays used across methods",
             "chapter":  "Chapter03",
             "source":   ['Chapter03/shared_array/main.cpp'],
+            "compile":  "-lboost_thread -lboost_system",
         }, {
             "title":    "Storing any functional objects in a variable",
             "chapter":  "Chapter03",
@@ -190,34 +192,42 @@ var editor = (function() {
             "title":    "Creating an execution thread",
             "chapter":  "Chapter05",
             "source":   ['Chapter05/thread/main.cpp'],
+            "compile":  "-lboost_thread -lboost_system",
         }, {
             "title":    "Syncing access to a common resource",
             "chapter":  "Chapter05",
             "source":   ['Chapter05/mutex/main.cpp'],
+            "compile":  "-lboost_thread -lboost_system",
         }, {
             "title":    "Fast access to common resource using atomics",
             "chapter":  "Chapter05",
             "source":   ['Chapter05/atomics/main.cpp'],
+            "compile":  "-lboost_thread -lboost_system",
         }, {
             "title":    "Creating a work_queue class",
             "chapter":  "Chapter05",            "chapter":  "Chapter08",
             "source":   ['Chapter05/work_queue/main.cpp'],
+            "compile":  "-lboost_thread -lboost_system",
         }, {
             "title":    "Multiple-readers-single-writer lock",
             "chapter":  "Chapter05",
             "source":   ['Chapter05/shared_lock/main.cpp'],
+            "compile":  "-lboost_thread -lboost_system",
         }, {
             "title":    "Creating variables that are unique per thread",
             "chapter":  "Chapter05",
             "source":   ['Chapter05/thread_specific_ptr/main.cpp'],
+            "compile":  "-lboost_thread -lboost_system",
         }, {
             "title":    "Interrupting a thread",
             "chapter":  "Chapter05",
             "source":   ['Chapter05/interruptions/main.cpp'],
+            "compile":  "-lboost_thread -lboost_system",
         }, {
             "title":    "Manipulating a group of threads",
             "chapter":  "Chapter05",
             "source":   ['Chapter05/thread_group/main.cpp'],
+            "compile":  "-lboost_thread -lboost_system",
         },
 
 
@@ -226,6 +236,7 @@ var editor = (function() {
             "title":    "Registering a task for processing an arbitrary datatype",
             "chapter":  "Chapter06",
             "source":   ['Chapter06/tasks_processor_base/main.cpp', 'Chapter06/tasks_processor_base/tasks_processor_base.hpp'],
+            "compile":  "-lboost_thread -lboost_system",
         }, 
 
 
@@ -238,10 +249,12 @@ var editor = (function() {
             "title":    "Matching strings using regular expressions",
             "chapter":  "Chapter07",
             "source":   ['Chapter07/regex_match/main.cpp'],
+            "compile":  "-lboost_regex",
         }, {
             "title":    "Searching and replacing strings using regular expressions",
             "chapter":  "Chapter07",
             "source":   ['Chapter07/regex_replace/main.cpp'],
+            "compile":  "-lboost_regex",
         }, {
             "title":    "Formatting strings using safe printf-like functions",
             "chapter":  "Chapter07",
@@ -314,6 +327,7 @@ var editor = (function() {
             "title":    'Getting the benefits of single-linked list and memory pool',
             "chapter":  "Chapter09",
             "source":   ['Chapter09/slist_and_pool/main.cpp'],
+            "compile":  "-lboost_system",
         }, {
             "title":    'Using flat associative containers',
             "chapter":  "Chapter09",
@@ -358,22 +372,27 @@ var editor = (function() {
             "title":    'Listing files in a directory',
             "chapter":  "Chapter11",
             "source":   ['Chapter11/listing_files/main.cpp'],
+            "compile":  "-lboost_system -lboost_filesystem",
         }, {
             "title":    'Erasing and creating files and directories',
             "chapter":  "Chapter11",
             "source":   ['Chapter11/erasing_files/main.cpp'],
+            "compile":  "-lboost_system -lboost_filesystem",
         }, {
             "title":    'Passing data quickly from one process to another',
             "chapter":  "Chapter11",
             "source":   ['Chapter11/interprocess_basics/main.cpp'],
+            "compile":  "-lrt",
         }, {
             "title":    'Syncing interprocess communications',
             "chapter":  "Chapter11",
             "source":   ['Chapter11/interprocess_queue/main.cpp'],
+            "compile":  "-lrt",
         }, {
             "title":    'Using pointers in shared memory',
             "chapter":  "Chapter11",
             "source":   ['Chapter11/interprocess_pointers/main.cpp'],
+            "compile":  "-lrt",
         }, {
             "title":    'The fastest way to read files',
             "chapter":  "Chapter11",
@@ -382,6 +401,7 @@ var editor = (function() {
             "title":    'Coroutines – saving the state and postponing the execution',
             "chapter":  "Chapter11",
             "source":   ['Chapter11/coroutines/main.cpp'],
+            "compile":  "-lboost_coroutine -lboost_thread -lboost_system",
         },
 
 
@@ -398,6 +418,7 @@ var editor = (function() {
             "title":    'Using a true random number generator',
             "chapter":  "Chapter12",
             "source":   ['Chapter12/random/main.cpp'],
+            "compile":  "-lboost_random -lboost_system",
         }, {
             "title":    'Using portable math functions',
             "chapter":  "Chapter12",
@@ -406,14 +427,17 @@ var editor = (function() {
             "title":    'Writing test cases',
             "chapter":  "Chapter12",
             "source":   ['Chapter12/testing/main.cpp'],
+            "compile":  "-static -lboost_unit_test_framework -lboost_system",
         }, {
             "title":    'Combining multiple test cases in one test module',
             "chapter":  "Chapter12",
             "source":   ['Chapter12/testing_advanced/main.cpp', 'Chapter12/testing_advanced/developer1.cpp', 'Chapter12/testing_advanced/developer2.cpp', 'Chapter12/testing_advanced/foo.cpp', 'Chapter12/testing_advanced/foo.hpp'],
+            "compile":  "-static -lboost_unit_test_framework -lboost_system",
         }, {
             "title":    'Manipulating images',
             "chapter":  "Chapter12",
             "source":   ['Chapter12/gil/main.cpp', 'Chapter12/testing_advanced/developer1.cpp'],
+            "compile":  "-lpng",
         },
 
     ];
