@@ -141,10 +141,12 @@ var editor = (function() {
             "title":    "Passing C++11 lambda functions in a variable",
             "chapter":  "Chapter03",
             "source":   ['Chapter03/function_lambda_c++11/main.cpp'],
+            "compile":  "-std=c++11",
         }, {
             "title":    "Containers of pointers",
             "chapter":  "Chapter03",
             "source":   ['Chapter03/ptr_container_c++11/main.cpp'],
+            "compile":  "-std=c++11",
         }, {
             "title":    "Doing something at scope exit",
             "chapter":  "Chapter03",
@@ -288,6 +290,7 @@ var editor = (function() {
             "title":    "Getting a function's result type at compile time",
             "chapter":  "Chapter08",
             "source":   ['Chapter08/result_of_c++11/main.cpp'],
+            "compile":  "-std=c++11",
         }, {
             "title":    "Making a higher-order metafunction",
             "chapter":  "Chapter08",
@@ -349,14 +352,17 @@ var editor = (function() {
             "title":    'Speeding up compilation using C++11 extern templates',
             "chapter":  "Chapter10",
             "source":   ['Chapter10/extern_template/main.cpp'],
+            "compile":  "-std=c++11",
         }, {
             "title":    'Writing metafunctions using simpler methods',
             "chapter":  "Chapter10",
             "source":   ['Chapter10/constexpr_c++11/main.cpp'],
+            "compile":  "-std=c++11",
         }, {
             "title":    'Reducing code size and increasing performance of user-defined types (UDTs) in C++11',
             "chapter":  "Chapter10",
             "source":   ['Chapter10/noexcept_c++11/main.cpp'],
+            "compile":  "-std=c++11",
         }, {
             "title":    'The portable way to export and import functions and classes',
             "chapter":  "Chapter10",
