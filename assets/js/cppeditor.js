@@ -497,10 +497,19 @@ var editor = (function() {
             "cmd": cmd,
         };
 
-        output.text("Executing...");
-        $.post("http://coliru.stacked-crooked.com/compile", JSON.stringify(to_compile), function(data) {
+        output.text("Executing... Please wait.");
+
+        $.ajax({
+          url: "http://coliru.stacked-crooked.com/compile",
+          type: "POST",
+          data: JSON.stringify(to_compile),
+          contentType:"text/plain; charset=utf-8",
+          dataType: "text"
+        }).done(function(data) {
             output.text(data);
             hljs.highlightBlock(output[0]);
+        }).fail(function(data) {
+            output.text("Server error: " + data);
         });
     };
 
