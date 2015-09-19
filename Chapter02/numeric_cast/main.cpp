@@ -4,7 +4,7 @@ int foo();
 void foo1() {
     // Somewhere in code
 
-    // Some compillers may warn, that int is being converted to unsigned short
+    // Some compilers may warn, that int is being converted to unsigned short
     // and that there is a possibility of loosing data
     some_function(foo());
 }
@@ -12,7 +12,7 @@ void foo1() {
 void foo2() {
     // Somewhere in code
 
-    // Warning suppresssed, looks like correct
+    // Warning suppressed, looks like correct
     some_function(
         static_cast<unsigned short>(foo())
     );

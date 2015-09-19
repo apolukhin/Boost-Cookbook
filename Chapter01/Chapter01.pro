@@ -11,6 +11,7 @@ SUBDIRS += \
     noncopyable \
     noncopyable_movable \
     noncopyable_movable_c++11 \
+    optional \
     program_options_base \
     program_options_short \
     tuple \

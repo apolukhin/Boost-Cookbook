@@ -14,7 +14,7 @@ void fill_file_with_data(char fill_char, std::size_t size, const char* filename)
 
 void example_without_threads() {
     // ...
-    // Somewhere in thread that draws a user inteface
+    // Somewhere in thread that draws a user interface
     if (is_first_run()) {
         // This will be executing for a long time during which
         // users interface will freeze..
@@ -25,7 +25,7 @@ void example_without_threads() {
 #include <boost/thread.hpp>
 void example_with_threads() {
     // ...
-    // Somewhere in thread that draws a user inteface
+    // Somewhere in thread that draws a user interface
     if (is_first_run()) {
         boost::thread(boost::bind(
             &fill_file_with_data,
@@ -38,7 +38,7 @@ void example_with_threads() {
 
 void example_with_joining_threads() {
     // ...
-    // Somewhere in thread that draws a user inteface
+    // Somewhere in thread that draws a user interface
     if (is_first_run()) {
         boost::thread t(boost::bind(
             &fill_file_with_data,

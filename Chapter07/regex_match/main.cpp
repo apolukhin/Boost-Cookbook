@@ -32,7 +32,7 @@ int main() {
     case '5': flag = boost::regex::basic|boost::regex::icase;
         break;
     default:
-        std::cout << "Inccorect number of regex syntax. Exiting... \n";
+        std::cout << "Incorrect number of regex syntax. Exiting... \n";
         return -1;
     } 
     // Disabling exceptions
