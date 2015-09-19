@@ -46,7 +46,7 @@ var editor = (function() {
 			    "source":   ['Chapter01/any_db_example/main.cpp', 'Chapter01/variant_db_example/main.cpp'],
 		    }, {
 			    "title":	"Returning a value or flag where there is no value",
-			    "source":   [''],
+			    "source":   ['Chapter01/optional/main.cpp'],
 		    }, {
 			    "title":	"Returning an array from a function",
 			    "source":   ['Chapter01/array/main.cpp'],
@@ -201,6 +201,38 @@ var editor = (function() {
 		    {
 			    "title":	"Registering a task for processing an arbitrary datatype",
 			    "source":   ['Chapter06/tasks_processor_base/main.cpp', 'Chapter06/tasks_processor_base/tasks_processor_base.hpp'],
+			    "compile":  "-lboost_thread -lboost_system",
+		    }, {
+			    "title":	"Making timers and processing timer events as tasks",
+			    "source":   ['Chapter06/tasks_processor_timers/main.cpp', 'Chapter06/tasks_processor_timers/tasks_processor_timers.hpp'],
+			    "compile":  "-lboost_thread -lboost_system",
+		    }, {
+			    "title":	"Network communication as a task",
+			    "source":   ['Chapter06/tasks_processor_network/main.cpp', 'Chapter06/tasks_processor_network/tasks_processor_network.hpp'],
+			    "compile":  "-lboost_thread -lboost_system",
+		    }, {
+			    "title":	"Accepting incoming connections",
+			    "source":   ['Chapter06/tasks_processor_network/main.cpp', 'Chapter06/tasks_processor_network/tasks_processor_network.hpp'],
+			    "compile":  "-lboost_thread -lboost_system",
+		    }, {
+			    "title":	"Executing different tasks in parallel",
+			    "source":   ['Chapter06/tasks_processor_multithread/main.cpp', 'Chapter06/tasks_processor_multithread/tasks_processor_multithread.hpp'],
+			    "compile":  "-lboost_thread -lboost_system",
+		    }, {
+			    "title":	"Conveyor tasks processing",
+			    "source":   ['Chapter06/conveyor/main.cpp'],
+			    "compile":  "-lboost_thread -lboost_system",
+		    }, {
+			    "title":	"Making a nonblocking barrier",
+			    "source":   ['Chapter06/nonblocking_barrier/main.cpp'],
+			    "compile":  "-lboost_thread -lboost_system",
+		    }, {
+			    "title":	"Storing an exception and making a task from it",
+			    "source":   ['Chapter06/exception_ptr/main.cpp'],
+			    "compile":  "-lboost_thread -lboost_system",
+		    }, {
+			    "title":	"Getting and processing system signals as tasks",
+			    "source":   ['Chapter06/tasks_processor_signals/main.cpp', 'Chapter06/tasks_processor_signals/tasks_processor_signals.hpp'],
 			    "compile":  "-lboost_thread -lboost_system",
 		    }, 
         ],
@@ -393,22 +425,25 @@ var editor = (function() {
         source_num = (typeof source_num !== 'undefined' ? source_num : 0);
         source_num = (source_num < c["source"].length ? source_num : 0);
 
+        $(".code-intro").hide();
+        $("#" + chapter + "-" + ind).show();
+	    command_line.val(c['run']);
+	    output.text('');
+	    recipe_title.text(
+            "Recipe: "
+            + c["title"]
+            + (c["source"].length > 1 ? " (part " + (source_num + 1) + ")": "")
+        );
+
+	    if (!c['compile']) {
+		    c['compile'] = "";
+	    }
+	    compile.val("g++ -Wall main.cpp " + c['compile'] + " -o main_prog");
+
 		$.get("https://raw.githubusercontent.com/apolukhin/Boost-Cookbook-4880OS/master/" + c["source"][source_num], function(data) {
 			code.setValue(data);
 			code.clearSelection();
-			command_line.val(c['run']);
-			output.text('');
-			recipe_title.text(
-                "Recipe: "
-                + c["title"]
-                + (c["source"].length > 1 ? " (part " + (source_num + 1) + ")": "")
-            );
-
-			if (!c['compile']) {
-				c['compile'] = "";
-			}
-			compile.val("g++ -Wall main.cpp " + c['compile'] + " -o main_prog");
-		})
+		});
 	};
 
 	function download_impl(chapter, ind, num) {
@@ -472,10 +507,9 @@ var editor = (function() {
 
 		download_impl_base("Chapter01", 0, 0);
 		chapter_show_base('01');
-
-/* Content generator
+/*
         var d = "";
-        $.each(["Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12"], function(ignore, chapter) {
+        $.each(["Chapter06"], function(ignore, chapter) {
             var i = 0;
             $.each(content[chapter], function(key, value){
                 d = d + "<li><a href=\"javascript:editor.download('" + chapter + "', " + i + ")\">" + value["title"];

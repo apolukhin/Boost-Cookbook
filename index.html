@@ -70,8 +70,7 @@
 
 							<header>
 								<h2 class="alt">
-								<strong><a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book">
-								Boost Application Development Cookbook</a></strong><br> Online Examples (BETA)</h2>
+								<strong>Boost Application Development Cookbook</strong><br> Online Examples (BETA)</h2>
 								<p>This site contains all the source codes from <a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book">the book</a>.
 								<br>You are free to experiment with code, compile, modify, run and use examples.</p>
 
@@ -160,6 +159,14 @@
 										<a id="Chapter06_ref" href="javascript:chapter_show('06');">Chapter 06: Manipulating Tasks</a>
 										<ul class="hidden" id="Chapter06">
 <li><a href="javascript:editor.download('Chapter06', 0)">Registering a task for processing an arbitrary datatype (part 1</a>, <a href="javascript:editor.download('Chapter06', 0, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter06', 1)">Making timers and processing timer events as tasks (part 1</a>, <a href="javascript:editor.download('Chapter06', 1, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter06', 2)">Network communication as a task (part 1</a>, <a href="javascript:editor.download('Chapter06', 2, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter06', 3)">Accepting incoming connections (part 1</a>, <a href="javascript:editor.download('Chapter06', 3, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter06', 4)">Executing different tasks in parallel (part 1</a>, <a href="javascript:editor.download('Chapter06', 4, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter06', 5)">Conveyor tasks processing</li>
+<li><a href="javascript:editor.download('Chapter06', 6)">Making a nonblocking barrier</li>
+<li><a href="javascript:editor.download('Chapter06', 7)">Storing an exception and making a task from it</li>
+<li><a href="javascript:editor.download('Chapter06', 8)">Getting and processing system signals as tasks (part 1</a>, <a href="javascript:editor.download('Chapter06', 8, 1)">part 2</a>)</li>
                                         </ul>
 									</li>
 
@@ -244,15 +251,178 @@
 						<div class="container">
 							<div class="width100 left" id="online_example">
 								<h3 id="recipe_title">Recipe: Getting configuration options</h3>
+
+
+<div class="code-intro" id="Chapter01-0">
+    Take a look at some of the console programs, such as <code>cp</code> in Linux. They all have a fancy help,
+    their input parameters do not depend on any position, and have a human readable syntax,
+    for example:
+    <pre><code>$ cp --help
+
+    Usage: cp [OPTION]... [-T] SOURCE DEST
+        -a, --archive       same as -dR --preserve=all
+        -b                  like --backup but does not accept an argument
+    </code></pre>
+    You can implement the same functionality for your program in 10 minutes. And all you need
+    is the Boost.ProgramOptions library.
+</div>
+
+<div class="code-intro" id="Chapter01-1">
+    If you have been programming in Java, C#, or Delphi, you will definitely miss the ability to
+    create containers with the <code>Object</code> value type in C++. The <code>Object</code> class in those languages is
+    a basic class for almost all types, so you are able to assign (almost) any value to it at any time.
+    Just imagine how great it would be to have such a feature in C++:
+</div>
+
+<div class="code-intro" id="Chapter01-2">
+    Are you aware of the concept of unrestricted unions in C++11? Let me tell you about it in
+    short. C++03 unions can only hold extremely simple types of data called POD (plain old data).
+    So in C++03, you cannot, for example, store <code>std::string</code> or <code>std::vector</code> in a union.
+    C++11 relaxes this requirement, but you'll have to manage the construction and destruction
+    of such types by yourself, call in-place construction/destruction, and remember what type is
+    stored in a union. A huge amount of work, isn't it?
+</div>
+
+<div class="code-intro" id="Chapter01-3">
+    Imagine that you are creating a wrapper around some SQL database interface. You decided
+    that <code>boost::any</code> will perfectly match the requirements for a single cell of the database
+    table. Some other programmer will be using your classes, and his task would be to get a
+    row from the database and count the sum of the arithmetic types in a row.
+</div>
+
+<div class="code-intro" id="Chapter01-4">
+    Imagine that we have a function that does not throw an exception and returns a value or
+    indicates that an error has occurred. In Java or C# programming languages, such cases are
+    handled by comparing a return value from a function value with a <code>null</code> pointer; if it is <code>null</code> then
+    an error has occurred. In C++, returning a pointer from a function confuses library users and
+    usually requires dynamic memory allocation (which is slow).
+</div>
+
+<div class="code-intro" id="Chapter01-5">
+Let's play a guessing game! What can you tell about the following function?
+<pre><code>
+char* vector_advance(char* val);
+
+</code></pre>
+
+Should return values be deallocated by the programmer or not? Does the function attempt
+to deallocate the input parameter? Should the input parameter be zero-terminated, or should
+the function assume that the input parameter has a specified width?
+And now, let's make the task harder! Take a look at the following line:
+<pre><code>
+char ( &vector_advance( char (&val)[4] ) )[4];
+
+</code></pre>
+Please do not worry; I've also been scratching my head for half an hour before getting an idea
+of what is happening here. <code>vector_advance</code> is a function that accepts and returns an array
+of four elements. Is there a way to write such a function clearly?
+</div>
+
+<div class="code-intro" id="Chapter01-6">
+    There is a very nice present for those who like <code>std::pair</code>. Boost has a library called Boost.Tuple,
+    and it is just like <code>std::pair</code>, but it can also work with triples, quads, and even bigger
+    collections of types.
+</div>
+
+<div class="code-intro" id="Chapter01-7">
+    This recipe and the next one are devoted to a very interesting library, whose functionality at
+    first glance looks like some kind of magic. This library is called Boost.Bind and it allows
+    you to easily create new functional objects from functions, member functions, and functional
+    objects, also allowing the reordering of the initial function's input parameters and binding
+    some values or references as function parameters.
+</div>
+
+<div class="code-intro" id="Chapter01-8">
+    If you work with the STL library a lot and use the <code>&lt;algorithm&gt;</code> header, you will definitely
+    write a lot of functional objects. You can construct them using a set of STL adapter functions
+    such as <code>bind1st</code>, <code>bind2nd</code>, <code>ptr_fun</code>, <code>mem_fun</code>, and <code>mem_fun_ref</code>, or you can write them
+    by hand (because adapter functions look scary). Here is some good news: Boost.Bind can
+    be used instead of all of those functions and it provides a more human-readable syntax.
+</div>
+
+<div class="code-intro" id="Chapter01-9">
+    One of the greatest features of the C++11 standard is rvalue references. This feature allows
+    us to modify temporary objects, "stealing" resources from them. As you can guess, the C++03
+    standard has no rvalue references, but using the Boost.Move library you can write some
+    portable code that uses them, and even more, you actually get started with the emulation of
+    move semantics.
+</div>
+
+<div class="code-intro" id="Chapter01-10">
+    You must have almost certainly encountered situations where providing a copy constructor
+    and move assignment operator for a class will require too much work, or where a class owns
+    some resources that must not be copied for technical reasons:
+    <pre><code>
+    class descriptor_owner {
+        void* descriptor_;
+
+    public:
+        explicit descriptor_owner(const char* params);
+
+        ~descriptor_owner() {
+            system_api_free_descriptor(descriptor_);
+        }
+    };
+
+    </code></pre>
+    The C++ compiler, in the case of the previous example, will generate a copy constructor and
+    an assignment operator, so the potential user of the descriptor_owner class will be able
+    to create the following awful things:
+    <pre><code>
+    descriptor_owner d1("O_o");
+    descriptor_owner d2("^_^");
+
+    // Descriptor of d2 was not correctly freed
+    d2 = d1;
+
+    // destructor of d2 will free the descriptor
+    // destructor of d1 will try to free already freed descriptor
+    </code></pre>
+</div>
+
+<div class="code-intro" id="Chapter01-11">
+    Now imagine the following situation: we have a resource that cannot be copied, which should
+    be correctly freed in a destructor, and we want to return it from a function:
+    <pre><code>
+    descriptor_owner construct_descriptor() {
+        return descriptor_owner("Construct using this string");
+    }
+
+    </code></pre>
+    Actually, you can work around such situations using the swap method:
+    <pre><code>
+    void construct_descriptor1(descriptor_owner& ret) {
+        descriptor_owner("Construct using this string").swap(ret);
+    }
+
+    </code></pre>
+    But such a workaround won't allow us to use descriptor_owner in STL or Boost containers.
+    And by the way, it looks awful!
+</div>
+
+
+
+
+
+
 								<button id="run" onclick='editor.run()'>Compile & Run</button> 
 								<button id="compile" onclick='editor.compile()'>Compile</button>
 								<button onclick='window.location="#chapters"' class="right">Choose another recipe</button>
+
 								<pre><br><span class="nowrap">Program arguments: <input class="width65" id="input"/></span>
 								<br><span class="nowrap">Compilation command: <input class="width65" id="compile_command"/></span></pre>
 								<pre>Output:<div id="output" style="width: 100%; background: #fff; padding: 10px;"></div></pre>
 								<pre>Code (editable):</pre><div id="code" style="width: 100%">... downloading ...</div>
-							</div>
 
+		
+                                <button id="run2" onclick='editor.run()'>Compile & Run</button>
+								<button id="compile2" onclick='editor.compile()'>Compile</button>
+								<button onclick='window.location="#chapters"' class="right">Choose another recipe</button>
+							    <pre class="text-center">
+
+In <a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book">the book</a> you'll also find: in-depth description of each recipe, performance notes, comparison with C++11/C++14 and other juicy stuff.
+</pre>
+        					</div>
 						</div>
 					</section>
 
@@ -300,7 +470,7 @@
 											Wonderfull people from Coliru, that allow users to do online compilations.
 										</li>
 										<li>
-											Heather Gopsill from Packt Publishing for giving a permission to make sources publicly available.
+											Heather Gopsill and Lakhi Dhatt from Packt Publishing for giving a permission to make sources and recipes' introductions publicly available.
 										</li>
 									</ul>
 								</div>
