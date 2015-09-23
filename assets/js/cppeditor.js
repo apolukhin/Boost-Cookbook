@@ -117,6 +117,10 @@ var editor = (function() {
 			    "title":	"Storing any functional objects in a variable",
 			    "source":   ['Chapter03/function_fobject/main.cpp', 'Chapter03/function_fpointer/main.cpp'],
 		    }, {
+			    "title":	"Passing a function pointer in a variable",
+			    "source":   ['Chapter03/function_fpointer/main.cpp'],
+			    "compile":  "-std=c++11",
+		    }, {
 			    "title":	"Passing C++11 lambda functions in a variable",
 			    "source":   ['Chapter03/function_lambda_c++11/main.cpp'],
 			    "compile":  "-std=c++11",
