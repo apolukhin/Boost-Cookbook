@@ -250,14 +250,11 @@
 					<section id="online_run" class="three">
 						<div class="container">
 							<div class="width100 left" id="online_example">
-								<h3 id="recipe_title">Recipe: Getting configuration options</h3>
-
-								<button id="run" onclick='editor.run()'>Compile & Run</button> 
-								<button id="compile" onclick='editor.compile()'>Compile</button>
 
 								<div class="right"><button onclick='editor.prev()'><span class="icon fa-angle-left"></span></button>
 								<button onclick='window.location="#chapters"'><span class="icon fa-home"></span></button>
 								<button onclick='editor.next()'><span class="icon fa-angle-right"></span></button></div>
+								<h3 id="recipe_title">Recipe: Getting configuration options</h3>
 
 
 <div class="code-intro" id="Chapter01-0">
@@ -1244,6 +1241,9 @@
 
 								<p class="nowrap">Program arguments: <input class="width65" id="input"/></p>
 								<p class="nowrap">Compilation command: <input class="width65" id="compile_command"/></p>
+
+								<button id="run" onclick='editor.run()'>Compile & Run</button> 
+								<button id="compile" onclick='editor.compile()'>Compile</button>
 								<p class="nowrap">Output:</p><pre id="output" style="margin-top: 0; margin-left: 25px; background: #fff;">Waiting...</pre>
 								<p class="nowrap">Code (editable):</p><div id="code" style="width: 100%">... downloading ...</div>
 
