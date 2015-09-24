@@ -3,7 +3,6 @@
 @import 'libs/mixins';
 @charset "UTF-8";
 @import url("font-awesome.min.css");
-@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,600");
 
 /*
 	Prologue by HTML5 UP
@@ -62,7 +61,7 @@
 
 	body {
 		background: #fff;
-		font-family: 'Source Sans Pro', sans-serif;
+		font-family: "Times New Roman", Times, serif;
 		font-size: 19pt;
 		font-weight: 300;
 		line-height: 1.75em;
@@ -75,7 +74,7 @@
 	}
 
 	input, textarea, select {
-		font-family: 'Source Sans Pro', sans-serif;
+		font-family: "Times New Roman", Times, serif;
 		font-size: 19pt;
 		font-weight: 300;
 		line-height: 1.75em;

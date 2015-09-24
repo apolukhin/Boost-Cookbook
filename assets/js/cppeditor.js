@@ -94,6 +94,7 @@ var editor = (function() {
 		    }, {
 			    "title":	"Parsing input",
 			    "source":   ['Chapter02/spirit_rules/main.cpp'],
+                "issues":   "compile",
 		    },
         ],
 
@@ -169,6 +170,7 @@ var editor = (function() {
 			    "title":	"Creating an execution thread",
 			    "source":   ['Chapter05/thread/main.cpp'],
 			    "compile":  "-lboost_thread -lboost_system",
+                "issues":   "runtime",
 		    }, {
 			    "title":	"Syncing access to a common resource",
 			    "source":   ['Chapter05/mutex/main.cpp'],
@@ -206,22 +208,27 @@ var editor = (function() {
 			    "title":	"Registering a task for processing an arbitrary datatype",
 			    "source":   ['Chapter06/tasks_processor_base/main.cpp', 'Chapter06/tasks_processor_base/tasks_processor_base.hpp'],
 			    "compile":  "-lboost_thread -lboost_system",
+                "issues":   "compile",
 		    }, {
 			    "title":	"Making timers and processing timer events as tasks",
 			    "source":   ['Chapter06/tasks_processor_timers/main.cpp', 'Chapter06/tasks_processor_timers/tasks_processor_timers.hpp'],
 			    "compile":  "-lboost_thread -lboost_system",
+                "issues":   "compile",
 		    }, {
 			    "title":	"Network communication as a task",
 			    "source":   ['Chapter06/tasks_processor_network/main.cpp', 'Chapter06/tasks_processor_network/tasks_processor_network.hpp'],
 			    "compile":  "-lboost_thread -lboost_system",
+                "issues":   "compile",
 		    }, {
 			    "title":	"Accepting incoming connections",
 			    "source":   ['Chapter06/tasks_processor_network/main.cpp', 'Chapter06/tasks_processor_network/tasks_processor_network.hpp'],
 			    "compile":  "-lboost_thread -lboost_system",
+                "issues":   "compile",
 		    }, {
 			    "title":	"Executing different tasks in parallel",
 			    "source":   ['Chapter06/tasks_processor_multithread/main.cpp', 'Chapter06/tasks_processor_multithread/tasks_processor_multithread.hpp'],
 			    "compile":  "-lboost_thread -lboost_system",
+                "issues":   "compile",
 		    }, {
 			    "title":	"Conveyor tasks processing",
 			    "source":   ['Chapter06/conveyor/main.cpp'],
@@ -230,14 +237,17 @@ var editor = (function() {
 			    "title":	"Making a nonblocking barrier",
 			    "source":   ['Chapter06/nonblocking_barrier/main.cpp'],
 			    "compile":  "-lboost_thread -lboost_system",
+                "issues":   "compile",
 		    }, {
 			    "title":	"Storing an exception and making a task from it",
 			    "source":   ['Chapter06/exception_ptr/main.cpp'],
 			    "compile":  "-lboost_thread -lboost_system",
+                "issues":   "compile",
 		    }, {
 			    "title":	"Getting and processing system signals as tasks",
 			    "source":   ['Chapter06/tasks_processor_signals/main.cpp', 'Chapter06/tasks_processor_signals/tasks_processor_signals.hpp'],
 			    "compile":  "-lboost_thread -lboost_system",
+                "issues":   "compile",
 		    }, 
         ],
 
@@ -250,10 +260,12 @@ var editor = (function() {
 			    "title":	"Matching strings using regular expressions",
 			    "source":   ['Chapter07/regex_match/main.cpp'],
 			    "compile":  "-lboost_regex",
+                "issues":   "runtime",
 		    }, {
 			    "title":	"Searching and replacing strings using regular expressions",
 			    "source":   ['Chapter07/regex_replace/main.cpp'],
 			    "compile":  "-lboost_regex",
+                "issues":   "runtime",
 		    }, {
 			    "title":	"Formatting strings using safe printf-like functions",
 			    "source":   ['Chapter07/format/main.cpp'],
@@ -332,8 +344,9 @@ var editor = (function() {
 			    "source":   ['Chapter10/no_rtti/main.cpp'],
 		    }, {
 			    "title":	'Speeding up compilation using C++11 extern templates',
-			    "source":   ['Chapter10/extern_template/main.cpp'],
+			    "source":   ['Chapter10/extern_template/main.cpp', 'Chapter10/extern_template/header.hpp'],
 			    "compile":  "-std=c++11",
+                "issues":   "compile",
 		    }, {
 			    "title":	'Writing metafunctions using simpler methods',
 			    "source":   ['Chapter10/constexpr_c++11/main.cpp'],
@@ -345,6 +358,7 @@ var editor = (function() {
 		    }, {
 			    "title":	'The portable way to export and import functions and classes',
 			    "source":   ['Chapter10/export_import/main.cpp', 'Chapter10/my_library/my_library.cpp', 'Chapter10/my_library/my_library.hpp'],
+                "issues":   "compile",
 		    }, {
 			    "title":	'Detecting the Boost version and getting latest features',
 			    "source":   ['Chapter10/version/main.cpp'],
@@ -365,18 +379,23 @@ var editor = (function() {
 		    }, {
 			    "title":	'Passing data quickly from one process to another',
 			    "source":   ['Chapter11/interprocess_basics/main.cpp'],
-			    "compile":  "-lrt",
+			    "compile":  "-lrt -pthread",
+                "issues":   "runtime",
 		    }, {
 			    "title":	'Syncing interprocess communications',
 			    "source":   ['Chapter11/interprocess_queue/main.cpp'],
-			    "compile":  "-lrt",
+			    "compile":  "-lrt -pthread",
+                "issues":   "runtime",
 		    }, {
 			    "title":	'Using pointers in shared memory',
 			    "source":   ['Chapter11/interprocess_pointers/main.cpp'],
-			    "compile":  "-lrt",
+			    "compile":  "-lrt -pthread",
+                "issues":   "runtime",
 		    }, {
 			    "title":	'The fastest way to read files',
 			    "source":   ['Chapter11/reading_files/main.cpp'],
+                "issues":   "runtime",
+			    "run":	    "c",
 		    }, {
 			    "title":	'Coroutines – saving the state and postponing the execution',
 			    "source":   ['Chapter11/coroutines/main.cpp'],
@@ -392,6 +411,7 @@ var editor = (function() {
 		    }, {
 			    "title":	'Visualizing graphs',
 			    "source":   ['Chapter12/graph_vis/main.cpp'],
+                "issues":   "compile",
 		    }, {
 			    "title":	'Using a true random number generator',
 			    "source":   ['Chapter12/random/main.cpp'],
@@ -416,7 +436,10 @@ var editor = (function() {
 
 	};
 
-	var index = 0;
+
+	var current_chapter = 0;
+	var current_index = 0;
+    var current_source = 0;
 	var code;
 	var command_line;
 	var output;
@@ -424,17 +447,25 @@ var editor = (function() {
 	var compile;
 
 	function download_impl_base(chapter, ind, source_num) {
-        index = ind;
-        c = content[chapter][index];
+        current_chapter = chapter;
+        current_index = ind;
+
+        c = content[chapter][ind];
         source_num = (typeof source_num !== 'undefined' ? source_num : 0);
         source_num = (source_num < c["source"].length ? source_num : 0);
+        current_source = source_num;
 
         $(".code-intro").hide();
         $("#" + chapter + "-" + ind).show();
+        $("#runtime-issues").hide();
+        $("#compile-issues").hide();
 	    command_line.val(c['run']);
 	    output.text('');
+        if (c["issues"]) {
+            $("#" + c["issues"] + "-issues").show();
+        }
 	    recipe_title.text(
-            "Recipe: "
+            chapter + ". "
             + c["title"]
             + (c["source"].length > 1 ? " (part " + (source_num + 1) + ")": "")
         );
@@ -454,6 +485,39 @@ var editor = (function() {
 		download_impl_base(chapter, ind, num);
 		window.location="#online_example";
 	};
+
+    function next_impl() {
+        if (content[current_chapter][current_index]["source"][current_source + 1]) {
+            download_impl(current_chapter, current_index, current_source + 1);
+        } else if (content[current_chapter][current_index + 1]) {
+            download_impl(current_chapter, current_index + 1);
+        } else {
+            var chapters = ["Chapter01", "Chapter02", "Chapter03", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
+            var next_ind = chapters.indexOf(current_chapter) + 1;
+            if (next_ind >= chapters.length) {
+                next_ind = 0;
+            }
+            download_impl(chapters[next_ind], 0);
+        }
+    }
+
+    function prev_impl() {
+        if (current_source > 0) {
+            download_impl(current_chapter, current_index, current_source - 1);
+        } else if (current_index > 0) {
+            download_impl(current_chapter, current_index - 1, content[current_chapter][current_index - 1]["source"].length - 1);
+        } else {
+            var chapters = ["Chapter01", "Chapter02", "Chapter03", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
+            var next_ind = chapters.indexOf(current_chapter) - 1;
+            if (next_ind < 0) {
+                next_ind = chapters.length - 1;
+            }
+            current_chapter = chapters[next_ind];
+            current_index = content[current_chapter].length - 1;
+
+            download_impl(current_chapter, current_index, content[current_chapter][current_index]["source"].length - 1);
+        }
+    }
 
 	function process_remote_impl(cmd) {
 		output.text('');
@@ -489,7 +553,7 @@ var editor = (function() {
 		}
 		process_remote_impl(
 			compile.val()
-			+ " && echo 'Compilation: SUCCESS\n\nProgram output:\n'  && ./main_prog " + command_line.val() + " && echo '\n\nRun: SUCCESS'"
+			+ " && echo 'Compilation: SUCCESS. Program output:\n' && ./main_prog " + command_line.val() + " && echo \"\nExit code: $?\""
 		);
 	};
 
@@ -536,6 +600,8 @@ var editor = (function() {
 		compile: compile_impl,
 		run: run_impl,
 		init: init_impl,
+        next: next_impl,
+        prev: prev_impl,
 	};
 
 })();

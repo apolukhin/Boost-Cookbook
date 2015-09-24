@@ -1,5 +1,4 @@
 @import url("font-awesome.min.css");
-@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,600");
 
 /*
 	Prologue by HTML5 UP
@@ -26,6 +25,21 @@
         text-align: left;
 		font-size: 12pt;
 		line-height: 1;
+		color: #000;
+		margin-bottom: 1.5em;
+        margin-top: -1.00em;
+    }
+
+    .nowrap {
+		font-size: 12pt;
+		font-weight: 300;
+		line-height: 1.1em;
+        text-indent: 0px;
+
+        text-align: left;
+		margin: 0;
+		padding: 0;
+		color: #555;
     }
 
     .left {
@@ -1586,11 +1600,11 @@
 
 	body {
 		background: #fff;
-		font-family: 'Source Sans Pro', sans-serif;
+		font-family: "Times New Roman", Times, serif;
 		font-size: 19pt;
 		font-weight: 300;
 		line-height: 1.75em;
-		color: #000;
+		color: #444;
 	}
 
 		body.is-loading * {
@@ -1703,9 +1717,17 @@
 		font-style: italic;
 	}
 
-	p, ul, ol, dl, table {
+	ul, ol, dl, table {
 		margin-bottom: 2em;
 	}
+
+    p {
+		font-size: 16pt;
+		font-weight: 300;
+		line-height: 1.5em;
+        text-indent: 25px;
+		margin-bottom: 0.5em;
+    }
 
 	br.clear {
 		clear: both;
