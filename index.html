@@ -45,7 +45,7 @@
 								   <li><a href="http://foobar.tld" id="foobar-link" class="icon fa-whatever-icon-you-want"><span class="label">Foobar</span></a></li>
 							-->
 							<ul>
-								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Home</span></a></li>
+								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-book">Heading</span></a></li>
 								<li><a href="#chapters" id="chapters-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Chapters</span></a></li>
 								<li><a href="#online_run" id="online_run-link" class="skel-layers-ignoreHref"><span class="icon fa-gear">Compile&amp;Run</span></a></li>
 								<li><a href="#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-user">About</span></a></li>
@@ -81,13 +81,21 @@
 					<section id="chapters" class="two">
 						<div class="container">
 
+							<div class="right" style="margin: 0.5em 0.5em 0 3em">
+								<p><button title="Expand TOC and show all recipes" id="show_all_button" onclick='editor.chapter_show_all();'><span class="icon fa-toggle-down"></span></button>
+										- Show all recipes</p>
+								<p><button title="Show only chapters in TOC" id="hide_all_button" onclick='editor.chapter_hide_all();'><span class="icon fa-toggle-up"></span></button>
+										- Hide all recipes</p>
+							</div>
+
 							<h2 id="Chapter00_ref">Chapters</h2>
-							<h4>Click on the chapter to view it'recipes. Click in the recipe to see sources.</h4>
+							<h4>Click on the chapter to view it's recipes. Click on the recipe to see it's sources.</h4>
+
 
 							<div class="left">
-							   <ul>
+								<ul>
 									<li>
-										<a id="Chapter01_ref" href="javascript:chapter_show('01');">Chapter 01: Starting to Write Your Application</a>
+										<a id="Chapter01_ref" href="javascript:editor.chapter_toggle('01');">Chapter 01: Starting to Write Your Application</a>
 										<ul class="hidden" id="Chapter01">
 <li><a href="javascript:editor.download('Chapter01', 0)">Getting configuration options (part 1</a>, <a href="javascript:editor.download('Chapter01', 0, 1)">part 2</a>)</li>
 <li><a href="javascript:editor.download('Chapter01', 1)">Storing any value in a container/variable</a></li>
@@ -104,7 +112,7 @@
 										</ul>
 									</li>
 									<li>
-										<a id="Chapter02_ref" href="javascript:chapter_show('02');">Chapter 02: Converting Data</a>
+										<a id="Chapter02_ref" href="javascript:editor.chapter_toggle('02');">Chapter 02: Converting Data</a>
 										<ul class="hidden" id="Chapter02">
 <li><a href="javascript:editor.download('Chapter02', 0)">Converting strings to numbers</a></li>
 <li><a href="javascript:editor.download('Chapter02', 1)">Converting numbers to strings</a></li>
@@ -116,7 +124,7 @@
 										</ul>
 									</li>
 									<li>
-										<a id="Chapter03_ref" href="javascript:chapter_show('03');">Chapter 03: Managing Resources</a>
+										<a id="Chapter03_ref" href="javascript:editor.chapter_toggle('03');">Chapter 03: Managing Resources</a>
 										<ul class="hidden" id="Chapter03">
 <li><a href="javascript:editor.download('Chapter03', 0)">Managing pointers to classes that do not leave scope</a></li>
 <li><a href="javascript:editor.download('Chapter03', 1)">Reference counting of pointers to classes used across methods</a></li>
@@ -131,7 +139,7 @@
 										</ul>
 									</li>
 									<li>
-										<a id="Chapter04_ref" href="javascript:chapter_show('04');">Chapter 04: Compile-time Tricks</a>
+										<a id="Chapter04_ref" href="javascript:editor.chapter_toggle('04');">Chapter 04: Compile-time Tricks</a>
 										<ul class="hidden" id="Chapter04">
 <li><a href="javascript:editor.download('Chapter04', 0)">Checking sizes at compile time</a></li>
 <li><a href="javascript:editor.download('Chapter04', 1)">Enabling the usage of templated functions for integral types</a></li>
@@ -143,7 +151,7 @@
 										</ul>
 									</li>
 									<li>
-										<a id="Chapter05_ref" href="javascript:chapter_show('05');">Chapter 05: Multithreading</a>
+										<a id="Chapter05_ref" href="javascript:editor.chapter_toggle('05');">Chapter 05: Multithreading</a>
 										<ul class="hidden" id="Chapter05">
 <li><a href="javascript:editor.download('Chapter05', 0)">Creating an execution thread</a></li>
 <li><a href="javascript:editor.download('Chapter05', 1)">Syncing access to a common resource</a></li>
@@ -156,7 +164,7 @@
 										</ul>
 									</li>
 									<li>
-										<a id="Chapter06_ref" href="javascript:chapter_show('06');">Chapter 06: Manipulating Tasks</a>
+										<a id="Chapter06_ref" href="javascript:editor.chapter_toggle('06');">Chapter 06: Manipulating Tasks</a>
 										<ul class="hidden" id="Chapter06">
 <li><a href="javascript:editor.download('Chapter06', 0)">Registering a task for processing an arbitrary datatype (part 1</a>, <a href="javascript:editor.download('Chapter06', 0, 1)">part 2</a>)</li>
 <li><a href="javascript:editor.download('Chapter06', 1)">Making timers and processing timer events as tasks (part 1</a>, <a href="javascript:editor.download('Chapter06', 1, 1)">part 2</a>)</li>
@@ -171,7 +179,7 @@
 									</li>
 
 									<li>
-										<a id="Chapter07_ref" href="javascript:chapter_show('07');">Chapter 07: Manipulating Strings</a>
+										<a id="Chapter07_ref" href="javascript:editor.chapter_toggle('07');">Chapter 07: Manipulating Strings</a>
 										<ul class="hidden" id="Chapter07">
 <li><a href="javascript:editor.download('Chapter07', 0)">Changing cases and case-insensitive comparison</a></li>
 <li><a href="javascript:editor.download('Chapter07', 1)">Matching strings using regular expressions</a></li>
@@ -183,7 +191,7 @@
 										</ul>
 									</li>
 									<li>
-										<a id="Chapter08_ref" href="javascript:chapter_show('08');">Chapter 08: Metaprogramming</a>
+										<a id="Chapter08_ref" href="javascript:editor.chapter_toggle('08');">Chapter 08: Metaprogramming</a>
 										<ul class="hidden" id="Chapter08">
 <li><a href="javascript:editor.download('Chapter08', 0)">Using type "vector of types"</a></li>
 <li><a href="javascript:editor.download('Chapter08', 1)">Manipulating a vector of types</a></li>
@@ -195,7 +203,7 @@
 										</ul>
 									</li>
 									<li>
-										<a id="Chapter09_ref" href="javascript:chapter_show('09');">Chapter 09: Containers</a>
+										<a id="Chapter09_ref" href="javascript:editor.chapter_toggle('09');">Chapter 09: Containers</a>
 										<ul class="hidden" id="Chapter09">
 <li><a href="javascript:editor.download('Chapter09', 0)">Comparing strings in an ultra-fast manner</a></li>
 <li><a href="javascript:editor.download('Chapter09', 1)">Using an unordered set and map</a></li>
@@ -206,7 +214,7 @@
 										</ul>
 									</li>
 									<li>
-										<a id="Chapter10_ref" href="javascript:chapter_show('10');">Chapter 10: Gathering Platform and Compiler Information</a>
+										<a id="Chapter10_ref" href="javascript:editor.chapter_toggle('10');">Chapter 10: Gathering Platform and Compiler Information</a>
 										<ul class="hidden" id="Chapter10">
 <li><a href="javascript:editor.download('Chapter10', 0)">Detecting int128 support</a></li>
 <li><a href="javascript:editor.download('Chapter10', 1)">Detecting RTTI support</a></li>
@@ -218,7 +226,7 @@
 										</ul>
 									</li>
 									<li>
-										<a id="Chapter11_ref" href="javascript:chapter_show('11');">Chapter 11: Working with the System</a>
+										<a id="Chapter11_ref" href="javascript:editor.chapter_toggle('11');">Chapter 11: Working with the System</a>
 										<ul class="hidden" id="Chapter11">
 <li><a href="javascript:editor.download('Chapter11', 0)">Listing files in a directory</a></li>
 <li><a href="javascript:editor.download('Chapter11', 1)">Erasing and creating files and directories</a></li>
@@ -230,7 +238,7 @@
 										</ul>
 									</li>
 									<li>
-										<a id="Chapter12_ref" href="javascript:chapter_show('12');">Chapter 12: Scratching the Tip of the Iceberg</a>
+										<a id="Chapter12_ref" href="javascript:editor.chapter_toggle('12');">Chapter 12: Scratching the Tip of the Iceberg</a>
 										<ul class="hidden" id="Chapter12">
 <li><a href="javascript:editor.download('Chapter12', 0)">Working with graphs</a></li>
 <li><a href="javascript:editor.download('Chapter12', 1)">Visualizing graphs</a></li>
@@ -251,9 +259,11 @@
 						<div class="container">
 							<div class="width100 left" id="online_example">
 
-								<div class="right" style="margin: 0.5em 0.5em"><button onclick='editor.prev()'><span class="icon fa-angle-left"></span></button>
-								<button onclick='window.location="#chapters"'><span class="icon fa-home"></span></button>
-								<button onclick='editor.next()'><span class="icon fa-angle-right"></span></button></div>
+								<div class="right" style="margin: 0.5em 0.5em">
+									<button title="To previous recipe" onclick='editor.prev()'><span class="icon fa-angle-left"></span></button>
+									<button title="To chapters list" onclick='window.location="#chapters"'><span class="icon fa-home"></span></button>
+									<button title="To next recipe" onclick='editor.next()'><span class="icon fa-angle-right"></span></button>
+								</div>
 								<h3 id="recipe_title">Recipe: Getting configuration options</h3>
 
 
@@ -1251,13 +1261,15 @@
 								<button id="run2" onclick='editor.run()'>Compile & Run</button>
 								<button id="compile2" onclick='editor.compile()'>Compile</button>
 
-								<div class="right"><button onclick='editor.prev()'><span class="icon fa-angle-left"></span></button>
-								<button onclick='window.location="#chapters"'><span class="icon fa-home"></span></button>
-								<button onclick='editor.next()'><span class="icon fa-angle-right"></span></button></div>
+								<div class="right" style="margin: 0.5em 0.5em">
+									<button title="To previous recipe" onclick='editor.prev()'><span class="icon fa-angle-left"></span></button>
+									<button title="To chapters list" onclick='window.location="#chapters"'><span class="icon fa-home"></span></button>
+									<button title="To next recipe" onclick='editor.next()'><span class="icon fa-angle-right"></span></button>
+								</div>
 
 								<p class="nowrap">Output:</p><pre id="output2" style="margin-top: 0; margin-left: 25px; background: #fff;">Waiting...</pre>
 								<p class="nowrap text-center">In <a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book">the book</a>
-                                    you'll also find: in-depth description of each recipe, performance notes, comparison with C++11/C++14 and other juicy stuff.
+									you'll also find: in-depth description of each recipe, performance notes, comparison with C++11/C++14 and other juicy stuff.
 								</p>
 							</div>
 						</div>
