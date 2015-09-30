@@ -47,7 +47,8 @@
 							<ul>
 								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-book">Heading</span></a></li>
 								<li><a href="#chapters" id="chapters-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Chapters</span></a></li>
-								<li><a href="#online_run" id="online_run-link" class="skel-layers-ignoreHref"><span class="icon fa-gear">Compile&amp;Run</span></a></li>
+								<li><a href="#intros" id="intros-link" class="skel-layers-ignoreHref"><span class="icon fa-info">Recipe's Intro</span></a></li>
+								<li><a href="#online_run" id="online_run-link" class="skel-layers-ignoreHref"><span class="icon fa-gear">Compile &amp; Run</span></a></li>
 								<li><a href="#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-user">About</span></a></li>
 								<li><a href="#acknowledgements" id="acknowledgements-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Thanks</span></a></li>
 							</ul>
@@ -255,16 +256,17 @@
 						</div>
 					</section>
 
-					<section id="online_run" class="three">
+					<section class="three">
 						<div class="container">
 							<div class="width100 left" id="online_example">
 
-								<div class="right" style="margin: 0.5em 0.5em">
-									<button title="To previous recipe" onclick='editor.prev()'><span class="icon fa-angle-left"></span></button>
-									<button title="To chapters list" onclick='window.location="#chapters"'><span class="icon fa-home"></span></button>
-									<button title="To next recipe" onclick='editor.next()'><span class="icon fa-angle-right"></span></button>
+								<div id="intros" class="right" style="margin: 0.5em 0.5em">
+									<button title="To previous recipe" onclick='editor.prev(); editor.set_local_url();'><span class="icon fa-angle-left"></span></button>
+									<button title="To chapters list" onclick='$("#chapters-link").click();'><span class="icon fa-home"></span></button>
+									<button title="To next recipe" onclick='editor.next(); editor.set_local_url();'><span class="icon fa-angle-right"></span></button>
 								</div>
-								<h3 id="recipe_title">Recipe: Getting configuration options</h3>
+								<h3>Recipe's Intro</h3>
+								<h4 id="recipe_title" class="width100"><span class="icon fa-bookmark-o"></span> Recipe: Getting configuration options</h4><br>
 
 
 <div class="code-intro" id="Chapter01-0">
@@ -1246,30 +1248,25 @@
 	<p>The goal of this recipe is to make our <code>tasks_processor</code> class capable of processing signals.</p>
 </div>
 
+							</div>
+						</div>
+
+						<div class="container">
+							<div id="online_run" class="right" style="margin: 0.5em 0.5em">
+								<button id="run" onclick='editor.run();'>Run</button> 
+								<button id="compile" onclick='editor.compile();'>Compile</button>
+							</div>
+							<h3>Compile &amp; Run</h3>
+
+							<div class="width100 left">
+								<p class="nowrap">Program arguments: <input class="width100" id="input"/></p>
+								<p class="nowrap">Compilation command: <input class="width100" id="compile_command"/></p>
+								<p class="nowrap">Output:</p><pre id="output" style="margin-top: 0; margin-left: 25px; background: #fff;">Waiting...</pre>
 								<p id="runtime-issues" class="nowrap text-center hidden">This recipe has <span style="color: red;">runtime issues</span> because of the limited capabilities of online executor.</p>
 								<p id="compile-issues" class="nowrap text-center hidden">This recipe has <span style="color: red;">compile issues</span> because of the limited capabilities of online compiler.</p>
-
-								<p class="nowrap">Program arguments: <input class="width65" id="input"/></p>
-								<p class="nowrap">Compilation command: <input class="width65" id="compile_command"/></p>
-
-								<button id="run" onclick='editor.run()'>Compile & Run</button> 
-								<button id="compile" onclick='editor.compile()'>Compile</button>
-								<p class="nowrap">Output:</p><pre id="output" style="margin-top: 0; margin-left: 25px; background: #fff;">Waiting...</pre>
-								<p class="nowrap">Code (editable):</p><div id="code" style="width: 100%">... downloading ...</div>
-
-
-								<button id="run2" onclick='editor.run()'>Compile & Run</button>
-								<button id="compile2" onclick='editor.compile()'>Compile</button>
-
-								<div class="right" style="margin: 0.5em 0.5em">
-									<button title="To previous recipe" onclick='editor.prev()'><span class="icon fa-angle-left"></span></button>
-									<button title="To chapters list" onclick='window.location="#chapters"'><span class="icon fa-home"></span></button>
-									<button title="To next recipe" onclick='editor.next()'><span class="icon fa-angle-right"></span></button>
-								</div>
-
-								<p class="nowrap">Output:</p><pre id="output2" style="margin-top: 0; margin-left: 25px; background: #fff;">Waiting...</pre>
-								<p class="nowrap text-center">In <a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book">the book</a>
-									you'll also find: in-depth description of each recipe, performance notes, comparison with C++11/C++14 and other juicy stuff.
+								<p class="nowrap left">Code (editable):</p><div id="code" style="width: 100%">... downloading ...</div>
+								<p class="nowrap right">In <a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book">the book
+									you'll also find</a>: in-depth description of each recipe, performance notes, comparison with C++11/C++14 and other juicy stuff.
 								</p>
 							</div>
 						</div>
@@ -1351,7 +1348,7 @@
 			<script src="assets/js/cppeditor.min.js"></script>
 			<script>
 				$(function() {
-					editor.init(ace.edit("code"), $("#input"), $("#output").add("#output2"), $("#recipe_title"), $("#compile_command"));
+					editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
 				});
 			</script>
 	</body>

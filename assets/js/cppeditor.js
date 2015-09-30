@@ -457,12 +457,14 @@ var editor = (function() {
 		$("#runtime-issues").hide();
 		$("#compile-issues").hide();
 		command_line.val(c['run']);
+		code.setValue("// Downloading...");
+		code.clearSelection();
 		output.text('');
 		if (c["issues"]) {
 			$("#" + c["issues"] + "-issues").show();
 		}
-		recipe_title.text(
-			chapter + ". "
+		recipe_title.html(
+			'<span class="icon fa-bookmark-o"></span> ' + chapter + ". "
 			+ c["title"]
 			+ (c["source"].length > 1 ? " (part " + (source_num + 1) + ")": "")
 		);
@@ -478,36 +480,36 @@ var editor = (function() {
 		});
 	};
 
-	function set_local_url() {
+	function set_local_url_impl() {
 		window.location="#" + current_chapter + "-recipe" + current_index + "-part" + (current_source + 1);
 	}
 
 	function download_impl(chapter, ind, num) {
 		download_impl_base(chapter, ind, num);
-		window.location="#online_example";
-		set_local_url();
+		$("#intros-link").click();
+		window.setTimeout(set_local_url_impl, 1300); // Hack to keep URL's href correct
 	};
 
 	function next_impl() {
 		if (content[current_chapter][current_index]["source"][current_source + 1]) {
-			download_impl(current_chapter, current_index, current_source + 1);
+			download_impl_base(current_chapter, current_index, current_source + 1);
 		} else if (content[current_chapter][current_index + 1]) {
-			download_impl(current_chapter, current_index + 1);
+			download_impl_base(current_chapter, current_index + 1);
 		} else {
 			var chapters = ["Chapter01", "Chapter02", "Chapter03", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
 			var next_ind = chapters.indexOf(current_chapter) + 1;
 			if (next_ind >= chapters.length) {
 				next_ind = 0;
 			}
-			download_impl(chapters[next_ind], 0);
+			download_impl_base(chapters[next_ind], 0);
 		}
 	}
 
 	function prev_impl() {
 		if (current_source > 0) {
-			download_impl(current_chapter, current_index, current_source - 1);
+			download_impl_base(current_chapter, current_index, current_source - 1);
 		} else if (current_index > 0) {
-			download_impl(current_chapter, current_index - 1, content[current_chapter][current_index - 1]["source"].length - 1);
+			download_impl_base(current_chapter, current_index - 1, content[current_chapter][current_index - 1]["source"].length - 1);
 		} else {
 			var chapters = ["Chapter01", "Chapter02", "Chapter03", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
 			var next_ind = chapters.indexOf(current_chapter) - 1;
@@ -517,12 +519,12 @@ var editor = (function() {
 			current_chapter = chapters[next_ind];
 			current_index = content[current_chapter].length - 1;
 
-			download_impl(current_chapter, current_index, content[current_chapter][current_index]["source"].length - 1);
+			download_impl_base(current_chapter, current_index, content[current_chapter][current_index]["source"].length - 1);
 		}
 	}
 
 	function process_remote_impl(cmd) {
-		set_local_url();
+		set_local_url_impl();
 		output.text('');
 		var to_compile = {
 			"src": code.getValue(),
@@ -614,6 +616,7 @@ var editor = (function() {
 		chapter_toggle: chapter_toggle_impl,
 		chapter_show_all: chapter_show_all_impl,
 		chapter_hide_all: chapter_hide_all_impl,
+		set_local_url: set_local_url_impl,
 	};
 
 })();
