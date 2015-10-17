@@ -55,3 +55,7 @@ Thanks to Heather Gopsill from Packt Publishing for giving a permission to make 
 * add *_pointer_cast examples?
 * add a note to the book about source code availability at github
 * sync code and book
+* Fix introduction in "Chapter09. Getting the benefits of single-linked list and memory pool"
+* Boost.DLL examples
+* Variant is proposed for C++17. Highlight the differences.
+* flat containers were proposed for C++17
