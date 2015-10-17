@@ -1248,6 +1248,348 @@
 	<p>The goal of this recipe is to make our <code>tasks_processor</code> class capable of processing signals.</p>
 </div>
 
+<div class="code-intro" id="Chapter07-0">
+	<p>This is a pretty common task. We have two non-Unicode or ANSI character strings:</p>
+	<pre><code>
+    #include &lt;string&gt;
+    std::string str1 = "Thanks for reading me!";
+    std::string str2 = "Thanks for reading ME!";
+</code></pre>
+	<p>We need to compare them in a case-insensitive manner. There are a lot of methods to do
+	that; let's take a look at Boost's.</p>
+</div>
+
+<div class="code-intro" id="Chapter07-1">
+	<p>Let's do something useful! It's common that the user's input must be checked using some
+	regular expression-specific pattern that provides a flexible means of match. The problem is
+	that there are a lot of regex syntaxes; expressions written using one syntax are not handled
+	well by the other syntax. Another problem is that long regexes are not easy to write.</p>
+
+	<p>So in this recipe, we'll write a program that may use different types of regular expression
+	syntaxes and checks that the input strings match the specified regexes.</p>
+</div>
+
+<div class="code-intro" id="Chapter07-2">
+	<p>My wife enjoyed the <a href="javascript:editor.download('Chapter07', 1)">Matching strings using regular expressions</a> recipe very much and told me
+	that I'll get no food until I improve it to be able to replace parts of the input string according
+	to a regex match. Each matched subexpression (part of the regex in parenthesis) must get
+	a unique number starting from 1; this number will be used to create a new string.</p>
+	<p>This is how an updated program will work like:</p>
+
+	<pre><code>
+    Available regex syntaxes:
+            [0] Perl
+            [1] Perl case insensitive
+            [2] POSIX extended
+            [3] POSIX extended case insensitive
+            [4] POSIX basic
+            [5] POSIX basic case insensitive
+
+    Choose regex syntax: 0
+    Input regex: (\d)(\d)
+    String to match: 00
+    MATCH: 0, 0,
+    Replace pattern: \1#\2
+    RESULT: 0#0
+    String to match: 42
+    MATCH: 4, 2,
+    Replace pattern: ###\1-\1-\2-\1-\1###
+    RESULT: ###4-4-2-4-4###
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter07-3">
+	<p>The <code>printf</code> family of functions is a threat to security. It is a very bad design to allow
+	users to put their own strings as the type and format specifiers. So what do we do when
+	user-defined format is required? How shall we implement the
+	<code>std::string to_string(const std::string& format_specifier) const;</code> member function
+	of the following class?</p>
+	<pre><code>
+    class i_hold_some_internals {
+        int i;
+        std::string s;
+        char c;
+        // ...
+    };
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter07-4">
+	<p>Situations where we need to erase something in a string, replace a part of the string, or erase
+	the first or last occurrence of some substring are very common. STL allows us to do most of
+	this, but it usually involves writing too much code.</p>
+	<p>We saw the Boost.StringAlgorithm library in action in the <a href="javascript:editor.download('Chapter07', 0)">Changing cases and case-
+	insensitive comparison</a> recipe. Let's see how it can be used to simplify our lives when we need
+	to modify some strings:</p>
+	<pre><code>
+    #include &lt;string&gt;
+    const std::string str = "Hello, hello, dear Reader.";
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter07-5">
+	<p>There are situations when we need to split some strings into substrings and do something
+	with those substrings. For example, count whitespaces along with characters in each sentence and, of course, we want
+	to use Boost and be as efficient as possible.</p>
+</div>
+
+<div class="code-intro" id="Chapter07-6">
+	<p>This recipe is the most important recipe in this chapter! Let's take a look at a very common
+	case, where we write a function that accepts a string and returns the part of the string
+	between character values passed in the <code>starts</code> and <code>ends</code> arguments:</p>
+	<pre><code>
+    #include &lt;string&gt;
+    #include &lt;algorithm&gt;
+    std::string between_str(const std::string&amp; input, char starts, char ends) {
+        std::string::const_iterator pos_beg
+            = std::find(input.begin(), input.end(), starts);
+
+        if (pos_beg == input.end()) {
+            return std::string(); // Empty
+        }
+        ++ pos_beg;
+        std::string::const_iterator pos_end
+            = std::find(input.begin(), input.end(), ends);
+
+        return std::string(pos_beg, pos_end);
+    }
+</code></pre>
+	<p>Do you like this implementation? In my opinion, it looks awful; consider the following call to it:</p>
+	<pre><code>
+    between_str("Getting expression (between brackets)", '(', ')');
+</code></pre>
+
+	<p>In that call, a temporary <code>std::string</code> variable will be constructed from <code>"Getting
+	expression (between brackets)"</code>. The character array is long enough, so there is a big
+	chance that dynamic memory allocation will be called inside the <code>std::string</code> constructor
+	and the character array will be copied into it. Then, somewhere inside the <code>between_str</code>
+	function, new <code>std::string</code> will be constructed, which may also lead to another dynamic
+	memory allocation and result in copying.</p>
+	<p>So, this simple function may, and in most cases will:</p>
+	<p> * Call dynamic memory allocation (twice)</p>
+	<p> * Copy string (twice)</p>
+	<p> * Deallocate memory (twice)</p>
+
+	<br><p>Can we do better?</p>
+</div>
+
+
+<div class="code-intro" id="Chapter08-0">
+	<p>There are situations when it would be great to work with all the template parameters as if
+	they were in a container. Imagine that we are writing something such as Boost.Variant:</p>
+	<pre><code>
+    #include &lt;boost/mpl/aux_/na.hpp&gt;  // boost::mpl::na == n.a. == not available
+
+    template &lt;
+        class T0 = boost::mpl::na,
+        class T1 = boost::mpl::na,
+        class T2 = boost::mpl::na,
+        class T3 = boost::mpl::na,
+        class T4 = boost::mpl::na,
+        class T5 = boost::mpl::na,
+        class T6 = boost::mpl::na,
+        class T7 = boost::mpl::na,
+        class T8 = boost::mpl::na,
+        class T9 = boost::mpl::na
+    &gt;
+    struct variant;
+</code></pre>
+	<p>And the preceding code is where all the following interesting tasks start to happen:</p>
+	<p> * How can we remove constant and volatile qualifiers from all the types?</p>
+	<p> * How can we remove duplicate types?</p>
+	<p> * How can we get the sizes of all the types?</p>
+	<p> * How can we get the maximum size of the input parameters?</p>
+	<p>All these tasks can be easily solved using Boost.MPL.</p>
+</div>
+
+
+<div class="code-intro" id="Chapter08-1">
+	<p>The task of this recipe will be to modify the content of one <code>boost::mpl::vector</code> function
+	depending on the content of a second <code>boost::mpl::vector</code> function. We'll be calling
+	the second vector as the vector of modifiers and each of those modifiers can have the
+	following type:</p>
+	<pre><code>
+    // Make unsigned
+    struct unsigne; // No typo: 'unsigned' is a keyword, we cannot use it.
+    // Make constant
+    struct constant;
+    // Otherwise we do not change type
+    struct no_change;
+</code></pre>
+	<p>So where shall we start?</p>
+</div>
+
+<div class="code-intro" id="Chapter08-2">
+	<p>Many features were added to C++11 to simplify the metaprogramming. One such feature
+	is the alternative function syntax. It allows deducing the result type of a template function.
+	Here is an example:</p>
+	<pre><code>
+    template &lt;class T1, class T2&gt;
+    auto my_function_cpp11(const T1&amp; v1, const T2&amp; v2)
+        -&gt; decltype(v1 + v2)
+    {
+        return v1 + v2;
+    }
+</code></pre>
+	<p>It allows us to write generic functions more easily and work in difficult situations:</p>
+	<pre><code>
+    #include &lt;cassert&gt;
+    struct s1 {};
+    struct s2 {};
+    struct s3 {};
+
+    inline s3 operator + (const s1&amp; /*v1*/, const s2&amp; /*v2*/) {
+        return s3();
+    }
+
+    inline s3 operator + (const s2&amp; /*v1*/, const s1&amp; /*v2*/) {
+        return s3();
+    }
+
+    int main() {
+        s1 v1;
+        s2 v2;
+        my_function_cpp11(v1, v2);
+        my_function_cpp11(v1, v2);
+        assert(my_function_cpp11('\0', 1) == 1);
+    }
+</code></pre>
+	<p>But Boost has a lot of functions like these and it does not require C++11 to work.
+	How is that possible and how can we make a C++03 version of the
+	<code>my_function_cpp11</code> function?</p>
+</div>
+
+
+<div class="code-intro" id="Chapter08-3">
+	<p>Functions that accept other functions as an input parameter or functions that return
+	other functions are called higher-order functions. For example, the following functions
+	are higher-order:</p>
+	<pre><code>
+    function_t higher_order_function1();
+    void higher_order_function2(function_t f);
+    function_t higher_order_function3(function_t f);
+</code></pre>
+	<p>We have already seen higher-order metafunctions in the recipes <a href="javascript:editor.download('Chapter08', 0)">Using type "vector of types"</a>
+	and <a href="javascript:editor.download('Chapter08', 1)">Manipulating a vector of types</a> from this chapter, where we used <code>boost::transform</code>.</p>
+
+	<p>In this recipe, we'll try to make our own higher-order metafunction named <code>coalesce</code>,
+	which accepts two types and two metafunctions. The coalesce metafunction applies
+	the first type-parameter to the first metafunction and compares the resulting type
+	with the <code>boost::mpl::false_</code> type metafunction. If the resulting type is the
+	<code>boost::mpl::false_</code> type metafunction, it returns the result of applying the second
+	type-parameter to the second metafunction, otherwise, it returns the first result type:</p>
+	<pre><code>
+    template &lt;class Param1, class Param2, class Func1, class Func2&gt;
+    struct coalesce;
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter08-4">
+	<p>Lazy evaluation means that the function won't be called until we really need its result.
+	Knowledge of this recipe is highly recommended for writing good metafunctions.
+	The importance of lazy evaluation will be shown in the following example.</p>
+	<p>Imagine that we are writing a metafunction that accepts a function, a parameter, and a
+	condition. The resulting type of that function must be a fallback type if the condition
+	is false otherwise the result will be as follows:</p>
+	<pre><code>
+    struct fallback;
+    template &lt;
+        class Func,
+        class Param,
+        class Cond,
+        class Fallback = fallback&gt;
+    struct apply_if;
+</code></pre>
+	<p>And the preceding code is the place where we cannot live without lazy evaluation.</p>
+</div>
+
+<div class="code-intro" id="Chapter08-5">
+	<p>This recipe and the next one are devoted to a mix of compile time and runtime features. We'll
+	be using the Boost.Fusion library to see what it can do.</p>
+
+	<p>Remember that we were talking about tuples and arrays in the first chapter. Now we want to
+	write a single function that can stream elements of tuples and arrays to strings.</p>
+</div>
+
+
+<div class="code-intro" id="Chapter08-6">
+	<p>This recipe will show a tiny piece of the Boost.Fusion library's abilities. We'll be splitting a
+	single tuple into two tuples, one with arithmetic types and the other with all the other types.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-0">
+	<p>It is a common task to manipulate strings. Here we'll see how the operation of string
+	comparison can be done quickly using some simple tricks. This recipe is a trampoline
+	for the next one, where the techniques described here will be used to achieve constant
+	time-complexity searches.</p>
+	<p>So, we need to make a class that is capable of quickly comparing strings for equality.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-1">
+	<p>In the previous recipe, we saw how string comparison can be optimized using hashing. After
+	reading it, the following question may arise, "Can we make a container that will cache hashed
+	values to use faster comparison?".</p>
+	<p>The answer is yes, and we can do much more. We can achieve almost constant time
+	complexities for search, insertion, and removal of elements.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-2">
+	<p>Several times in a year, we need something that can store and index a pair of values.
+	Moreover, we need to get the first part of the pair using the second, and get the second part
+	using the first. Confused? Let me show you an example. We are creating a vocabulary class,
+	wherein when the users put values into it, the class must return identifiers and when the
+	users put identifiers into it, the class must return values.</p>
+	<p>To be more practical, users will be entering login names into our vocabulary, and wish to get the
+	unique identifier of a person. They will also wish to get all the persons' names using identifiers.</p>
+	<p>Let's see how it can be implemented using Boost.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-3">
+	<p>In the previous recipe, we made some kind of vocabulary, which is good when we need to
+	work with pairs. But, what if we need much more advanced indexing? Let's make a program
+	that indexes persons:</p>
+	<pre><code>
+    struct person {
+        std::size_t     id_;
+        std::string     name_;
+        unsigned int    height_;
+        unsigned int    weight_;
+
+        person(std::size_t id, const std::string& name, unsigned int height, unsigned int weight)
+            : id_(id)
+            , name_(name)
+            , height_(height)
+            , weight_(weight)
+        {}
+    };
+
+    inline bool operator &lt; (const person& p1, const person& p2) {
+        return p1.name_ &lt; p2.name_;
+    }
+</code></pre>
+	<p>We will need a lot of indexes; for example, by name, ID, height, and weight.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-4">
+	<p>Nowadays, we usually use <code>std::vector</code> when we need nonassociative and nonordered
+	containers. This is recommended by Andrei Alexandrescu and Herb Sutter in the book
+	C++ Coding Standards, and even those users who did not read the book usually use
+	<code>std::vector</code>. Why? Well, <code>std::list</code> is slower, and uses much more resources than
+	<code>std::vector</code>. The <code>std::deque</code> container is very close to <code>std::vector</code>, but stores
+	values noncontinuously.</p>
+	<p><code>std::vector</code> is good! But if there's a need in a container that does not invalidate iterators on <code>erase</code> and
+	<code>insert</code> we are forced to choose the slower <code>std::list</code>.</p>
+	<p>But wait, there is a good solution in Boost for such cases!
+	Let's see how it can be done using Boost.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-5">
+	<p>After reading the previous recipe, some of the readers may start using fast pool allocators
+	everywhere; especially, for <code>std::set</code> and <code>std::map</code>. Well, I'm not going to stop you
+	from doing that, but let's at least take a look at an alternative: flat associative containers.
+	These containers are implemented on top of the traditional vector container and store the
+	values ordered.</p>
+</div>
 							</div>
 						</div>
 
