@@ -11,6 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.min.css" />
+        <link rel="stylesheet" href="assets/css/social-likes_flat.css">
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -73,6 +74,15 @@
 								<strong>Boost Application Development Cookbook</strong><br> Online Examples (BETA)</h2>
 								<p>This site contains all the source codes from <a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book">the book</a>.
 								<br>You are free to experiment with code, compile, modify, run and use examples.</p>
+<br>
+<div class="social-likes right" data-counters="no">
+	<div class="facebook" title="Share on Facebook">Facebook</div>
+	<div class="twitter" title="Share on Twitter">Twitter</div>
+	<div class="plusone" title="Share on Google+">Google+</div>
+	<div class="vkontakte" title="Share on VK">VK</div>
+	<div class="odnoklassniki" title="Share on Odnoklassniki">Odnoklassniki</div>
+	<div class="mailru" title="Share on MyWorld">MyWorld</div>
+</div>
 
 							</header>
 
@@ -1086,7 +1096,7 @@
 </div>
 
 <div class="code-intro" id="Chapter05-5">
-	<p>Let's take a glance at the recipe Creating a work_queue class. Each task there can be
+	<p>Let's take a glance at the recipe <a href="javascript:editor.download('Chapter05', 3)">Creating a work_queue class</a>. Each task there can be
 	executed in one of many threads and we do not know which one. Imagine that we want to
 	send the results of an executed task using some connection.</p>
 	<pre><code>
@@ -1149,7 +1159,7 @@
 
 <div class="code-intro" id="Chapter06-0">
 	<p>First of all, let's take care of the class that will hold all the tasks and provide methods for their
-	execution. We were already doing something like this in the Creating a work_queue class
+	execution. We were already doing something like this in the <a href="javascript:editor.download('Chapter05', 3)">Creating a work_queue class</a>
 	recipe, but some of the following problems were not addressed:</p>
 	<p>* A task may throw an exception that leads a call to std::terminate</p>
 	<p>* An interrupted thread may not notice interruption but will finish its task and interrupt
@@ -1590,6 +1600,194 @@
 	These containers are implemented on top of the traditional vector container and store the
 	values ordered.</p>
 </div>
+
+<div class="code-intro" id="Chapter10-0">
+	<p>Some compilers have support for extended arithmetic types such as 128-bit floats or integers.
+	Let's take a quick glance at how to use them using Boost. We'll be creating a method that
+	accepts three parameters and returns the multiplied value of those methods.</p>
+</div>
+
+<div class="code-intro" id="Chapter10-1">
+	<p>Some companies and libraries have specific requirements for their C++ code, such as
+	successful compilation without Runtime type information (RTTI). In this small recipe, we'll
+	take a look at how we can detect disabled RTTI, how to store information about types, and
+	compare types at runtime, even without <code>typeid</code>.</p>
+</div>
+
+<div class="code-intro" id="Chapter10-2">
+	<p>Remember some situations where you were using some complicated template class declared
+	in the header file? Examples of such classes would be <code>boost::variant</code>, containers from
+	Boost.Container, or Boost.Spirit parsers. When we use such classes or methods,
+	they are usually compiled (instantiated) separately in each source file that is using them,
+	and duplicates are thrown away during linking. On some compilers, that may lead to slow
+	compilation speed.</p>
+	<p>If only there was some way to tell the compiler in which source file to instantiate it!</p>
+</div>
+
+
+<div class="code-intro" id="Chapter10-3">
+	<p><a href='javascript:$("#chapters-link").click();'>Chapter 4, Compile-time Tricks</a>, and <a href='javascript:$("#chapters-link").click();'>Chapter 8, Metaprogramming</a>, were devoted to
+	metaprogramming. If you were trying to use techniques from those chapters, you may
+	have noticed that writing a metafunction can take a lot of time. So it may be a good idea
+	to experiment with metafunctions using more user-friendly methods, such as C++11
+	constexpr , before writing a portable implementation.</p>
+	<p>In this recipe, we'll take a look at how to detect constexpr support.</p>
+</div>
+
+<div class="code-intro" id="Chapter10-4">
+	<p>C++11 has very specific logic when user-defined types (UDTs) are used in STL containers.
+	Containers will use move assignment and move construction only if the move constructor
+	does not throw exceptions or there is no copy constructor.</p>
+	<p>Let's see how we can ensure the move_nothrow assignment operator and move_nothrow
+	constructor of our type do not throw exceptions.</p>
+</div>
+
+
+<div class="code-intro" id="Chapter10-5">
+	<p>Almost all modern languages have the ability to make libraries, which is a collection of classes
+	and methods that have a well-defined interface. C++ is no exception to this rule. We have two
+	types of libraries: runtime (also called shared or dynamic load) and static. But writing libraries
+	is not a trivial task in C++. Different platforms have different methods for describing which
+	symbols must be exported from the shared library.</p>
+	<p>Let's have a look at how to manage symbol visibility in a portable way using Boost.</p>
+</div>
+
+<div class="code-intro" id="Chapter10-6">
+	<p>Boost is being actively developed, so each release contains new features and libraries. Some
+	people wish to have libraries that compile for different versions of Boost and also want to use
+	some of the features of the new versions.</p>
+	<p>Let's take a look at the <code>boost::lexical_cast</code> change log. According to it, Boost 1.53 has
+	a <code>lexical_cast(const CharType* chars, std::size_t count)</code> function overload.
+	Our task for this recipe will be to use that function overload for new versions of Boost, and
+	work around that missing function overload for older versions.</p>
+</div>
+
+<div class="code-intro" id="Chapter11-0">
+	<p>There are STL functions and classes to read and write data to files. But there are no functions
+	to list files in a directory, to get the type of a file, or to get access rights for a file.</p>
+	<p>Let's see how such iniquities can be fixed using Boost. We'll be creating a program that lists
+	names, write accesses, and types of files in the current directory.</p>
+</div>
+
+<div class="code-intro" id="Chapter11-1">
+	<p>Let's consider the following lines of code:</p>
+	<pre><code>
+    std::ofstream ofs("dir/subdir/file.txt");
+    ofs &lt;&lt; "Boost.Filesystem is fun!";
+</code></pre>
+	<p>In these lines, we attempt to write something to file.txt in the dir/subdir directory.
+	This attempt will fail if there is no such directory. The ability to work with filesystems is
+	necessary for write a good working code.</p>
+
+	<p>In this recipe we'll construct a directory and a subdirectory, write some data to a file, and
+	try to create symlink , and if the symbolic link's creation fails, erase the created file. We
+	will also avoid using exceptions as a mechanism of error reporting, preferring some form
+	of return codes.</p>
+	<p>Let's see how that can be done in an elegant way using Boost.</p>
+</div>
+
+<div class="code-intro" id="Chapter11-2">
+	<p>Sometimes we write programs that will communicate with each other a lot. When
+	programs are run on different machines, using sockets is the most common technique for
+	communication. But if multiple processes run on a single machine, we can do much better!</p>
+	<p>Let's take a look at how to make a single memory fragment available from different processes
+	using the Boost.Interprocess library.</p>
+</div>
+
+<div class="code-intro" id="Chapter11-3">
+	<p>In the previous recipe, we saw how to create shared memory and how to place some objects in
+	it. Now it's time to do something useful. Let's take an example from the <a href="javascript:editor.download('Chapter05', 3)">Creating a work_queue class</a>
+	recipe, and make it work for multiple processes. At the end of
+	this example, we'll get a class that can store different tasks and pass them between processes.</p>
+</div>
+
+<div class="code-intro" id="Chapter11-4">
+	<p>It is hard to imagine writing some C++ core classes without pointers. Pointers and references
+	are everywhere in C++, and they do not work in shared memory! So if we have a structure like
+	this in shared memory and assign the address of some integer variable in shared memory
+	to <code>pointer_</code>, we won't get the correct address in the other process that will attempt to use
+	<code>pointer_</code> from that instance of <code>with_pointer</code>:</p>
+	<pre><code>
+    struct with_pointer {
+        int* pointer_;
+        // ...
+        int value_holder_;
+    };
+</code></pre>
+	<p>How can we fix that?</p>
+</div>
+
+<div class="code-intro" id="Chapter11-5">
+	<p>All around the Internet, people are asking "What is the fastest way to read files?". Let's
+	make our task for this recipe even harder: "What is the fastest and most portable way to
+	read binary files?"</p>
+</div>
+
+
+<div class="code-intro" id="Chapter11-6">
+	<p>Nowadays, plenty of embedded devices still have only a single core. Developers write
+	for those devices, trying to squeeze maximum performance out of them. Using Boost.
+	Threads or some other thread library for such devices is not effective; the OS will be forced
+	to schedule threads for execution, manage resources, and so on, as the hardware cannot
+	run them in parallel.</p>
+	<p>So how can we make a program switch to the execution of a subprogram while waiting for
+	some resource in the main part?</p>
+</div>
+
+<div class="code-intro" id="Chapter12-0">
+	<p>Some tasks require a graphical representation of data. Boost.Graph is a library that was
+	designed to provide a flexible way of constructing and representing graphs in memory. It also
+	contains a lot of algorithms to work with graphs, such as topological sort, breadth first search,
+	depth first search, and Dijkstra shortest paths.</p>
+	<p>Well, let's perform some basic tasks with Boost.Graph !</p>
+</div>
+
+<div class="code-intro" id="Chapter12-1">
+	<p>Making programs that manipulate graphs was never easy because of issues with visualization.
+	When we work with STL containers such as std::map and std::vector , we can always
+	print the container's contents and see what is going on inside. But when we work with
+	complex graphs, it is hard to visualize the content in a clear way: too many vertexes and too
+	many edges.</p>
+	<p>In this recipe, we'll take a look at the visualization of Boost.Graph using the Graphviz tool.</p>
+</div>
+
+<div class="code-intro" id="Chapter12-2">
+	<p>I know of many examples of commercial products that use incorrect methods for getting
+	random numbers. It's a shame that some companies still use <code>rand()</code> in cryptography and
+	banking software.</p>
+	<p>Let's see how to get a fully random uniform distribution using Boost.Random that is suitable
+	for banking software.</p>
+</div>
+
+<div class="code-intro" id="Chapter12-3">
+	<p>Some projects require specific trigonometric functions, a library for numerically solving
+	ordinary differential equations, and working with distributions and constants. All of those
+	parts of Boost.Math would be hard to fit into even a separate book. A single recipe definitely
+	won't be enough. So let's focus on very basic everyday-use functions to work with float types.</p>
+	<p>We'll write a portable function that checks an input value for infinity and not-a-number (<code>NaN</code>)
+	values and changes the sign if the value is negative.</p>
+</div>
+
+<div class="code-intro" id="Chapter12-4">
+	<p>This recipe and the next one are devoted to auto-testing the Boost.Test library, which is used
+	by many Boost libraries. Let's get hands-on with it and write some tests for our own class.</p>
+</div>
+
+<div class="code-intro" id="Chapter12-5">
+	<p>Writing auto tests is good for your project. But managing test cases is hard when the project
+	is large and many developers are working on it. In this recipe, we'll take a look at how to run
+	individual tests and how to combine multiple test cases in a single module.</p>
+	<p>Let's pretend that two developers are testing the <code>foo</code> structure declared in the <code>foo.hpp</code>
+	header and we wish to give them separate source files to write a test to. In that way, the
+	developers won't bother each other and can work in parallel. However, the default test run
+	must execute the tests of both developers.</p>
+</div>
+
+<div class="code-intro" id="Chapter12-6">
+	<p>I've left you something really tasty for dessert – Boost's Generic Image Library (GIL), which
+	allows you to manipulate images and not care much about image formats.</p>
+	<p>Let's do something simple and interesting with it; let's make a program that negates any picture.</p>
+</div>
 							</div>
 						</div>
 
@@ -1680,6 +1878,7 @@
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/social-likes.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/jquery.scrollzer.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
