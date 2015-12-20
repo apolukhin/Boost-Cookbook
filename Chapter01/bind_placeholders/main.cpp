@@ -16,16 +16,16 @@ struct mul_2_func_obj: public std::unary_function<Number, Number> {
 };
 
 void mul_2_impl1(std::vector<Number>& values) {
-    std::for_each(values.begin(), values.end(), mul_2_func_obj());
+    std::transform(values.begin(), values.end(), values.begin(), mul_2_func_obj());
 }
 
 void mul_2_impl2(std::vector<Number>& values) {
-    std::for_each(values.begin(), values.end(), boost::bind(std::plus<Number>(), _1, _1));
+    std::transform(values.begin(), values.end(), values.begin(), boost::bind(std::plus<Number>(), _1, _1));
 }
 
 template <class T>
 void mul_2_impl3(std::vector<T>& values) {
-    std::for_each(values.begin(), values.end(), boost::bind(std::plus<T>(), _1, _1));
+    std::transform(values.begin(), values.end(), values.begin(), boost::bind(std::plus<T>(), _1, _1));
 }
 
 class Device1 {
