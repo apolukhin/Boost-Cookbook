@@ -8,8 +8,9 @@
 # See https://svn.boost.org/trac/boost/wiki/TravisCoverals for description of this file
 # and how it can be used with Boost libraries.
 #
-# File revision 2 simplified
+# File revision 5 simplified
 
+sudo: false
 language: cpp
 compiler:
 #    - clang
@@ -28,13 +29,19 @@ env:
         # Example: - IGNORE_COVERAGE='*/boost/progress.hpp */filesystem/src/*'
         - IGNORE_COVERAGE='*/boost-local/*'
 
+addons:
+  apt:
+    packages:
+    - valgrind
+    - python-yaml
+    - lcov
+    - qt4-qmake
+    - language-pack-ru
+
 before_install:
     # Set this to the name of the library
     - PROJECT_TO_TEST=`basename $TRAVIS_BUILD_DIR`
     - echo "Testing $PROJECT_TO_TEST"
-
-    - sudo apt-get install -qq libboost-dev qt4-qmake
-    - sudo locale-gen ru_RU.utf8
 
     # Creating script for examples execution
     - echo 'declare -A optionsmap'                                                  >run_examples.sh
@@ -127,10 +134,7 @@ script:
 
 after_success:
     - mkdir -p $TRAVIS_BUILD_DIR/coverals
-    # Preparing Coveralls data by
-    # ... installing the tools
-    - sudo apt-get install -qq python-yaml lcov
-
+    # Preparing Coveralls data
     # ... changing data format to a readable one
     - find Chapter*/* -type d -exec lcov --directory "{}" --base-directory ./"{}" --capture --output-file "{}"/tmp_coverage.info \;
     # ... erasing /test/ /example/ folder data
