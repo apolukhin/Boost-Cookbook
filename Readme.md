@@ -59,3 +59,4 @@ Thanks to Heather Gopsill from Packt Publishing for giving a permission to make 
 * Boost.DLL examples
 * Variant is proposed for C++17. Highlight the differences.
 * flat containers were proposed for C++17
+* describe in depth changes from 135a24926a1d084e76f8f527deeee6236274e496
