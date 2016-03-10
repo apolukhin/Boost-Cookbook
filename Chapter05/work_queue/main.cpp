@@ -18,6 +18,7 @@ public:
         boost::unique_lock<boost::mutex> lock(tasks_mutex_);
         tasks_.push_back(task);
         lock.unlock();
+
         cond_.notify_one();
     }
 
@@ -42,6 +43,16 @@ public:
         tasks_.pop_front();
 
         return ret;
+    }
+
+    void flush() {
+        // If notification for pushed task was sent between lines
+        // `while (tasks_.empty()) {` and `cond_.wait(lock);`, then
+        // there is a small chance that the notification was lost.
+        //
+        // Forcing all the blocked threads to wake up.
+        boost::lock_guard<boost::mutex> lock(tasks_mutex_);
+        cond_.notify_all();
     }
 };
 
@@ -75,14 +86,17 @@ int main() {
     boost::thread push2(&pusher);
     boost::thread push3(&pusher);
 
+    // Waiting for all the tasks to push
+    push1.join();
+    push2.join();
+    push3.join();
+    g_queue.flush(); 
+
     // Waiting for all the tasks to pop
     pop_sync1.join();
     pop_sync2.join();
     pop_sync3.join();
 
-    push1.join();
-    push2.join();
-    push3.join();
 
     // Asserting that no tasks remained,
     // and falling though without blocking

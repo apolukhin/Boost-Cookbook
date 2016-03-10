@@ -78,14 +78,13 @@ private:
     bool                    is_stopped_;
 
 public:
-    work_queue() 
+    work_queue()
         : is_stopped_(false)
     {}
 
     void stop() {
-        boost::unique_lock<boost::mutex> lock(mutex_);
+        boost::lock_guard<boost::mutex> lock(mutex_);
         is_stopped_ = true;
-        lock.unlock();
         cond_.notify_all();
     }
     
@@ -98,9 +97,9 @@ public:
         lock.unlock();
         cond_.notify_one();
     }
-    
+
     task_type pop_task() {
-        boost::unique_lock<boost::mutex> lock(mutex_);
+        boost::lock_guard<boost::mutex> lock(mutex_);
         while (tasks_.empty()) {
             if (is_stopped_) {
                 return task_type();
