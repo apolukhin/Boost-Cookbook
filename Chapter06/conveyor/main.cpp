@@ -99,7 +99,7 @@ public:
     }
 
     task_type pop_task() {
-        boost::lock_guard<boost::mutex> lock(mutex_);
+        boost::unique_guard<boost::mutex> lock(mutex_);
         while (tasks_.empty()) {
             if (is_stopped_) {
                 return task_type();
