@@ -22,7 +22,7 @@ void list_specific(slist_t& list, slist_t::iterator it) {
 
     // Freeing memory
     boost::singleton_pool<
-        boost::pool_allocator_tag,
+        boost::fast_pool_allocator_tag,
         sizeof(int)
     >::release_memory();
 }
