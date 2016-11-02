@@ -20,18 +20,20 @@ void list_specific(slist_t& list, slist_t::iterator it) {
     assert(*it == 777);
     assert( *(++iterator(it)) == 775);
 
-    // Freeing memory
+    list.clear();
+    assert(list.empty());
+
+    // Freeing memory: slist rebinds allocator_t and allocates
+    // nodes of the slist, not just ints.
     boost::singleton_pool<
         boost::fast_pool_allocator_tag,
-        sizeof(int)
+        sizeof(slist_t::stored_allocator_type::value_type)
     >::release_memory();
 }
 
 #include <list>
 typedef std::list<int> stdlist_t;
 void list_specific(stdlist_t& list, stdlist_t::iterator it) {
-    typedef stdlist_t::iterator iterator;
-
     // Erasing element 776
     ++it;
     assert( *it == 776);
