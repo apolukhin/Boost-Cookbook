@@ -46,9 +46,9 @@ public:
     }
 
     void flush() {
-        // If notification for pushed task was sent between lines
-        // `while (tasks_.empty()) {` and `cond_.wait(lock);`, then
-        // there is a small chance that the notification was lost.
+        // TODO: Seems that there is a small chance
+        // of loosing the notification because of some
+        // unknown issue in Boost or libc.
         //
         // Forcing all the blocked threads to wake up.
         boost::lock_guard<boost::mutex> lock(tasks_mutex_);
