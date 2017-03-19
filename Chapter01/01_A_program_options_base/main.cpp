@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     // When we are adding options, first parameter is a name
     // to be used in command line. Second parameter is a type
     // of that option, wrapped in value<> class. Third parameter
-    // must be a short description of that option
+    // must be a short description of that option.
     desc.add_options()
         ("apples", opt::value<int>(), "how many apples do you have")
         ("oranges", opt::value<int>(), "how many oranges do you have")
@@ -24,6 +24,8 @@ int main(int argc, char *argv[])
 
     // Parsing and storing arguments
     opt::store(opt::parse_command_line(argc, argv, desc), vm);
+
+    // Must be called after all the parsing and storing
     opt::notify(vm);
 
     if (vm.count("help")) {
@@ -34,7 +36,5 @@ int main(int argc, char *argv[])
     std::cout << "Fruits count: "
         << vm["apples"].as<int>() + vm["oranges"].as<int>()
         << std::endl;
-
-    return 0;
 }
 

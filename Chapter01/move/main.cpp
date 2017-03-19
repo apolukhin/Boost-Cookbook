@@ -1,3 +1,4 @@
+#include <memory>
 #include <string>
 #include <vector>
 #include <auto_ptr.h>

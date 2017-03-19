@@ -7,15 +7,19 @@ CONFIG -= qt
 
 # ... and a big portion of settings that reader may modify:
 
-# Flag to set your compiler into C++11 mode
+# Flags to set your compiler into C++11/C++14 mode
 # (required for GCC and Clang, comment out in MSVC)
-CPP11FLAG = -std=c++0x
+CPP11FLAG = -std=c++11
+CPP14FLAG = -std=c++14
+
+# Suppressing GCC warning
+QMAKE_CXXFLAGS += -Wno-deprecated-declarations -pthread
+QMAKE_LINKFLAGS += -lpthread
 
 # Paths to boost headers and libraries
-# (is you are using Linux and installed Boost 1.53 from repository
-# you may comment out those lines)
-INCLUDEPATH += /home/antoshkka/boost_maintain/boost_1_53_0
-LIBS += -L/home/antoshkka/boost_maintain/boost_1_53_0/stage/lib
+# (if you are using Linux and installed Boost 1.53 from repository you may comment out those lines)
+INCLUDEPATH += /data/boost_1_63_0
+LIBS += -L/data/boost_1_63_0/stage/lib
 
 # Compiler to use (comment out to use default one)
 #QMAKE_CXX = clang++

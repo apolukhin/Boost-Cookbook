@@ -1,6 +1,8 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
+    01_A_program_options_base \
+    01_B_program_options_short \
     any \
     any_db_example \
     array \
@@ -12,8 +14,6 @@ SUBDIRS += \
     noncopyable_movable \
     noncopyable_movable_c++11 \
     optional \
-    program_options_base \
-    program_options_short \
     tuple \
     variant \
     variant_db_example
