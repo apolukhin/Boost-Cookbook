@@ -1,0 +1,1906 @@
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en" prefix="og: http://ogp.me/ns#">
+	<head>
+		<title>Boost Application Development Cookbook Online Examples</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<meta property="og:title" content="Online Examples: Boost Application Development Cookbook"/>
+		<meta property="og:image" content="http://apolukhin.github.io/Boost-Cookbook-4880OS/images/4880OS_online.jpg"/>
+		<link rel="canonical" href="http://apolukhin.github.io/Boost-Cookbook-4880OS/">
+		<meta property="og:url" content="http://apolukhin.github.io/Boost-Cookbook-4880OS/"/>
+		<meta property="og:site_name" content="Boost C++ Online Examples"/>
+		<meta property="og:type" content="website"/>
+		<meta property="og:description" content="Compile, modify and run examples from the 'Boost Application Development Cookbook' online. Write your own C++ code, tune compilation flags and do online experiments without any need to install C++ compiler or Boost C++ Libraries."/>
+
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.min.css" />
+		<link rel="stylesheet" href="assets/css/social-likes_flat.css">
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+		<style type="text/css" media="screen">
+			#code { 
+				width: 100%;
+				float:left;
+				min-height:100px;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+
+		<!-- Header -->
+			<div id="header">
+
+				<div class="top">
+
+						<div id="logo">
+							<h1 id="title">Online Examples</h1>
+							<p>Boost Application Development Cookbook</p><img src="images/4880OS.jpg" style="width: 100%" alt="Book cover"/>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<!--
+								Prologue's nav expects links in one of two formats:
+								1. Hash link (scrolls to a different section within the page)
+								   <li><a href="#foobar" id="foobar-link" class="icon fa-whatever-icon-you-want skel-layers-ignoreHref"><span class="label">Foobar</span></a></li>
+								2. Standard link (sends the user to another page/site)
+								   <li><a href="http://foobar.tld" id="foobar-link" class="icon fa-whatever-icon-you-want"><span class="label">Foobar</span></a></li>
+							-->
+							<ul>
+								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-book">Heading</span></a></li>
+								<li><a href="#chapters" id="chapters-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Chapters</span></a></li>
+								<li><a href="#intros" id="intros-link" class="skel-layers-ignoreHref"><span class="icon fa-info">Recipe's Intro</span></a></li>
+								<li><a href="#online_run" id="online_run-link" class="skel-layers-ignoreHref"><span class="icon fa-gear">Compile &amp; Run</span></a></li>
+								<li><a href="#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-user">About</span></a></li>
+								<li><a href="#acknowledgements" id="acknowledgements-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Thanks</span></a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+				<div class="bottom">
+				</div>
+
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+	<a href="https://github.com/apolukhin/Boost-Cookbook-4880OS"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+
+				<!-- Intro -->
+					<section id="top" class="one dark cover">
+						<div class="container">
+
+							<header>
+								<h2 class="alt">
+								<strong>Boost&nbsp;Application&nbsp;Development&nbsp;Cookbook</strong><br> Online&nbsp;Examples</h2>
+								<p>This site contains all the source codes and introductions from <a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book">the book</a>.
+								<br>You are free to experiment with code, compile, modify, run and use examples.</p>
+<br>
+<div class="social-likes right" data-counters="yes" data-url="/">
+	<div class="facebook" title="Share on Facebook">Facebook</div>
+	<div class="twitter" title="Share on Twitter">Twitter</div>
+	<div class="plusone" title="Share on Google+">Google+</div>
+	<div class="vkontakte" title="Share on VK">VK</div>
+	<div class="odnoklassniki" title="Share on Odnoklassniki">Odnoklassniki</div>
+	<div class="mailru" title="Share on MyWorld">MyWorld</div>
+</div>
+
+							</header>
+
+						</div>
+					</section>
+
+					<section id="chapters" class="two">
+						<div class="container">
+
+							<div class="right" style="margin: 0.5em 0.5em 0 3em">
+								<p><button title="Expand TOC and show all recipes" id="show_all_button" onclick='editor.chapter_show_all();'><span class="icon fa-toggle-down"></span></button>
+										- Show all recipes</p>
+								<p><button title="Show only chapters in TOC" id="hide_all_button" onclick='editor.chapter_hide_all();'><span class="icon fa-toggle-up"></span></button>
+										- Hide all recipes</p>
+							</div>
+
+							<h2 id="Chapter00_ref">Chapters</h2>
+							<h4>Click on the chapter to view it's recipes. Click on the recipe to see it's sources.</h4>
+
+
+							<div class="left">
+								<ul>
+									<li>
+										<a id="Chapter01_ref" href="javascript:editor.chapter_toggle('01');">Chapter 01: Starting to Write Your Application</a>
+										<ul class="hidden" id="Chapter01">
+<li><a href="javascript:editor.download('Chapter01', 0)">Getting configuration options (part 1</a>, <a href="javascript:editor.download('Chapter01', 0, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter01', 1)">Storing any value in a container/variable</a></li>
+<li><a href="javascript:editor.download('Chapter01', 2)">Storing multiple chosen types in a variable/container</a></li>
+<li><a href="javascript:editor.download('Chapter01', 3)">Using a safer way to work with a container that stores multiple chosen types (part 1</a>, <a href="javascript:editor.download('Chapter01', 3, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter01', 4)">Returning a value or flag where there is no value</a></li>
+<li><a href="javascript:editor.download('Chapter01', 5)">Returning an array from a function</a></li>
+<li><a href="javascript:editor.download('Chapter01', 6)">Combining multiple values into one</a></li>
+<li><a href="javascript:editor.download('Chapter01', 7)">Reordering the parameters of function</a></li>
+<li><a href="javascript:editor.download('Chapter01', 8)">Binding a value as a function parameter</a></li>
+<li><a href="javascript:editor.download('Chapter01', 9)">Using the C++11 move emulation</a></li>
+<li><a href="javascript:editor.download('Chapter01', 10)">Making a noncopyable class</a></li>
+<li><a href="javascript:editor.download('Chapter01', 11)">Making a noncopyable but movable class</a></li>
+										</ul>
+									</li>
+									<li>
+										<a id="Chapter02_ref" href="javascript:editor.chapter_toggle('02');">Chapter 02: Converting Data</a>
+										<ul class="hidden" id="Chapter02">
+<li><a href="javascript:editor.download('Chapter02', 0)">Converting strings to numbers</a></li>
+<li><a href="javascript:editor.download('Chapter02', 1)">Converting numbers to strings</a></li>
+<li><a href="javascript:editor.download('Chapter02', 2)">Converting numbers to numbers</a></li>
+<li><a href="javascript:editor.download('Chapter02', 3)">Converting user-defined types to/from strings</a></li>
+<li><a href="javascript:editor.download('Chapter02', 4)">Casting polymorphic objects</a></li>
+<li><a href="javascript:editor.download('Chapter02', 5)">Parsing simple input</a></li>
+<li><a href="javascript:editor.download('Chapter02', 6)">Parsing input</a></li>
+										</ul>
+									</li>
+									<li>
+										<a id="Chapter03_ref" href="javascript:editor.chapter_toggle('03');">Chapter 03: Managing Resources</a>
+										<ul class="hidden" id="Chapter03">
+<li><a href="javascript:editor.download('Chapter03', 0)">Managing pointers to classes that do not leave scope</a></li>
+<li><a href="javascript:editor.download('Chapter03', 1)">Reference counting of pointers to classes used across methods</a></li>
+<li><a href="javascript:editor.download('Chapter03', 2)">Managing pointers to arrays that do not leave scope</a></li>
+<li><a href="javascript:editor.download('Chapter03', 3)">Reference counting pointers to arrays used across methods</a></li>
+<li><a href="javascript:editor.download('Chapter03', 4)">Storing any functional objects in a variable (part 1</a>, <a href="javascript:editor.download('Chapter03', 4, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter03', 5)">Passing a function pointer in a variable</a>)</li>
+<li><a href="javascript:editor.download('Chapter03', 6)">Passing C++11 lambda functions in a variable</a></li>
+<li><a href="javascript:editor.download('Chapter03', 7)">Containers of pointers</a></li>
+<li><a href="javascript:editor.download('Chapter03', 8)">Doing something at scope exit</a></li>
+<li><a href="javascript:editor.download('Chapter03', 9)">Initializing the base class by a member of the derived class</a></li>
+										</ul>
+									</li>
+									<li>
+										<a id="Chapter04_ref" href="javascript:editor.chapter_toggle('04');">Chapter 04: Compile-time Tricks</a>
+										<ul class="hidden" id="Chapter04">
+<li><a href="javascript:editor.download('Chapter04', 0)">Checking sizes at compile time</a></li>
+<li><a href="javascript:editor.download('Chapter04', 1)">Enabling the usage of templated functions for integral types</a></li>
+<li><a href="javascript:editor.download('Chapter04', 2)">Disabling templated functions' usage for real types</a></li>
+<li><a href="javascript:editor.download('Chapter04', 3)">Creating a type from number</a></li>
+<li><a href="javascript:editor.download('Chapter04', 4)">Implementing a type trait</a></li>
+<li><a href="javascript:editor.download('Chapter04', 5)">Selecting an optimal operator for a template parameter</a></li>
+<li><a href="javascript:editor.download('Chapter04', 6)">Getting a type of expression in C++03</a></li>
+										</ul>
+									</li>
+									<li>
+										<a id="Chapter05_ref" href="javascript:editor.chapter_toggle('05');">Chapter 05: Multithreading</a>
+										<ul class="hidden" id="Chapter05">
+<li><a href="javascript:editor.download('Chapter05', 0)">Creating an execution thread</a></li>
+<li><a href="javascript:editor.download('Chapter05', 1)">Syncing access to a common resource</a></li>
+<li><a href="javascript:editor.download('Chapter05', 2)">Fast access to common resource using atomics</a></li>
+<li><a href="javascript:editor.download('Chapter05', 3)">Creating a work_queue class</a></li>
+<li><a href="javascript:editor.download('Chapter05', 4)">Multiple-readers-single-writer lock</a></li>
+<li><a href="javascript:editor.download('Chapter05', 5)">Creating variables that are unique per thread</a></li>
+<li><a href="javascript:editor.download('Chapter05', 6)">Interrupting a thread</a></li>
+<li><a href="javascript:editor.download('Chapter05', 7)">Manipulating a group of threads</a></li>
+										</ul>
+									</li>
+									<li>
+										<a id="Chapter06_ref" href="javascript:editor.chapter_toggle('06');">Chapter 06: Manipulating Tasks</a>
+										<ul class="hidden" id="Chapter06">
+<li><a href="javascript:editor.download('Chapter06', 0)">Registering a task for processing an arbitrary datatype (part 1</a>, <a href="javascript:editor.download('Chapter06', 0, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter06', 1)">Making timers and processing timer events as tasks (part 1</a>, <a href="javascript:editor.download('Chapter06', 1, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter06', 2)">Network communication as a task (part 1</a>, <a href="javascript:editor.download('Chapter06', 2, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter06', 3)">Accepting incoming connections (part 1</a>, <a href="javascript:editor.download('Chapter06', 3, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter06', 4)">Executing different tasks in parallel (part 1</a>, <a href="javascript:editor.download('Chapter06', 4, 1)">part 2</a>)</li>
+<li><a href="javascript:editor.download('Chapter06', 5)">Conveyor tasks processing</a></li>
+<li><a href="javascript:editor.download('Chapter06', 6)">Making a nonblocking barrier</a></li>
+<li><a href="javascript:editor.download('Chapter06', 7)">Storing an exception and making a task from it</a></li>
+<li><a href="javascript:editor.download('Chapter06', 8)">Getting and processing system signals as tasks (part 1</a>, <a href="javascript:editor.download('Chapter06', 8, 1)">part 2</a>)</li>
+										</ul>
+									</li>
+
+									<li>
+										<a id="Chapter07_ref" href="javascript:editor.chapter_toggle('07');">Chapter 07: Manipulating Strings</a>
+										<ul class="hidden" id="Chapter07">
+<li><a href="javascript:editor.download('Chapter07', 0)">Changing cases and case-insensitive comparison</a></li>
+<li><a href="javascript:editor.download('Chapter07', 1)">Matching strings using regular expressions</a></li>
+<li><a href="javascript:editor.download('Chapter07', 2)">Searching and replacing strings using regular expressions</a></li>
+<li><a href="javascript:editor.download('Chapter07', 3)">Formatting strings using safe printf-like functions</a></li>
+<li><a href="javascript:editor.download('Chapter07', 4)">Replacing and erasing strings</a></li>
+<li><a href="javascript:editor.download('Chapter07', 5)">Representing a string with two iterators</a></li>
+<li><a href="javascript:editor.download('Chapter07', 6)">Using a reference to string type</a></li>
+										</ul>
+									</li>
+									<li>
+										<a id="Chapter08_ref" href="javascript:editor.chapter_toggle('08');">Chapter 08: Metaprogramming</a>
+										<ul class="hidden" id="Chapter08">
+<li><a href="javascript:editor.download('Chapter08', 0)">Using type "vector of types"</a></li>
+<li><a href="javascript:editor.download('Chapter08', 1)">Manipulating a vector of types</a></li>
+<li><a href="javascript:editor.download('Chapter08', 2)">Getting a function's result type at compile time</a></li>
+<li><a href="javascript:editor.download('Chapter08', 3)">Making a higher-order metafunction</a></li>
+<li><a href="javascript:editor.download('Chapter08', 4)">Evaluating metafunctions lazily</a></li>
+<li><a href="javascript:editor.download('Chapter08', 5)">Converting all the tuple elements to strings</a></li>
+<li><a href="javascript:editor.download('Chapter08', 6)">Splitting tuples</a></li>
+										</ul>
+									</li>
+									<li>
+										<a id="Chapter09_ref" href="javascript:editor.chapter_toggle('09');">Chapter 09: Containers</a>
+										<ul class="hidden" id="Chapter09">
+<li><a href="javascript:editor.download('Chapter09', 0)">Comparing strings in an ultra-fast manner</a></li>
+<li><a href="javascript:editor.download('Chapter09', 1)">Using an unordered set and map</a></li>
+<li><a href="javascript:editor.download('Chapter09', 2)">Making a map, where value is also a key</a></li>
+<li><a href="javascript:editor.download('Chapter09', 3)">Using multi-index containers</a></li>
+<li><a href="javascript:editor.download('Chapter09', 4)">Getting the benefits of single-linked list and memory pool</a></li>
+<li><a href="javascript:editor.download('Chapter09', 5)">Using flat associative containers</a></li>
+										</ul>
+									</li>
+									<li>
+										<a id="Chapter10_ref" href="javascript:editor.chapter_toggle('10');">Chapter 10: Gathering Platform and Compiler Information</a>
+										<ul class="hidden" id="Chapter10">
+<li><a href="javascript:editor.download('Chapter10', 0)">Detecting int128 support</a></li>
+<li><a href="javascript:editor.download('Chapter10', 1)">Detecting RTTI support</a></li>
+<li><a href="javascript:editor.download('Chapter10', 2)">Speeding up compilation using C++11 extern templates</a></li>
+<li><a href="javascript:editor.download('Chapter10', 3)">Writing metafunctions using simpler methods</a></li>
+<li><a href="javascript:editor.download('Chapter10', 4)">Reducing code size and increasing performance of user-defined types (UDTs) in C++11</a></li>
+<li><a href="javascript:editor.download('Chapter10', 5)">The portable way to export and import functions and classes (part 1</a>, <a href="javascript:editor.download('Chapter10', 5, 1)">part 2</a>, <a href="javascript:editor.download('Chapter10', 5, 2)">part 3</a>)</li>
+<li><a href="javascript:editor.download('Chapter10', 6)">Detecting the Boost version and getting latest features</a></li>
+										</ul>
+									</li>
+									<li>
+										<a id="Chapter11_ref" href="javascript:editor.chapter_toggle('11');">Chapter 11: Working with the System</a>
+										<ul class="hidden" id="Chapter11">
+<li><a href="javascript:editor.download('Chapter11', 0)">Listing files in a directory</a></li>
+<li><a href="javascript:editor.download('Chapter11', 1)">Erasing and creating files and directories</a></li>
+<li><a href="javascript:editor.download('Chapter11', 2)">Passing data quickly from one process to another</a></li>
+<li><a href="javascript:editor.download('Chapter11', 3)">Syncing interprocess communications</a></li>
+<li><a href="javascript:editor.download('Chapter11', 4)">Using pointers in shared memory</a></li>
+<li><a href="javascript:editor.download('Chapter11', 5)">The fastest way to read files</a></li>
+<li><a href="javascript:editor.download('Chapter11', 6)">Coroutines – saving the state and postponing the execution</a></li>
+										</ul>
+									</li>
+									<li>
+										<a id="Chapter12_ref" href="javascript:editor.chapter_toggle('12');">Chapter 12: Scratching the Tip of the Iceberg</a>
+										<ul class="hidden" id="Chapter12">
+<li><a href="javascript:editor.download('Chapter12', 0)">Working with graphs</a></li>
+<li><a href="javascript:editor.download('Chapter12', 1)">Visualizing graphs</a></li>
+<li><a href="javascript:editor.download('Chapter12', 2)">Using a true random number generator</a></li>
+<li><a href="javascript:editor.download('Chapter12', 3)">Using portable math functions</a></li>
+<li><a href="javascript:editor.download('Chapter12', 4)">Writing test cases</a></li>
+<li><a href="javascript:editor.download('Chapter12', 5)">Combining multiple test cases in one test module (part 1</a>, <a href="javascript:editor.download('Chapter12', 5, 1)">part 2</a>, <a href="javascript:editor.download('Chapter12', 5, 2)">part 3</a>, <a href="javascript:editor.download('Chapter12', 5, 3)">part 4</a>, <a href="javascript:editor.download('Chapter12', 5, 4)">part 5</a>)</li>
+<li><a href="javascript:editor.download('Chapter12', 6)">Manipulating images (part 1</a>, <a href="javascript:editor.download('Chapter12', 6, 1)">part 2</a>)</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+					</section>
+
+					<section class="three">
+						<div class="container">
+							<div class="width100 left" id="online_example">
+
+								<div id="intros" class="right" style="margin: 0.5em 0.5em">
+									<button title="To previous recipe" onclick='editor.prev(); editor.set_local_url();'><span class="icon fa-angle-left"></span></button>
+									<button title="To chapters list" onclick='$("#chapters-link").click();'><span class="icon fa-home"></span></button>
+									<button title="To next recipe" onclick='editor.next(); editor.set_local_url();'><span class="icon fa-angle-right"></span></button>
+								</div>
+								<h3>Recipe's Intro</h3>
+								<h4 id="recipe_title" class="width100"><span class="icon fa-bookmark-o"></span> Recipe: Getting configuration options</h4><br>
+
+
+<div class="code-intro" id="Chapter01-0">
+	<p>Take a look at some of the console programs, such as <code>cp</code> in Linux. They all have a fancy help,
+	their input parameters do not depend on any position, and have a human readable syntax,
+	for example:</p>
+	<pre><code>
+    $ cp --help
+
+    Usage: cp [OPTION]... [-T] SOURCE DEST
+        -a, --archive       same as -dR --preserve=all
+        -b                  like --backup but does not accept an argument
+</code></pre>
+	<p>You can implement the same functionality for your program in 10 minutes. And all you need
+	is the Boost.ProgramOptions library.</p>
+</div>
+
+<div class="code-intro" id="Chapter01-1">
+	<p>If you have been programming in Java, C#, or Delphi, you will definitely miss the ability to
+	create containers with the <code>Object</code> value type in C++. The <code>Object</code> class in those languages is
+	a basic class for almost all types, so you are able to assign (almost) any value to it at any time.</p>
+	<p>Just imagine how great it would be to have such a feature in C++</p>
+</div>
+
+<div class="code-intro" id="Chapter01-2">
+	<p>Are you aware of the concept of unrestricted unions in C++11? Let me tell you about it in
+	short. C++03 unions can only hold extremely simple types of data called POD (plain old data).
+	So in C++03, you cannot, for example, store <code>std::string</code> or <code>std::vector</code> in a union.
+	C++11 relaxes this requirement, but you'll have to manage the construction and destruction
+	of such types by yourself, call in-place construction/destruction, and remember what type is
+	stored in a union. A huge amount of work, isn't it?</p>
+</div>
+
+<div class="code-intro" id="Chapter01-3">
+	<p>Imagine that you are creating a wrapper around some SQL database interface. You decided
+	that <code>boost::any</code> will perfectly match the requirements for a single cell of the database
+	table. Some other programmer will be using your classes, and his task would be to get a
+	row from the database and count the sum of the arithmetic types in a row.</p>
+</div>
+
+<div class="code-intro" id="Chapter01-4">
+	<p>Imagine that we have a function that does not throw an exception and returns a value or
+	indicates that an error has occurred. In Java or C# programming languages, such cases are
+	handled by comparing a return value from a function value with a <code>null</code> pointer; if it is <code>null</code> then
+	an error has occurred. In C++, returning a pointer from a function confuses library users and
+	usually requires dynamic memory allocation (which is slow).</p>
+</div>
+
+<div class="code-intro" id="Chapter01-5">
+	<p>Let's play a guessing game! What can you tell about the following function?</p>
+	<pre><code>
+    char* vector_advance(char* val);
+</code></pre>
+
+	<p>Should return values be deallocated by the programmer or not? Does the function attempt
+	to deallocate the input parameter? Should the input parameter be zero-terminated, or should
+	the function assume that the input parameter has a specified width?
+	And now, let's make the task harder! Take a look at the following line:</p>
+	<pre><code>
+    char ( &amp;vector_advance( char (&amp;val)[4] ) )[4];
+</code></pre>
+	<p>Please do not worry; I've also been scratching my head for half an hour before getting an idea
+	of what is happening here. <code>vector_advance</code> is a function that accepts and returns an array
+	of four elements. Is there a way to write such a function clearly?</p>
+</div>
+
+<div class="code-intro" id="Chapter01-6">
+	<p>There is a very nice present for those who like <code>std::pair</code>. Boost has a library called Boost.Tuple,
+	and it is just like <code>std::pair</code>, but it can also work with triples, quads, and even bigger
+	collections of types.</p>
+</div>
+
+<div class="code-intro" id="Chapter01-7">
+	<p>This recipe and the next one are devoted to a very interesting library, whose functionality at
+	first glance looks like some kind of magic. This library is called Boost.Bind and it allows
+	you to easily create new functional objects from functions, member functions, and functional
+	objects, also allowing the reordering of the initial function's input parameters and binding
+	some values or references as function parameters.</p>
+</div>
+
+<div class="code-intro" id="Chapter01-8">
+	<p>If you work with the STL library a lot and use the <code>&lt;algorithm&gt;</code> header, you will definitely
+	write a lot of functional objects. You can construct them using a set of STL adapter functions
+	such as <code>bind1st</code>, <code>bind2nd</code>, <code>ptr_fun</code>, <code>mem_fun</code>, and <code>mem_fun_ref</code>, or you can write them
+	by hand (because adapter functions look scary). Here is some good news: Boost.Bind can
+	be used instead of all of those functions and it provides a more human-readable syntax.</p>
+</div>
+
+<div class="code-intro" id="Chapter01-9">
+	<p>One of the greatest features of the C++11 standard is rvalue references. This feature allows
+	us to modify temporary objects, "stealing" resources from them. As you can guess, the C++03
+	standard has no rvalue references, but using the Boost.Move library you can write some
+	portable code that uses them, and even more, you actually get started with the emulation of
+	move semantics.</p>
+</div>
+
+<div class="code-intro" id="Chapter01-10">
+	<p>You must have almost certainly encountered situations where providing a copy constructor
+	and move assignment operator for a class will require too much work, or where a class owns
+	some resources that must not be copied for technical reasons:</p>
+	<pre><code>
+    class descriptor_owner {
+        void* descriptor_;
+
+    public:
+        explicit descriptor_owner(const char* params);
+
+        ~descriptor_owner() {
+            system_api_free_descriptor(descriptor_);
+        }
+    };
+</code></pre>
+	<p>The C++ compiler, in the case of the previous example, will generate a copy constructor and
+	an assignment operator, so the potential user of the descriptor_owner class will be able
+	to create the following awful things:</p>
+	<pre><code>
+    descriptor_owner d1("O_o");
+    descriptor_owner d2("^_^");
+
+    // Descriptor of d2 was not correctly freed
+    d2 = d1;
+
+    // destructor of d2 will free the descriptor
+    // destructor of d1 will try to free already freed descriptor
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter01-11">
+	<p>Now imagine the following situation: we have a resource that cannot be copied, which should
+	be correctly freed in a destructor, and we want to return it from a function:</p>
+	<pre><code>
+    descriptor_owner construct_descriptor() {
+        return descriptor_owner("Construct using this string");
+    }
+</code></pre>
+
+	<p>Actually, you can work around such situations using the swap method:</p>
+    <pre><code>
+    void construct_descriptor1(descriptor_owner& ret) {
+        descriptor_owner("Construct using this string").swap(ret);
+    }
+</code></pre>
+	<p>But such a workaround won't allow us to use descriptor_owner in STL or Boost containers.
+	And by the way, it looks awful!</p>
+</div>
+
+
+
+<div class="code-intro" id="Chapter02-0">
+	<p>Converting strings to numbers in C++ makes a lot of people depressed because of its
+	inefficiency and user unfriendliness. Let's see how string 100 can be converted to <code>int</code>:</p>
+	<pre><code>
+    #include &lt;sstream&gt;
+    std::istringstream iss("100");
+    int i;
+    iss >> i;
+    // And now, 'iss' variable will get in the way all the time,
+    // till end of the scope
+    // It is better not to think, how many unnecessary operations,
+    // virtual function calls and memory allocations occurred
+    // during those operations
+</code></pre>
+	<p>C methods are not much better:</p>
+	<pre><code>
+    #include &lt;cstdlib&gt;
+    char * end;
+    int i = std::strtol ("100", &amp;end, 10);
+    // Did it converted all the value to int, or stopped somewhere
+    // in the middle?
+    // And now we have 'end' variable will getting in the way
+    // By the way, we want an integer, but strtol returns long
+    // int... Did the converted value fit in int?
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter02-1">
+	<p>In this recipe we will continue discussing lexical conversions, but now we will be converting
+	numbers to strings using Boost.LexicalCast . And as usual, <code>boost::lexical_cast</code>
+	will provide a very simple way to convert the data.</p>
+</div>
+
+<div class="code-intro" id="Chapter02-2">
+	<p>You might remember situations where you wrote something like the following code:</p>
+	<pre><code>
+    void some_function(unsigned short param);
+    int foo();
+    // Somewhere in code
+    // Some compilers may warn that int is being converted to
+    // unsigned short and that there is a possibility of losing
+    // data
+    some_function(foo());
+</code></pre>
+	<p>Usually, programmers just ignore such warnings by implicitly casting to unsigned short
+	datatype, as demonstrated in the following code snippet:</p>
+    <pre><code>
+    // Warning suppressed. Looks like a correct code
+    some_function(
+        static_cast&lt;unsigned short&gt;(foo())
+    );
+</code></pre>
+	<p>But this may make it extremely hard to detect errors. Such errors may exist in code for years
+	before they get caught:</p>
+	<pre><code>
+    // Returns -1 if error occurred
+    int foo() {
+        if (some_extremely_rare_condition()) {
+            return -1;
+        } else if (another_extremely_rare_condition()) {
+            return 1000000;
+        }
+        return 65535;
+    }
+</code></pre>
+</div>
+
+
+<div class="code-intro" id="Chapter02-3">
+	<p>There is a feature in Boost.LexicalCast that allows users to use their own types in
+	lexical_cast . This feature just requires the user to write the correct <code>std::ostream</code>
+	and <code>std::istream</code> operators for their types.</p>
+</div>
+
+<div class="code-intro" id="Chapter02-4">
+	<p>Imagine that some programmer designed an awful interface as follows (this is a good example
+	of how interfaces should not be written):</p>
+	<pre><code>
+    struct object {
+        virtual ~object() {}
+    };
+
+    struct banana: public object {
+        void eat() const {}
+        virtual ~banana(){}
+    };
+
+    struct pidgin: public object {
+        void fly() const {}
+        virtual ~pidgin(){}
+    };
+
+    object* try_produce_banana();
+</code></pre>
+	<p>Our task is to make a function that eats bananas, and throws exceptions if something
+	instead of banana came along (eating pidgins gross!). If we dereference a value returned
+	by the <code>try_produce_banana()</code> function, we are getting in danger of dereferencing
+	a null pointer.</p>
+</div>
+
+
+<div class="code-intro" id="Chapter02-5">
+	<p>It is a common task to parse a small text. And such situations are always a dilemma: shall we
+	use some third-party professional tools for parsing such as Bison or ANTLR, or shall we try to
+	write it by hand using only C++ and STL? The third-party tools are good for handling the parsing
+	of complex texts and it is easy to write parsers using them, but they require additional tools
+	for creating C++ or C code from their grammar, and add more dependencies to your project.
+	Handwritten parsers are usually hard to maintain, but they require nothing except C++ compiler.</p>
+
+	<p>Let's start with a very simple task to parse a date in ISO format as follows:</p>
+	<pre><code>
+        YYYY-MM-DD
+</code></pre>
+	<p>The following are the examples of possible input:</p>
+	<pre><code>
+        2013-03-01
+        2012-12-31 // (woo-hoo, it almost a new year!)
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter02-6">
+	<p>In the previous recipe we were writing a simple parser for dates. Imagine that some time
+	has passed and the task has changed. Now we need to write a date-time parser that will
+	support multiple input formats plus zone offsets. So now our parser should understand the
+	following inputs:</p>
+	<pre><code>
+        2012-10-20T10:00:00Z        // date time with zero zone offset
+        2012-10-20T10:00:00         // date time with unspecified zone offset
+        2012-10-20T10:00:00+09:15   // date time with zone offset
+        2012-10-20-09:15            // date time with zone offset
+        10:00:09+09:15              // time with zone offset
+</code></pre>
+</div>
+
+
+
+
+<div class="code-intro" id="Chapter03-0">
+	<p>There are situations where we are required to dynamically allocate memory and construct a
+	class in that memory. And, that's where the troubles start. Have a look at the following code:</p>
+    <pre><code>
+    void foo1() {
+        foo_class* p = new foo_class("Some initialization data");
+        bool something_else_happened = some_function1(p);
+        if (something_else_happened) {
+            delete p;
+            return false;
+        }
+
+        some_function2(p);
+        delete p;
+        return true;
+    }
+</code></pre>
+	<p>This code looks correct at first glance. But, what if <code>some_function1()</code> or <code>some_function2()</code>
+	throws an exception? In that case, <code>p</code> won't be deleted. Let's fix it in the
+	following way:</p>
+    <pre><code>
+    void foo2() {
+        foo_class* p = new foo_class("Some initialization data");
+        try {
+            bool something_else_happened = some_function1(p);
+            if (something_else_happened) {
+                delete p;
+                return false;
+            }
+
+            some_function2(p);
+        } catch (...) {
+            delete p;
+            throw;
+        }
+
+        delete p;
+        return true;
+    }
+</code></pre>
+	<p>Now the code is ugly and hard to read but is correct. Maybe we can do better than this.</p>
+</div>
+
+
+<div class="code-intro" id="Chapter03-1">
+	<p>Imagine that you have some dynamically allocated structure containing data, and you want
+	to process it in different execution threads. The code to do this is as follows:</p>
+	<pre><code>
+    #include &lt;boost/thread.hpp&gt;
+    #include &lt;boost/bind.hpp&gt;
+    void process1(const foo_class* p);
+    void process2(const foo_class* p);
+    void process3(const foo_class* p);
+
+    void foo1() {
+        while (foo_class* p = get_data()) // C way
+        {
+            // There will be too many threads soon, see
+            // recipe 'Executing different tasks in parallel'
+            // for a good way to avoid uncontrolled growth of threads
+            boost::thread(boost::bind(&amp;process1, p))
+                .detach();
+            boost::thread(boost::bind(&amp;process2, p))
+                .detach();
+            boost::thread(boost::bind(&amp;process3, p))
+                .detach();
+
+            // delete p; Oops!!!!
+        }
+    }
+</code></pre>
+	<p>We cannot deallocate <code>p</code> at the end of the while loop because it can still be used by threads
+	that run process functions. Process functions cannot delete <code>p</code> because they do not know that
+	other threads are not using it anymore.</p>
+</div>
+
+<div class="code-intro" id="Chapter03-2">
+	<p>We already saw how to manage pointers to a resource in the Managing pointers to classes
+	that do not leave scope recipe. But, when we deal with arrays, we need to call <code>delete[]</code>
+	instead of a simple delete , otherwise there will be a memory leak. Have a look at the
+	following code:</p>
+	<pre><code>
+    void may_throw1(const char* buffer);
+    void may_throw2(const char* buffer);
+
+    void foo() {
+        // we cannot allocate 10MB of memory on stack,
+        // so we allocate it on heap
+        char* buffer = new char[1024 * 1024 * 10];
+
+        // Here comes some code, that may throw
+        may_throw1(buffer);
+        may_throw2(buffer);
+
+        delete[] buffer;
+    }
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter03-3">
+	<p>We continue coping with pointers, and our next task is to reference count an array. Let's
+	take a look at a program that gets some data from the stream and processes it in different
+	threads. The code to do this is as follows:</p>
+	<pre><code>
+    #include &lt;cstring&gt;
+    #include &lt;boost/thread.hpp&gt;
+    #include &lt;boost/bind.hpp&gt;
+
+    void do_process(const char* data, std::size_t size);
+    void do_process_in_background(const char* data, std::size_t size) {
+        // We need to copy data, because we do not know,
+        // when it will be deallocated by the caller
+        char* data_cpy = new char[size];
+        std::memcpy(data_cpy, data, size);
+
+        // Starting thread of execution to process data
+        boost::thread(boost::bind(&amp;do_process, data_cpy, size))
+            .detach();
+
+        // We cannot delete[] data_cpy, because
+        // do_process1 or do_process2 may still work with it
+    }
+</code></pre>
+	<p>Just the same problem that occurred in the <a href="javascript:editor.download('Chapter03', 1)">Reference counting of pointers to classes used across methods</a>
+	recipe.</p>
+</div>
+
+<div class="code-intro" id="Chapter03-4">
+	<p>C++ has a syntax to work with pointers to functions and member functions' pointers. And,
+	that is good! However, this mechanism is hard to use with functional objects. Consider the
+	situation when you are developing a library that has its API declared in the header files and
+	implementation in the source files. This library shall have a function that accepts any functional
+	objects. How would you pass a functional object to it? Have a look at the following code:</p>
+	<pre><code>
+    // Required for std::unary_function&lt;&gt; template
+    #include &lt;functional&gt;
+
+    // making a typedef for function pointer accepting int
+    // and returning nothing
+    typedef void (*func_t)(int);
+
+    // Function that accepts pointer to function and
+    // calls accepted function for each integer that it has
+    // It cannot work with functional objects :(
+    void process_integers(func_t f);
+
+    // Functional object
+    class int_processor: public std::unary_function&lt;int, void&gt; {
+        const int min_;
+        const int max_;
+        bool& triggered_;
+
+    public:
+        int_processor(int min, int max, bool& triggered)
+            : min_(min)
+            , max_(max)
+            , triggered_(triggered)
+        {}
+
+        void operator()(int i) const {
+            if (i &lt; min_ || i &gt; max_) {
+                triggered_ = true;
+            }
+        }
+    };
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter03-5">
+	<p>We are continuing with the previous example, and now we want to pass a pointer to a function
+	in our <code>process_integeres()</code> method. Shall we add an overload for just function pointers,
+	or is there a more elegant way?</p>
+</div>
+
+<div class="code-intro" id="Chapter03-6">
+	<p>We are continuing with the previous example, and now we want to use a lambda function with
+	our <code>process_integers()</code> method.</p>
+</div>
+
+<div class="code-intro" id="Chapter03-7">
+	<p>There are such cases when we need to store pointers in the container. The examples are:
+	storing polymorphic data in containers, forcing fast copy of data in containers, and strict
+	exception requirements for operations with data in containers. In such cases, the C++
+	programmer has the following choices:</p>
+
+	<p>* Store pointers in containers and take care of their destructions using the operator
+	delete. Such an approach is error prone and requires a lot of writing.</p>
+
+	<p>* Store smart pointers in containers. For the C++03 you'll have to use <code>std::auto_ptr</code>. However the
+	<code>std::auto_ptr</code> class is deprecated, and it is not recommended to use it in containers. For the C++11 version
+	you'll have to use <code>std::unique_ptr</code>. This solution is a good one, but it cannot be used in C++03, and you still need to
+	write a comparator functional object.</p>
+
+	<p>* Use Boost.SmartPtr in the container. This solution is portable, but you still need to write comparators, and it adds
+	performance penalties (an atomic counter requires additional memory,
+	and its increments/decrements are not as fast as nonatomic operations).</p>
+</div>
+
+<div class="code-intro" id="Chapter03-8">
+	<p>If you were dealing with languages such as Java, C#, or Delphi, you were obviously using the
+	<code>try{} finally{}</code> construction or <code>scope(exit)</code> in the D programming language. Let me
+	briefly describe to you what do these language constructions do.</p>
+
+	<p>When a program leaves the current scope via return or exception, code in the finally or
+	scope(exit) blocks is executed. This mechanism is perfect for implementing the RAII
+	pattern as shown in the following code snippet:</p>
+	<pre><code>
+    // Some pseudo code (suspiciously similar to Java code)
+    try {
+        FileWriter f = new FileWriter("example_file.txt");
+        // Some code that may trow or return
+        // ...
+    } finally {
+        // Whatever happened in scope, this code will be executed
+        // and file will be correctly closed
+        if (f != null) {
+            f.close()
+        }
+    }
+</code></pre>
+	<p>Is there a way to do such a thing in C++?</p>
+</div>
+
+<div class="code-intro" id="Chapter03-9">
+	<p>We are continuing with the previous example, and now we want to use a lambda function with
+	our <code>process_integers()</code> method.</p>
+</div>
+
+<div class="code-intro" id="Chapter03-10">
+	<p>Let's take a look at the following example. We have some base class that has virtual functions
+	and must be initialized with reference to the <code>std::ostream</code> object:</p>
+	<pre><code>
+    #include &lt;boost/noncopyable.hpp&gt;
+    #include &lt;sstream&gt;
+    class tasks_processor: boost::noncopyable {
+        std::ostream& log_;
+    public:
+        explicit tasks_processor(std::ostream& log)
+            : log_(log)
+        {}
+    };
+</code></pre>
+
+	<p>We also have a derived class that has a std::ostream object:</p>
+	<pre><code>
+    class fake_tasks_processor: public tasks_processor {
+        std::ostringstream logger_;
+
+    public:
+        fake_tasks_processor()
+            : tasks_processor(logger_) // Oops! logger_ does not exist here
+            , logger_()
+        {}
+    };
+</code></pre>
+	<p>This is not a very common case in programming, but when such mistakes happen, it is not
+	always simple to get the idea of bypassing it. Some people try to bypass it by changing the
+	order of <code>logger_</code> and the base type initialization:</p>
+    <pre><code>
+        fake_tasks_processor()
+            : logger_() // Oops! logger_ still will be constructed AFTER tasks_processor
+            , tasks_processor(logger_)
+        {}
+</code></pre>
+	<p>It won't work as they expect because direct base classes are initialized before nonstatic
+	data members, regardless of the order of the member initializers.</p>
+</div>
+
+
+<div class="code-intro" id="Chapter04-0">
+	<p>Let's imagine that we are writing some serialization function that stores values in buffer of a
+	specified size:</p>
+	<pre><code>
+    #include &lt;cstring&gt;
+    #include &lt;boost/array.hpp&gt;
+
+    template &lt;class T, std::size_t BufSizeV&gt;
+    void serialize(const T&amp; value, boost::array&lt;unsigned char, BufSizeV&gt;&amp; buffer) {
+        // TODO: fixme
+        std::memcpy(&amp;buffer[0], &amp;value, sizeof(value));
+    }
+</code></pre>
+
+	<p>This code has the following troubles:</p>
+	<p>* The size of the buffer is not checked, so it may overflow</p>
+	<p>* This function can be used with non-plain old data (POD) types, which would lead to incorrect behavior</p>
+
+	<p>We may partially fix it by adding some asserts, for example:</p>
+	<pre><code>
+    template &lt;class T, std::size_t BufSizeV&gt;
+    void serialize(const T&amp; value, boost::array&lt;unsigned char, BufSizeV&gt;&amp; buffer) {
+        assert(BufSizeV &gt;= sizeof(value));
+        // TODO: fixme
+        std::memcpy(&amp;buffer[0], &amp;value, sizeof(value));
+    }
+</code></pre>
+	<p>But, this is a bad solution. The <code>BufSizeV</code> and <code>sizeof(value)</code> values are known at compile
+	time, so we can potentially make this code to fail compilation if the buffer is too small, instead
+	of having a runtime assert (which may not trigger during debug, if function was not called, and
+	may even be optimized out in release mode, so very bad things may happen).</p>
+</div>
+
+<div class="code-intro" id="Chapter04-1">
+	<p>It's a common situation, when we have a templated class that implements some functionality.
+	Have a look at the following code snippet:</p>
+	<pre><code>
+    // Generic implementation
+    template &lt;class T&gt;
+    class data_processor {
+        double process(const T&amp; v1, const T&amp; v2, const T&amp; v3);
+    };
+</code></pre>
+	<p>After execution of the preceding code, we have additional two optimized versions of that class,
+	one for integral, and another for real types:</p>
+	<pre><code>
+    // Integral types optimized version
+    template &lt;class T&gt;
+    class data_processor {
+        typedef int fast_int_t;
+        double process(fast_int_t v1, fast_int_t v2, fast_int_t v3);
+    };
+
+    // SSE optimized version for float types
+    template &lt;class T&gt;
+    class data_processor {
+        double process(double v1, double v2, double v3);
+    };
+</code></pre>
+	<p>Now the question, how to make the compiler to automatically choose the correct class for a
+	specified type, arises.</p>
+</div>
+
+<div class="code-intro" id="Chapter04-2">
+	<p>We continue working with Boost metaprogramming libraries. In the previous recipe, we saw
+	how to use <code>enable_if_c</code> with classes, now it is time to take a look at its usage in template
+	functions. Consider the following example.</p>
+
+	<p>Initially, we had a template function that works with all the available types:</p>
+	<pre><code>
+        template &lt;class T&gt;
+        T process_data(const T&amp; v1, const T&amp; v2, const T&amp; v3);
+</code></pre>
+	Now that we write code using process_data function, we use an optimized process_data
+	version for types that do have an <code>operator +=</code> function:
+	<pre><code>
+        template &lt;class T&gt;
+        T process_data_plus_assign(const T&amp; v1, const T&amp; v2, const T&amp; v3);
+</code></pre>
+	<p>But, we do not want to change the already written code; instead whenever it is possible, we
+	want to force the compiler to automatically use optimized function in place of the default one.</p>
+</div>
+
+<div class="code-intro" id="Chapter04-3">
+	<p>We have now seen examples of how we can choose between functions without
+	<code>boost::enable_if_c</code> usage. Let's consider the following example, where we have a generic
+	method for processing POD datatypes:</p>
+	<pre><code>
+    #include &lt;boost/static_assert.hpp&gt;
+    #include &lt;boost/type_traits/is_pod.hpp&gt;
+
+    // Generic implementation
+    template &lt;class T&gt;
+    T process(const T&amp; val) {
+        BOOST_STATIC_ASSERT((boost::is_pod&lt;T&gt;::value));
+        // ...
+    }
+</code></pre>
+
+	<p>And, we have the same function optimized for sizes 1, 4, and 8 bytes. How do we rewrite
+	process function, so that it can dispatch calls to optimized versions?</p>
+</div>
+
+
+<div class="code-intro" id="Chapter04-4">
+	<p>We need to implement a type trait that returns <code>true</code> if the <code>std::vector</code> type is passed to it
+	as a template parameter.</p>
+</div>
+
+<div class="code-intro" id="Chapter04-5">
+	<p>Imagine that we are working with classes from different vendors that implement different
+	amounts of arithmetic operations and have constructors from integers. And, we do want to
+	make a function that increments by one when any class is passed to it. Also, we want this
+	function to be effective! Take a look at the following code:</p>
+	<pre><code>
+    template &lt;class T&gt;
+    void inc(T&amp; value) {
+        // call ++value
+        // or call value ++
+        // or value += T(1);
+        // or value = value + T(1);
+    }
+</code></pre>
+</div>
+
+
+<div class="code-intro" id="Chapter04-6">
+	<p>In the previous recipes, we saw some examples on <code>boost::bind</code> usage. It is a good and
+	useful tool with a small drawback; it is hard to store <code>boost::bind</code> metafunction's functor
+	as a variable in C++03.</p>
+	<pre><code>
+    #include &lt;functional&gt;
+    #include &lt;boost/bind.hpp&gt;
+    const ??? var = boost::bind(std::plus&lt;int&gt;(), _1, _1);
+</code></pre>
+	<p>In C++11, we can use auto keyword instead of <code>???</code> , and that will work. Is there a way to
+	do it in C++03?</p>
+</div>
+
+
+<div class="code-intro" id="Chapter05-0">
+	<p>On modern multi-core compilers, to achieve maximal performance (or just to provide a good
+	user experience), programs usually must use multiple execution threads. Here is a motivating
+	example in which we need to create and fill a big file in a thread that draws the user interface:</p>
+	<pre><code>
+    #include &lt;algorithm&gt;
+    #include &lt;fstream&gt;
+    #include &lt;iterator&gt;
+
+    void set_not_first_run();
+    bool is_first_run();
+
+    // Function, that executes for a long time
+    void fill_file_with_data(char fill_char, std::size_t size, const char* filename) {
+        std::ofstream ofs(filename);
+        std::fill_n(std::ostreambuf_iterator&lt;char&gt;(ofs), size, fill_char);
+        set_not_first_run();
+    }
+
+    // ...
+    // Somewhere in thread that draws a user interface
+    if (is_first_run()) {
+        // This will be executing for a long time during which
+        // user's interface will freeze.
+        fill_file_with_data(0, 8 * 1024 * 1024, "save_file.txt");
+    }
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter05-1">
+	<p>Now that we know how to start execution threads, we want to have access to some common
+	resources from different threads:</p>
+	<pre><code>
+    #include &lt;cassert&gt;
+    #include &lt;cstddef&gt;
+    // In previous recipe we included
+    // &lt;boost/thread.hpp&gt;, which includes all
+    // the classes of Boost.Thread
+    #include &lt;boost/thread/thread.hpp&gt;
+
+    int shared_i = 0;
+
+    void do_inc() {
+        for (std::size_t i = 0; i &lt; 30000; ++i) {
+            // do some work
+            // ...
+            const int i_snapshot = ++ shared_i;
+            // do some work with i_snapshot
+            // ...
+        }
+    }
+
+    void do_dec() {
+        for (std::size_t i = 0; i &lt; 30000; ++i) {
+            // do some work
+            // ...
+            const int i_snapshot = -- shared_i;
+            // do some work with i_snapshot
+            // ...
+        }
+    }
+
+    void run() {
+        boost::thread t1(&amp;do_inc);
+        boost::thread t2(&amp;do_dec);
+
+        t1.join();
+        t2.join();
+
+        // assert(shared_i == 0); // Oops!
+        std::cout &lt;&lt; "shared_i == " &lt;&lt; shared_i;
+    }
+</code></pre>
+	<p>This <code>'Oops!'</code> is not written there accidentally. For some people it will be a surprise, but there
+	is a big chance that shared_i won't be equal to 0:</p>
+	<pre><code>
+        shared_i == 19567
+</code></pre>
+
+	<p>And it will get even worse in cases when a common resource has some non-trivial classes;
+	segmentation faults and memory leaks may (and will) occur.
+	We need to change the code so that only one thread modifies the shared_i variable at a
+	single moment of time and so that all of the processor and compiler optimizations that inflict
+	multithreaded code are bypassed.</p>
+</div>
+
+<div class="code-intro" id="Chapter05-2">
+	<p>In the previous recipe, we saw how to safely access a common resource from different
+	threads. But in that recipe, we were doing two system calls (in locking and unlocking the
+	mutex) just to get the value from an integer:</p>
+	<pre><code>
+    { // Critical section begin
+        boost::lock_guard&lt;boost::mutex&gt; lock(i_mutex);
+        i_snapshot = ++ shared_i;
+    } // Critical section end
+</code></pre>
+
+	<p>This looks lame! And slow! Can we make the code from the previous recipe better?</p>
+</div>
+
+<div class="code-intro" id="Chapter05-3">
+	<p>Let's for shortness call the functional object that takes no arguments a task.</p>
+	<pre><code>
+    typedef boost::function&lt;void()&gt; task_t;
+</code></pre>
+	<p>And now, imagine a situation where we have threads that post tasks and threads that execute
+	posted tasks. We need to design a class that can be safely used by both types of thread. This
+	class must have methods for getting a task (or blocking and waiting for a task until it is posted
+	by another thread), checking and getting a task if we have one (returning an empty task if no
+	tasks remain), and a method to post tasks.</p>
+</div>
+
+<div class="code-intro" id="Chapter05-4">
+	<p>Imagine that we are developing some online services. We have a map of registered users
+	with some properties for each user. This set is accessed by many threads, but it is very rarely
+	modified. All operations with the following set are done in a thread-safe manner via acquireing an unique lock on the mutex.</p>
+
+	<p>But any operation, even getting/reading
+	resources will result in waiting on a locked mutex; therefore, this class will become a
+	bottleneck very soon.</p>
+
+	<p>Can we fix it?</p>
+</div>
+
+<div class="code-intro" id="Chapter05-5">
+	<p>Let's take a glance at the recipe <a href="javascript:editor.download('Chapter05', 3)">Creating a work_queue class</a>. Each task there can be
+	executed in one of many threads and we do not know which one. Imagine that we want to
+	send the results of an executed task using some connection.</p>
+	<pre><code>
+    #include &lt;boost/noncopyable.hpp&gt;
+    class connection: boost::noncopyable {
+    public:
+        // Opening a connection is a slow operation
+        void open();
+
+        void send_result(int result);
+        // Other methods
+        // ...
+    };
+</code></pre>
+
+	<p>We have the following solutions:</p>
+	<p>* Open a new connection when we need to send the data (which is slow)</p>
+	<p>* Have a single connection for all the threads and wrap them in mutex
+	(which is also slow)</p>
+	<p>* Have a pool of connections, get a connection from it in a thread-safe manner
+	and use it (a lot of coding is required, but this solution is fast)</p>
+	<p>* Have a single connection per thread (fast and simple to implement)</p>
+
+	<p>So, how can we implement the last solution?</p>
+</div>
+
+<div class="code-intro" id="Chapter05-6">
+	<p>Sometimes, we need to kill a thread that ate too many resources or that is just executing for
+	too long. For example, some parser works in a thread (and actively uses Boost.Thread),
+	but we already have the required amount of data from it, so parsing can be stopped. All we
+	have is:</p>
+	<pre><code>
+    boost::thread parser_thread(&amp;do_parse);
+
+    // Some code goes here
+    // ...
+    if (stop_parsing) {
+        // no more parsing required
+        // TODO: stop parser
+    }
+</code></pre>
+	<p>How can we do it?</p>
+</div>
+
+<div class="code-intro" id="Chapter05-7">
+	<p>Those readers who were trying to repeat all the examples by themselves or those who were
+	experimenting with threads must already be bored with writing the following code to launch
+	threads:</p>
+	<pre><code>
+    boost::thread t1(&amp;some_function);
+    boost::thread t2(&amp;some_function);
+    boost::thread t3(&amp;some_function);
+    // ...
+    t1.join();
+    t2.join();
+    t3.join();
+</code></pre>
+	<p>Maybe there is a better way to do this?</p>
+</div>
+
+<div class="code-intro" id="Chapter06-0">
+	<p>First of all, let's take care of the class that will hold all the tasks and provide methods for their
+	execution. We were already doing something like this in the <a href="javascript:editor.download('Chapter05', 3)">Creating a work_queue class</a>
+	recipe, but some of the following problems were not addressed:</p>
+	<p>* A task may throw an exception that leads a call to std::terminate</p>
+	<p>* An interrupted thread may not notice interruption but will finish its task and interrupt
+	only during the next task (which is not what we wanted; we wanted to interrupt the
+	previous task)</p>
+	<p>* Our work_queue class was only storing and returning tasks, but we need to add
+	methods for executing existing tasks</p>
+	<p>* We need a way to stop processing the tasks</p>
+</div>
+
+<div class="code-intro" id="Chapter06-1">
+	<p>It is a common task to check something at specified intervals; for example, we need to check
+	some session for an activity once every 5 seconds. There are two popular solutions to such
+	a problem: creating a thread or sleeping for 5 seconds. This is a very lame solution that
+	consumes a lot of system resources and scales badly. We could instead use system specific
+	APIs for manipulating timers asynchronously. This is a better solution, but it requires a lot of
+	work and is not very portable (until you write many wrappers for different platforms). It also
+	makes you work with OS APIs that are not always very nice.</p>
+</div>
+
+<div class="code-intro" id="Chapter06-2">
+	<p>Receiving or sending data by network is a slow operation. While packets are received by the
+	machine, and while the OS verifies them and copies the data to the user-specified buffer,
+	multiple seconds may pass. And we may be able to do a lot of work instead of waiting. Let's
+	modify our tasks_processor class so that it will be capable of sending and receiving
+	data in an asynchronous manner. In nontechnical terms, we ask it to "receive at least N
+	bytes from the remote host and after that is done, call our functor. And by the way, do not
+	block on this call". Those readers who know about libev , libevent , or Node.js will find
+	a lot of familiar things in this recipe.</p>
+</div>
+
+<div class="code-intro" id="Chapter06-3">
+	<p>A server side working with a network usually looks like a sequence where we first get
+	data, then process it, and then send the result. Imagine that we are creating some kind of
+	authorization server that will process a huge number of requests per second. In that case,
+	we will need to receive and send data asynchronously and process tasks in multiple threads.</p>
+	<p>In this recipe, we'll see how to extend our tasks_processor class to accept and process
+	incoming connections, and in the next recipe, we'll see how to make it multithreaded.</p>
+</div>
+
+<div class="code-intro" id="Chapter06-4">
+	<p>Now it is time to make our <code>tasks_queue</code> process tasks in multiple threads. How hard could
+	this be?</p>
+</div>
+
+<div class="code-intro" id="Chapter06-5">
+	<p>Sometimes there is a requirement to process tasks within a specified time interval. Compared
+	to previous recipes, where we were trying to process tasks in the order of their appearance in
+	the queue, this is a big difference.</p>
+	<p>Consider an example where we are writing a program that connects two subsystems, one of
+	which produces data packets and the other writes modified data to the disk (something like
+	this can be seen in video cameras, sound recorders, and other devices). We need to process
+	data packets one by one, smoothly with the least jitter, and in multiple threads.</p>
+	<p>Our previous tasks_queue was bad at processing tasks in a specified order, so how can we solve this?</p>
+</div>
+
+<div class="code-intro" id="Chapter06-6">
+	<p>In multithreaded programming, there is an abstraction called barrier. It stops execution
+	of threads that reach it until the requested number of threads are not blocked on it. After that,
+	all the threads are released and they continue with their execution.</p>
+
+	<p>For example, we want to process different parts of the data in different threads and then send the data:</p>
+	<pre><code>
+    void runner(std::size_t thread_index, boost::barrier&amp; data_barrier, data_t&amp; data) {
+        for (std::size_t i = 0; i &lt; 1000; ++ i) {
+            fill_data(data.at(thread_index));
+            data_barrier.wait();
+
+            if (!thread_index) {
+                compute_send_data(data);
+            }
+
+            data_barrier.wait();
+        }
+    }
+</code></pre>
+	<p>The <code>data_barrier.wait()</code> method blocks until all the threads fill the data. After that,
+	all the threads are released; the thread with the index 0 will compute data to be sent using
+	<code>compute_send_data(data)</code>, while others are again waiting at the barrier.</p>
+
+	<p>Looks lame, isn't it?</p>
+</div>
+
+<div class="code-intro" id="Chapter06-7">
+	<p>Processing exceptions is not always trivial and may take a lot of time. Consider the situation
+	where an exception must be serialized and sent by the network. This may take milliseconds
+	and a few thousand lines of code. After the exception is caught is not always the best time
+	and place to process it.</p>
+	<p>So, can we store exceptions and delay their processing?</p>
+</div>
+
+<div class="code-intro" id="Chapter06-8">
+	<p>When writing some server applications (especially for Linux OS), catching and processing
+	signals is required. Usually, all the signal handlers are set up at server start and do not
+	change during the application's execution.</p>
+	<p>The goal of this recipe is to make our <code>tasks_processor</code> class capable of processing signals.</p>
+</div>
+
+<div class="code-intro" id="Chapter07-0">
+	<p>This is a pretty common task. We have two non-Unicode or ANSI character strings:</p>
+	<pre><code>
+    #include &lt;string&gt;
+    std::string str1 = "Thanks for reading me!";
+    std::string str2 = "Thanks for reading ME!";
+</code></pre>
+	<p>We need to compare them in a case-insensitive manner. There are a lot of methods to do
+	that; let's take a look at Boost's.</p>
+</div>
+
+<div class="code-intro" id="Chapter07-1">
+	<p>Let's do something useful! It's common that the user's input must be checked using some
+	regular expression-specific pattern that provides a flexible means of match. The problem is
+	that there are a lot of regex syntaxes; expressions written using one syntax are not handled
+	well by the other syntax. Another problem is that long regexes are not easy to write.</p>
+
+	<p>So in this recipe, we'll write a program that may use different types of regular expression
+	syntaxes and checks that the input strings match the specified regexes.</p>
+</div>
+
+<div class="code-intro" id="Chapter07-2">
+	<p>My wife enjoyed the <a href="javascript:editor.download('Chapter07', 1)">Matching strings using regular expressions</a> recipe very much and told me
+	that I'll get no food until I improve it to be able to replace parts of the input string according
+	to a regex match. Each matched subexpression (part of the regex in parenthesis) must get
+	a unique number starting from 1; this number will be used to create a new string.</p>
+	<p>This is how an updated program will work like:</p>
+
+	<pre><code>
+    Available regex syntaxes:
+            [0] Perl
+            [1] Perl case insensitive
+            [2] POSIX extended
+            [3] POSIX extended case insensitive
+            [4] POSIX basic
+            [5] POSIX basic case insensitive
+
+    Choose regex syntax: 0
+    Input regex: (\d)(\d)
+    String to match: 00
+    MATCH: 0, 0,
+    Replace pattern: \1#\2
+    RESULT: 0#0
+    String to match: 42
+    MATCH: 4, 2,
+    Replace pattern: ###\1-\1-\2-\1-\1###
+    RESULT: ###4-4-2-4-4###
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter07-3">
+	<p>The <code>printf</code> family of functions is a threat to security. It is a very bad design to allow
+	users to put their own strings as the type and format specifiers. So what do we do when
+	user-defined format is required? How shall we implement the
+	<code>std::string to_string(const std::string& format_specifier) const;</code> member function
+	of the following class?</p>
+	<pre><code>
+    class i_hold_some_internals {
+        int i;
+        std::string s;
+        char c;
+        // ...
+    };
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter07-4">
+	<p>Situations where we need to erase something in a string, replace a part of the string, or erase
+	the first or last occurrence of some substring are very common. STL allows us to do most of
+	this, but it usually involves writing too much code.</p>
+	<p>We saw the Boost.StringAlgorithm library in action in the <a href="javascript:editor.download('Chapter07', 0)">Changing cases and case-
+	insensitive comparison</a> recipe. Let's see how it can be used to simplify our lives when we need
+	to modify some strings:</p>
+	<pre><code>
+    #include &lt;string&gt;
+    const std::string str = "Hello, hello, dear Reader.";
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter07-5">
+	<p>There are situations when we need to split some strings into substrings and do something
+	with those substrings. For example, count whitespaces along with characters in each sentence and, of course, we want
+	to use Boost and be as efficient as possible.</p>
+</div>
+
+<div class="code-intro" id="Chapter07-6">
+	<p>This recipe is the most important recipe in this chapter! Let's take a look at a very common
+	case, where we write a function that accepts a string and returns the part of the string
+	between character values passed in the <code>starts</code> and <code>ends</code> arguments:</p>
+	<pre><code>
+    #include &lt;string&gt;
+    #include &lt;algorithm&gt;
+    std::string between_str(const std::string&amp; input, char starts, char ends) {
+        std::string::const_iterator pos_beg
+            = std::find(input.begin(), input.end(), starts);
+
+        if (pos_beg == input.end()) {
+            return std::string(); // Empty
+        }
+        ++ pos_beg;
+        std::string::const_iterator pos_end
+            = std::find(input.begin(), input.end(), ends);
+
+        return std::string(pos_beg, pos_end);
+    }
+</code></pre>
+	<p>Do you like this implementation? In my opinion, it looks awful; consider the following call to it:</p>
+	<pre><code>
+    between_str("Getting expression (between brackets)", '(', ')');
+</code></pre>
+
+	<p>In that call, a temporary <code>std::string</code> variable will be constructed from <code>"Getting
+	expression (between brackets)"</code>. The character array is long enough, so there is a big
+	chance that dynamic memory allocation will be called inside the <code>std::string</code> constructor
+	and the character array will be copied into it. Then, somewhere inside the <code>between_str</code>
+	function, new <code>std::string</code> will be constructed, which may also lead to another dynamic
+	memory allocation and result in copying.</p>
+	<p>So, this simple function may, and in most cases will:</p>
+	<p> * Call dynamic memory allocation (twice)</p>
+	<p> * Copy string (twice)</p>
+	<p> * Deallocate memory (twice)</p>
+
+	<br><p>Can we do better?</p>
+</div>
+
+
+<div class="code-intro" id="Chapter08-0">
+	<p>There are situations when it would be great to work with all the template parameters as if
+	they were in a container. Imagine that we are writing something such as Boost.Variant:</p>
+	<pre><code>
+    #include &lt;boost/mpl/aux_/na.hpp&gt;  // boost::mpl::na == n.a. == not available
+
+    template &lt;
+        class T0 = boost::mpl::na,
+        class T1 = boost::mpl::na,
+        class T2 = boost::mpl::na,
+        class T3 = boost::mpl::na,
+        class T4 = boost::mpl::na,
+        class T5 = boost::mpl::na,
+        class T6 = boost::mpl::na,
+        class T7 = boost::mpl::na,
+        class T8 = boost::mpl::na,
+        class T9 = boost::mpl::na
+    &gt;
+    struct variant;
+</code></pre>
+	<p>And the preceding code is where all the following interesting tasks start to happen:</p>
+	<p> * How can we remove constant and volatile qualifiers from all the types?</p>
+	<p> * How can we remove duplicate types?</p>
+	<p> * How can we get the sizes of all the types?</p>
+	<p> * How can we get the maximum size of the input parameters?</p>
+	<p>All these tasks can be easily solved using Boost.MPL.</p>
+</div>
+
+
+<div class="code-intro" id="Chapter08-1">
+	<p>The task of this recipe will be to modify the content of one <code>boost::mpl::vector</code> function
+	depending on the content of a second <code>boost::mpl::vector</code> function. We'll be calling
+	the second vector as the vector of modifiers and each of those modifiers can have the
+	following type:</p>
+	<pre><code>
+    // Make unsigned
+    struct unsigne; // No typo: 'unsigned' is a keyword, we cannot use it.
+    // Make constant
+    struct constant;
+    // Otherwise we do not change type
+    struct no_change;
+</code></pre>
+	<p>So where shall we start?</p>
+</div>
+
+<div class="code-intro" id="Chapter08-2">
+	<p>Many features were added to C++11 to simplify the metaprogramming. One such feature
+	is the alternative function syntax. It allows deducing the result type of a template function.
+	Here is an example:</p>
+	<pre><code>
+    template &lt;class T1, class T2&gt;
+    auto my_function_cpp11(const T1&amp; v1, const T2&amp; v2)
+        -&gt; decltype(v1 + v2)
+    {
+        return v1 + v2;
+    }
+</code></pre>
+	<p>It allows us to write generic functions more easily and work in difficult situations:</p>
+	<pre><code>
+    #include &lt;cassert&gt;
+    struct s1 {};
+    struct s2 {};
+    struct s3 {};
+
+    inline s3 operator + (const s1&amp; /*v1*/, const s2&amp; /*v2*/) {
+        return s3();
+    }
+
+    inline s3 operator + (const s2&amp; /*v1*/, const s1&amp; /*v2*/) {
+        return s3();
+    }
+
+    int main() {
+        s1 v1;
+        s2 v2;
+        my_function_cpp11(v1, v2);
+        my_function_cpp11(v1, v2);
+        assert(my_function_cpp11('\0', 1) == 1);
+    }
+</code></pre>
+	<p>But Boost has a lot of functions like these and it does not require C++11 to work.
+	How is that possible and how can we make a C++03 version of the
+	<code>my_function_cpp11</code> function?</p>
+</div>
+
+
+<div class="code-intro" id="Chapter08-3">
+	<p>Functions that accept other functions as an input parameter or functions that return
+	other functions are called higher-order functions. For example, the following functions
+	are higher-order:</p>
+	<pre><code>
+    function_t higher_order_function1();
+    void higher_order_function2(function_t f);
+    function_t higher_order_function3(function_t f);
+</code></pre>
+	<p>We have already seen higher-order metafunctions in the recipes <a href="javascript:editor.download('Chapter08', 0)">Using type "vector of types"</a>
+	and <a href="javascript:editor.download('Chapter08', 1)">Manipulating a vector of types</a> from this chapter, where we used <code>boost::transform</code>.</p>
+
+	<p>In this recipe, we'll try to make our own higher-order metafunction named <code>coalesce</code>,
+	which accepts two types and two metafunctions. The coalesce metafunction applies
+	the first type-parameter to the first metafunction and compares the resulting type
+	with the <code>boost::mpl::false_</code> type metafunction. If the resulting type is the
+	<code>boost::mpl::false_</code> type metafunction, it returns the result of applying the second
+	type-parameter to the second metafunction, otherwise, it returns the first result type:</p>
+	<pre><code>
+    template &lt;class Param1, class Param2, class Func1, class Func2&gt;
+    struct coalesce;
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter08-4">
+	<p>Lazy evaluation means that the function won't be called until we really need its result.
+	Knowledge of this recipe is highly recommended for writing good metafunctions.
+	The importance of lazy evaluation will be shown in the following example.</p>
+	<p>Imagine that we are writing a metafunction that accepts a function, a parameter, and a
+	condition. The resulting type of that function must be a fallback type if the condition
+	is false otherwise the result will be as follows:</p>
+	<pre><code>
+    struct fallback;
+    template &lt;
+        class Func,
+        class Param,
+        class Cond,
+        class Fallback = fallback&gt;
+    struct apply_if;
+</code></pre>
+	<p>And the preceding code is the place where we cannot live without lazy evaluation.</p>
+</div>
+
+<div class="code-intro" id="Chapter08-5">
+	<p>This recipe and the next one are devoted to a mix of compile time and runtime features. We'll
+	be using the Boost.Fusion library to see what it can do.</p>
+
+	<p>Remember that we were talking about tuples and arrays in the first chapter. Now we want to
+	write a single function that can stream elements of tuples and arrays to strings.</p>
+</div>
+
+
+<div class="code-intro" id="Chapter08-6">
+	<p>This recipe will show a tiny piece of the Boost.Fusion library's abilities. We'll be splitting a
+	single tuple into two tuples, one with arithmetic types and the other with all the other types.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-0">
+	<p>It is a common task to manipulate strings. Here we'll see how the operation of string
+	comparison can be done quickly using some simple tricks. This recipe is a trampoline
+	for the next one, where the techniques described here will be used to achieve constant
+	time-complexity searches.</p>
+	<p>So, we need to make a class that is capable of quickly comparing strings for equality.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-1">
+	<p>In the previous recipe, we saw how string comparison can be optimized using hashing. After
+	reading it, the following question may arise, "Can we make a container that will cache hashed
+	values to use faster comparison?".</p>
+	<p>The answer is yes, and we can do much more. We can achieve almost constant time
+	complexities for search, insertion, and removal of elements.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-2">
+	<p>Several times in a year, we need something that can store and index a pair of values.
+	Moreover, we need to get the first part of the pair using the second, and get the second part
+	using the first. Confused? Let me show you an example. We are creating a vocabulary class,
+	wherein when the users put values into it, the class must return identifiers and when the
+	users put identifiers into it, the class must return values.</p>
+	<p>To be more practical, users will be entering login names into our vocabulary, and wish to get the
+	unique identifier of a person. They will also wish to get all the persons' names using identifiers.</p>
+	<p>Let's see how it can be implemented using Boost.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-3">
+	<p>In the previous recipe, we made some kind of vocabulary, which is good when we need to
+	work with pairs. But, what if we need much more advanced indexing? Let's make a program
+	that indexes persons:</p>
+	<pre><code>
+    struct person {
+        std::size_t     id_;
+        std::string     name_;
+        unsigned int    height_;
+        unsigned int    weight_;
+
+        person(std::size_t id, const std::string& name, unsigned int height, unsigned int weight)
+            : id_(id)
+            , name_(name)
+            , height_(height)
+            , weight_(weight)
+        {}
+    };
+
+    inline bool operator &lt; (const person& p1, const person& p2) {
+        return p1.name_ &lt; p2.name_;
+    }
+</code></pre>
+	<p>We will need a lot of indexes; for example, by name, ID, height, and weight.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-4">
+	<p>Nowadays, we usually use <code>std::vector</code> when we need nonassociative and nonordered
+	containers. This is recommended by Andrei Alexandrescu and Herb Sutter in the book
+	C++ Coding Standards, and even those users who did not read the book usually use
+	<code>std::vector</code>. Why? Well, <code>std::list</code> is slower, and uses much more resources than
+	<code>std::vector</code>. The <code>std::deque</code> container is very close to <code>std::vector</code>, but stores
+	values noncontinuously.</p>
+	<p><code>std::vector</code> is good! But if there's a need in a container that does not invalidate iterators on <code>erase</code> and
+	<code>insert</code> we are forced to choose the slower <code>std::list</code>.</p>
+	<p>But wait, there is a good solution in Boost for such cases!
+	Let's see how it can be done using Boost.</p>
+</div>
+
+<div class="code-intro" id="Chapter09-5">
+	<p>After reading the previous recipe, some of the readers may start using fast pool allocators
+	everywhere; especially, for <code>std::set</code> and <code>std::map</code>. Well, I'm not going to stop you
+	from doing that, but let's at least take a look at an alternative: flat associative containers.
+	These containers are implemented on top of the traditional vector container and store the
+	values ordered.</p>
+</div>
+
+<div class="code-intro" id="Chapter10-0">
+	<p>Some compilers have support for extended arithmetic types such as 128-bit floats or integers.
+	Let's take a quick glance at how to use them using Boost. We'll be creating a method that
+	accepts three parameters and returns the multiplied value of those methods.</p>
+</div>
+
+<div class="code-intro" id="Chapter10-1">
+	<p>Some companies and libraries have specific requirements for their C++ code, such as
+	successful compilation without Runtime type information (RTTI). In this small recipe, we'll
+	take a look at how we can detect disabled RTTI, how to store information about types, and
+	compare types at runtime, even without <code>typeid</code>.</p>
+</div>
+
+<div class="code-intro" id="Chapter10-2">
+	<p>Remember some situations where you were using some complicated template class declared
+	in the header file? Examples of such classes would be <code>boost::variant</code>, containers from
+	Boost.Container, or Boost.Spirit parsers. When we use such classes or methods,
+	they are usually compiled (instantiated) separately in each source file that is using them,
+	and duplicates are thrown away during linking. On some compilers, that may lead to slow
+	compilation speed.</p>
+	<p>If only there was some way to tell the compiler in which source file to instantiate it!</p>
+</div>
+
+
+<div class="code-intro" id="Chapter10-3">
+	<p><a href='javascript:$("#chapters-link").click();'>Chapter 4, Compile-time Tricks</a>, and <a href='javascript:$("#chapters-link").click();'>Chapter 8, Metaprogramming</a>, were devoted to
+	metaprogramming. If you were trying to use techniques from those chapters, you may
+	have noticed that writing a metafunction can take a lot of time. So it may be a good idea
+	to experiment with metafunctions using more user-friendly methods, such as C++11
+	constexpr , before writing a portable implementation.</p>
+	<p>In this recipe, we'll take a look at how to detect constexpr support.</p>
+</div>
+
+<div class="code-intro" id="Chapter10-4">
+	<p>C++11 has very specific logic when user-defined types (UDTs) are used in STL containers.
+	Containers will use move assignment and move construction only if the move constructor
+	does not throw exceptions or there is no copy constructor.</p>
+	<p>Let's see how we can ensure the move_nothrow assignment operator and move_nothrow
+	constructor of our type do not throw exceptions.</p>
+</div>
+
+
+<div class="code-intro" id="Chapter10-5">
+	<p>Almost all modern languages have the ability to make libraries, which is a collection of classes
+	and methods that have a well-defined interface. C++ is no exception to this rule. We have two
+	types of libraries: runtime (also called shared or dynamic load) and static. But writing libraries
+	is not a trivial task in C++. Different platforms have different methods for describing which
+	symbols must be exported from the shared library.</p>
+	<p>Let's have a look at how to manage symbol visibility in a portable way using Boost.</p>
+</div>
+
+<div class="code-intro" id="Chapter10-6">
+	<p>Boost is being actively developed, so each release contains new features and libraries. Some
+	people wish to have libraries that compile for different versions of Boost and also want to use
+	some of the features of the new versions.</p>
+	<p>Let's take a look at the <code>boost::lexical_cast</code> change log. According to it, Boost 1.53 has
+	a <code>lexical_cast(const CharType* chars, std::size_t count)</code> function overload.
+	Our task for this recipe will be to use that function overload for new versions of Boost, and
+	work around that missing function overload for older versions.</p>
+</div>
+
+<div class="code-intro" id="Chapter11-0">
+	<p>There are STL functions and classes to read and write data to files. But there are no functions
+	to list files in a directory, to get the type of a file, or to get access rights for a file.</p>
+	<p>Let's see how such iniquities can be fixed using Boost. We'll be creating a program that lists
+	names, write accesses, and types of files in the current directory.</p>
+</div>
+
+<div class="code-intro" id="Chapter11-1">
+	<p>Let's consider the following lines of code:</p>
+	<pre><code>
+    std::ofstream ofs("dir/subdir/file.txt");
+    ofs &lt;&lt; "Boost.Filesystem is fun!";
+</code></pre>
+	<p>In these lines, we attempt to write something to file.txt in the dir/subdir directory.
+	This attempt will fail if there is no such directory. The ability to work with filesystems is
+	necessary for write a good working code.</p>
+
+	<p>In this recipe we'll construct a directory and a subdirectory, write some data to a file, and
+	try to create symlink , and if the symbolic link's creation fails, erase the created file. We
+	will also avoid using exceptions as a mechanism of error reporting, preferring some form
+	of return codes.</p>
+	<p>Let's see how that can be done in an elegant way using Boost.</p>
+</div>
+
+<div class="code-intro" id="Chapter11-2">
+	<p>Sometimes we write programs that will communicate with each other a lot. When
+	programs are run on different machines, using sockets is the most common technique for
+	communication. But if multiple processes run on a single machine, we can do much better!</p>
+	<p>Let's take a look at how to make a single memory fragment available from different processes
+	using the Boost.Interprocess library.</p>
+</div>
+
+<div class="code-intro" id="Chapter11-3">
+	<p>In the previous recipe, we saw how to create shared memory and how to place some objects in
+	it. Now it's time to do something useful. Let's take an example from the <a href="javascript:editor.download('Chapter05', 3)">Creating a work_queue class</a>
+	recipe, and make it work for multiple processes. At the end of
+	this example, we'll get a class that can store different tasks and pass them between processes.</p>
+</div>
+
+<div class="code-intro" id="Chapter11-4">
+	<p>It is hard to imagine writing some C++ core classes without pointers. Pointers and references
+	are everywhere in C++, and they do not work in shared memory! So if we have a structure like
+	this in shared memory and assign the address of some integer variable in shared memory
+	to <code>pointer_</code>, we won't get the correct address in the other process that will attempt to use
+	<code>pointer_</code> from that instance of <code>with_pointer</code>:</p>
+	<pre><code>
+    struct with_pointer {
+        int* pointer_;
+        // ...
+        int value_holder_;
+    };
+</code></pre>
+	<p>How can we fix that?</p>
+</div>
+
+<div class="code-intro" id="Chapter11-5">
+	<p>All around the Internet, people are asking "What is the fastest way to read files?". Let's
+	make our task for this recipe even harder: "What is the fastest and most portable way to
+	read binary files?"</p>
+</div>
+
+
+<div class="code-intro" id="Chapter11-6">
+	<p>Nowadays, plenty of embedded devices still have only a single core. Developers write
+	for those devices, trying to squeeze maximum performance out of them. Using Boost.
+	Threads or some other thread library for such devices is not effective; the OS will be forced
+	to schedule threads for execution, manage resources, and so on, as the hardware cannot
+	run them in parallel.</p>
+	<p>So how can we make a program switch to the execution of a subprogram while waiting for
+	some resource in the main part?</p>
+</div>
+
+<div class="code-intro" id="Chapter12-0">
+	<p>Some tasks require a graphical representation of data. Boost.Graph is a library that was
+	designed to provide a flexible way of constructing and representing graphs in memory. It also
+	contains a lot of algorithms to work with graphs, such as topological sort, breadth first search,
+	depth first search, and Dijkstra shortest paths.</p>
+	<p>Well, let's perform some basic tasks with Boost.Graph !</p>
+</div>
+
+<div class="code-intro" id="Chapter12-1">
+	<p>Making programs that manipulate graphs was never easy because of issues with visualization.
+	When we work with STL containers such as std::map and std::vector , we can always
+	print the container's contents and see what is going on inside. But when we work with
+	complex graphs, it is hard to visualize the content in a clear way: too many vertexes and too
+	many edges.</p>
+	<p>In this recipe, we'll take a look at the visualization of Boost.Graph using the Graphviz tool.</p>
+</div>
+
+<div class="code-intro" id="Chapter12-2">
+	<p>I know of many examples of commercial products that use incorrect methods for getting
+	random numbers. It's a shame that some companies still use <code>rand()</code> in cryptography and
+	banking software.</p>
+	<p>Let's see how to get a fully random uniform distribution using Boost.Random that is suitable
+	for banking software.</p>
+</div>
+
+<div class="code-intro" id="Chapter12-3">
+	<p>Some projects require specific trigonometric functions, a library for numerically solving
+	ordinary differential equations, and working with distributions and constants. All of those
+	parts of Boost.Math would be hard to fit into even a separate book. A single recipe definitely
+	won't be enough. So let's focus on very basic everyday-use functions to work with float types.</p>
+	<p>We'll write a portable function that checks an input value for infinity and not-a-number (<code>NaN</code>)
+	values and changes the sign if the value is negative.</p>
+</div>
+
+<div class="code-intro" id="Chapter12-4">
+	<p>This recipe and the next one are devoted to auto-testing the Boost.Test library, which is used
+	by many Boost libraries. Let's get hands-on with it and write some tests for our own class.</p>
+</div>
+
+<div class="code-intro" id="Chapter12-5">
+	<p>Writing auto tests is good for your project. But managing test cases is hard when the project
+	is large and many developers are working on it. In this recipe, we'll take a look at how to run
+	individual tests and how to combine multiple test cases in a single module.</p>
+	<p>Let's pretend that two developers are testing the <code>foo</code> structure declared in the <code>foo.hpp</code>
+	header and we wish to give them separate source files to write a test to. In that way, the
+	developers won't bother each other and can work in parallel. However, the default test run
+	must execute the tests of both developers.</p>
+</div>
+
+<div class="code-intro" id="Chapter12-6">
+	<p>I've left you something really tasty for dessert – Boost's Generic Image Library (GIL), which
+	allows you to manipulate images and not care much about image formats.</p>
+	<p>Let's do something simple and interesting with it; let's make a program that negates any picture.</p>
+</div>
+							</div>
+						</div>
+
+						<div class="container">
+							<div id="online_run" class="right" style="margin: 0.5em 0.5em">
+								<button id="run" onclick='editor.run();'>Run</button> 
+								<button id="compile" onclick='editor.compile();'>Compile</button>
+							</div>
+							<h3>Compile &amp; Run</h3>
+
+							<div class="width100 left">
+								<p class="nowrap">Program arguments: <input class="width100" id="input"/></p>
+								<p class="nowrap">Compilation command: <input class="width100" id="compile_command"/></p>
+								<p class="nowrap">Output:</p><pre id="output" style="margin-top: 0; margin-left: 25px; background: #fff;">Waiting...</pre>
+								<p id="runtime-issues" class="nowrap text-center hidden">This recipe has <span style="color: red;">runtime issues</span> because of the limited capabilities of online executor.</p>
+								<p id="compile-issues" class="nowrap text-center hidden">This recipe has <span style="color: red;">compile issues</span> because of the limited capabilities of online compiler.</p>
+								<p class="nowrap left">Code (editable):</p><div id="code" style="width: 100%">... downloading ...</div>
+								<p class="nowrap right"><a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book">In the Book
+									you'll also find</a>: in-depth description, performance notes, comparison with C++11/C++14 and other juicy stuff.
+								</p>
+							</div>
+						</div>
+					</section>
+
+					<section id="about" class="four">
+						<div class="container">
+
+							<header>
+								<h2>About</h2>
+							</header>
+
+							<p>
+								Hi, I'm Antony Polukhin and I'm the author of Boost.TypeIndex and Boost.DLL,
+								maintainer of multiple Boost's libraries and mentor in the Google
+								Summer of Code programs.
+							</p>
+							<p>
+								All the examples at this site are additionaly explained in the 
+								<a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book">
+								Boost Application Development Cookbook</a>, along with C++11 and performance notes. All the
+								<a href="https://github.com/apolukhin/Boost-Cookbook-4880OS">source codes are available on GitHub</a>.
+							</p>
+							<p>
+								I hope that this site will be
+								useful for you. Do the online compilation of Boost related examples, modify
+								source codes, run tests and play around with Boost libraries.
+							</p>
+						</div>
+					</section>
+
+					<section id="acknowledgements" class="two">
+						<div class="container">
+
+							<header>
+								<h2>Thanks</h2>
+							</header>
+
+								<div class="left">
+									Without following people, this site (and the book) could not exist:
+									<ul>
+										<li>
+											All the people who participate in Boost C++ Libraries development. Without them,
+											there'll be no Boost, no book, no hobbie.
+										</li>
+										<li>
+											Wonderfull people from Coliru, that allow users to do online compilations.
+										</li>
+										<li>
+											Heather Gopsill and Lakhi Dhatt from Packt Publishing for giving a permission to make sources and recipes' introductions publicly available.
+										</li>
+									</ul>
+								</div>
+
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<div id="footer">
+
+				<!-- Copyright -->
+					<ul class="copyright">
+						<li>Design: <a href="http://html5up.net" rel="nofollow" target="_blank">HTML5 UP</a></li>
+					</ul>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/social-likes.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollzer.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.min.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.min.js"></script>
+			<script src="assets/js/ace/ace.js"></script>
+			<script src="assets/js/cppeditor_se.js"></script>
+			<script>
+				$(function() {
+					editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
+				});
+			</script>
+	</body>
+</html>
