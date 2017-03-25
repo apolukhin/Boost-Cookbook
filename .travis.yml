@@ -45,7 +45,7 @@ before_install:
 
     # Creating script for examples execution
     - echo 'declare -A optionsmap'                                                  >run_examples.sh
-    - echo 'optionsmap["program_options_base"]="--apples=10 --oranges=20"'          >>run_examples.sh
+    - echo 'optionsmap["01_A_program_options_base"]="--apples=10 --oranges=20"'     >>run_examples.sh
     - echo 'optionsmap["gil"]="get-boost.png"'                                      >>run_examples.sh
     - echo 'tasks_processor_signals_helper() {'                                     >>run_examples.sh
     - echo '    sleep 2; '                                                          >>run_examples.sh
@@ -92,8 +92,8 @@ before_install:
     - echo '    "gil") '                                                            >>run_examples.sh
     - echo '        wget http://www.boost.org/style-v2/css_0/get-boost.png '        >>run_examples.sh
     - echo '        ;; '                                                            >>run_examples.sh
-    - echo '    "program_options_short") '                                          >>run_examples.sh
-    - echo '        cp Chapter01/program_options_short/apples_oranges.cfg ./ '      >>run_examples.sh
+    - echo '    "01_B_program_options_short") '                                     >>run_examples.sh
+    - echo '        cp Chapter01/01_B_program_options_short/apples_oranges.cfg ./ ' >>run_examples.sh
     - echo '        ;; '                                                            >>run_examples.sh
     - echo '    esac'                                                               >>run_examples.sh
     - echo ''                                                                       >>run_examples.sh
