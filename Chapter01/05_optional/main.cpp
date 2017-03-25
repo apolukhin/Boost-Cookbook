@@ -10,7 +10,7 @@ class locked_device {
 
 public:
     ~locked_device () {
-    // Releasing device lock
+        // Releasing device lock
     }
 
     void use() {
@@ -22,23 +22,19 @@ public:
             // Failed to lock device
             return boost::none;
         }
-
         // Success!
         return locked_device("device name");
     }
 };
 
-int main()
-{
+int main() {
     // Boost has a library called Random. If you wonder why it was
-    // written when stdlib.h has rand() function, see the recipe
-    // "Using a true random number generator in Chapter 12,
-    // Scratching the Tip of the Iceberg
+    // written when stdlib.h has rand() function, see recipes
+    // 'Random distribution' and 'Making a random generator'.
     srandom(5);
 
     for (unsigned i = 0; i < 10; ++i) {
-        boost::optional<locked_device> t
-            = locked_device::try_lock_device();
+        boost::optional<locked_device> t = locked_device::try_lock_device();
         // optional is convertible to bool
         if (t) {
             t->use();

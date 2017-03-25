@@ -25,8 +25,7 @@
 #include <vector>
 #include <string>
 
-int main()
-{
+int main() {
     std::vector<boost::any> some_values;
     some_values.push_back(10);
     const char* c_str = "Hello there!";
@@ -36,8 +35,6 @@ int main()
     std::string& s = boost::any_cast<std::string&>(some_values.back());
     s += " That is great!\n";
     std::cout << s;
-
-    return 0;
 }
 
 void example_func() {
@@ -47,9 +44,11 @@ void example_func() {
     // if actual value in variable is not a std::string
     std::string s1 = boost::any_cast<std::string>(variable);
 
-    // If actual value in variable is not a std::string
-    // will return an NULL pointer
+    // Never throws. If actual value in variable is not a std::string
+    // will return an NULL pointer.
     std::string* s2 = boost::any_cast<std::string>(&variable);
 
+
     (void)s2; // Supressing warnings about unused variable
+    (void)s1;
 }
