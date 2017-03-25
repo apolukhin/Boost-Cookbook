@@ -12,6 +12,7 @@ SUBDIRS += \
     07_A_tuple \
     07_B_tuple_construction_order \
     08_bind \
+    09_type_index \
     bind_placeholders \
     move \
     move_c++11 \
