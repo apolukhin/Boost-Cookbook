@@ -8,13 +8,14 @@ SUBDIRS += \
     04_A_any_db_example \
     04_B_variant_db_example \
     05_optional \
-    array \
+    06_array \
+    07_A_tuple \
+    07_B_tuple_construction_order \
+    08_bind \
     bind_placeholders \
-    bind_values \
     move \
     move_c++11 \
     noncopyable \
     noncopyable_movable \
-    noncopyable_movable_c++11 \
-    tuple
+    noncopyable_movable_c++11
 

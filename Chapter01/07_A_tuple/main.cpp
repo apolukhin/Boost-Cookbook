@@ -18,27 +18,23 @@ void foo1() {
     (void) str;
     (void) d;
 
-    using namespace boost;
-
     // Tuple comparison operators are
     // defined in header "boost/tuple/tuple_comparison.hpp"
     // Don't forget to include it!
-    std::set<tuple<int, double, int> > s;
-    s.insert(make_tuple(1, 1.0, 2));
-    s.insert(make_tuple(2, 10.0, 2));
-    s.insert(make_tuple(3, 100.0, 2));
+    std::set<boost::tuple<int, double, int> > s;
+    s.insert(boost::make_tuple(1, 1.0, 2));
+    s.insert(boost::make_tuple(2, 10.0, 2));
+    s.insert(boost::make_tuple(3, 100.0, 2));
 }
 
 void foo2() {
-    using namespace boost;
-
+#ifndef BOOST_NO_CXX11_AUTO_DECLARATIONS
     // Requires C++11
-    //auto t = make_tuple(0, -1.0, 2);
-    //assert(2 == get<2>(t));
-    assert(2 == get<2>(make_tuple(0, -1.0, 2)));
-
+    const auto t = boost::make_tuple(0, -1.0, 2);
+    assert(2 == boost::get<2>(t));
     // We can make a compile time assert for type
     // of t. Interested? See chapter 'Compile time tricks'
+#endif
 }
 
 void foo3() {
@@ -65,6 +61,4 @@ int main () {
     foo1();
     foo2();
     foo3();
-
-    return 0;
 }
