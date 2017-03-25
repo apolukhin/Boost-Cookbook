@@ -9,7 +9,7 @@ CONFIG -= qt
 
 # Flags to set your compiler into C++11/C++14 mode
 # (required for GCC and Clang, comment out in MSVC)
-CPP11FLAG = -std=c++11
+CPP11FLAG = -std=c++0x
 CPP14FLAG = -std=c++14
 
 # Suppressing GCC warning
