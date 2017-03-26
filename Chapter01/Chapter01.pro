@@ -13,10 +13,9 @@ SUBDIRS += \
     07_B_tuple_construction_order \
     08_bind \
     09_type_index \
-    bind_placeholders \
-    move \
-    move_c++11 \
-    noncopyable \
-    noncopyable_movable \
-    noncopyable_movable_c++11
+    10_A_move \
+    10_B_move_c++11 \
+    11_noncopyable \
+    12_A_noncopyable_movable \
+    12_B_noncopyable_movable_c++11
 

@@ -2,12 +2,15 @@ class descriptor_owner {
     void* descriptor_;
 
 public:
-    explicit descriptor_owner(const char* params){ (void)params; }
+    explicit descriptor_owner(const char* params);
 
     ~descriptor_owner() {
         // system_api_free_descriptor(descriptor_);
     }
 };
+
+descriptor_owner::descriptor_owner(const char* ){}
+
 
 void foo() {
     descriptor_owner d1("O_o");

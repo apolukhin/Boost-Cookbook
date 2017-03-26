@@ -1,7 +1,6 @@
 #include <boost/noncopyable.hpp>
 #include <algorithm>
 #include <iostream>
-#include <string.h>
 #include <assert.h>
 
 class descriptor_owner: private boost::noncopyable {
@@ -12,9 +11,7 @@ public:
         : descriptor_(NULL)
     {}
 
-    explicit descriptor_owner(const char* param)
-        : descriptor_(strdup(param))
-    {}
+    explicit descriptor_owner(const char* param);
 
     void swap(descriptor_owner& desc) {
         std::swap(descriptor_, desc.descriptor_);
@@ -24,6 +21,12 @@ public:
         free(descriptor_);
     }
 };
+
+
+#include <string.h>
+descriptor_owner::descriptor_owner(const char* param)
+    : descriptor_(strdup(param))
+{}
 
 
 //descriptor_owner construct_descriptor() {
@@ -44,28 +47,26 @@ class descriptor_owner1 {
 
 public:
     descriptor_owner1()
-        : descriptor_(NULL)
+        : descriptor_(nullptr)
     {}
 
-    explicit descriptor_owner1(const char* param)
-        : descriptor_(strdup(param))
-    {}
+    explicit descriptor_owner1(const char* param);
 
     descriptor_owner1(descriptor_owner1&& param)
         : descriptor_(param.descriptor_)
     {
-        param.descriptor_ = NULL;
+        param.descriptor_ = nullptr;
     }
 
     descriptor_owner1& operator=(descriptor_owner1&& param) {
-        clear();
-        std::swap(descriptor_, param.descriptor_);
+        descriptor_owner1 tmp(std::move(param));
+        std::swap(descriptor_, tmp.descriptor_);
         return *this;
     }
 
     void clear() {
         free(descriptor_);
-        descriptor_ = NULL;
+        descriptor_ = nullptr;
     }
 
     bool empty() const {
@@ -82,13 +83,17 @@ descriptor_owner1 construct_descriptor2() {
     return descriptor_owner1("Construct using this string");
 }
 
-
 void foo_rv() {
     std::cout << "C++11\n";
     descriptor_owner1 desc;
     desc = construct_descriptor2();
     assert(!desc.empty());
 }
+
+descriptor_owner1::descriptor_owner1(const char* param)
+    : descriptor_(strdup(param))
+{}
+
 #else
 void foo_rv() {std::cout << "no C++11\n";}
 #endif
@@ -116,8 +121,8 @@ public:
     }
 
     descriptor_owner_movable& operator=(BOOST_RV_REF(descriptor_owner_movable) param) BOOST_NOEXCEPT {
-        clear();
-        std::swap(descriptor_, param.descriptor_);
+        descriptor_owner_movable tmp(boost::move(param));
+        std::swap(descriptor_, tmp.descriptor_);
         return *this;
     }
 
@@ -146,39 +151,29 @@ descriptor_owner_movable construct_descriptor3() {
 #ifndef YOUR_PROJECT_VECTOR_HPP
 #define YOUR_PROJECT_VECTOR_HPP
 
-#include <boost/config.hpp>
+#include <boost/config.hpp> // contains BOOST_NO_CXX11_RVALUE_REFERENCES macro
 
-// Those macro declared in boost/config.hpp header
-// This is portable and can be used with any version of boost libraries
-#if !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
-
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 // We do have rvalues
 #include <vector>
+
 namespace your_project_namespace {
-    using std::vector;
+  using std::vector;
 } // your_project_namespace
 
 #else
-
 // We do NOT have rvalues
 #include <boost/container/vector.hpp>
+
 namespace your_project_namespace {
-    using boost::container::vector;
+  using boost::container::vector;
 } // your_project_namespace
 
-#endif // !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
-
+#endif // !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 #endif // YOUR_PROJECT_VECTOR_HPP
 
 
-
-
-
-
-
-
-int main()
-{
+int main() {
     foo_rv();
 
     // Following code will work on C++11 and C++03 compilers
@@ -195,9 +190,6 @@ int main()
     your_project_namespace::vector<descriptor_owner_movable> v;
     v.resize(10);
     v.push_back(construct_descriptor3());
-
     v.back() = boost::move(v.front());
-
-    return 0;
 }
 

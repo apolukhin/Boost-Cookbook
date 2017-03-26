@@ -4,29 +4,27 @@
 #include <auto_ptr.h>
 #include <assert.h>
 
-#include <boost/swap.hpp>
 #include <boost/move/move.hpp>
 
 
 namespace other {
-    // Its default construction is cheap/fast
     class characteristics{};
-} // namespace other
+}
 
 struct person_info {
-    // Fileds declared here
-    // ...
     bool is_male_;
     std::string name_;
     std::string second_name_;
     other::characteristics characteristic_;
 
+    // Fields declared here
+    // ...
 private:
     BOOST_COPYABLE_AND_MOVABLE(person_info)
-
 public:
-    // For the simplicity of example we will assume that person_info default
-    // constructor and swap are very fast/cheap to call
+    // For the simplicity of example we will assume that
+    // person_info default constructor and swap are very
+    // fast/cheap to call
     person_info() {}
 
     person_info(const person_info& p)
@@ -41,32 +39,30 @@ public:
     }
 
     person_info& operator=(BOOST_COPY_ASSIGN_REF(person_info) person) {
-        if (this != &person) {
-             person_info tmp(person);
-             swap(tmp);
-         }
-
+        person_info tmp(person);
+        swap(tmp);
         return *this;
     }
 
     person_info& operator=(BOOST_RV_REF(person_info) person) {
-        if (this != &person) {
-             swap(person);
-             person_info tmp;
-             tmp.swap(person);
-         }
-
+        person_info tmp(boost::move(person));
+        swap(tmp);
         return *this;
     }
 
-
-    void swap(person_info& rhs) {
-        std::swap(is_male_, rhs.is_male_);
-        name_.swap(rhs.name_);
-        second_name_.swap(rhs.second_name_);
-        boost::swap(characteristic_, rhs.characteristic_);
-    }
+    void swap(person_info& rhs);
 };
+
+
+
+#include <boost/swap.hpp>
+
+void person_info::swap(person_info& rhs) {
+    std::swap(is_male_, rhs.is_male_);
+    name_.swap(rhs.name_);
+    second_name_.swap(rhs.second_name_);
+    boost::swap(characteristic_, rhs.characteristic_);
+}
 
 
 
