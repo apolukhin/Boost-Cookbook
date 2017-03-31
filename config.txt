@@ -4,28 +4,49 @@
 TEMPLATE = app
 CONFIG -= console
 CONFIG -= qt
+CONFIG += thread
 
 # ... and a big portion of settings that reader may modify:
 
-# Flags to set your compiler into C++11/C++14 mode
-# (required for GCC and Clang, comment out in MSVC)
-CPP11FLAG = -std=c++0x
-CPP14FLAG = -std=c++14
-
-# Suppressing GCC warning
-QMAKE_CXXFLAGS += -Wno-deprecated-declarations -pthread
-QMAKE_LINKFLAGS += -lpthread
-
-# Paths to boost headers and libraries
-# (if you are using Linux and installed Boost 1.53 from repository you may comment out those lines)
-INCLUDEPATH += /data/boost_1_63_0
-LIBS += -L/data/boost_1_63_0/stage/lib
+isEmpty(BOOST_PATH) {
+    # Path to the Boost
+    BOOST_PATH = /data/boost_1_63_0/
+}
 
 # Compiler to use (comment out to use default one)
 #QMAKE_CXX = clang++
 
+# Paths to boost headers and libraries
+# (if you are using Linux and installed Boost from repository you may comment out those lines)
+INCLUDEPATH += $$BOOST_PATH
+
 # Boost specific defines
 DEFINES += BOOST_THREAD_VERSION=4
 
-# Disabling MSVC specific warnings
-DEFINES += _CRT_SECURE_NO_WARNINGS
+
+# Flags to set your compiler into C++03/C++11/C++14 modea
+msvc {
+    # MSVC compilers
+    CPP03FLAG =
+    CPP11FLAG =
+    CPP14FLAG =
+} else {
+    # all other compilers
+    CPP03FLAG = -std=c++03
+    CPP11FLAG = -std=c++0x
+    CPP14FLAG = -std=c++14
+}
+
+gcc {
+    LIBS += -L$$BOOST_PATH/stage/lib
+
+    # Suppressing GCC warning
+    QMAKE_CXXFLAGS += -Wno-deprecated-declarations
+} else {
+    LIBS += $$BOOST_PATH/stage/lib
+
+    # Disabling MSVC specific warnings
+    DEFINES += _CRT_SECURE_NO_WARNINGS
+}
+QMAKE_RPATHDIR += $$BOOST_PATH/stage/lib
+

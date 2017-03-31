@@ -131,6 +131,7 @@ script:
 
     # Executing examples
     - ./run_examples.sh
+    - python ./test.py
 
 after_success:
     - mkdir -p $TRAVIS_BUILD_DIR/coverals
