@@ -125,8 +125,8 @@ before_install:
 
 script:
     # `--coverage` flags required to generate coverage info for Coveralls
-    - if [ "$CC" == "clang" ]; then qmake "QMAKE_CXX=$CXX" "QMAKE_LFLAGS+=-Wl,-rpath=$BOOST/stage/lib" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
-    - if [ "$CC" == "gcc" ]; then qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LFLAGS+=--coverage -Wl,-rpath=$BOOST/stage/lib" "INCLUDEPATH+=$BOOST" "LIBS+=-L$BOOST/stage/lib" BoostBook.pro; fi
+    - if [ "$CC" == "clang" ]; then qmake "QMAKE_CXX=$CXX" "BOOST_PATH=$BOOST" BoostBook.pro; fi
+    - if [ "$CC" == "gcc" ]; then qmake "QMAKE_CXXFLAGS+=--coverage" "QMAKE_LFLAGS+=--coverage" "BOOST_PATH=$BOOST" BoostBook.pro; fi
     - make -j4
 
     # Executing examples

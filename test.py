@@ -195,7 +195,7 @@ class tester:
 
     @staticmethod
     def _is_exe(path):
-        return os.path.isfile(path) and os.access(path, os.X_OK)
+        return os.path.isfile(path) and os.access(path, os.X_OK) and '/.git/' not in path
 
     ''' ****************************************** Public functions *********************************************** '''
     @staticmethod
