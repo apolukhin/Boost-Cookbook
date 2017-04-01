@@ -30,27 +30,31 @@ void test2() {
 }
 
 void test3() {
-    boost::array<std::string, 3> v = {{"We ", "are", " the champions!"}};
+    boost::array<std::string, 3> v = {{"We ", "are", " the champions!"}}; 
 
-    const std::size_t count0 = std::count_if(v.begin(), v.end(), [](const std::string& s) {
-        return s.size() < 5;
-    });
-    const std::size_t count1 = std::count_if(v.begin(), v.end(),
-        boost::bind(std::less<std::size_t>(), boost::bind(&std::string::size, _1), 5)
-    );
-    assert(count0 == count1);
+    const std::size_t count0 = std::count_if(v.begin(), v.end(), 
+        [](const std::string& s) {  return s.size() < 5; }
+    ); 
+    const std::size_t count1 = std::count_if(v.begin(), v.end(), 
+        boost::bind(
+            std::less<std::size_t>(),
+            boost::bind(&std::string::size, _1),
+            5
+        )
+    ); 
+    assert(count0 == count1);  
 }
 
 void test4() {
-    boost::array<std::string, 3> v = {{"We ", "are", " the champions!"}};
-    std::string s("Expensive copy constructor of std::string will be called when binding");
+    boost::array<std::string, 3> v = {{"We ", "are", " the champions!"}}; 
+    std::string s("Expensive copy constructor is called when binding"); 
 
-    const std::size_t count0 = std::count_if(v.begin(), v.end(), [&s](const std::string& x) {
-        return x < s;
-    });
-    const std::size_t count1 = std::count_if(v.begin(), v.end(),
+    const std::size_t count0 = std::count_if(v.begin(), v.end(),
+        [&s](const std::string& x) {  return x < s; }
+    ); 
+    const std::size_t count1 = std::count_if(v.begin(), v.end(), 
         boost::bind(std::less<std::string>(), _1, s)
-    );
+    ); 
     assert(count0 == count1);
 }
 
@@ -58,12 +62,12 @@ void test4() {
 #include <boost/ref.hpp>
 
 void test5() {
-    boost::array<std::string, 3> v = {{"We ", "are", " the champions!"}};
-    std::string s("Expensive copy constructor of std::string will be called when binding");
+    boost::array<std::string, 3> v = {{"We ", "are", " the champions!"}}; 
+    std::string s("Expensive copy constructor is NOT called when binding"); 
 
-    const std::size_t count1 = std::count_if(v.begin(), v.end(),
+    const std::size_t count1 = std::count_if(v.begin(), v.end(), 
         boost::bind(std::less<std::string>(), _1, boost::cref(s))
-    );
+    ); 
 
 
 
