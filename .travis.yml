@@ -130,8 +130,8 @@ script:
     - make -j4
 
     # Executing examples
-    - ./run_examples.sh
     - python ./test.py
+    - ./run_examples.sh
 
 after_success:
     - mkdir -p $TRAVIS_BUILD_DIR/coverals

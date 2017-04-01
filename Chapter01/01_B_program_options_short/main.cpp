@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // Adding missing options from "aples_oranges.cfg" config file.
+    // Adding missing options from "apples_oranges.cfg" config file.
     try {
         opt::store(opt::parse_config_file<char>("apples_oranges.cfg", desc), vm);
     } catch (const opt::reading_file& e) {
