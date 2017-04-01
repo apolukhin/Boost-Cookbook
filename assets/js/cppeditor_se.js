@@ -8,104 +8,103 @@ var editor = (function() {
 				"run":	  "--apples=10 --oranges=5",
 			}, {
 				"title":	"Storing any value in a container/variable",
-				"source":   ['Chapter01/any/main.cpp'],
+				"source":   ['Chapter01/02_any/main.cpp'],
 			}, {
 				"title":	"Storing multiple chosen types in a variable/container",
-				"source":   ['Chapter01/variant/main.cpp'],
+				"source":   ['Chapter01/03_variant/main.cpp'],
 			}, {
 				"title":	"Using a safer way to work with a container that stores multiple chosen types",
-				"source":   ['Chapter01/any_db_example/main.cpp', 'Chapter01/variant_db_example/main.cpp'],
+				"source":   ['Chapter01/04_A_any_db_example/main.cpp', 'Chapter01/04_B_variant_db_example/main.cpp'],
 			}, {
 				"title":	"Returning a value or flag where there is no value",
-				"source":   ['Chapter01/optional/main.cpp'],
+				"source":   ['Chapter01/05_optional/main.cpp'],
 			}, {
 				"title":	"Returning an array from a function",
-				"source":   ['Chapter01/array/main.cpp'],
+				"source":   ['Chapter01/06_array/main.cpp'],
 			}, {
-				"chapter":  "Chapter01",
 				"title":	"Combining multiple values into one",
-				"source":   ['Chapter01/tuple/main.cpp'],
+				"source":   ['Chapter01/07_tuple/main.cpp'],
 			}, {
 				"title":	"Reordering the parameters of function",
-				"source":   ['Chapter01/bind_placeholders/main.cpp'],
+				"source":   ['Chapter01/08_bind/main.cpp'],
 			}, {
 				"title":	"Binding a value as a function parameter",
-				"source":   ['Chapter01/bind_values/main.cpp'],
+				"source":   ['Chapter01/09_type_index/main.cpp'],
 			}, {
 				"title":	"Using the C++11 move emulation",
-				"source":   ['Chapter01/move/main.cpp'],
+				"source":   ['Chapter01/10_move/main.cpp'],
 			}, {
 				"title":	"Making a noncopyable class",
-				"source":   ['Chapter01/noncopyable/main.cpp'],
+				"source":   ['Chapter01/11_noncopyable/main.cpp'],
 			}, {
 				"title":	"Making a noncopyable but movable class",
-				"source":   ['Chapter01/noncopyable_movable/main.cpp'],
+				"source":   ['Chapter01/12_noncopyable_movable/main.cpp'],
 			},
 		],
+
 
 		"Chapter02": [
 			{
-				"title":	"Converting strings to numbers",
-				"source":   ['Chapter02/lexical_to_number/main.cpp'],
-			}, {
-				"title":	"Converting numbers to strings",
-				"source":   ['Chapter02/lexical_to_string/main.cpp'],
-			}, {
-				"title":	"Converting numbers to numbers",
-				"source":   ['Chapter02/numeric_cast/main.cpp'],
-			}, {
-				"title":	"Converting user-defined types to/from strings",
-				"source":   ['Chapter02/lexical_user_defined/main.cpp'],
-			}, {
-				"title":	"Casting polymorphic objects",
-				"source":   ['Chapter02/polymorphic_cast/main.cpp'],
-			}, {
-				"title":	"Parsing simple input",
-				"source":   ['Chapter02/spirit/main.cpp'],
-			}, {
-				"title":	"Parsing input",
-				"source":   ['Chapter02/spirit_rules/main.cpp'],
-				"issues":   "compile",
-			},
-		],
-
-
-		"Chapter03": [
-			{
 				"title":	"Managing pointers to classes that do not leave scope",
-				"source":   ['Chapter03/scoped_ptr/main.cpp'],
+				"source":   ['Chapter02/01_scoped_ptr/main.cpp'],
 			}, {
 				"title":	"Reference counting of pointers to classes used across methods",
-				"source":   ['Chapter03/shared_ptr/main.cpp'],
+				"source":   ['Chapter02/02_shared_ptr/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 			}, {
 				"title":	"Managing pointers to arrays that do not leave scope",
-				"source":   ['Chapter03/scoped_array/main.cpp'],
+				"source":   ['Chapter02/03_scoped_array/main.cpp'],
 			}, {
 				"title":	"Reference counting pointers to arrays used across methods",
-				"source":   ['Chapter03/shared_array/main.cpp'],
+				"source":   ['Chapter02/04_shared_array/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 			}, {
 				"title":	"Storing any functional objects in a variable",
-				"source":   ['Chapter03/function_fobject/main.cpp', 'Chapter03/function_fpointer/main.cpp'],
+				"source":   ['Chapter02/05_function_fobject/main.cpp', 'Chapter02/function_fpointer/main.cpp'],
 			}, {
 				"title":	"Passing a function pointer in a variable",
-				"source":   ['Chapter03/function_fpointer/main.cpp'],
+				"source":   ['Chapter02/06_function_fpointer/main.cpp'],
 				"compile":  "-std=c++11",
 			}, {
 				"title":	"Passing C++11 lambda functions in a variable",
-				"source":   ['Chapter03/function_lambda_c++11/main.cpp'],
+				"source":   ['Chapter02/07_function_lambda_c++11/main.cpp'],
 				"compile":  "-std=c++11",
 			}, {
 				"title":	"Containers of pointers",
-				"source":   ['Chapter03/ptr_container_c++11/main.cpp'],
+				"source":   ['Chapter02/08_ptr_container_c++11/main.cpp'],
 				"compile":  "-std=c++11",
 			}, {
 				"title":	"Doing something at scope exit",
-				"source":   ['Chapter03/scope_exit/main.cpp'],
+				"source":   ['Chapter02/09_scope_exit/main.cpp'],
 			}, {
 				"title":	"Initializing the base class by a member of the derived class",
-				"source":   ['Chapter03/base_from_member/main.cpp'],
+				"source":   ['Chapter02/10_base_from_member/main.cpp'],
+			},
+		],
+
+		"Chapter03": [
+			{
+				"title":	"Converting strings to numbers",
+				"source":   ['Chapter03/01_lexical_to_number/main.cpp'],
+			}, {
+				"title":	"Converting numbers to strings",
+				"source":   ['Chapter03/02_lexical_to_string/main.cpp'],
+			}, {
+				"title":	"Converting numbers to numbers",
+				"source":   ['Chapter03/03_numeric_cast/main.cpp'],
+			}, {
+				"title":	"Converting user-defined types to/from strings",
+				"source":   ['Chapter03/04_lexical_user_defined/main.cpp'],
+			}, {
+				"title":	"Casting polymorphic objects",
+				"source":   ['Chapter03/05_polymorphic_cast/main.cpp'],
+			}, {
+				"title":	"Parsing simple input",
+				"source":   ['Chapter03/06_spirit/main.cpp'],
+			}, {
+				"title":	"Parsing input",
+				"source":   ['Chapter03/07_spirit_rules/main.cpp'],
+				"issues":   "compile",
 			},
 		],
 
@@ -496,7 +495,7 @@ var editor = (function() {
 		} else if (content[current_chapter][current_index + 1]) {
 			download_impl_base(current_chapter, current_index + 1);
 		} else {
-			var chapters = ["Chapter01", "Chapter02", "Chapter03", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
+			var chapters = ["Chapter01", "Chapter03", "Chapter02", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
 			var next_ind = chapters.indexOf(current_chapter) + 1;
 			if (next_ind >= chapters.length) {
 				next_ind = 0;
@@ -511,7 +510,7 @@ var editor = (function() {
 		} else if (current_index > 0) {
 			download_impl_base(current_chapter, current_index - 1, content[current_chapter][current_index - 1]["source"].length - 1);
 		} else {
-			var chapters = ["Chapter01", "Chapter02", "Chapter03", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
+			var chapters = ["Chapter01", "Chapter03", "Chapter02", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
 			var next_ind = chapters.indexOf(current_chapter) - 1;
 			if (next_ind < 0) {
 				next_ind = chapters.length - 1;
