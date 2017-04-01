@@ -60,7 +60,7 @@ class tester:
         'Chapter12/graph': ('Boost\nC++ guru\n', '', 0),
         'Chapter12/graph_vis': ('digraph G {\n0 [label="C++"];\n1 [label="STL"];\n2 [label="Boost"];\n3 [label="C++ guru"];\n4 [label="C"];\n0->1 ;\n1->2 ;\n2->3 ;\n4->3 ;\n}\n', '', 0),
         'Chapter12/testing': ('Running 2 test cases...\n', '\n*** No errors detected\n', 0),
-        #'Chapter12/testing_advanced': ('Running 2 test cases...\n', '\n*** No errors detected\n', 0),
+        'Chapter12/testing_advanced': ('Running 2 test cases...\n', '\n*** No errors detected\n', 0),
 
 
     }
@@ -183,11 +183,10 @@ class tester:
             "Chapter11/interprocess_pointers": tester._ignore,
             "Chapter11/interprocess_queue": tester._ignore,
             "Chapter11/interprocess_queue": tester._ignore,
-            "Chapter12/testing_advanced": tester._ignore,
         }
 
         test_name = os.path.dirname(os.path.relpath(path))
-        print test_name
+        print "* {: <35} executable '{}'".format(test_name, path)
         if test_name in special_cases:
             f = special_cases[test_name]
             f(test_name, path)
