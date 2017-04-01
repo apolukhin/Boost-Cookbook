@@ -37,16 +37,16 @@ msvc {
     CPP14FLAG = -std=c++14
 }
 
-gcc {
-    LIBS += -L$$BOOST_PATH/stage/lib
-
-    # Suppressing GCC warning
-    QMAKE_CXXFLAGS += -Wno-deprecated-declarations
-} else {
+msvc {
     LIBS += $$BOOST_PATH/stage/lib
 
     # Disabling MSVC specific warnings
     DEFINES += _CRT_SECURE_NO_WARNINGS
+} else {
+    LIBS += -L$$BOOST_PATH/stage/lib
+
+    # Suppressing GCC warning
+    QMAKE_CXXFLAGS += -Wno-deprecated-declarations
 }
 QMAKE_RPATHDIR += $$BOOST_PATH/stage/lib
 
