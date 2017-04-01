@@ -30,16 +30,16 @@ int main(int argc, char *argv[])
 
     // We can also parse environment variables using 'parse_environment' method
 
+    if (vm.count("help")) {
+        std::cout << desc << "\n";
+        return 1;
+    }
+
     // Adding missing options from "aples_oranges.cfg" config file.
     try {
         opt::store(opt::parse_config_file<char>("apples_oranges.cfg", desc), vm);
     } catch (const opt::reading_file& e) {
         std::cout << "Error: " << e.what() << std::endl;
-    }
-
-    if (vm.count("help")) {
-        std::cout << desc << "\n";
-        return 1;
     }
 
     try {

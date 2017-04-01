@@ -21,7 +21,10 @@ class tester:
         'Chapter01/01_B_program_options_short_10_20': ("Error: can not read options configuration file 'apples_oranges.cfg'\nFruits count: 30\n", '', 0),
         'Chapter01/01_B_program_options_short_20_30': ("Error: can not read options configuration file 'apples_oranges.cfg'\nFruits count: 50\n", '', 0),
         'Chapter01/01_B_program_options_short_70': ("Error: can not read options configuration file 'apples_oranges.cfg'\nError: the option '--oranges' is required but missing\n", '', 2),
-        'Chapter01/01_B_program_options_short_80_cfg': ('Hi,Reader!\nFruits count: 100\n', '', 0),
+        'Chapter01/01_B_program_options_short_80_cfg': ('Fruits count: 100\n', '', 0),
+        'Chapter01/01_B_program_options_short_cfg': ('Fruits count: 30\n', '', 0),
+        'Chapter01/01_B_program_options_short_help': ('All options:\n  -o [ --oranges ] arg      oranges that you have\n  --name arg                your name\n  -a [ --apples ] arg (=10) apples that you have\n  --help                    produce help message\n\n', '', 1),
+        'Chapter01/01_B_program_options_short_no_params': ("Error: can not read options configuration file 'apples_oranges.cfg'\nError: the option '--oranges' is required but missing\n", '', 2),
         'Chapter01/02_any': ('Wow! That is great!\n', '', 0),
         'Chapter01/03_variant': ('Wow! That is great!\n', '', 0),
         'Chapter01/04_A_any_db_example': ('Sum of arithmetic types in database row is: 20.1\n', '', 0),
@@ -52,7 +55,6 @@ class tester:
         'Chapter10/my_library': ('', '', -11),
         'Chapter10/no_rtti': ('type_index type_id() [with T = double]', '', 0),
         'Chapter11/erasing_files': ('', 'Failed to create a symlink\n', 0),
-        'Chapter11/listing_files': ('FILE       W "./example_file.txt"\nFILE       W "./Makefile"\nDIRECTORY  W "./Chapter04"\nFILE       W "./save_file.txt"\nDIRECTORY  W "./symlink"\nFILE       W "./LICENSE_1_0.txt"\nDIRECTORY  W "./Chapter09"\nFILE       W "./.travis.yml"\nFILE       W "./Readme.md"\nDIRECTORY  W "./Chapter02"\nDIRECTORY  W "./Chapter03"\nFILE       W "./BoostBook.pro"\nDIRECTORY  W "./Chapter10"\nDIRECTORY  W "./Chapter01"\nFILE       W "./.gitignore"\nDIRECTORY  W "./dir"\nDIRECTORY  W "./Chapter08"\nDIRECTORY  W "./Chapter07"\nDIRECTORY  W "./Chapter11"\nDIRECTORY  W "./Chapter12"\nDIRECTORY  W "./Chapter06"\nDIRECTORY  W "./Chapter05"\nFILE       W "./test.py"\nFILE       W "./config.txt"\n', '', 0),
         'Chapter11/reading_files': ('', "reading_files: main.cpp:14: int main(int, char**): Assertion `argc >= 2' failed.\n", -6),
         'Chapter12/gil': ('', "terminate called after throwing an instance of 'std::ios_base::failure'\n  what():  file_mgr: failed to open file\n", -6),
         'Chapter12/graph': ('Boost\nC++ guru\n', '', 0),
@@ -103,6 +105,12 @@ class tester:
 
     @staticmethod
     def _test_program_options_short(test_name, path):
+        command = [path, '--help']
+        tester._test(command, test_name + "_help")
+
+        command = [path]
+        tester._test(command, test_name + "_no_params")
+
         command = [path, '-a', '10', '--oranges=20']
         tester._test(command, test_name + "_10_20")
 
@@ -118,6 +126,9 @@ class tester:
         )
         command = [path, '--apples=80']
         tester._test(command, test_name + "_80_cfg")
+
+        command = [path]
+        tester._test(command, test_name + "_cfg")
         os.remove("./apples_oranges.cfg")
 
     @staticmethod
@@ -162,6 +173,7 @@ class tester:
             "Chapter01/01_A_program_options_base": tester._test_program_options_base,
             "Chapter01/01_B_program_options_short": tester._test_program_options_short,
             "Chapter06/tasks_processor_signals": tester._test_tasks_processor_signals,
+            "Chapter11/listing_files": tester._test_but_ignore_output_diff,
             "Chapter12/gil": tester._test_gil,
             "Chapter05/mutex": tester._test_but_ignore_output_diff,
             "Chapter12/random": tester._test_but_ignore_output_diff,
