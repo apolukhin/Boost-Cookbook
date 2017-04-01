@@ -76,7 +76,6 @@ class tester:
 
     @staticmethod
     def _test_validate(test_name):
-        print test_name
         if tester.canonize_output:
             return
 
@@ -186,6 +185,7 @@ class tester:
         }
 
         test_name = os.path.dirname(os.path.relpath(path))
+        print test_name
         if test_name in special_cases:
             f = special_cases[test_name]
             f(test_name, path)
