@@ -34,7 +34,7 @@ class tester:
         'Chapter01/09_type_index': ('T is d\nx is i\nT is double\nx is int&&\n', '', 0),
         'Chapter01/12_A_noncopyable_movable': ('no C++11\n', '', 0),
         'Chapter01/12_B_noncopyable_movable_c++11': ('C++11\n', '', 0),
-        'Chapter03/numeric_cast': ('#47 bad numeric conversion: negative overflow\n#58 bad numeric conversion: positive overflow\n\n\n\nNEG OVERFLOW in #47 bad numeric conversion: negative overflow\nPOS OVERFLOW in #59 bad numeric conversion: positive overflow\n\n\n\nIt works! val = 0 Error msg: Not in range!\n', '', 0),
+        'Chapter03/03_numeric_cast': ('#47 bad numeric conversion: negative overflow\n#58 bad numeric conversion: positive overflow\n\n\n\nNEG OVERFLOW in #47 bad numeric conversion: negative overflow\nPOS OVERFLOW in #59 bad numeric conversion: positive overflow\n\n\n\nIt works! val = 0 Error msg: Not in range!\n', '', 0),
         'Chapter04/mpl_int_': (' 0 1 2 \x03 4 5\n', '', 0),
         'Chapter04/static_assert': ('01', '', 0),
         'Chapter05/atomics': ('shared_i == 0\n', '', 0),
