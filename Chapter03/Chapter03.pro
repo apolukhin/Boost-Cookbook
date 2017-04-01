@@ -1,10 +1,10 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    lexical_to_number \
-    lexical_to_string \
-    lexical_user_defined \
-    numeric_cast \
-    polymorphic_cast \
-    spirit \
-    spirit_rules
+    01_lexical_to_number \
+    02_lexical_to_string \
+    03_numeric_cast \
+    04_lexical_user_defined \
+    05_polymorphic_cast \
+    06_spirit \
+    07_spirit_rules
