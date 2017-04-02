@@ -184,6 +184,7 @@ class tester:
 
             "Chapter07/regex_match": tester._ignore,
             "Chapter07/regex_replace": tester._ignore,
+            "Chapter10/no_rtti": tester._ignore,
             "Chapter11/interprocess_basics": tester._ignore,
             "Chapter11/interprocess_pointers": tester._ignore,
             "Chapter11/interprocess_queue": tester._ignore,
