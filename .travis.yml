@@ -50,7 +50,7 @@ addons:
     - clang
     - libc++-dev
     - clang-3.8
-    - libc++
+    - libc++-dev
     - qt4-qmake
     - language-pack-ru
 
