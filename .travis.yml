@@ -50,6 +50,7 @@ addons:
     - clang
     - libc++-dev
     - clang-3.8
+    - libc++
     - qt4-qmake
     - language-pack-ru
 
@@ -141,7 +142,7 @@ before_install:
     - cd $PROJECT_DIR
 
 script:
-    - qmake "QMAKE_CXX=$CXXTOOLSET" "QMAKE_CXXFLAGS+=$CXX_FLAGS" "QMAKE_LFLAGS+=$LINK_FLAGS" "BOOST_PATH=$BOOST" BoostBook.pro
+    - qmake "QMAKE_CXX=$CXXTOOLSET" "QMAKE_LINK=$CXXTOOLSET" "QMAKE_CXXFLAGS+=$CXX_FLAGS" "QMAKE_LFLAGS+=$LINK_FLAGS" "BOOST_PATH=$BOOST" BoostBook.pro
     - make -j4
 
     # Executing examples
