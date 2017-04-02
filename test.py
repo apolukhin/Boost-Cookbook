@@ -82,6 +82,11 @@ class tester:
         if tester.outputs[test_name][0] == '' and tester.outputs[test_name][1] == '' and tester.outputs[test_name][2] == 0:
             return
 
+        if test_name not in tester.expected:
+            print '"{}" must not produce output and finish with code 0, however its code is {}. Full info:\n{}\n'.format(test_name, tester.outputs[test_name][2], tester.outputs[test_name])
+            tester.was_error = True
+            return
+
         if tester.outputs[test_name][2] != tester.expected[test_name][2]:
             print 'Return code in "{}" test is {}, {} expected. Info:\n{}\n'.format(test_name, tester.outputs[test_name][2], tester.expected[test_name][2], tester.outputs[test_name])
             tester.was_error = True
