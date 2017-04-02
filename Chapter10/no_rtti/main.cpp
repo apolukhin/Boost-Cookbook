@@ -12,11 +12,13 @@ type_index type_id() {
     return typeid(T);
 }
 
-template <class Char, class Trait>
-inline std::basic_ostream<Char, Trait>& operator << (std::basic_ostream<Char, Trait>& os, const type_index& t) {
-    return os << t.name();
+namespace std {
+    // Not a good idea!
+    template <class Char, class Trait>
+    inline basic_ostream<Char, Trait>& operator << (basic_ostream<Char, Trait>& os, const type_index& t) {
+        return os << t.name();
+    }
 }
-
 #else
 
 #include <cstring>
