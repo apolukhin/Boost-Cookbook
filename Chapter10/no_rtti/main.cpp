@@ -12,9 +12,15 @@ type_index type_id() {
     return typeid(T);
 }
 
+template <class Char, class Trait>
+inline std::basic_ostream<Char, Trait>& operator << (std::basic_ostream<Char, Trait>& os, const type_index& t) {
+    return os << t.name();
+}
+
 #else
 
 #include <cstring>
+#include <iosfwd> // std::basic_ostream
 
 struct type_index {
     const char * name_;
@@ -33,6 +39,11 @@ inline bool operator != (const type_index& v1, const type_index& v2) {
     return !!std::strcmp(v1.name_, v2.name_);
 }
 
+template <class Char, class Trait>
+inline std::basic_ostream<Char, Trait>& operator << (std::basic_ostream<Char, Trait>& os, const type_index& t) {
+    return os << t.name_;
+}
+
 #include <boost/current_function.hpp>
 template <class T>
 inline type_index type_id() {
@@ -47,6 +58,6 @@ int main() {
     assert(type_id<unsigned int>() == type_id<unsigned>());
     assert(type_id<double>() != type_id<long double>());
 
-    std::cout << type_id<double>().name_;
+    std::cout << type_id<double>();
 }
 
