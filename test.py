@@ -17,7 +17,7 @@ class tester:
 
         'Chapter01/01_A_program_options_base_10_20': ('Fruits count: 30\n', '', 0),
         'Chapter01/01_A_program_options_base_20_30': ('Fruits count: 50\n', '', 0),
-        'Chapter01/01_A_program_options_base_70': ('', "terminate called after throwing an instance of 'boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::bad_any_cast> >'\n  what():  boost::bad_any_cast: failed conversion using boost::any_cast\n", -6),
+        'Chapter01/01_A_program_options_base_70': ('', '', -6),
         'Chapter01/01_B_program_options_short_10_20': ("Error: can not read options configuration file 'apples_oranges.cfg'\nFruits count: 30\n", '', 0),
         'Chapter01/01_B_program_options_short_20_30': ("Error: can not read options configuration file 'apples_oranges.cfg'\nFruits count: 50\n", '', 0),
         'Chapter01/01_B_program_options_short_70': ("Error: can not read options configuration file 'apples_oranges.cfg'\nError: the option '--oranges' is required but missing\n", '', 2),
@@ -105,7 +105,7 @@ class tester:
         tester._test(command, test_name + "_20_30")
 
         command = [path, '--apples=70']
-        tester._test(command, test_name + "_70")
+        tester._test_but_ignore_output_diff(test_name + "_70", command) # Test throws bad_any_cast as there's no '--oranges' parameter
 
     @staticmethod
     def _test_program_options_short(test_name, path):
