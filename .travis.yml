@@ -23,9 +23,14 @@ env:
         - IGNORE_COVERAGE='*/boost-local/*'
 
     matrix:
+        - CXX_FLAGS="--coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage -fsanitize=address,leak,undefined" TOOLSET=gcc-5 CXXTOOLSET=g++-5
+        - CXX_FLAGS="-Wno-c++11-narrowing --coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage -fsanitize=address,leak,undefined" TOOLSET=clang-3.9 CXXTOOLSET=clang++-3.9
+
+
         - CXX_FLAGS="--coverage" LINK_FLAGS="--coverage" TOOLSET=gcc CXXTOOLSET=g++
-        - CXX_FLAGS="--coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage -fsanitize=address,leak,undefined" TOOLSET=gcc-6 CXXTOOLSET=g++-6
+        - CXX_FLAGS="--coverage" LINK_FLAGS="--coverage" TOOLSET=gcc-6 CXXTOOLSET=g++-6
         - CXX_FLAGS="-Wno-c++11-narrowing --coverage" LINK_FLAGS="--coverage" TOOLSET=clang-3.6 CXXTOOLSET=clang++-3.6
+
         #- CXX_FLAGS="-std=c++11 -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang
         #- CXX_FLAGS="-std=c++1y -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang
 
@@ -40,13 +45,17 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     - llvm-toolchain-precise-3.6
+    - llvm-toolchain-precise-3.9
     - git-core
     packages:
     - git
     - python-yaml
     - gcc-6
     - g++-6
+    - gcc-5
+    - g++-5
     - clang-3.6
+    - clang-3.9
     - qt4-qmake
     - language-pack-ru
 
