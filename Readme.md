@@ -44,8 +44,7 @@ Thanks to Heather Gopsill from Packt Publishing for giving a permission to make 
 [![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS.svg?branch=master)](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS) [![Coverage Status](https://coveralls.io/repos/apolukhin/Boost-Cookbook-4880OS/badge.svg)](https://coveralls.io/r/apolukhin/Boost-Cookbook-4880OS)
 
 ### Notes for book update
-* Chapter 10 "Detecting RTTI support" - add Boost.TypeIndex example
-* Optional and Variant now understand rvalue references
+* Chapter 10 "Detecting RTTI support" - add Boost.TypeIndex example AND Sync code
 * Boost will have an unique_ptr in 1.58
 * How about describing boost::future?
 * Coroutine interface changed in Boost 1.56
@@ -53,10 +52,14 @@ Thanks to Heather Gopsill from Packt Publishing for giving a permission to make 
 * Filesystem is accepted into the Standard
 * RCU example using atomics?
 * add *_pointer_cast examples?
-* add a note to the book about source code availability at github
 * sync code and book
 * Fix introduction in "Chapter09. Getting the benefits of single-linked list and memory pool"
 * Boost.DLL examples
-* Variant is proposed for C++17. Highlight the differences.
 * flat containers were proposed for C++17
 * describe in depth changes from 135a24926a1d084e76f8f527deeee6236274e496
+
+Done:
+* Optional and Variant now understand rvalue references
+* add a note to the book about source code availability at github
+* Variant is proposed for C++17. Highlight the differences.
+
