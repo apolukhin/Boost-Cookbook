@@ -186,7 +186,7 @@ class tester:
         }
 
         test_name = os.path.dirname(os.path.relpath(path))
-        print "* {: <35} executable '{}'".format(test_name, path)
+        print "* {}".format(test_name)
         if test_name in special_cases:
             f = special_cases[test_name]
             f(test_name, path)
@@ -254,6 +254,12 @@ if __name__ == "__main__":
         os.chdir(old_path)
 
     tester.run_tests(args.dir)
+
+    if args.build:
+        old_path = os.getcwd()
+        os.chdir(args.dir)
+        subprocess.check_call(['make', 'distclean'])
+        os.chdir(old_path)
 
 
 '''
