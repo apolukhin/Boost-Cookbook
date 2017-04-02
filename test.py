@@ -83,7 +83,7 @@ class tester:
             return
 
         if test_name not in tester.expected:
-            print '"{}" must not produce output and finish with code 0, however its code is {}. Full info:\n{}\n'.format(test_name, tester.outputs[test_name][2], tester.outputs[test_name])
+            print '"{}" must not produce output and finish with code 0. Full info:\n{}\n'.format(test_name, tester.outputs[test_name])
             tester.was_error = True
             return
 
