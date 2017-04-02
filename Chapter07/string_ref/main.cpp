@@ -82,7 +82,9 @@ void string_ref_algorithms_examples() {
 
 int main() {
     std::cout << between("Getting expression (between brackets)", '(', ')') << '\n';
-    std::cout << between(std::string("(expression)"), '(', ')') << '\n';
+
+    std::string s("(expression)");
+    std::cout << between(s, '(', ')') << '\n';
 
     string_ref_init_examples();
     string_ref_algorithms_examples();

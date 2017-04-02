@@ -45,6 +45,7 @@ Thanks to Heather Gopsill from Packt Publishing for giving a permission to make 
 
 ### Notes for book update
 * Chapter 10 "Detecting RTTI support" - add Boost.TypeIndex example AND Sync code
+* Chapter07 Note about boost::string_ref(string&&) and boost::string_view
 * Boost will have an unique_ptr in 1.58
 * How about describing boost::future?
 * Coroutine interface changed in Boost 1.56
