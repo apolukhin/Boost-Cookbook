@@ -74,6 +74,11 @@ class tester:
         tester._test_validate(test_name)
 
     @staticmethod
+    def _print_test_output(test_name):
+        out = tester.outputs[test_name]
+        print '--- Stdout:\n{}\n--- Stderr:\n{}\n--- Ret code: {}\n'.format(out[0], out[1], out[2])
+
+    @staticmethod
     def _test_validate(test_name):
         if tester.canonize_output:
             return
@@ -82,16 +87,19 @@ class tester:
             return
 
         if test_name not in tester.expected:
-            print '"{}" must not produce output and finish with code 0. Full info:\n{}\n'.format(test_name, tester.outputs[test_name])
+            print '"{}" must not produce output and finish with code 0. Info:'.format(test_name)
+            tester._print_test_output(test_name)
             tester.was_error = True
             return
 
         if tester.outputs[test_name][2] != tester.expected[test_name][2]:
-            print 'Return code in "{}" test is {}, {} expected. Info:\n{}\n'.format(test_name, tester.outputs[test_name][2], tester.expected[test_name][2], tester.outputs[test_name])
+            print 'Return code in "{}" test is {}, {} expected. Info:'.format(test_name, tester.outputs[test_name][2], tester.expected[test_name][2])
+            tester._print_test_output(test_name)
             tester.was_error = True
 
         if tester.outputs[test_name][0] != tester.expected[test_name][0]:
-            print 'Output in "{}" test is {}, {} expected. Info:\n{}\n'.format(test_name, tester.outputs[test_name][0], tester.expected[test_name][0], tester.outputs[test_name])
+            print 'Output in "{}" test is {}, {} expected. Info:'.format(test_name, tester.outputs[test_name][0], tester.expected[test_name][0])
+            tester._print_test_output(test_name)
             tester.was_error = True
 
     ''' ****************************************** Special testing cases ****************************************** '''
