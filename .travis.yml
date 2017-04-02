@@ -26,7 +26,7 @@ env:
         # Note that "--coverage -fsanitize=address,leak,undefined -DBOOST_TRAVISCI_BUILD" are added automatically lower in code
         - CXX_FLAGS="--coverage" LINK_FLAGS="--coverage" TOOLSET=gcc CXXTOOLSET=g++
         - CXX_FLAGS="--coverage" LINK_FLAGS="--coverage" TOOLSET=gcc-6 CXXTOOLSET=g++-6
-        - TOOLSET=clang-3.8 CXXTOOLSET=clang++-3.8
+        - CXX_FLAGS="-stdlib=libc++ --coverage" LINK_FLAGS="-stdlib=libc++ --coverage" TOOLSET=clang-3.8 CXXTOOLSET=clang++-3.8
         #- CXX_FLAGS="-std=c++11 -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang
         #- CXX_FLAGS="-std=c++1y -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang
 

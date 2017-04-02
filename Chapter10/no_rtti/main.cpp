@@ -12,13 +12,6 @@ type_index type_id() {
     return typeid(T);
 }
 
-namespace std {
-    // Not a good idea!
-    template <class Char, class Trait>
-    inline basic_ostream<Char, Trait>& operator << (basic_ostream<Char, Trait>& os, const type_index& t) {
-        return os << t.name();
-    }
-}
 #else
 
 #include <cstring>
@@ -30,6 +23,8 @@ struct type_index {
     explicit type_index(const char* name)
         : name_(name)
     {}
+
+    const char* name() const { return name_; }
 };
 
 inline bool operator == (const type_index& v1, const type_index& v2) {
@@ -60,6 +55,6 @@ int main() {
     assert(type_id<unsigned int>() == type_id<unsigned>());
     assert(type_id<double>() != type_id<long double>());
 
-    std::cout << type_id<double>();
+    std::cout << type_id<double>().name();
 }
 
