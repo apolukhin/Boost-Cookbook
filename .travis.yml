@@ -140,7 +140,7 @@ before_install:
     - cd $PROJECT_DIR
 
 script:
-    - qmake "QMAKE_CXX=$CXXTOOLSET" "QMAKE_CXXFLAGS+=$CXX_FLAGS" "QMAKE_LFLAGS+=$LINK_FLAGS" "BOOST_PATH=$BOOST" BoostBook.pro; fi
+    - qmake "QMAKE_CXX=$CXXTOOLSET" "QMAKE_CXXFLAGS+=$CXX_FLAGS" "QMAKE_LFLAGS+=$LINK_FLAGS" "BOOST_PATH=$BOOST" BoostBook.pro
     - make -j4
 
     # Executing examples
