@@ -28,7 +28,7 @@ boost::array<unsigned char, 60> chars_65_125() {
 void to_hex_test1() {
     const std::string data = "Hello word";
     boost::algorithm::hex(
-        data.cbegin(), data.cend(),
+        data.begin(), data.end(),
         std::ostream_iterator<char>(std::cout)
     );
 
