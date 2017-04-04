@@ -17,5 +17,6 @@ SUBDIRS += \
     10_B_move_c++11 \
     11_noncopyable \
     12_A_noncopyable_movable \
-    12_B_noncopyable_movable_c++11
+    12_B_noncopyable_movable_c++11 \
+    13_algorithm
 
