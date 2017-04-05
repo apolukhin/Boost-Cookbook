@@ -8,3 +8,7 @@ HEADERS += foo.hpp
 # Boost.Test works well only when we link against
 # static version of boost_unit_test_framework library
 LIBS += -static -lboost_unit_test_framework -lboost_system
+
+unix {
+    LIBS += -ldl
+}
