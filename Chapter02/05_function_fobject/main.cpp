@@ -73,6 +73,6 @@ void foo1() {
 }
 
 void process_integers(const fobject_t& f) {
-    static const int data[] = {1, 2, 3, 4, 5, 200};
+    static const int data[] = {1, 2, 3, 4, 5, 250};
     std::for_each(data, data + sizeof(data) / sizeof(int), f);
 }
