@@ -28,7 +28,7 @@ env:
 
 
         - CXX_FLAGS="--coverage" LINK_FLAGS="--coverage" TOOLSET=gcc CXXTOOLSET=g++
-        - CXX_FLAGS="--coverage" LINK_FLAGS="--coverage" TOOLSET=gcc-6 CXXTOOLSET=g++-6
+        - CXX_FLAGS="--coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage" QLIBS="-lasan -lubsan" TOOLSET=gcc-6 CXXTOOLSET=g++-6
         - CXX_FLAGS="-Wno-c++11-narrowing --coverage" LINK_FLAGS="--coverage" TOOLSET=clang-3.6 CXXTOOLSET=clang++-3.6
 
         #- CXX_FLAGS="-std=c++11 -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang

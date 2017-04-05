@@ -194,6 +194,7 @@ class tester:
             "Chapter11/listing_files": tester._test_but_ignore_output_diff,
             "Chapter12/gil": tester._test_gil,
             "Chapter05/mutex": tester._test_but_ignore_output_diff,
+            "Chapter11/coroutines": tester._test_but_ignore_output_diff, # Sanitizers do not like coroutines and add some warnings
             "Chapter12/random": tester._test_but_ignore_output_diff,
 
             "Chapter07/regex_match": tester._ignore,
