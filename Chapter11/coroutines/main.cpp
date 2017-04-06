@@ -1,3 +1,5 @@
+#include <iostream>
+
 struct spinlock_t {
     bool try_lock() {
         static int i = 0;
@@ -71,6 +73,8 @@ int main() {
     }
 
     assert(coroutine.get().size() == 10 * 300);
+    
+    std::cout << "OK\n";
 }
 
 #else
@@ -129,6 +133,8 @@ int main() {
     }
 
     assert(result.size() == 10 * 300);
+    
+    std::cout << "OK\n";
 }
 
 #endif // BOOST_VERSION < 105600
