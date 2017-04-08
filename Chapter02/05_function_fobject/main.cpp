@@ -1,16 +1,14 @@
-// Required for std::unary_function<> template
-#include <functional>
 // making a typedef for function pointer accepting int
 // and returning nothing
 typedef void (*func_t)(int);
 
 // Function that accepts pointer to function and
-// calls accepted function for each integer that it has
-// It can not work with functional objects :(
+// calls accepted function for each integer that it has.
+// It cannot work with functional objects :(
 void process_integers(func_t f);
 
 // Functional object
-class int_processor: public std::unary_function<int, void> {
+class int_processor {
    const int min_;
    const int max_;
    bool& triggered_;
@@ -42,6 +40,19 @@ int main() {
     assert(is_triggered);
 }
 
+bool g_is_triggered = false;
+void set_functional_object(fobject_t& f) {
+    // Local variable
+    int_processor fo( 100, 200, g_is_triggered);
+
+    f = fo;
+    // now 'f' holds a copy of 'fo'
+
+    // 'fo' leavs scope and will be destroyed,
+    // but it's OK to use 'f' in outer scope.
+}
+
+
 void foo(const fobject_t& f) {
     // boost::function is convertible to bool
     if (f) {
@@ -51,25 +62,6 @@ void foo(const fobject_t& f) {
         // 'f' is empty
         // ...
     }
-}
-
-bool g_is_triggered = false;
-void set_functional_object(fobject_t& f) {
-    int_processor fo( 100, 200, g_is_triggered);
-    f = fo;
-    // fo leaves scope and will be destroyed,
-    // but 'f' will be usable even in outer scope
-}
-
-#include <vector>
-#include <algorithm>
-#include <boost/bind.hpp>
-void foo1() {
-    std::vector<int> v;
-    std::for_each(v.begin(), v.end(), boost::bind(std::plus<int>(), 10, _1));
-
-    fobject_t f(boost::bind(std::plus<int>(), 10, _1));
-    std::for_each(v.begin(), v.end(), f);
 }
 
 void process_integers(const fobject_t& f) {
