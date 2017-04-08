@@ -15,12 +15,15 @@ void do_process_in_background(const char* data, std::size_t size)    {
             .detach();
 
     // We cannot delete[] data_cpy, because
-    // do_process1 or do_process2 may still work with it
+    // do_process() function may still work with it
 }
 
 #include <boost/shared_array.hpp>
 
-void do_process(const boost::shared_array<char>& data, std::size_t size) {
+void do_process_shared_array(
+        const boost::shared_array<char>& data,
+        std::size_t size)
+{
     do_process(data.get(), size);
 }
 
@@ -31,12 +34,13 @@ void do_process_in_background_v1(const char* data, std::size_t size) {
     std::memcpy(data_cpy.get(), data, size);
 
     // Starting threads of execution to process data
-    boost::thread(boost::bind(&do_process1, data_cpy))
-        .detach();
+    boost::thread(
+        boost::bind(&do_process_shared_array, data_cpy, size)
+    ).detach();
 
     // no need to call delete[] for data_cpy, because
     // data_cpy destructor will deallocate data when
-    // reference count will be zero
+    // reference count is zero
 }
 
 
@@ -60,7 +64,7 @@ void do_process_in_background_v2(const char* data, std::size_t size) {
             .detach();
 
     // data_cpy destructor will deallocate data when
-    // reference count will be zero
+    // reference count is zero
 }
 
 void do_process_shared_ptr2(
@@ -83,7 +87,7 @@ void do_process_in_background_v3(const char* data, std::size_t size) {
             .detach();
 
     // data_cpy destructor will deallocate data when
-    // reference count will be zero
+    // reference count is zero
 }
 
 

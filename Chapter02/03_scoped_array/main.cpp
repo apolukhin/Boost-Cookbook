@@ -1,4 +1,4 @@
-void may_throw1(const char* buffer);
+void may_throw1(char ch);
 void may_throw2(const char* buffer);
 
 void foo() {
@@ -8,7 +8,7 @@ void foo() {
 
     // Oops. Here comes some code, that may throw.
     // It was a bad idea to use raw pointer as the memory may leak!!
-    may_throw1(*buffer);
+    may_throw1(buffer[0]);
     may_throw2(buffer);
 
     delete[] buffer;
@@ -23,7 +23,7 @@ void foo_fixed() {
 
     // Here comes some code, that may throw,
     // but now exception won't cause a memory leak
-    may_throw1(*buffer);
+    may_throw1(buffer[0]);
     may_throw2(buffer.get());
 
     // destructor of 'buffer' variable will call delete[]
@@ -38,7 +38,7 @@ void foo_fixed2() {
 
     // Here comes some code, that may throw,
     // but now exception won't cause a memory leak
-    may_throw1(*buffer);
+    may_throw1(buffer[0]);
     may_throw2(buffer.get());
 
     // destructor of 'buffer' variable will call delete[]
@@ -54,7 +54,7 @@ int main() {
 }
 
 
-void may_throw1(const char* /*buffer*/) {
+void may_throw1(char /*ch*/) {
     // Do nothing
 }
 
