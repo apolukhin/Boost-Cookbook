@@ -23,13 +23,12 @@ env:
         - IGNORE_COVERAGE='*/boost-local/*'
 
     matrix:
-        - CXX_FLAGS="--coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage" QLIBS="-lasan -lubsan" TOOLSET=gcc-5 CXXTOOLSET=g++-5
-        - CXX_FLAGS="-Wno-c++11-narrowing --coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage -fsanitize=address,leak,undefined" TOOLSET=clang-3.9 CXXTOOLSET=clang++-3.9
-
-
+        - CXX_FLAGS="--coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage" QLIBS="-lasan -lubsan" TOOLSET=gcc-6 CXXTOOLSET=g++-6 GCOV="--gcov-tool gcov-6"
+        - CXX_FLAGS="--coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage" QLIBS="-lasan -lubsan" TOOLSET=gcc-5 CXXTOOLSET=g++-5 GCOV="--gcov-tool gcov-5"
         - CXX_FLAGS="--coverage" LINK_FLAGS="--coverage" TOOLSET=gcc CXXTOOLSET=g++
-        - CXX_FLAGS="--coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage" QLIBS="-lasan -lubsan" TOOLSET=gcc-6 CXXTOOLSET=g++-6
-        - CXX_FLAGS="-Wno-c++11-narrowing --coverage" LINK_FLAGS="--coverage" TOOLSET=clang-3.6 CXXTOOLSET=clang++-3.6
+
+        - CXX_FLAGS="-Wno-c++11-narrowing -fsanitize=address,leak,undefined" LINK_FLAGS="-fsanitize=address,leak,undefined" TOOLSET=clang-3.9 CXXTOOLSET=clang++-3.9
+        - CXX_FLAGS="-Wno-c++11-narrowing" LINK_FLAGS="" TOOLSET=clang-3.6 CXXTOOLSET=clang++-3.6
 
         #- CXX_FLAGS="-std=c++11 -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang
         #- CXX_FLAGS="-std=c++1y -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang
@@ -158,10 +157,13 @@ after_success:
     - mkdir -p $TRAVIS_BUILD_DIR/coverals
     - wget https://github.com/linux-test-project/lcov/archive/v1.12.zip
     - unzip v1.12.zip
-    - LCOV="`pwd`/lcov-1.12/bin/lcov --gcov-tool gcov-6"
+    - LCOV="`pwd`/lcov-1.12/bin/lcov $GCOV"
 
-    - $LCOV --directory ./ --base-directory ./ --capture --output-file coverals/coverage.info
-    - $LCOV --remove coverals/coverage.info "/usr*" $IGNORE_COVERAGE -o coverals/coverage.info
+    - find Chapter*/* -type d -exec $LCOV --directory "{}" --base-directory ./"{}" --capture --output-file "{}"/tmp_coverage.info \;
+
+    - find Chapter*/ -name tmp_coverage.info -print0 | xargs -0 -I {} $LCOV --remove "{}" "/usr*" $IGNORE_COVERAGE -o "{}"
+    - mv Chapter01/01_A_program_options_base/tmp_coverage.info $TRAVIS_BUILD_DIR/coverals/coverage.info
+    - find Chapter*/ -name tmp_coverage.info -print0 | xargs -0 -I {} sh -c "($LCOV -a $TRAVIS_BUILD_DIR/coverals/coverage.info -a '{}' --output-file $TRAVIS_BUILD_DIR/coverals/new_coverage.info && mv -f $TRAVIS_BUILD_DIR/coverals/new_coverage.info $TRAVIS_BUILD_DIR/coverals/coverage.info)|| :"
 
     # Sending data to Coveralls
     - cd $TRAVIS_BUILD_DIR
