@@ -193,3 +193,12 @@ int main() {
     v.back() = boost::move(v.front());
 }
 
+
+struct testing_additional {
+    testing_additional() {
+        descriptor_owner do1;
+        construct_descriptor1(do1);
+    }
+};
+testing_additional tester;
+

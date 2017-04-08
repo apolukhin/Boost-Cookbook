@@ -1,3 +1,6 @@
+void example_func();
+void example_func1();
+
 #include <boost/variant.hpp>
 #include <iostream>
 #include <vector>
@@ -13,6 +16,9 @@ int main() {
     std::string& s = boost::get<std::string>(some_values.back());
     s += " That is great!\n";
     std::cout << s;
+
+    example_func();
+    example_func1();
 }
 
 
@@ -39,6 +45,7 @@ void example_func1() {
     int* s2 = boost::get<int>(&variable);
 
 
-    (void)s1; // Supressing warnings about unused variable
-    (void)s2; // Supressing warnings about unused variable
+    assert(s1 == 0);
+    assert(s2);
+    assert(*s2 == 0);
 }

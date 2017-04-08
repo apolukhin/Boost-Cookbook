@@ -40,43 +40,9 @@ void foo2() {
     //descriptor_owner_fixed d3(d1);
 }
 
-struct noncopyable_or_not {
-private:
-    noncopyable_or_not(const noncopyable_or_not&);
-    noncopyable_or_not& operator=(const noncopyable_or_not&);
 
-public:
-    noncopyable_or_not(){}
-    noncopyable_or_not(noncopyable_or_not&){}
-    noncopyable_or_not& operator=(noncopyable_or_not&){ return *this; }
-};
-
-struct noncopyable_or_not2 {
-private:
-    noncopyable_or_not2(noncopyable_or_not2&);
-    noncopyable_or_not2& operator=(noncopyable_or_not2&);
-
-public:
-    noncopyable_or_not2(){}
-    noncopyable_or_not2(const noncopyable_or_not2&){}
-    noncopyable_or_not2& operator=(const noncopyable_or_not2&) { return *this; }
-};
-
-int main()
-{
+int main() {
     foo();
     foo2();
-
-    noncopyable_or_not non1;
-    noncopyable_or_not non2 = non1;
-
-    const noncopyable_or_not2 n1;
-    noncopyable_or_not2 n2 = n1;
-
-    // Supressing warnings about unused variables
-    (void)non2;
-    (void) n2;
-
-    return 0;
 }
 

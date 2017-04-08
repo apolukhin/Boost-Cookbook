@@ -4,21 +4,23 @@
 
 void do_process(const char* data, std::size_t size);
 
-void do_process_in_background(const char* data, std::size_t size) {
+void do_process_in_background(const char* data, std::size_t size)    {
     // We need to copy data, because we do not know,
     // when it will be deallocated by the caller
     char* data_cpy = new char[size];
     std::memcpy(data_cpy, data, size);
 
     // Starting thread of execution to process data
-    boost::thread(boost::bind(&do_process, data_cpy, size));
+    boost::thread(boost::bind(&do_process, data_cpy, size))
+            .detach();
 
-    // We can not delete[] data_cpy, because
+    // We cannot delete[] data_cpy, because
     // do_process1 or do_process2 may still work with it
 }
 
 #include <boost/shared_array.hpp>
-void do_process_shared_array(const boost::shared_array<char>& data, std::size_t size) {
+
+void do_process(const boost::shared_array<char>& data, std::size_t size) {
     do_process(data.get(), size);
 }
 
@@ -28,9 +30,9 @@ void do_process_in_background_v1(const char* data, std::size_t size) {
     boost::shared_array<char> data_cpy(new char[size]);
     std::memcpy(data_cpy.get(), data, size);
 
-    // Starting thread of execution to process data
-    boost::thread(boost::bind(&do_process_shared_array, data_cpy, size))
-            .detach();
+    // Starting threads of execution to process data
+    boost::thread(boost::bind(&do_process1, data_cpy))
+        .detach();
 
     // no need to call delete[] for data_cpy, because
     // data_cpy destructor will deallocate data when
@@ -84,6 +86,8 @@ void do_process_in_background_v3(const char* data, std::size_t size) {
     // reference count will be zero
 }
 
+
+
 #include <boost/chrono/duration.hpp>
 int main () {
     // do_process_in_background(); // Will cause a memory leak
@@ -96,7 +100,6 @@ int main () {
     // Note: It is an awfull design, but it is OK
     // for example
     boost::this_thread::sleep_for(boost::chrono::seconds(2));
-    return 0;
 }
 
 void do_process(const char* data, std::size_t size) {

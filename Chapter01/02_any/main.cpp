@@ -20,6 +20,8 @@
 //    return 0;
 //}
 
+void example_func();
+
 #include <boost/any.hpp>
 #include <iostream>
 #include <vector>
@@ -35,6 +37,8 @@ int main() {
     std::string& s = boost::any_cast<std::string&>(some_values.back());
     s += " That is great!\n";
     std::cout << s;
+
+    example_func();
 }
 
 void example_func() {

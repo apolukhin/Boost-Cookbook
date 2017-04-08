@@ -5,15 +5,7 @@ public:
     explicit foo_class(const char* /*param*/){}
 };
 
-foo_class* get_data() {
-    static int i = 0;
-    ++ i;
-    if (i % 2) {
-        return new foo_class("Just some string");
-    } else {
-        return 0;
-    }
-}
+foo_class* get_data();
 
 
 #include <boost/thread.hpp>
@@ -29,13 +21,12 @@ void foo1() {
         // There will be too many threads soon, see
         // recipe 'Parallel execution of different tasks'
         // for a good way to avoid uncontrolled growth of threads
-
         boost::thread(boost::bind(&process1, p))
-                .detach();
+            .detach();
         boost::thread(boost::bind(&process2, p))
-                .detach();
+            .detach();
         boost::thread(boost::bind(&process3, p))
-                .detach();
+            .detach();
         // delete p; Oops!!!!
     }
 }
@@ -53,11 +44,11 @@ void foo2() {
     while (p = ptr_t(get_data())) // C way
     {
         boost::thread(boost::bind(&process_sp1, p))
-                .detach();
+            .detach();
         boost::thread(boost::bind(&process_sp2, p))
-                .detach();
+            .detach();
         boost::thread(boost::bind(&process_sp3, p))
-                .detach();
+            .detach();
         // no need to anything
     }
 }
@@ -74,7 +65,6 @@ void foo3() {
         "is faster than shared_ptr<std::string> "
         "ps(new std::string('this string'))"
     );
-
     boost::thread(boost::bind(&process_str1, ps))
             .detach();
     boost::thread(boost::bind(&process_str2, ps))
@@ -91,11 +81,24 @@ int main() {
     // Note: It is an awfull design, but it is OK
     // for example
     boost::this_thread::sleep_for(boost::chrono::seconds(2));
-    return 0;
+
+    boost::shared_ptr<foo_class> p(get_data());
+    process1(p.get());
+    process2(p.get());
+    process3(p.get());
 }
 
 #include <assert.h>
 
+foo_class* get_data() {
+    static int i = 0;
+    ++ i;
+    if (i % 2) {
+        return new foo_class("Just some string");
+    } else {
+        return 0;
+    }
+}
 
 void process1(const foo_class* p) {
     assert(p);
