@@ -11,6 +11,12 @@ int main() {
     process_integers(&my_ints_function);
 }
 
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+#include <string>
+int something(std::string&&){ return 0; }
+#endif
+
+
 #include <assert.h>
 void my_ints_function(int i) { assert(i == 10); }
 void process_integers(const fobject_t& f) {
