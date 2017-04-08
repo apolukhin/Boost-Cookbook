@@ -161,9 +161,9 @@ after_success:
 
     - find Chapter*/* -type d -exec $LCOV --directory "{}" --base-directory ./"{}" --capture --output-file "{}"/tmp_coverage.info \;
 
-    - find Chapter*/ -name tmp_coverage.info -print0 | xargs -0 -I {} $LCOV --remove "{}" "/usr*" $IGNORE_COVERAGE -o "{}"
-    - mv Chapter01/01_A_program_options_base/tmp_coverage.info $TRAVIS_BUILD_DIR/coverals/coverage.info
-    - find Chapter*/ -name tmp_coverage.info -print0 | xargs -0 -I {} sh -c "($LCOV -a $TRAVIS_BUILD_DIR/coverals/coverage.info -a '{}' --output-file $TRAVIS_BUILD_DIR/coverals/new_coverage.info && mv -f $TRAVIS_BUILD_DIR/coverals/new_coverage.info $TRAVIS_BUILD_DIR/coverals/coverage.info)|| :"
+    - find Chapter*/ -name tmp_coverage.info -print0 | xargs -0 -I {} $LCOV --remove "{}" "/usr*" $IGNORE_COVERAGE -o "{}"_1
+    - mv Chapter01/01_A_program_options_base/tmp_coverage.info_1 $TRAVIS_BUILD_DIR/coverals/coverage.info
+    - find Chapter*/ -name tmp_coverage.info_1 -print0 | xargs -0 -I {} sh -c "($LCOV -a $TRAVIS_BUILD_DIR/coverals/coverage.info -a '{}' --output-file $TRAVIS_BUILD_DIR/coverals/new_coverage.info && mv -f $TRAVIS_BUILD_DIR/coverals/new_coverage.info $TRAVIS_BUILD_DIR/coverals/coverage.info)|| :"
 
     # Sending data to Coveralls
     - cd $TRAVIS_BUILD_DIR
