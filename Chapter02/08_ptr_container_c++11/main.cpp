@@ -1,11 +1,9 @@
 #include <set>
 #include <algorithm>
-#include <boost/bind.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
 #include <cassert>
 
 template <class T>
-struct ptr_cmp: public std::binary_function<T, T, bool> {
+struct ptr_cmp {
     template <class T1>
     bool operator()(const T1& v1, const T1& v2) const {
         return operator ()(*v1, *v2);
@@ -16,41 +14,25 @@ struct ptr_cmp: public std::binary_function<T, T, bool> {
     }
 };
 
-template <class T>
-struct ptr_deleter: public std::unary_function<T, void> {
-    void operator()(T* ptr) {
-        delete ptr;
-    }
-};
-
 void example1() {
-
     std::set<int*, ptr_cmp<int> > s;
     s.insert(new int(1));
     s.insert(new int(0));
 
     // ...
     assert(**s.begin() == 0);
-
     // ...
+
     // Deallocating resources
     // Any exception in this code will lead to
     // memory leak
-    std::for_each(s.begin(), s.end(), ptr_deleter<int>());
+    std::for_each(s.begin(), s.end(), [](int* p) { delete p; });
 }
 
-//void example2_a() {
-//    typedef std::auto_ptr<int> int_aptr_t;
-//    std::set<int_aptr_t, ptr_cmp<int> > s;
-//    s.insert(int_aptr_t(new int(1)));
-//    s.insert(int_aptr_t(new int(0)));
-//    // ...
-//    assert(**s.begin() == 0);
-//    // ...
-//    // resources will be deallocated by auto_ptr<>
-//}
+#include <memory>
+#include <set>
 
-void example2_b() {
+void example2_cpp11() {
     typedef std::unique_ptr<int> int_uptr_t;
     std::set<int_uptr_t, ptr_cmp<int> > s;
     s.insert(int_uptr_t(new int(1)));
@@ -62,11 +44,12 @@ void example2_b() {
 }
 
 #include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 void example3() {
     typedef boost::shared_ptr<int> int_sptr_t;
     std::set<int_sptr_t, ptr_cmp<int> > s;
-    s.insert(int_sptr_t(new int(1)));
-    s.insert(int_sptr_t(new int(0)));
+    s.insert(boost::make_shared<int>(1));
+    s.insert(boost::make_shared<int>(0));
     // ...
     assert(**s.begin() == 0);
     // ...
@@ -95,11 +78,22 @@ void theres_more_example() {
     assert(v.back() == 100);
 }
 
+#include <boost/container/set.hpp>
+#include <boost/move/make_unique.hpp>
+void example2_cpp03() {
+    typedef boost::movelib::unique_ptr<int> int_uptr_t;
+    boost::container::set<int_uptr_t, ptr_cmp<int> > s;
+    s.insert(boost::movelib::make_unique<int>(1));
+    s.insert(boost::movelib::make_unique<int>(0));
+    // ...
+    assert(**s.begin() == 0);
+}
+
 int main() {
     example1();
-//    example2_a();
-    example2_b();
+    example2_cpp11();
     example3();
     correct_impl();
     theres_more_example();
+    example2_cpp03();
 }
