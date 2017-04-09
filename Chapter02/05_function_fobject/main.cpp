@@ -68,3 +68,17 @@ void process_integers(const fobject_t& f) {
     static const int data[] = {1, 2, 3, 4, 5, 250};
     std::for_each(data, data + sizeof(data) / sizeof(int), f);
 }
+
+
+// Making sure that `set_functional_object` works as expected
+struct more_tests_runner {
+    more_tests_runner() {
+        fobject_t out;
+        assert(!out);
+        set_functional_object(out);
+        assert(out);
+
+        foo(out);
+    }
+};
+more_tests_runner more_tests;
