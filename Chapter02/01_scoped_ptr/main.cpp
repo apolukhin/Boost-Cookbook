@@ -69,6 +69,37 @@ bool foo3_1() {
     return true;
 }
 
+#include <iostream>
+
+struct base {
+    virtual ~base(){}
+};
+
+
+class derived: public base {
+    std::string str_;
+
+public:
+    explicit derived(const char* str)
+        : str_(str)
+    {}
+
+    ~derived() /*override*/ {
+        std::cout << "str == " << str_ << '\n';
+    }
+};
+
+void base_and_derived() {
+    const boost::movelib::unique_ptr<base> p1(
+        new derived("unique_ptr")
+    );
+
+    const boost::scoped_ptr<base> p2(
+        new derived("scoped_ptr")
+    );
+}
+
+
 bool g_exit_on_first_function = true;
 
 #include <assert.h>
@@ -83,6 +114,8 @@ int main() {
     try { foo2(); assert(false); } catch(...){}
     try { foo3(); assert(false); } catch(...){}
     try { foo3_1(); assert(false); } catch(...){}
+
+    base_and_derived();
 }
 
 

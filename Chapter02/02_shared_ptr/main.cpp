@@ -71,11 +71,31 @@ void foo3() {
             .detach();
 }
 
+void process_cstr1(boost::shared_ptr<const std::string> p);
+void process_cstr2(const boost::shared_ptr<const std::string>& p);
+
+void foo3_const() {
+    boost::shared_ptr<const std::string> ps
+        = boost::make_shared<const std::string>(
+            "Guess why make_shared<std::string> "
+            "is faster than shared_ptr<std::string> "
+            "ps(new std::string('this string'))"
+        );
+
+    boost::thread(boost::bind(&process_cstr1, ps))
+            .detach();
+    boost::thread(boost::bind(&process_cstr2, ps))
+            .detach();
+
+    // *ps = "qwe"; // Compile time error, string is const!
+}
+
 #include <boost/chrono/duration.hpp>
 int main() {
     // foo1(); // Will cause a memory leak
     foo2();
     foo3();
+    foo3_const();
 
     // Give all the threads a chance to finish
     // Note: It is an awfull design, but it is OK
@@ -119,6 +139,16 @@ void process_str1(boost::shared_ptr<std::string> p) {
 void process_str2(const boost::shared_ptr<std::string>& p) {
     assert(p);
 }
+
+void process_cstr1(boost::shared_ptr<const std::string> p) {
+    assert(p);
+}
+
+void process_cstr2(const boost::shared_ptr<const std::string>& p) {
+    assert(p);
+}
+
+
 void process_sp1(const boost::shared_ptr<foo_class>& p) {
     assert(!!p);
 }
