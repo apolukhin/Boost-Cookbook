@@ -27,6 +27,8 @@ void foo1() {
             .detach();
         boost::thread(boost::bind(&process3, p))
             .detach();
+
+
         // delete p; Oops!!!!
     }
 }
@@ -49,6 +51,7 @@ void foo2() {
             .detach();
         boost::thread(boost::bind(&process_sp3, p))
             .detach();
+
         // no need to anything
     }
 }
@@ -77,9 +80,7 @@ void process_cstr2(const boost::shared_ptr<const std::string>& p);
 void foo3_const() {
     boost::shared_ptr<const std::string> ps
         = boost::make_shared<const std::string>(
-            "Guess why make_shared<std::string> "
-            "is faster than shared_ptr<std::string> "
-            "ps(new std::string('this string'))"
+            "Some immutable string"
         );
 
     boost::thread(boost::bind(&process_cstr1, ps))

@@ -23,9 +23,10 @@ void example1() {
     assert(**s.begin() == 0);
     // ...
 
-    // Deallocating resources
-    // Any exception in this code will lead to
-    // memory leak
+    // Oops! Any exception in the above code leads to
+    // memory leak.
+
+    // Deallocating resources.
     std::for_each(s.begin(), s.end(), [](int* p) { delete p; });
 }
 
@@ -37,38 +38,47 @@ void example2_cpp11() {
     std::set<int_uptr_t, ptr_cmp<int> > s;
     s.insert(int_uptr_t(new int(1)));
     s.insert(int_uptr_t(new int(0)));
+    
     // ...
     assert(**s.begin() == 0);
     // ...
-    // resources will be deallocated by unique_ptr<>
+    
+    // Resources will be deallocated by unique_ptr<>.
 }
 
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
+
 void example3() {
     typedef boost::shared_ptr<int> int_sptr_t;
     std::set<int_sptr_t, ptr_cmp<int> > s;
     s.insert(boost::make_shared<int>(1));
     s.insert(boost::make_shared<int>(0));
+    
     // ...
     assert(**s.begin() == 0);
     // ...
-    // resources will be deallocated by shared_ptr<>
+    
+    // Resources will be deallocated by shared_ptr<>.
 }
 
 #include <boost/ptr_container/ptr_set.hpp>
+
 void correct_impl() {
     boost::ptr_set<int> s;
     s.insert(new int(1));
     s.insert(new int(0));
+    
     // ...
     assert(*s.begin() == 0);
     // ...
-    // resources will be deallocated by container itself
+    
+    // Resources will be deallocated by container itself.
 }
 
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
+
 void theres_more_example() {
     // Creating vector of 10 elements with values 100
     boost::ptr_vector<int> v;
@@ -80,6 +90,7 @@ void theres_more_example() {
 
 #include <boost/container/set.hpp>
 #include <boost/move/make_unique.hpp>
+
 void example2_cpp03() {
     typedef boost::movelib::unique_ptr<int> int_uptr_t;
     boost::container::set<int_uptr_t, ptr_cmp<int> > s;

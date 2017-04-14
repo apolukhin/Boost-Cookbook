@@ -13,8 +13,10 @@ void do_process_in_background(const char* data, std::size_t size)    {
     // Starting thread of execution to process data
     boost::thread(boost::bind(&do_process, data_cpy, size))
             .detach();
+    boost::thread(boost::bind(&do_process, data_cpy, size)) 
+            .detach();
 
-    // We cannot delete[] data_cpy, because
+    // Oops!!! We cannot delete[] data_cpy, because
     // do_process() function may still work with it
 }
 
@@ -22,10 +24,7 @@ void do_process_in_background(const char* data, std::size_t size)    {
 
 void do_process_shared_array(
         const boost::shared_array<char>& data,
-        std::size_t size)
-{
-    do_process(data.get(), size);
-}
+        std::size_t size);
 
 void do_process_in_background_v1(const char* data, std::size_t size) {
     // We need to copy data, because we do not know, when it will be
@@ -37,8 +36,11 @@ void do_process_in_background_v1(const char* data, std::size_t size) {
     boost::thread(
         boost::bind(&do_process_shared_array, data_cpy, size)
     ).detach();
+    boost::thread(
+        boost::bind(&do_process_shared_array, data_cpy, size)
+    ).detach();
 
-    // no need to call delete[] for data_cpy, because
+    // No need to call delete[] for data_cpy, because
     // data_cpy destructor will deallocate data when
     // reference count is zero
 }
@@ -109,4 +111,11 @@ int main () {
 void do_process(const char* data, std::size_t size) {
     assert(size);
     assert(data);
+}
+
+void do_process_shared_array(
+        const boost::shared_array<char>& data,
+        std::size_t size)
+{
+    do_process(data.get(), size);
 }
