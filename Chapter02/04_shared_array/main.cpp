@@ -6,18 +6,18 @@ void do_process(const char* data, std::size_t size);
 
 void do_process_in_background(const char* data, std::size_t size)    {
     // We need to copy data, because we do not know,
-    // when it will be deallocated by the caller
+    // when it will be deallocated by the caller.
     char* data_cpy = new char[size];
     std::memcpy(data_cpy, data, size);
 
-    // Starting thread of execution to process data
+    // Starting thread of execution to process data.
     boost::thread(boost::bind(&do_process, data_cpy, size))
             .detach();
     boost::thread(boost::bind(&do_process, data_cpy, size)) 
             .detach();
 
     // Oops!!! We cannot delete[] data_cpy, because
-    // do_process() function may still work with it
+    // do_process() function may still work with it.
 }
 
 #include <boost/shared_array.hpp>
@@ -28,11 +28,11 @@ void do_process_shared_array(
 
 void do_process_in_background_v1(const char* data, std::size_t size) {
     // We need to copy data, because we do not know, when it will be
-    // deallocated by the caller
+    // deallocated by the caller.
     boost::shared_array<char> data_cpy(new char[size]);
     std::memcpy(data_cpy.get(), data, size);
 
-    // Starting threads of execution to process data
+    // Starting threads of execution to process data.
     boost::thread(
         boost::bind(&do_process_shared_array, data_cpy, size)
     ).detach();
@@ -42,7 +42,7 @@ void do_process_in_background_v1(const char* data, std::size_t size) {
 
     // No need to call delete[] for data_cpy, because
     // data_cpy destructor will deallocate data when
-    // reference count is zero
+    // reference count is zero.
 }
 
 
@@ -51,45 +51,43 @@ void do_process_in_background_v1(const char* data, std::size_t size) {
 
 void do_process_shared_ptr(
         const boost::shared_ptr<char[]>& data,
-        std::size_t size)
-{
-    do_process(data.get(), size);
-}
+        std::size_t size);
 
 void do_process_in_background_v2(const char* data, std::size_t size) {
-    // Faster than 'First solution'
+    // Faster than 'First solution'.
     boost::shared_ptr<char[]> data_cpy = boost::make_shared<char[]>(size);
     std::memcpy(data_cpy.get(), data, size);
 
-    // Starting thread of execution to process data
+    // Starting threads of execution to process data.
+    boost::thread(boost::bind(&do_process_shared_ptr, data_cpy, size))
+            .detach();
     boost::thread(boost::bind(&do_process_shared_ptr, data_cpy, size))
             .detach();
 
     // data_cpy destructor will deallocate data when
-    // reference count is zero
+    // reference count is zero.
 }
 
 void do_process_shared_ptr2(
         const boost::shared_ptr<char>& data,
-        std::size_t size)
-{
-    do_process(data.get(), size);
-}
+        std::size_t size);
 
 void do_process_in_background_v3(const char* data, std::size_t size) {
-    // Same speed as in First solution
+    // Same speed as in 'First solution'.
     boost::shared_ptr<char> data_cpy(
                 new char[size],
                 boost::checked_array_deleter<char>()
     );
     std::memcpy(data_cpy.get(), data, size);
 
-    // Starting threads of execution to process data
+    // Starting threads of execution to process data.
+    boost::thread(boost::bind(&do_process_shared_ptr2, data_cpy, size))
+            .detach();
     boost::thread(boost::bind(&do_process_shared_ptr2, data_cpy, size))
             .detach();
 
     // data_cpy destructor will deallocate data when
-    // reference count is zero
+    // reference count is zero.
 }
 
 
@@ -104,7 +102,7 @@ int main () {
 
     // Give all the threads a chance to finish
     // Note: It is an awfull design, but it is OK
-    // for example
+    // for example.
     boost::this_thread::sleep_for(boost::chrono::seconds(2));
 }
 
@@ -115,6 +113,20 @@ void do_process(const char* data, std::size_t size) {
 
 void do_process_shared_array(
         const boost::shared_array<char>& data,
+        std::size_t size)
+{
+    do_process(data.get(), size);
+}
+
+void do_process_shared_ptr(
+        const boost::shared_ptr<char[]>& data,
+        std::size_t size)
+{
+    do_process(data.get(), size);
+}
+
+void do_process_shared_ptr2(
+        const boost::shared_ptr<char>& data,
         std::size_t size)
 {
     do_process(data.get(), size);
