@@ -37,9 +37,9 @@ class tester:
         'Chapter01/13_algorithm': ('48656C6C6F20776F7264\n48656C6C6F20776F7264\n', '', 0),
         'Chapter02/01_scoped_ptr': ('str == scoped_ptr\nstr == unique_ptr\n', '', 0),
         'Chapter03/03_numeric_cast': ('#47 bad numeric conversion: negative overflow\n#58 bad numeric conversion: positive overflow\n\n\n\nNEG OVERFLOW in #47 bad numeric conversion: negative overflow\nPOS OVERFLOW in #59 bad numeric conversion: positive overflow\n\n\n\nIt works! val = 0 Error msg: Not in range!\n', '', 0),
-        'Chapter04/mpl_int_': (' 0 1 2 \x03 4 5\n', '', 0),
-        'Chapter04/static_assert': ('01', '', 0),
-        'Chapter05/atomics': ('shared_i == 0\n', '', 0),
+        'Chapter04/02_static_assert': ('01', '', 0),
+        'Chapter04/03_mpl_int_': (' 0 1 2 \x03 4 5\n', '', 0),
+        'Chapter05/03_atomics': ('shared_i == 0\n', '', 0),
         'Chapter06/exception_ptr': ('Lexical cast exception detected\n\nCan not handle such exceptions:\nmain.cpp(48): Throw in function void func_test2()\nDynamic exception type: boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::logic_error> >\nstd::exception::what: Some fatal logic error\n\n', '', 0),
         'Chapter06/tasks_processor_base': ('', 'Exception: Just checking\nThread interrupted\n', 0),
         'Chapter06/tasks_processor_signals': ('', '', -2),
@@ -198,7 +198,7 @@ class tester:
             "Chapter06/tasks_processor_signals": tester._test_tasks_processor_signals,
             "Chapter11/listing_files": tester._test_but_ignore_output_diff,
             "Chapter12/gil": tester._test_gil,
-            "Chapter05/mutex": tester._test_but_ignore_output_diff,
+            "Chapter05/02_mutex": tester._test_but_ignore_output_diff,
             "Chapter11/coroutines": tester._test_but_ignore_output_diff, # Sanitizers do not like coroutines and add some warnings
             "Chapter12/random": tester._test_but_ignore_output_diff,
 

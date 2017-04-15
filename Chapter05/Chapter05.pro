@@ -1,13 +1,13 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    thread \
-    mutex \
-    atomics \
-    work_queue \
-    shared_lock \
-    thread_specific_ptr \
-    interruptions \
-    thread_group
+    01_thread \
+    02_mutex \
+    03_atomics \
+    04_work_queue \
+    05_shared_lock \
+    06_thread_specific_ptr \
+    07_interruptions \
+    08_thread_group
 
 
