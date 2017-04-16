@@ -9,9 +9,11 @@ struct banana: public object {
     virtual ~banana(){}
 };
 
-struct pidgin: public object {
-    void fly() const {}
-    virtual ~pidgin(){}
+struct penguin: public object {
+    bool try_to_fly() const {
+        return false; // penguins do not fly
+    }
+    virtual ~penguin(){}
 };
 
 object* try_produce_banana();
@@ -25,6 +27,7 @@ void try_eat_banana_impl1() {
     dynamic_cast<const banana&>(*obj).eat();
 }
 
+#include <boost/cast.hpp>
 void try_eat_banana_impl2() {
     const object* obj = try_produce_banana();
     boost::polymorphic_cast<const banana*>(obj)->eat();
@@ -33,14 +36,14 @@ void try_eat_banana_impl2() {
 
 
 object* try_produce_banana() {
-    static pidgin pidg;
+    static penguin peng;
     static banana banan;
     static int i = 0;
     ++ i;
     if (i == 3 || i == 6) {
         return 0;
     } else if (i == 2 || i == 5) {
-        return &pidg;
+        return &peng;
     }
     return &banan;
 }
@@ -48,9 +51,7 @@ object* try_produce_banana() {
 #include <iostream>
 using namespace std;
 
-int main()
-{
-
+int main() {
     try_eat_banana_impl1();
 
     try {
@@ -73,6 +74,5 @@ int main()
         try_eat_banana_impl2();
         assert(false);
     } catch(...){}
-    return 0;
 }
 

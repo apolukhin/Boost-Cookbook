@@ -1,14 +1,14 @@
-struct base { 
+struct base {
     virtual void some_methods() = 0;
     virtual ~base();
-}; 
- 
-struct derived: public base { 
+};
+
+struct derived: public base {
     void some_methods() /*override*/;
     virtual void derived_method() const;
-    
-    ~derived() /*override*/; 
-}; 
+
+    ~derived() /*override*/;
+};
 
 
 #include <boost/shared_ptr.hpp>
@@ -26,7 +26,7 @@ void trying_hard_to_pass_derived() {
 
     // Oops! Compile time error:
     // could not convert ‘d’ to ‘boost::shared_ptr<const derived>’.
-    im_accepting_derived(d); 
+    im_accepting_derived(d);
 }
 
 */
@@ -46,10 +46,11 @@ void trying_hard_to_pass_derived2() {
     }
 
     d->derived_method();
-    im_accepting_derived(d); 
+    im_accepting_derived(d);
 }
 
 int main() {
+    trying_hard_to_pass_derived2();
 }
 
 
@@ -58,12 +59,12 @@ int main() {
 
 #include <assert.h>
 bool g_derived_was_called = false;
-base::~base() { 
+base::~base() {
     assert(g_derived_was_called);
 }
 
-void derived::derived_method() const { 
-    g_derived_was_called = true; 
+void derived::derived_method() const {
+    g_derived_was_called = true;
 }
 
 void derived::some_methods() {}
