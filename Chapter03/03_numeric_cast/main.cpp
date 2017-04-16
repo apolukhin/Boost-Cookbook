@@ -42,10 +42,12 @@ void test_function1() {
            correct_implementation();
        } catch (const boost::numeric::positive_overflow& e) {
            // Do something specific for positive overflow.
-           std::cout << "POS OVERFLOW in #" << i << ' ' << e.what() << std::endl;
+           std::cout << "POS OVERFLOW in #" << i << ' '
+                     << e.what() << std::endl;
        } catch (const boost::numeric::negative_overflow& e) {
            // Do something specific for negative overflow.
-           std::cout <<"NEG OVERFLOW in #" << i << ' ' << e.what() << std::endl;
+           std::cout <<"NEG OVERFLOW in #" << i << ' '
+                     << e.what() << std::endl;
        }
    }
 }

@@ -43,10 +43,12 @@ date parse_date_time2(const std::string& s) {
 
     date res;
 
-    // Use unsigned short as output type, require Radix 10, and from 2 to 2 digits
+    // Use unsigned short as output type; require Radix 10 and
+    // from 2 to 2 digits.
     uint_parser<unsigned short, 10, 2, 2> u2_;
 
-    // Use unsigned short as output type, require Radix 10, and from 4 to 4 digits
+    // Use unsigned short as output type; require Radix 10 and
+    // from 4 to 4 digits.
     uint_parser<unsigned short, 10, 4, 4> u4_;
 
     const char* first = s.data();
@@ -72,10 +74,7 @@ date parse_date_time2_cxx(const std::string& s) {
 
     date res;
 
-    // Use unsigned short as output type, require Radix 10, and from 2 to 2 digits
     uint_parser<unsigned short, 10, 2, 2> u2_;
-
-    // Use unsigned short as output type, require Radix 10, and from 4 to 4 digits
     uint_parser<unsigned short, 10, 4, 4> u4_;
 
     const auto y = [&res](unsigned short s) { res.year = s; };
@@ -85,7 +84,7 @@ date parse_date_time2_cxx(const std::string& s) {
     const char* first = s.data();
     const char* const end = first + s.size();
     const bool success = boost::spirit::qi::parse(first, end,
-        u4_ [y] >> char_('-') >> u2_ [m] >> char_('-') >> u2_ [d]
+        u4_[y] >> char_('-') >> u2_[m] >> char_('-') >> u2_[d]
     );
 
     if (!success || first != end) {
