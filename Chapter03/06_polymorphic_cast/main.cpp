@@ -53,26 +53,11 @@ using namespace std;
 
 int main() {
     try_eat_banana_impl1();
-
-    try {
-        try_eat_banana_impl1();
-        assert(false);
-    } catch(...){}
-
-    try {
-        try_eat_banana_impl1();
-        assert(false);
-    } catch(...){}
+    try { try_eat_banana_impl1(); assert(false); } catch(...){}
+    try { try_eat_banana_impl1(); assert(false); } catch(...){}
 
     try_eat_banana_impl2();
-    try {
-        try_eat_banana_impl2();
-        assert(false);
-    } catch(...){}
-
-    try {
-        try_eat_banana_impl2();
-        assert(false);
-    } catch(...){}
+    try { try_eat_banana_impl2(); assert(false); } catch(...){}
+    try { try_eat_banana_impl2(); assert(false); } catch(...){}
 }
 
