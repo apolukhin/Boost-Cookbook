@@ -5,6 +5,7 @@ SUBDIRS += \
     02_lexical_to_string \
     03_numeric_cast \
     04_lexical_user_defined \
-    05_polymorphic_cast \
-    06_spirit \
-    07_spirit_rules
+    05_pointer_cast \
+    06_polymorphic_cast \
+    07_spirit \
+    08_spirit_rules
