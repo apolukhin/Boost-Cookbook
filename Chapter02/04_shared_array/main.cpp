@@ -13,7 +13,7 @@ void do_process_in_background(const char* data, std::size_t size)    {
     // Starting thread of execution to process data.
     boost::thread(boost::bind(&do_process, data_cpy, size))
             .detach();
-    boost::thread(boost::bind(&do_process, data_cpy, size)) 
+    boost::thread(boost::bind(&do_process, data_cpy, size))
             .detach();
 
     // Oops!!! We cannot delete[] data_cpy, because

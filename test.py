@@ -36,7 +36,7 @@ class tester:
         'Chapter01/12_B_noncopyable_movable_c++11': ('C++11\n', '', 0),
         'Chapter01/13_algorithm': ('48656C6C6F20776F7264\n48656C6C6F20776F7264\n', '', 0),
         'Chapter02/01_scoped_ptr': ('str == scoped_ptr\nstr == unique_ptr\n', '', 0),
-        'Chapter03/03_numeric_cast': ('#47 bad numeric conversion: negative overflow\n#58 bad numeric conversion: positive overflow\n\n\n\nNEG OVERFLOW in #47 bad numeric conversion: negative overflow\nPOS OVERFLOW in #59 bad numeric conversion: positive overflow\n\n\n\nIt works! val = 0 Error msg: Not in range!\n', '', 0),
+        'Chapter03/03_numeric_cast': ('#47 bad numeric conversion: negative overflow\n#58 bad numeric conversion: positive overflow\n\n\n\nNEG OVERFLOW in #47 bad numeric conversion: negative overflow\nPOS OVERFLOW in #59 bad numeric conversion: positive overflow\n\n\n\nIt works! Not in range!\n', '', 0),
         'Chapter04/01_static_assert': ('01', '', 0),
         'Chapter04/04_mpl_int_': (' 0 1 2 \x03 4 5\n', '', 0),
         'Chapter05/03_atomics': ('shared_i == 0\n', '', 0),

@@ -38,11 +38,11 @@ void example2_cpp11() {
     std::set<int_uptr_t, ptr_cmp<int> > s;
     s.insert(int_uptr_t(new int(1)));
     s.insert(int_uptr_t(new int(0)));
-    
+
     // ...
     assert(**s.begin() == 0);
     // ...
-    
+
     // Resources will be deallocated by unique_ptr<>.
 }
 
@@ -54,11 +54,11 @@ void example3() {
     std::set<int_sptr_t, ptr_cmp<int> > s;
     s.insert(boost::make_shared<int>(1));
     s.insert(boost::make_shared<int>(0));
-    
+
     // ...
     assert(**s.begin() == 0);
     // ...
-    
+
     // Resources will be deallocated by shared_ptr<>.
 }
 
@@ -68,11 +68,11 @@ void correct_impl() {
     boost::ptr_set<int> s;
     s.insert(new int(1));
     s.insert(new int(0));
-    
+
     // ...
     assert(*s.begin() == 0);
     // ...
-    
+
     // Resources will be deallocated by container itself.
 }
 
