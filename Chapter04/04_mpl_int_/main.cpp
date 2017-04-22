@@ -42,7 +42,7 @@ namespace detail {
 } // namespace detail
 
 
-// will be only dispatching calls
+// Dispatching calls:
 template <class T>
 T process(const T& val) {
     BOOST_STATIC_ASSERT((boost::is_pod<T>::value));

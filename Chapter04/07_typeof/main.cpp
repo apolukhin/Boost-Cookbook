@@ -4,17 +4,24 @@
 
 BOOST_AUTO(var, boost::bind(std::plus<int>(), _1, _1));
 
-//typedef decltype(0.5 + 0.5f) type;
 typedef BOOST_TYPEOF(0.5 + 0.5f) type;
 
-
-//template<class T1, class T2>
-//auto add(const T1& t1, const T2& t2) ->decltype(t1 + t2) {
-//    return t1 + t2;
-//};
+// Long and portable way:
+template<class T1, class T2>
+struct result_of {
+    typedef BOOST_TYPEOF_TPL(T1() + T2()) type;
+};
 
 template<class T1, class T2>
-BOOST_TYPEOF_TPL(T1() + T2()) add(const T1& t1, const T2& t2) {
+typename result_of<T1, T2>::type add(const T1& t1, const T2& t2) {
+    return t1 + t2;
+};
+
+// ... or ...
+
+// Shorter version that may crush some compilers.
+template<class T1, class T2>
+BOOST_TYPEOF_TPL(T1() + T2()) add2(const T1& t1, const T2& t2) {
     return t1 + t2;
 };
 
@@ -51,7 +58,38 @@ BOOST_TYPEOF_REGISTER_TEMPLATE(
         3 /*number of template classes*/
 )
 
+
+
+#if !defined(BOOST_NO_CXX11_DECLTYPE) && !defined(BOOST_NO_CXX11_TRAILING_RESULT_TYPES)
+namespace modern_cpp {
+    typedef decltype(0.5 + 0.5f) type;
+
+    template<class T1, class T2>
+    auto add(const T1& t1, const T2& t2) ->decltype(t1 + t2) {
+        return t1 + t2;
+    };
+}
+
+#endif
+
+#include <assert.h>
 int main () {
+    assert(add(1, 2) == 3);
+
+#if !defined(BOOST_NO_CXX11_DECLTYPE) && !defined(BOOST_NO_CXX11_TRAILING_RESULT_TYPES)
+    BOOST_STATIC_ASSERT((
+        boost::is_same<
+            type,
+            modern_cpp::type
+        >::value
+    ));
 
 
+    BOOST_STATIC_ASSERT((
+        boost::is_same<
+            decltype(add(1,2)),
+            decltype(modern_cpp::add(1,2))
+        >::value
+    ));
+#endif
 }

@@ -63,8 +63,8 @@ void inc(T& value) {
       step_2_t
     >::type step_3_t;
 
-    step_3_t() // default constructing functor
-        (value); // calling operator() of a functor
+    step_3_t()   // Default construction of the functor.
+        (value); // Calling operator() of the functor.
 }
 
 struct has_only_postinc {
@@ -104,9 +104,26 @@ void inc_mpl(T& value) {
       step_2_t
     >::type step_3_t;
 
-    step_3_t() // default constructing functor
-        (value); // calling operator() of a functor
+    step_3_t()   // Default construction of the functor.
+        (value); // Calling operator() of the functor.
 }
+
+#if __cplusplus > 201601L
+
+template <class T>
+void inc_cpp17(T& value) {
+    if constexpr (boost::has_pre_increment<T>()) {
+        ++value;
+    } else if constexpr (boost::has_post_increment<T>()) {
+        value++;
+    } else if constexpr(boost::has_plus_assign<T>()) {
+        value += T(1);
+    } else {
+        value = value + T(1);
+    }
+}
+
+#endif
 
 #include <assert.h>
 int main() {
@@ -124,4 +141,11 @@ int main() {
     assert(i == 2);
     inc_mpl(pi);
     inc_mpl(v);
+
+#if __cplusplus > 201601L
+    inc_cpp17(i);
+    assert(i == 3);
+    inc_cpp17(pi);
+    inc_cpp17(v);
+#endif
 }

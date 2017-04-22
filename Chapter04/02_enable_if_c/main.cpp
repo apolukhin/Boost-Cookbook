@@ -1,11 +1,14 @@
 
-namespace intro {
+namespace intro0 {
 
 // Generic implementation.
 template <class T>
 class data_processor {
     double process(const T& v1, const T& v2, const T& v3);
 };
+
+} // namespace intro0
+namespace intro1 {
 
 // Integral types optimized version.
 template <class T>
@@ -14,13 +17,16 @@ class data_processor {
     double process(fast_int_t v1, fast_int_t v2, fast_int_t v3);
 };
 
+} // namespace intro1
+namespace intro2 {
+
 // SSE optimized version for float types.
 template <class T>
 class data_processor {
     double process(double v1, double v2, double v3);
 };
 
-} // namespace intro
+} // namespace intro2
 
 
 #include <boost/static_assert.hpp>
