@@ -1,18 +1,10 @@
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_pod.hpp>
 
-//// Generic implementation
-//template <class T>
-//T process(const T& val) {
-//    BOOST_STATIC_ASSERT((boost::is_pod<T>::value));
-//    // ...
-//    (void)val;
-//}
-
 #include <boost/mpl/int.hpp>
 
 namespace detail {
-    // Generic implementation
+    // Generic implementation.
     template <class T, class Tag>
     T process_impl(const T& val, Tag /*ignore*/) {
         // ...
@@ -23,7 +15,7 @@ namespace detail {
         return val;
     }
 
-    // 1 byte optimized implementation
+    // 1 byte optimized implementation.
     template <class T>
     T process_impl(const T& val, boost::mpl::int_<1> /*ignore*/) {
         // ...
@@ -32,7 +24,7 @@ namespace detail {
     }
 
 
-    // 4 bytes optimized implementation
+    // 4 bytes optimized implementation.
     template <class T>
     T process_impl(const T& val, boost::mpl::int_<4> /*ignore*/) {
         // ...
@@ -40,7 +32,7 @@ namespace detail {
         return val;
     }
 
-    // 8 bytes optimized implementation
+    // 8 bytes optimized implementation.
     template <class T>
     T process_impl(const T& val, boost::mpl::int_<8> /*ignore*/) {
         // ...

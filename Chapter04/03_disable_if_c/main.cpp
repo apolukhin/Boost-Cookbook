@@ -47,10 +47,10 @@ process_data2(const T& v1, const T& v2, const T& v3);
 
 int main() {
     int i = 1;
-    // Optimized version
+    // Optimized version.
     process_data(i, i, i);
 
-    // Default version
-    // Explicitly specifing template parameter
+    // Default version.
+    // Explicitly specifing template parameter.
     process_data<const char*>("Testing", "example", "function");
 }
