@@ -12,11 +12,11 @@ public:
     connection(): open_count_(0) {}
 };
 
-// In header file
+// In header file:
 #include <boost/thread/tss.hpp>
 connection& get_connection();
 
-// In source file
+// In source file:
 boost::thread_specific_ptr<connection> connection_ptr;
 
 connection& get_connection() {
@@ -33,10 +33,10 @@ connection& get_connection() {
 
 void task() {
     int result = 2;
-    // Some computations go there
+    // Some computations go there.
     // ...
 
-    // Sending result
+    // Sending the result:
     get_connection().send_result(result);
 }
 
@@ -61,10 +61,9 @@ int main() {
     boost::thread t3(&run_tasks);
     boost::thread t4(&run_tasks);
 
-    // Waiting for all the tasks to pop
+    // Waiting for all the tasks to stop.
     t1.join();
     t2.join();
     t3.join();
     t4.join();
-
 }

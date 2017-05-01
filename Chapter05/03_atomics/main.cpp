@@ -8,11 +8,9 @@ boost::atomic<int> shared_i(0);
 
 void do_inc() {
     for (std::size_t i = 0; i < 30000; ++i) {
-        // do some work
-        // ...
         const int i_snapshot = ++ shared_i;
 
-        // do some work with i_snapshot
+        // Do some work with i_snapshot.
         // ...
         (void) i_snapshot;
     }
@@ -20,11 +18,9 @@ void do_inc() {
 
 void do_dec() {
     for (std::size_t i = 0; i < 30000; ++i) {
-        // do some work
-        // ...
         const int i_snapshot = -- shared_i;
 
-        // do some work with i_snapshot
+        // Do some work with i_snapshot.
         // ...
         (void) i_snapshot;
     }

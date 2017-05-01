@@ -1,6 +1,8 @@
-#include <map>
+#include <unordered_map>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/locks.hpp>
+
+namespace first_example {
 
 struct user_info {
     std::string address;
@@ -10,12 +12,11 @@ struct user_info {
     // ...
 };
 
-namespace first_example {
-
 class users_online {
-    typedef boost::mutex                mutex_t;
-    mutable mutex_t                     users_mutex_;
-    std::map<std::string, user_info>    users_;
+    typedef boost::mutex mutex_t;
+
+    mutable mutex_t                             users_mutex_;
+    std::unordered_map<std::string, user_info>  users_;
 
 public:
     bool is_online(const std::string& username) const {
@@ -23,30 +24,34 @@ public:
         return users_.find(username) != users_.end();
     }
 
-    unsigned short get_age(const std::string& username) const {
+    std::string get_address(const std::string& username) const {
         boost::lock_guard<mutex_t> lock(users_mutex_);
-        return users_.at(username).age;
+        return users_.at(username).address;
     }
 
-    void set_online(const std::string& username, const user_info& data) {
+    void set_online(const std::string& username, user_info&& data) {
         boost::lock_guard<mutex_t> lock(users_mutex_);
-        users_.insert(std::make_pair(username, data));
+        users_.insert(std::make_pair(username, std::move(data)));
     }
 
-    // Other methods
+    // Other methods:
     // ...
 };
 
 }
 
+using first_example::user_info;
+
 #include <boost/thread/shared_mutex.hpp>
 
 namespace shared_lock_example {
 
+
 class users_online {
-    typedef boost::shared_mutex         mutex_t;
-    mutable mutex_t                     users_mutex_;
-    std::map<std::string, user_info>    users_;
+    typedef boost::shared_mutex mutex_t;
+
+    mutable mutex_t                             users_mutex_;
+    std::unordered_map<std::string, user_info>  users_;
 
 public:
     bool is_online(const std::string& username) const {
@@ -54,9 +59,9 @@ public:
         return users_.find(username) != users_.end();
     }
 
-    unsigned short get_age(const std::string& username) const {
+    std::string get_address(const std::string& username) const {
         boost::shared_lock<mutex_t> lock(users_mutex_);
-        return users_.at(username).age;
+        return users_.at(username).address;
     }
 
     void set_online(const std::string& username, const user_info& data) {
@@ -64,7 +69,7 @@ public:
         users_.insert(std::make_pair(username, data));
     }
 
-    // Other methods
+    // Other methods:
     // ...
 };
 
@@ -87,7 +92,7 @@ void log_in(T& u, std::size_t count) {
 template <class T>
 void thread_get_age(T& u) {
     for (std::size_t i = 0; i < users_count; ++i) {
-        u.get_age(boost::lexical_cast<std::string>(i));
+        u.get_address(boost::lexical_cast<std::string>(i));
     }
 }
 

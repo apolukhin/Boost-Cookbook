@@ -4,6 +4,7 @@
 // In previous recipe we included
 // <boost/thread.hpp>, which includes all
 // the classes of Boost.Thread.
+// Following header includes only boost::thread.
 #include <boost/thread/thread.hpp>
 
 namespace without_sync {
