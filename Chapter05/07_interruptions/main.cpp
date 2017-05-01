@@ -8,16 +8,15 @@ void do_parse();
 int main() {
     boost::thread parser_thread(&do_parse);
 
-    // Some code goes here
     // ...
 
     if (stop_parsing) {
-        // no more parsing required
-        // TODO: stop parser
+        // No more parsing required.
+        // TODO: Stop the parser!
     }
 
     if (stop_parsing) {
-        // no more parsing required
+        // No more parsing required.
         parser_thread.interrupt();
     }
 
