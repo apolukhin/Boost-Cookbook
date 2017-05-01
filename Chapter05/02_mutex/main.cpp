@@ -3,7 +3,7 @@
 
 // In previous recipe we included
 // <boost/thread.hpp>, which includes all
-// the classes of Boost.Thread
+// the classes of Boost.Thread.
 #include <boost/thread/thread.hpp>
 
 namespace without_sync {
@@ -12,11 +12,8 @@ int shared_i = 0;
 
 void do_inc() {
     for (std::size_t i = 0; i < 30000; ++i) {
-        // do some work
-        // ...
-        int i_snapshot = ++ shared_i;
-
-        // do some work with i_snapshot
+        const int i_snapshot = ++shared_i;
+        // Do some work with i_snapshot.
         // ...
         (void) i_snapshot;
     }
@@ -24,11 +21,8 @@ void do_inc() {
 
 void do_dec() {
     for (std::size_t i = 0; i < 30000; ++i) {
-        // do some work
-        // ...
-        int i_snapshot = -- shared_i;
-
-        // do some work with i_snapshot
+        const int i_snapshot = --shared_i;
+        // Do some work with i_snapshot.
         // ...
         (void) i_snapshot;
     }
@@ -57,15 +51,13 @@ boost::mutex i_mutex;
 
 void do_inc() {
     for (std::size_t i = 0; i < 30000; ++i) {
-        // do some work
-        // ...
         int i_snapshot;
-        { // Critical section begin
+        {   // Critical section begin.
             boost::lock_guard<boost::mutex> lock(i_mutex);
-            i_snapshot = ++ shared_i;
-        } // Critical section end
+            i_snapshot = ++shared_i;
+        }   // Critical section end.
 
-        // do some work with i_snapshot
+        // Do some work with i_snapshot.
         // ...
         (void)i_snapshot;
     }
@@ -73,15 +65,13 @@ void do_inc() {
 
 void do_dec() {
     for (std::size_t i = 0; i < 30000; ++i) {
-        // do some work
-        // ...
         int i_snapshot;
-        { // Critical section begin
+        {   // Critical section begin.
             boost::lock_guard<boost::mutex> lock(i_mutex);
             i_snapshot = -- shared_i;
-        } // Critical section end
+        }   // Critical section end.
 
-        // do some work with i_snapshot
+        // Do some work with i_snapshot.
         // ...
         (void) i_snapshot;
     }
