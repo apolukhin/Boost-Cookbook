@@ -25,9 +25,12 @@ int main() {
 
 void do_parse() {
     while (not_end_of_parsing) {
+        // If current thread was interrupted, the following
+        // line will throw an boost::thread_interrupted.
         boost::this_thread::interruption_point();
-        // Some parsing goes here
 
+        // Some parsing goes here.
+        // ...
     }
 
     // Newer shall reach this code
