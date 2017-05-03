@@ -40,6 +40,7 @@ class tester:
         'Chapter04/01_static_assert': ('01', '', 0),
         'Chapter04/04_mpl_int_': (' 0 1 2 \x03 4 5\n', '', 0),
         'Chapter05/03_atomics': ('shared_i == 0\n', '', 0),
+        'Chapter05/09_once': ('Print once 0\n', '', 0),
         'Chapter06/exception_ptr': ('Lexical cast exception detected\n\nCan not handle such exceptions:\nmain.cpp(48): Throw in function void func_test2()\nDynamic exception type: boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::logic_error> >\nstd::exception::what: Some fatal logic error\n\n', '', 0),
         'Chapter06/tasks_processor_base': ('', 'Exception: Just checking\nThread interrupted\n', 0),
         'Chapter06/tasks_processor_signals': ('', '', -2),

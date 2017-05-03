@@ -8,6 +8,8 @@ SUBDIRS += \
     05_shared_lock \
     06_thread_specific_ptr \
     07_interruptions \
-    08_thread_group
+    08_thread_group \
+    09_once \
+    10_locks
 
 
