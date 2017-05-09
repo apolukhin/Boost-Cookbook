@@ -94,6 +94,8 @@ public:
     void exchange_loot(user& u);
 };
 
+#include <boost/thread/locks.hpp>
+
 void user::exchange_loot(user& u) {
     typedef boost::unique_lock<boost::mutex> lock_t;
 
