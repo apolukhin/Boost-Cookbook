@@ -1,10 +1,10 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    case_conv \
-    regex_match \
-    regex_replace \
-    format \
-    string_algo \
-    iterator_range \
-    string_ref
+    01_case_conv \
+    02_regex_match \
+    03_regex_replace \
+    04_format \
+    05_string_algo \
+    06_iterator_range \
+    07_string_ref

@@ -1,10 +1,10 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    vector_of_types \
-    manipulating_vector_of_types \
-    result_of_c++11 \
-    higher_order_metafunctions \
-    lazy \
-    tuple_to_string \
-    splitting_tuple
+    01_vector_of_types \
+    02_manipulating_vector_of_types \
+    03_result_of_c++11 \
+    04_higher_order_metafunctions \
+    05_lazy \
+    06_tuple_to_string \
+    07_splitting_tuple
