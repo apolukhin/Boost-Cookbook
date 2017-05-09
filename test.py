@@ -44,7 +44,7 @@ class tester:
         'Chapter06/01_tasks_processor_base': ('', 'Exception: Just checking\nThread interrupted\n', 0),
         'Chapter06/02_tasks_processor_timers': ('', 'Exception: It works!\n', 0),
         'Chapter06/08_exception_ptr': ('Lexical cast exception detected\n\nCan not handle such exceptions:\nmain.cpp(48): Throw in function void func_test2()\nDynamic exception type: boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::logic_error> >\nstd::exception::what: Some fatal logic error\n\n', '', 0),
-        'Chapter06/09_tasks_processor_signals': ('', '', -2),
+        'Chapter06/09_tasks_processor_signals': ('Captured 1 SIGINT\nCaptured 2 SIGINT\nCaptured 3 SIGINT\n', '', 0),
         'Chapter07/format': ('Hello, dear Reader! Did you read the book for 100 % !\n100 == 100 && 100% != 100\n\nReader\n\nboost::too_few_args: format-string referred to more arguments than were passed\n', '', 0),
         'Chapter07/iterator_range': ('Sentence #1 : \tThis is a long long character array\nSentence has 35 characters.\nSentence has 6 whitespaces.\n\nSentence #2 : \tPlease split this character array to sentences\nSentence has 46 characters.\nSentence has 6 whitespaces.\n\nSentence #3 : \tDo you know, that sentences are separated using period, exclamation mark and question mark\nSentence has 90 characters.\nSentence has 13 whitespaces.\n\nSentence #4 : \t :-)\nSentence has 4 characters.\nSentence has 1 whitespaces.\n\n', '', 0),
         'Chapter07/string_algo': ('\n erase_all_copy   :Hello hello dear Reader.\n erase_first_copy :Hello hello, dear Reader.\n erase_last_copy  :Hello, hello dear Reader.\n ierase_all_copy  :, , dear Reader.\n ierase_nth_copy  :Hello, hello dear Reader.\n replace_all_copy  :Hello! hello! dear Reader.\n replace_first_copy  :Hello! hello, dear Reader.\n replace_head_copy  :Whaaaaaaa! hello, dear Reader.', '', 0),
@@ -158,12 +158,12 @@ class tester:
     @staticmethod
     def _test_tasks_processor_signals(test_name, path):
         proc = subprocess.Popen(path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        sleep(1)
         proc.send_signal(signal.SIGINT)
         sleep(0.5)
         proc.send_signal(signal.SIGINT)
         sleep(0.5)
         proc.send_signal(signal.SIGINT)
-        sleep(0.5)
 
         out1, out2 = proc.communicate()
         tester.outputs[test_name] = (out1, out2, proc.returncode)
