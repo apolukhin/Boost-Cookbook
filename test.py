@@ -45,6 +45,7 @@ class tester:
         'Chapter06/02_tasks_processor_timers': ('', 'Exception: It works!\n', 0),
         'Chapter06/08_exception_ptr': ('Lexical cast exception detected\n\nCan not handle such exceptions:\nmain.cpp(48): Throw in function void func_test2()\nDynamic exception type: boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::logic_error> >\nstd::exception::what: Some fatal logic error\n\n', '', 0),
         'Chapter06/09_tasks_processor_signals': ('Captured 1 SIGINT\nCaptured 2 SIGINT\nCaptured 3 SIGINT\n', '', 0),
+        'Chapter07/02_regex_match': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\nChoose regex syntax: Input regex: String to match: MATCH\nString to match: MATCH\nString to match: DOES NOT MATCH\nString to match: \nInput regex: String to match: MATCH\nString to match: MATCH\nString to match: DOES NOT MATCH\nString to match: DOES NOT MATCH\nString to match: \nInput regex: ', '', 0),
         'Chapter07/04_format': ('Hello, dear Reader! Did you read the book for 100 % !\n100 == 100 && 100% != 100\n\nReader\n\nboost::too_few_args: format-string referred to more arguments than were passed\n', '', 0),
         'Chapter07/05_string_algo': ('\n erase_all_copy   :Hello hello dear Reader.\n erase_first_copy :Hello hello, dear Reader.\n erase_last_copy  :Hello, hello dear Reader.\n ierase_all_copy  :, , dear Reader.\n ierase_nth_copy  :Hello, hello dear Reader.\n replace_all_copy  :Hello! hello! dear Reader.\n replace_first_copy  :Hello! hello, dear Reader.\n replace_head_copy  :Whaaaaaaa! hello, dear Reader.', '', 0),
         'Chapter07/06_iterator_range': ('Sentence #1 : \tThis is a long long character array\nSentence has 35 characters.\nSentence has 6 whitespaces.\n\nSentence #2 : \tPlease split this character array to sentences\nSentence has 46 characters.\nSentence has 6 whitespaces.\n\nSentence #3 : \tDo you know, that sentences are separated using period, exclamation mark and question mark\nSentence has 90 characters.\nSentence has 13 whitespaces.\n\nSentence #4 : \t :-)\nSentence has 4 characters.\nSentence has 1 whitespaces.\n\n', '', 0),
@@ -170,6 +171,16 @@ class tester:
         tester._test_validate(test_name)
 
     @staticmethod
+    def _test_regex_match(test_name, path):
+        proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        out1, out2 = proc.communicate(
+            input=b"0\n(\\d{3}[#-]){2}\n123-123#\n312-321-\n21-123-\n\n\n\l{3,5}\nqwe\nqwert\nqwerty\nQWE\n\n\n"
+        )
+        tester.outputs[test_name] = (out1, out2, proc.returncode)
+        tester._test_validate(test_name)
+
+    @staticmethod
     def _test_gil(test_name, path):
         command = [path, 'get-boost.png']
         tester._test(command, test_name)
@@ -203,7 +214,7 @@ class tester:
             "Chapter11/coroutines": tester._test_but_ignore_output_diff, # Sanitizers do not like coroutines and add some warnings
             "Chapter12/random": tester._test_but_ignore_output_diff,
 
-            "Chapter07/02_regex_match": tester._ignore,
+            "Chapter07/02_regex_match": tester._test_regex_match,
             "Chapter07/03_regex_replace": tester._ignore,
             "Chapter10/no_rtti": tester._ignore,
             "Chapter11/interprocess_basics": tester._ignore,
