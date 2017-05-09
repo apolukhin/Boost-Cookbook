@@ -1,4 +1,5 @@
 #include <boost/noncopyable.hpp>
+
 class connection: boost::noncopyable {
 public:
     // Opening a connection is a slow operation
@@ -13,10 +14,10 @@ public:
 };
 
 // In header file:
-#include <boost/thread/tss.hpp>
 connection& get_connection();
 
 // In source file:
+#include <boost/thread/tss.hpp>
 boost::thread_specific_ptr<connection> connection_ptr;
 
 connection& get_connection() {

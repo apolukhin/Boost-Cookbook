@@ -12,7 +12,7 @@ struct postprocessor {
     // Concurrent calls on the same variable are safe.
     answer_t act(const std::string& in) const {
         if (in.empty()) {
-            // Extreamely rare condition.
+            // Extremely rare condition.
             return read_defaults();
         }
 
@@ -40,7 +40,7 @@ public:
     // Concurrent calls on the same variable are safe.
     answer_t act(const std::string& in) const {
         if (in.empty()) {
-            // Extreamely rare condition.
+            // Extremely rare condition.
             return default_;
         }
 
@@ -75,7 +75,7 @@ public:
     // Concurrent calls on the same variable are safe.
     answer_t act(const std::string& in) const {
         if (in.empty()) {
-            // Extreamely rare condition.
+            // Extremely rare condition.
             boost::call_once(default_flag_, [this]() {
                 this->default_ = read_defaults();
             });
@@ -96,7 +96,7 @@ void once_printer(int i) {
     boost::call_once(
         flag,
         [](int v) { std::cout << "Print once " << v << '\n'; },
-        i
+        i // <=== Passed to lambda from above.
     );
 
     // ...
