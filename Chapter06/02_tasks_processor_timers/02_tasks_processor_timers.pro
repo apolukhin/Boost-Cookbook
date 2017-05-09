@@ -4,7 +4,7 @@ if (!include(../../config.txt)) {
 
 
 HEADERS += \
-    ../tasks_processor_base/tasks_processor_base.hpp \
+    ../01_tasks_processor_base/tasks_processor_base.hpp \
     tasks_processor_timers.hpp
 
 SOURCES += main.cpp

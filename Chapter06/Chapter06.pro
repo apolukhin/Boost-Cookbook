@@ -1,13 +1,13 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    tasks_processor_base \
-    tasks_processor_timers \
-    tasks_processor_network \
-    tasks_processor_multithread \
-    conveyor \
-    nonblocking_barrier \
-    exception_ptr \
-    tasks_processor_signals
+    01_tasks_processor_base \
+    02_tasks_processor_timers \
+    03_tasks_processor_network \
+    05_tasks_processor_multithread \
+    06_conveyor \
+    07_nonblocking_barrier \
+    08_exception_ptr \
+    09_tasks_processor_signals
 
 
