@@ -1,14 +1,6 @@
 #include "../01_tasks_processor_base/tasks_processor_base.hpp"
 using namespace tp_base;
 
-// Part of tasks_processor class from
-// tasks_processor_base.hpp, that must be defined
-// Somewhere in source file
-tasks_processor& tasks_processor::get() {
-    static tasks_processor proc;
-    return proc;
-}
-
 #include <boost/exception_ptr.hpp>
 #include <boost/lexical_cast.hpp>
 void func_test2(); // Forward declaration
@@ -20,14 +12,14 @@ void process_exception(const boost::exception_ptr& exc) {
         std::cout << "Lexical cast exception detected\n" << std::endl;
 
         // Pushing another task to execute
-        tasks_processor::get().push_task(&func_test2);
+        tasks_processor::push_task(&func_test2);
     } catch (...) {
         std::cout << "Can not handle such exceptions:\n" 
             << boost::current_exception_diagnostic_information() 
             << std::endl;
 
         // Stopping
-        tasks_processor::get().stop();
+        tasks_processor::stop();
     }
 }
 
@@ -35,7 +27,7 @@ void func_test1() {
     try {
         boost::lexical_cast<int>("oops!");
     } catch (...) {
-        tasks_processor::get().push_task(boost::bind(
+        tasks_processor::push_task(boost::bind(
             &process_exception, boost::current_exception()
         ));
     }
@@ -48,7 +40,7 @@ void func_test2() {
         BOOST_THROW_EXCEPTION(std::logic_error("Some fatal logic error"));
         // Some code goes here
     } catch (...) {
-        tasks_processor::get().push_task(boost::bind(
+        tasks_processor::push_task(boost::bind(
             &process_exception, boost::current_exception()
         ));
     }
@@ -63,8 +55,8 @@ void run_throw(boost::exception_ptr& ptr) {
 }
 
 int main () {
-    tasks_processor::get().push_task(&func_test1);
-    tasks_processor::get().start();
+    tasks_processor::push_task(&func_test1);
+    tasks_processor::start();
 
 
     boost::exception_ptr ptr;

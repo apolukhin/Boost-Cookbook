@@ -10,4 +10,5 @@ HEADERS += \
     tasks_processor_signals.hpp
 
 SOURCES += main.cpp
+QMAKE_CXXFLAGS += $$CPP11FLAG
 !msvc:LIBS += -lboost_thread -lboost_system

@@ -55,14 +55,6 @@ int main() {
 #include "../01_tasks_processor_base/tasks_processor_base.hpp"
 using namespace tp_base;
 
-// Part of tasks_processor class from
-// tasks_processor_base.hpp, that must be defined
-// Somewhere in source file
-tasks_processor& tasks_processor::get() {
-    static tasks_processor proc;
-    return proc;
-}
-
 #include <boost/atomic.hpp>
 typedef boost::atomic<unsigned int> atomic_count_t;
 
@@ -80,13 +72,13 @@ void clever_runner(
         ++ iteration;
         if (iteration == 1000) {
             // exiting, because 1000 iterations are done
-            tasks_processor::get().stop();
+            tasks_processor::stop();
             return;
         }
 
         counter = 0;
         for (std::size_t i = 0; i < data_t::static_size; ++ i) {
-            tasks_processor::get().push_task(boost::bind(
+            tasks_processor::push_task(boost::bind(
                 clever_runner, 
                 i,
                 iteration, 
@@ -104,10 +96,9 @@ void clever_implementation() {
     // Initing data
     data_t data;
 
-    // Run on 4 threads
-    tasks_processor& tp = tasks_processor::get();
+    // Run on 4 threads.
     for (std::size_t i = 0; i < data_t::static_size; ++i) {
-        tp.push_task(boost::bind(
+        tasks_processor::push_task(boost::bind(
             &clever_runner, 
             i, 
             0, // first run
@@ -116,7 +107,7 @@ void clever_implementation() {
         ));
     }
 
-    tp.start();
+    tasks_processor::start();
 }
 
 

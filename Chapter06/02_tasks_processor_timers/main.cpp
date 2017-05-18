@@ -3,10 +3,18 @@
 #include "tasks_processor_timers.hpp"
 using namespace tp_timers;
 
-void test_func(int& i) {
-    i = 1;
-    tasks_processor::stop();
-}
+struct test_func {
+    int& i_;
+
+    explicit test_func(int& i)
+        : i_(i)
+    {}
+    
+    void operator()() const {
+        i_ = 1;
+        tasks_processor::stop();
+    }
+};
 
 void test_func1() {
     throw std::logic_error("It works!");
@@ -20,7 +28,7 @@ int main () {
 
     tasks_processor::run_delayed(
         boost::posix_time::seconds(seconds_to_wait),
-        &tasks_processor::stop
+        test_func(i)
     );
 
     tasks_processor::run_delayed(

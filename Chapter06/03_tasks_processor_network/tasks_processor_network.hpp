@@ -7,9 +7,10 @@
 #include <boost/asio/placeholders.hpp>
 #include <boost/asio/write.hpp>
 #include <boost/asio/read.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/function.hpp>
 #include <boost/enable_shared_from_this.hpp>
+
+#include <memory> // std::unique_ptr
 
 #include <boost/lexical_cast.hpp>
 

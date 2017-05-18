@@ -10,7 +10,7 @@ CONFIG += thread
 
 isEmpty(BOOST_PATH) {
     # Path to the Boost.
-    BOOST_PATH = /home/antoshkka/experiments/boost_1_63_0/
+    BOOST_PATH = /data/boost_1_63_0/
 }
 
 # Compiler to use (comment out to use default one).
@@ -43,5 +43,5 @@ msvc {
     DEFINES += _CRT_SECURE_NO_WARNINGS
 } else {
     LIBS += -L$$BOOST_PATH/stage/lib
-    QMAKE_CXXFLAGS += -Wno-deprecated-declarations
+    QMAKE_CXXFLAGS += -Wno-deprecated-declarations -Wno-unused-variable
 }
