@@ -65,65 +65,6 @@ before_install:
     - PROJECT_TO_TEST=`basename $TRAVIS_BUILD_DIR`
     - echo "Testing $PROJECT_TO_TEST"
 
-    # Creating script for examples execution
-    - echo 'declare -A optionsmap'                                                  >run_examples.sh
-    - echo 'optionsmap["01_A_program_options_base"]="--apples=10 --oranges=20"'     >>run_examples.sh
-    - echo 'optionsmap["gil"]="get-boost.png"'                                      >>run_examples.sh
-    - echo 'tasks_processor_signals_helper() {'                                     >>run_examples.sh
-    - echo '    sleep 2; '                                                          >>run_examples.sh
-    - echo '    killall tasks_processor_signals -SIGINT; sleep 1; '                 >>run_examples.sh
-    - echo '    killall tasks_processor_signals -SIGINT; sleep 1; '                 >>run_examples.sh
-    - echo '    killall tasks_processor_signals -SIGINT; sleep 1; '                 >>run_examples.sh
-    - echo '} '                                                                     >>run_examples.sh
-    - echo 'interprocess_basics_run() {'                                            >>run_examples.sh
-    - echo '    echo "0" | ./Chapter11/interprocess_basics/interprocess_basics '    >>run_examples.sh
-    - echo '} '                                                                     >>run_examples.sh
-    - echo ''                                                                       >>run_examples.sh
-    - echo 'chmod -x ./Chapter10/my_library/*'                                      >>run_examples.sh
-    - echo 'for i in `find ./Chapter* -type f -executable`; do '                    >>run_examples.sh
-    - echo '    echo -e "\n************* Running $i"'                               >>run_examples.sh
-    - echo '    progname="$(basename $i)"'                                          >>run_examples.sh
-    - echo '    case "${progname}" in '                                             >>run_examples.sh
-    - echo '    "tasks_processor_signals") '                                        >>run_examples.sh
-    - echo '        tasks_processor_signals_helper & '                              >>run_examples.sh
-    - echo '        ;; '                                                            >>run_examples.sh
-    - echo '    "reading_files") '                                                  >>run_examples.sh
-    - echo '        $i c; time $i m; time $i r; time $i a; continue '               >>run_examples.sh
-    - echo '        ;; '                                                            >>run_examples.sh
-    - echo '    "interprocess_basics") '                                            >>run_examples.sh
-    - echo '        mkfifo fifo1; $i<fifo1 & '                                      >>run_examples.sh
-    - echo '        sleep 1 '                                                       >>run_examples.sh
-    - echo '        interprocess_basics_run & '                                     >>run_examples.sh
-    - echo '        interprocess_basics_run & '                                     >>run_examples.sh
-    - echo '        interprocess_basics_run & '                                     >>run_examples.sh
-    - echo '        interprocess_basics_run & '                                     >>run_examples.sh
-    - echo '        interprocess_basics_run & '                                     >>run_examples.sh
-    - echo '        sleep 1 '                                                       >>run_examples.sh
-    - echo '        echo "0">fifo1 '                                                >>run_examples.sh
-    - echo '        rm fifo1; continue '                                            >>run_examples.sh
-    - echo '        ;; '                                                            >>run_examples.sh
-    - echo '    "interprocess_queue") '                                             >>run_examples.sh
-    - echo '        $i & '                                                          >>run_examples.sh
-    - echo '        ;; '                                                            >>run_examples.sh
-    - echo '    "interprocess_pointers") '                                          >>run_examples.sh
-    - echo '        $i '                                                            >>run_examples.sh
-    - echo '        ;; '                                                            >>run_examples.sh
-    - echo '    "regex_match" | "regex_replace") '                                  >>run_examples.sh
-    - echo '        continue '                                                      >>run_examples.sh
-    - echo '        ;; '                                                            >>run_examples.sh
-    - echo '    "gil") '                                                            >>run_examples.sh
-    - echo '        wget http://www.boost.org/style-v2/css_0/get-boost.png '        >>run_examples.sh
-    - echo '        ;; '                                                            >>run_examples.sh
-    - echo '    "01_B_program_options_short") '                                     >>run_examples.sh
-    - echo '        cp Chapter01/01_B_program_options_short/apples_oranges.cfg ./ ' >>run_examples.sh
-    - echo '        ;; '                                                            >>run_examples.sh
-    - echo '    esac'                                                               >>run_examples.sh
-    - echo ''                                                                       >>run_examples.sh
-    - echo '    ./"$i" ${optionsmap["${progname}"]}'                                >>run_examples.sh
-    - echo '    if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi'          >>run_examples.sh
-    - echo 'done'                                                                   >>run_examples.sh
-    - chmod +x ./run_examples.sh
-
     # Cloning Boost libraries (fast nondeep cloning)
     - PROJECT_DIR=`pwd`
     - BOOST=$HOME/boost-local
@@ -151,7 +92,6 @@ script:
 
     # Executing examples
     - python ./test.py
-    - ./run_examples.sh
 
 after_success:
     - mkdir -p $TRAVIS_BUILD_DIR/coverals
