@@ -8,7 +8,7 @@
 # See https://svn.boost.org/trac/boost/wiki/TravisCoverals for description of this file
 # and how it can be used with Boost libraries.
 #
-# File revision #3 + modifications
+# File revision #5 + modifications
 
 init:
     - set BRANCH_TO_TEST=master  # Change to Boost branch you wish to test with. Use %APPVEYOR_REPO_BRANCH% for current branch.

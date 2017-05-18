@@ -32,7 +32,7 @@ struct connection_with_data {
     }
 };
 
-using connection_ptr = std::unique_ptr<connection_with_data>;
+typedef std::unique_ptr<connection_with_data> connection_ptr;
 
 
 template <class T>
