@@ -8,4 +8,4 @@ HEADERS += \
     tasks_processor_timers.hpp
 
 SOURCES += main.cpp
-LIBS += -lboost_system -lboost_thread
+!msvc:LIBS += -lboost_system -lboost_thread

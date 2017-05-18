@@ -1,10 +1,6 @@
 #ifndef BOOK_CHAPTER6_TASK_PROCESSOR_BASE_HPP
 #define BOOK_CHAPTER6_TASK_PROCESSOR_BASE_HPP
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-# pragma once
-#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
-
 #include <boost/thread/thread.hpp>
 #include <boost/asio/io_service.hpp>
 
@@ -16,8 +12,8 @@ private:
     T task_unwrapped_;
 
 public:
-    explicit task_wrapped(const T& task_unwrapped)
-        : task_unwrapped_(task_unwrapped)
+    explicit task_wrapped(const T& f)
+        : task_unwrapped_(f)
     {}
 
     void operator()() const {
@@ -40,7 +36,7 @@ public:
 };
 
 template <class T>
-inline task_wrapped<T> make_task_wrapped(const T& task_unwrapped) {
+task_wrapped<T> make_task_wrapped(const T& task_unwrapped) {
     return task_wrapped<T>(task_unwrapped);
 }
 
@@ -51,31 +47,28 @@ namespace tp_base {
 
 class tasks_processor: private boost::noncopyable {
 protected:
-    boost::asio::io_service         ios_;
-    boost::asio::io_service::work   work_;
+    static boost::asio::io_service& get() {
+        static boost::asio::io_service ios;
+        static boost::asio::io_service::work work(ios);
 
-    tasks_processor()
-        : ios_()
-        , work_(ios_)
-    {}
+        return ios;
+    }
 
 public:
-    static tasks_processor& get();
-
     template <class T>
-    inline void push_task(const T& task_unwrapped) {
-        ios_.post(detail::make_task_wrapped(task_unwrapped));
+    static void push_task(const T& task_unwrapped) {
+        get().post(detail::make_task_wrapped(task_unwrapped));
     }
 
-    void start() {
-        ios_.run();
+    static void start() {
+        get().run();
     }
 
-    void stop() {
-        ios_.stop();
+    static void stop() {
+        get().stop();
     }
 }; // tasks_processor
 
-} // namespace base::
+} // namespace tp_base
 
 #endif // BOOK_CHAPTER6_TASK_PROCESSOR_BASE_HPP

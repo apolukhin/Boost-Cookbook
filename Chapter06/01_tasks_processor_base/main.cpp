@@ -2,31 +2,26 @@
 #include "tasks_processor_base.hpp"
 using namespace tp_base;
 
-// Part of tasks_processor class from
-// tasks_processor_base.hpp, that must be defined
-// Somewhere in source file
-tasks_processor& tasks_processor::get() {
-    static tasks_processor proc;
-    return proc;
-}
-
-int g_val = 0;
-void func_test() {
-    ++ g_val;
-    if (g_val == 3) {
-        throw std::logic_error("Just checking");
-    }
-    
+int func_test() {
+    static int counter = 0;
+    ++ counter;
     boost::this_thread::interruption_point();
-    if (g_val == 10) {
+
+    switch (counter) {
+    case 3:
+        throw std::logic_error("Just checking");
+
+    case 10:
         // Emulation of thread interruption.
-        // Will be catched and won't stop execution.
+        // Must be caught and must not stop execution.
         throw boost::thread_interrupted();
+
+    case 90:
+        // Stopping the tasks_processor.
+        tasks_processor::stop();
     }
 
-    if (g_val == 90) {
-        tasks_processor::get().stop();
-    }
+    return counter;
 }
 
 int main () {
@@ -35,21 +30,21 @@ int main () {
     BOOST_STATIC_ASSERT(tasks_count > 90);
 
     for (std::size_t i =0; i < tasks_count; ++i) {
-        tasks_processor::get().push_task(&func_test);
+        tasks_processor::push_task(&func_test);
     }
 
     // We can also use result of boost::bind call
     // as a task.
-    tasks_processor::get().push_task(
+    tasks_processor::push_task(
         boost::bind(std::plus<int>(), 2, 2) // counting 2 + 2
     );
 
     // Processing was not started.
-    assert(g_val == 0);
+    assert(func_test() == 1);
 
     // Will not throw, but blocks till
     // one of the tasks it is owning
     // calls stop().
-    tasks_processor::get().start();
-    assert(g_val == 90);
+    tasks_processor::start();
+    assert(func_test() == 91);
 }

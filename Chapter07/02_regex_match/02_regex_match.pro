@@ -3,4 +3,4 @@ if (!include(../../config.txt)) {
 }
 
 SOURCES += main.cpp
-LIBS += -lboost_regex
+!msvc:LIBS += -lboost_regex

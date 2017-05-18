@@ -5,4 +5,4 @@ if (!include(../../config.txt)) {
 DEFINES += BOOST_TEST_DYN_LINK=1
 SOURCES += main.cpp
 
-LIBS += -lboost_unit_test_framework -lboost_system
+!msvc:LIBS += -lboost_unit_test_framework -lboost_system

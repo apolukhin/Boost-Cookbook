@@ -1,7 +1,6 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include <auto_ptr.h>
 #include <assert.h>
 
 #include <boost/move/move.hpp>

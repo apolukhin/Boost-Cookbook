@@ -3,4 +3,4 @@ if (!include(../../config.txt)) {
 }
 
 SOURCES += main.cpp
-LIBS += -lboost_system -lboost_filesystem
+!msvc:LIBS += -lboost_system -lboost_filesystem

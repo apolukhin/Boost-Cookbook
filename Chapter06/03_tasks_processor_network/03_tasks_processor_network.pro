@@ -8,4 +8,5 @@ HEADERS += \
     tasks_processor_network.hpp
 
 SOURCES += main.cpp
-LIBS += -lboost_thread -lboost_system
+QMAKE_CXXFLAGS += $$CPP11FLAG
+!msvc:LIBS += -lboost_thread -lboost_system

@@ -2,29 +2,29 @@
 
 # ... QMake specific settings that shall not be modified
 TEMPLATE = app
-CONFIG -= console
+CONFIG += console
 CONFIG -= qt
 CONFIG += thread
 
 # ... and a big portion of settings that reader may modify:
 
 isEmpty(BOOST_PATH) {
-    # Path to the Boost
-    BOOST_PATH = /data/boost_1_63_0/
+    # Path to the Boost.
+    BOOST_PATH = /home/antoshkka/experiments/boost_1_63_0/
 }
 
-# Compiler to use (comment out to use default one)
+# Compiler to use (comment out to use default one).
 #QMAKE_CXX = clang++
 
 # Paths to boost headers and libraries
-# (if you are using Linux and installed Boost from repository you may comment out those lines)
+# (if you are using Linux and installed Boost from repository you may comment out those lines).
 INCLUDEPATH += $$BOOST_PATH
+QMAKE_RPATHDIR += $$BOOST_PATH/stage/lib
 
-# Boost specific defines
+# Boost specific defines.
 DEFINES += BOOST_THREAD_VERSION=4
 
-
-# Flags to set your compiler into C++03/C++11/C++14 modea
+# Flags to set your compiler into C++03/C++11/C++14 mode.
 msvc {
     # MSVC compilers
     CPP03FLAG =
@@ -37,16 +37,11 @@ msvc {
     CPP14FLAG = -std=c++14
 }
 
+# Disabling some annoing warnings and adding paths to the Boost libraries.
 msvc {
-    LIBS += $$BOOST_PATH/stage/lib
-
-    # Disabling MSVC specific warnings
+    QMAKE_LFLAGS += /LIBPATH:$$BOOST_PATH/stage/lib
     DEFINES += _CRT_SECURE_NO_WARNINGS
 } else {
     LIBS += -L$$BOOST_PATH/stage/lib
-
-    # Suppressing GCC warning
     QMAKE_CXXFLAGS += -Wno-deprecated-declarations
 }
-QMAKE_RPATHDIR += $$BOOST_PATH/stage/lib
-

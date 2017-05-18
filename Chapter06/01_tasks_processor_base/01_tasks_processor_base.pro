@@ -4,4 +4,4 @@ if (!include(../../config.txt)) {
 
 HEADERS += tasks_processor_base.hpp
 SOURCES += main.cpp
-LIBS += -lboost_system -lboost_thread
+!msvc:LIBS += -lboost_system -lboost_thread

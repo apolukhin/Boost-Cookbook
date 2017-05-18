@@ -6,5 +6,5 @@ SOURCES += main.cpp
 
 # If unix like OS => link with 'rt' library
 unix {
-    LIBS += -lrt
+    !msvc:LIBS += -lrt
 }

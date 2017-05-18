@@ -70,6 +70,7 @@ bool foo3_1() {
 }
 
 #include <iostream>
+#include <string>
 
 struct base {
     virtual ~base(){}

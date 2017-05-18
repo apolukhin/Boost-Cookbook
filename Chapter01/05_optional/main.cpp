@@ -18,7 +18,7 @@ public:
     }
 
     static boost::optional<locked_device> try_lock_device() {
-        if (rand()%2) {
+        if (rand() % 2) {
             // Failed to lock device
             return boost::none;
         }
@@ -31,7 +31,7 @@ int main() {
     // Boost has a library called Random. If you wonder why it was
     // written when stdlib.h has rand() function, see recipes
     // 'Random distribution' and 'Making a random generator'.
-    srandom(5);
+    srand(5);
 
     for (unsigned i = 0; i < 10; ++i) {
         boost::optional<locked_device> t = locked_device::try_lock_device();

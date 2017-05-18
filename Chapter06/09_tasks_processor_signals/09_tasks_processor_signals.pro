@@ -10,4 +10,4 @@ HEADERS += \
     tasks_processor_signals.hpp
 
 SOURCES += main.cpp
-LIBS += -lboost_thread -lboost_system
+!msvc:LIBS += -lboost_thread -lboost_system

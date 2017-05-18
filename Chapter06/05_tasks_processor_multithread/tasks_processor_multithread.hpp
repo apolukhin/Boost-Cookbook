@@ -1,10 +1,6 @@
 #ifndef BOOK_CHAPTER6_TASK_PROCESSOR_MULTITHREAD_HPP
 #define BOOK_CHAPTER6_TASK_PROCESSOR_MULTITHREAD_HPP
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
-# pragma once
-#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
-
 #include "../03_tasks_processor_network/tasks_processor_network.hpp"
 
 namespace tp_multithread {
