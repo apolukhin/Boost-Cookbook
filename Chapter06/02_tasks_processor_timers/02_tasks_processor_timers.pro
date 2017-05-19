@@ -8,4 +8,5 @@ HEADERS += \
     tasks_processor_timers.hpp
 
 SOURCES += main.cpp
+QMAKE_CXXFLAGS += $$CPP11FLAG
 !msvc:LIBS += -lboost_system -lboost_thread

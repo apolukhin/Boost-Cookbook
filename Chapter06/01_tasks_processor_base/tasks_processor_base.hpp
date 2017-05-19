@@ -47,7 +47,7 @@ namespace tp_base {
 
 class tasks_processor: private boost::noncopyable {
 protected:
-    static boost::asio::io_service& get() {
+    static boost::asio::io_service& get_ios() {
         static boost::asio::io_service ios;
         static boost::asio::io_service::work work(ios);
 
@@ -57,15 +57,15 @@ protected:
 public:
     template <class T>
     static void push_task(const T& task_unwrapped) {
-        get().post(detail::make_task_wrapped(task_unwrapped));
+        get_ios().post(detail::make_task_wrapped(task_unwrapped));
     }
 
     static void start() {
-        get().run();
+        get_ios().run();
     }
 
     static void stop() {
-        get().stop();
+        get_ios().stop();
     }
 }; // tasks_processor
 

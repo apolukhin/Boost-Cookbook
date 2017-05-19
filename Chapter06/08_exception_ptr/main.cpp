@@ -5,31 +5,39 @@ using namespace tp_base;
 #include <boost/lexical_cast.hpp>
 void func_test2(); // Forward declaration
 
-void process_exception(const boost::exception_ptr& exc) {
-    try {
-        boost::rethrow_exception(exc);
-    } catch (const boost::bad_lexical_cast& /*e*/) {
-        std::cout << "Lexical cast exception detected\n" << std::endl;
+struct process_exception {
+    boost::exception_ptr exc_;
 
-        // Pushing another task to execute
-        tasks_processor::push_task(&func_test2);
-    } catch (...) {
-        std::cout << "Can not handle such exceptions:\n" 
-            << boost::current_exception_diagnostic_information() 
-            << std::endl;
+    explicit process_exception(const boost::exception_ptr& exc)
+        : exc_(exc)
+    {}
 
-        // Stopping
-        tasks_processor::stop();
+    void operator()() const  {
+        try {
+            boost::rethrow_exception(exc_);
+        } catch (const boost::bad_lexical_cast& /*e*/) {
+            std::cout << "Lexical cast exception detected\n" << std::endl;
+
+            // Pushing another task to execute
+            tasks_processor::push_task(&func_test2);
+        } catch (...) {
+            std::cout << "Can not handle such exceptions:\n" 
+                << boost::current_exception_diagnostic_information() 
+                << std::endl;
+
+            // Stopping
+            tasks_processor::stop();
+        }
     }
-}
+};
 
 void func_test1() {
     try {
         boost::lexical_cast<int>("oops!");
     } catch (...) {
-        tasks_processor::push_task(boost::bind(
-            &process_exception, boost::current_exception()
-        ));
+        tasks_processor::push_task(
+            process_exception(boost::current_exception())
+        );
     }
 }
 
@@ -40,9 +48,9 @@ void func_test2() {
         BOOST_THROW_EXCEPTION(std::logic_error("Some fatal logic error"));
         // Some code goes here
     } catch (...) {
-        tasks_processor::push_task(boost::bind(
-            &process_exception, boost::current_exception()
-        ));
+        tasks_processor::push_task(
+            process_exception(boost::current_exception())
+        );
     }
 }
 
@@ -61,14 +69,14 @@ int main () {
 
     boost::exception_ptr ptr;
     // Do some work in parallel
-    boost::thread t(boost::bind(
-        &run_throw, 
+    boost::thread t(
+        &run_throw,
         boost::ref(ptr)
-    ));
+    );
 
     // Some code goes here
     // ...
-    
+
     t.join();
 
     // Chacking for exception

@@ -12,7 +12,7 @@ namespace tp_full {
 class tasks_processor: public tp_multithread::tasks_processor {
 protected:
     static boost::asio::signal_set& signals() {
-        static boost::asio::signal_set signals_(get());
+        static boost::asio::signal_set signals_(get_ios());
         return signals_;
     }
 
@@ -26,18 +26,20 @@ private:
             const boost::system::error_code& error,
             int signal_number)
     {
+        signals().async_wait(&tasks_processor::handle_signals);
+
         if (error) {
             std::cerr << "Error in signal handling: " << error << '\n';
         } else {
             // If signals occures while there is no waiting handlers,
             // signal notification is queued, so it won't be missed
             // while we running users_signal_handler_
-            detail::make_task_wrapped(boost::bind(
-                boost::ref(signal_handler()), signal_number
-            ))(); // make and run task_wrapped
+            boost::function<void(int)> h = signal_handler();
+            detail::make_task_wrapped([h, signal_number]() {
+                h(signal_number);
+            })(); // make and run task_wrapped
         }
-        
-        signals().async_wait(&tasks_processor::handle_signals);
+
     }
 public:
 
@@ -54,12 +56,12 @@ public:
         assert(!signal_handler()); 
 
         signal_handler() = f;
+        boost::asio::signal_set& sigs = signals();
+        
         std::for_each(
             signals_to_wait.begin(),
             signals_to_wait.end(),
-            boost::bind(
-                &boost::asio::signal_set::add, &signals(), _1
-            )
+            [&sigs](int signal) { sigs.add(signal); }
         );
 
         signals().async_wait(&tasks_processor::handle_signals);

@@ -4,31 +4,32 @@
 #include "../02_tasks_processor_timers/tasks_processor_timers.hpp"
 
 #include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/placeholders.hpp>
 #include <boost/asio/write.hpp>
 #include <boost/asio/read.hpp>
 #include <boost/function.hpp>
-#include <boost/enable_shared_from_this.hpp>
 
 #include <memory> // std::unique_ptr
 
-#include <boost/lexical_cast.hpp>
-
 struct connection_with_data {
-    boost::asio::ip::tcp::socket socket_;
-    std::string data_;
+    boost::asio::ip::tcp::socket socket;
+    std::string data;
 
     explicit connection_with_data(boost::asio::io_service& ios)
-        : socket_(ios) 
+        : socket(ios) 
     {}
 
-    void connect(const boost::asio::ip::tcp::endpoint& endpoint) {
-        socket_.connect(endpoint);
+    void shutdown() {
+        if (!socket.is_open()) {
+            return;
+        }
+
+        boost::system::error_code ignore;
+        socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ignore);
+        socket.close(ignore);
     }
 
-    void shutdown() {
-        socket_.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-        socket_.close();
+    ~connection_with_data() {
+        shutdown();
     }
 };
 
@@ -47,36 +48,20 @@ public:
         , task_unwrapped_(f)
     {}
 
-    task_wrapped_with_connection(task_wrapped_with_connection&&) = default;
-    task_wrapped_with_connection& operator=(task_wrapped_with_connection&&) = default;
+    void operator()(const boost::system::error_code& error, std::size_t bytes_count) {
+        const auto task = detail::make_task_wrapped([this, &error, bytes_count]() {
+            this->c_->data.resize(bytes_count);
+            this->task_unwrapped_(std::move(this->c_), error);
+        });
 
-    task_wrapped_with_connection(const task_wrapped_with_connection&);
-    task_wrapped_with_connection& operator=(const task_wrapped_with_connection&);
-
-    template <class... Args>
-    void operator()(Args&&... args) {
-        // resetting interruption
-        try {
-            boost::this_thread::interruption_point();
-        } catch(const boost::thread_interrupted&){}
-
-        try {
-            // Executing task
-            task_unwrapped_(std::move(c_), std::forward<Args>(args)...);
-        } catch (const std::exception& e) {
-            std::cerr<< "Exception: " << e.what() << '\n';
-        } catch (const boost::thread_interrupted&) {
-            std::cerr<< "Thread interrupted\n";
-        } catch (...) {
-            std::cerr<< "Unknown exception\n";
-        }
+        task();
     }
 };
 
 template <class Functor>
 void async_write_data(connection_ptr&& c, const Functor& f) {
-    boost::asio::ip::tcp::socket& s = c->socket_;
-    std::string& d = c->data_;
+    boost::asio::ip::tcp::socket& s = c->socket;
+    std::string& d = c->data;
 
     boost::asio::async_write(
         s,
@@ -87,10 +72,10 @@ void async_write_data(connection_ptr&& c, const Functor& f) {
 
 template <class Functor>
 void async_read_data(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes) {
-    c->data_.resize(at_least_bytes);
+    c->data.resize(at_least_bytes);
 
-    boost::asio::ip::tcp::socket& s = c->socket_;
-    std::string& d = c->data_;
+    boost::asio::ip::tcp::socket& s = c->socket;
+    std::string& d = c->data;
     char* p = (d.empty() ? 0 : &d[0]);
 
     boost::asio::async_read(
@@ -102,120 +87,93 @@ void async_read_data(connection_ptr&& c, const Functor& f, std::size_t at_least_
 
 
 template <class Functor>
-void async_read_data_at_least(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes, std::size_t at_most = 4095) {
-    c->data_.resize(at_most);
+void async_read_dataat_least(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes, std::size_t at_most = 4095) {
+    std::string& d = c->data;
+    d.resize(at_most);
+    char* p = (at_most == 0 ? 0 : &d[0]);
 
-    boost::asio::ip::tcp::socket& s = c->socket_;
-    std::string& d = c->data_;
-    char* p = (d.empty() ? 0 : &d[0]);
+    boost::asio::ip::tcp::socket& s = c->socket;
 
     boost::asio::async_read(
         s,
-        boost::asio::mutable_buffers_1(p, d.size()),
+        boost::asio::mutable_buffers_1(p, at_most),
         boost::asio::transfer_at_least(at_least_bytes),
         task_wrapped_with_connection<Functor>(std::move(c), f)
     );
 }
-namespace detail {
-    class tcp_listener: public boost::enable_shared_from_this<tcp_listener> {
-        typedef boost::asio::ip::tcp::acceptor acceptor_t;
-        acceptor_t acceptor_;
-        connection_ptr new_c_;
-        boost::function<void(connection_ptr)> func_;
-    public:
+
+namespace tp_network {
+
+class tasks_processor: public tp_timers::tasks_processor {
+    typedef boost::asio::ip::tcp::acceptor acceptor_t;
+    typedef boost::function<void(connection_ptr, const boost::system::error_code&)> on_accpet_func_t;
+
+    struct tcp_listener {
+        acceptor_t              acceptor_;
+        const on_accpet_func_t  func_;
+        connection_ptr          new_c_;
+
         template <class Functor>
         tcp_listener(
                 boost::asio::io_service& io_service,
                 unsigned short port,
                 const Functor& task_unwrapped)
-            : acceptor_(io_service,boost::asio::ip::tcp::endpoint(
+            : acceptor_(io_service, boost::asio::ip::tcp::endpoint(
                 boost::asio::ip::tcp::v4(), port
             ))
             , func_(task_unwrapped)
         {}
+    };
+    typedef std::unique_ptr<tcp_listener> listener_ptr;
 
-        void stop() {
-            acceptor_.close();
-        }
-        
-        void push_task() {
-            if (!acceptor_.is_open()) {
-                return;
-            }
+    struct handle_accept {
+        listener_ptr listener;
 
-            new_c_.reset(
-                new connection_with_data(acceptor_.get_io_service())
-            );
+        explicit handle_accept(listener_ptr&& l)
+            : listener(std::move(l))
+        {}
 
-            boost::asio::ip::tcp::socket& s = new_c_->socket_;
-            acceptor_.async_accept(s, boost::bind(
-                &tcp_listener::handle_accept,
-                this->shared_from_this(),
-                boost::asio::placeholders::error
-            ));
-        }
-
-    private:
-        void handle_accept(const boost::system::error_code& error) {
-            if (!error) {
-                task_wrapped_with_connection< boost::function<void(connection_ptr)> >(
-                    std::move(new_c_),
-                    func_
-                )(); // Running the task
-            } else {
+        void operator()(const boost::system::error_code& error) {
+            task_wrapped_with_connection<on_accpet_func_t> task(std::move(listener->new_c_), listener->func_);
+            if (error) {
                 std::cerr << error << '\n';
             }
-            push_task();
+
+            start_accepting_connection(std::move(listener));
+            task(error, 0);
         }
-    }; // class tcp_listener
-} // namespace detail
+    };
 
-namespace tp_network {
+   static void start_accepting_connection(listener_ptr&& listener) {
+        if (!listener->acceptor_.is_open()) {
+            return;
+        }
 
-class tasks_processor: public tp_timers::tasks_processor {
-    typedef std::map<
-        unsigned short,
-        boost::shared_ptr<detail::tcp_listener>
-    > listeners_map_t;
+        listener->new_c_.reset(
+            new connection_with_data(listener->acceptor_.get_io_service())
+        );
 
-    static listeners_map_t& listeners() {
-        static listeners_map_t l;
-        return l;
+        boost::asio::ip::tcp::socket& s = listener->new_c_->socket;
+        acceptor_t& a = listener->acceptor_;
+        a.async_accept(
+            s,
+            tasks_processor::handle_accept(std::move(listener))
+        );
     }
 
 public:
     template <class Functor>
     static void add_listener(unsigned short port_num, const Functor& f) {
-        listeners_map_t::const_iterator it = listeners().find(port_num);
-        if (it != listeners().end()) {
-            throw std::logic_error(
-                "Such listener for port '" 
-                + boost::lexical_cast<std::string>(port_num) 
-                + "' already created"
-            );
-        }
+        std::unique_ptr<tcp_listener> listener(
+            new tcp_listener(get_ios(), port_num, f)
+        );
 
-        listeners()[port_num] = boost::make_shared<detail::tcp_listener>(boost::ref(get()), port_num, f);
-        listeners()[port_num]->push_task(); // Start accepting
-    }
-
-    static void remove_listener(unsigned short port_num) {
-        listeners_map_t::iterator it = listeners().find(port_num);
-        if (it == listeners().end()) {
-            throw std::logic_error(
-                "No listener for port '" 
-                + boost::lexical_cast<std::string>(port_num) 
-                + "' created"
-            );
-        }
-
-        (*it).second->stop();
-        listeners().erase(it);
+        start_accepting_connection(std::move(listener));
     }
 
     static connection_ptr create_connection(const char* addr, unsigned short port_num) {
-        connection_ptr c( new connection_with_data(get()) );
-        c->connect(boost::asio::ip::tcp::endpoint(
+        connection_ptr c( new connection_with_data(get_ios()) );
+        c->socket.connect(boost::asio::ip::tcp::endpoint(
             boost::asio::ip::address_v4::from_string(addr),
             port_num
         ));

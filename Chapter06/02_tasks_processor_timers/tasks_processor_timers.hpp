@@ -6,7 +6,7 @@
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/system/error_code.hpp>
-#include <boost/make_shared.hpp>
+#include <boost/move/make_unique.hpp>
 #include <iostream>
 
 namespace detail {
@@ -14,14 +14,14 @@ namespace detail {
     template <class Functor>
     struct timer_task {
     private:
-        boost::shared_ptr<boost::asio::deadline_timer> timer_;
+        std::unique_ptr<boost::asio::deadline_timer> timer_;
         task_wrapped<Functor> task_;
 
     public:
         explicit timer_task(
-                boost::shared_ptr<boost::asio::deadline_timer> timer,
+                std::unique_ptr<boost::asio::deadline_timer> timer,
                 const Functor& task_unwrapped)
-            : timer_(boost::move(timer))
+            : timer_(std::move(timer))
             , task_(task_unwrapped)
         {}
 
@@ -42,9 +42,9 @@ public:
 
     template <class Time, class Functor>
     static void run_delayed(Time duration_or_time, const Functor& f) {
-        boost::shared_ptr<boost::asio::deadline_timer> timer(
-            boost::make_shared<boost::asio::deadline_timer>(
-                boost::ref(get()), duration_or_time
+        std::unique_ptr<boost::asio::deadline_timer> timer(
+            new boost::asio::deadline_timer(
+                get_ios(), duration_or_time
             )
         );
 
@@ -52,7 +52,7 @@ public:
 
         timer_ref.async_wait(
             detail::timer_task<Functor>(
-                boost::move(timer),
+                std::move(timer),
                 f
             )
         );

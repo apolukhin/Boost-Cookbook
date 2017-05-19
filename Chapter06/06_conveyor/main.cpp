@@ -192,15 +192,15 @@ void run_while_not_stopped(work_queue& queue) {
 int main() {
     // Getting data packets from first device and putting them to queue
     boost::thread t_data_accepting(&start_data_accepting);
-    boost::thread t_data_decoding(boost::bind(
+    boost::thread t_data_decoding(
         &run_while_not_stopped, boost::ref(decoding_queue)
-    ));
-    boost::thread t_data_compressing(boost::bind(
+    );
+    boost::thread t_data_compressing(
         &run_while_not_stopped, boost::ref(compressing_queue)
-    ));
-    boost::thread t_data_sending(boost::bind(
+    );
+    boost::thread t_data_sending(
         &run_while_not_stopped, boost::ref(sending_queue)
-    ));
+    );
 
     t_data_accepting.join();
 

@@ -43,7 +43,7 @@ class tester:
         'Chapter05/09_once': ('Print once 0\n', '', 0),
         'Chapter06/01_tasks_processor_base': ('', 'Exception: Just checking\nThread interrupted\n', 0),
         'Chapter06/02_tasks_processor_timers': ('', 'Exception: It works!\n', 0),
-        'Chapter06/08_exception_ptr': ('Lexical cast exception detected\n\nCan not handle such exceptions:\nmain.cpp(40): Throw in function void func_test2()\nDynamic exception type: boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::logic_error> >\nstd::exception::what: Some fatal logic error\n\n', '', 0),
+        'Chapter06/08_exception_ptr': ('Lexical cast exception detected\n\nCan not handle such exceptions:\nmain.cpp(48): Throw in function void func_test2()\nDynamic exception type: boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::logic_error> >\nstd::exception::what: Some fatal logic error\n\n', '', 0),
         'Chapter06/09_tasks_processor_signals': ('Captured 1 SIGINT\nCaptured 2 SIGINT\nCaptured 3 SIGINT\n', '', 0),
         'Chapter07/02_regex_match': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\nChoose regex syntax: Input regex: String to match: MATCH\nString to match: MATCH\nString to match: DOES NOT MATCH\nString to match: \nInput regex: String to match: MATCH\nString to match: MATCH\nString to match: DOES NOT MATCH\nString to match: DOES NOT MATCH\nString to match: \nInput regex: ', '', 0),
         'Chapter07/02_regex_match_extra': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\nChoose regex syntax: Input regex: String to match: MATCH\nString to match: DOES NOT MATCH\nString to match: \nInput regex: ', '', 0),
@@ -277,7 +277,7 @@ class tester:
 
     @staticmethod
     def _is_exe(path):
-        return os.path.isfile(path) and os.access(path, os.X_OK) and '/.git/' not in path and '.sh' not in path
+        return os.path.isfile(path) and os.access(path, os.X_OK) and (os.name != 'nt' or '.exe' in path) and '/.git/' not in path and '.sh' not in path
 
     ''' ****************************************** Public functions *********************************************** '''
     @staticmethod

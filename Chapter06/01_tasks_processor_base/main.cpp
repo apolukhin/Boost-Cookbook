@@ -13,7 +13,7 @@ int func_test() {
 
     case 10:
         // Emulation of thread interruption.
-        // Must be caught and must not stop execution.
+        // Caught inside task_wrapped and does not stop execution.
         throw boost::thread_interrupted();
 
     case 90:
@@ -32,19 +32,23 @@ int main () {
     for (std::size_t i =0; i < tasks_count; ++i) {
         tasks_processor::push_task(&func_test);
     }
-
-    // We can also use result of boost::bind call
-    // as a task.
-    tasks_processor::push_task(
-        boost::bind(std::plus<int>(), 2, 2) // counting 2 + 2
-    );
-
     // Processing was not started.
     assert(func_test() == 1);
 
-    // Will not throw, but blocks till
+    // We can also use lambda as a task.
+#ifndef BOOST_NO_CXX11_LAMBDAS
+    // Counting 2 + 2 asynchronously.
+    int sum = 0;
+    tasks_processor::push_task(
+        [&sum]() { sum = 2 + 2; ) 
+    );
+    // Processing was not started.
+    assert(sum == 0);
+#endif
+
+    // Does not throw, but blocks till
     // one of the tasks it is owning
-    // calls stop().
+    // calls tasks_processor::stop().
     tasks_processor::start();
     assert(func_test() == 91);
 }

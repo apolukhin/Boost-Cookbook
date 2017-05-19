@@ -9,7 +9,7 @@ struct test_func {
     explicit test_func(int& i)
         : i_(i)
     {}
-    
+
     void operator()() const {
         i_ = 1;
         tasks_processor::stop();
@@ -39,8 +39,11 @@ int main () {
     int t1 = static_cast<int>(time(NULL));
     assert(i == 0);
 
+    // Blocks till one of the tasks
+    // calls tasks_processor::stop().
     tasks_processor::start();
+
     assert(i == 1);
     int t2 = static_cast<int>(time(NULL));
-    assert(t2 - t1 >= seconds_to_wait); // seconds_to_wait seconds elapsed
+    assert(t2 - t1 >= seconds_to_wait);
 }
