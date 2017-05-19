@@ -40,7 +40,7 @@ int main () {
     // Counting 2 + 2 asynchronously.
     int sum = 0;
     tasks_processor::push_task(
-        [&sum]() { sum = 2 + 2; ) 
+        [&sum]() { sum = 2 + 2; }
     );
     // Processing was not started.
     assert(sum == 0);
