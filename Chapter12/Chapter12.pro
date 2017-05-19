@@ -6,8 +6,7 @@ SUBDIRS += \
     random \
     math \
     testing \
-    testing_advanced \
-    gil \
+    testing_advanced
 
-
+!msvc:SUBDIRS += gil
 
