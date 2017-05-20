@@ -3,12 +3,10 @@
 #include "tasks_processor_timers.hpp"
 using namespace tp_timers;
 
-struct test_func {
+struct test_functor {
     int& i_;
 
-    explicit test_func(int& i)
-        : i_(i)
-    {}
+    explicit test_functor(int& i);
 
     void operator()() const {
         i_ = 1;
@@ -16,9 +14,7 @@ struct test_func {
     }
 };
 
-void test_func1() {
-    throw std::logic_error("It works!");
-}
+void test_func1();
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 
@@ -28,7 +24,7 @@ int main () {
 
     tasks_processor::run_delayed(
         boost::posix_time::seconds(seconds_to_wait),
-        test_func(i)
+        test_functor(i)
     );
 
     tasks_processor::run_delayed(
@@ -46,4 +42,13 @@ int main () {
     assert(i == 1);
     int t2 = static_cast<int>(time(NULL));
     assert(t2 - t1 >= seconds_to_wait);
+}
+
+
+test_functor::test_functor(int& i)
+    : i_(i)
+{}
+
+void test_func1() {
+    throw std::logic_error("It works!");
 }

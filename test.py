@@ -167,6 +167,9 @@ class tester:
 
     @staticmethod
     def _test_tasks_processor_signals(test_name, path):
+        if os.name == 'nt':
+            return # Signals and Windows are not pals!
+
         proc = subprocess.Popen(path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         sleep(1)
         proc.send_signal(signal.SIGINT)
@@ -242,6 +245,10 @@ class tester:
         special_cases = {
             "Chapter01/01_A_program_options_base": tester._test_program_options_base,
             "Chapter01/01_B_program_options_short": tester._test_program_options_short,
+            "Chapter01/05_optional": tester._test_but_ignore_output_diff,               # Different rand() implementations
+            "Chapter01/09_type_index": tester._test_but_ignore_output_diff,             # Different demangled representation of a type
+            "Chapter01/12_A_noncopyable_movable": tester._test_but_ignore_output_diff,  # Different C++11 support
+            "Chapter06/08_exception_ptr": tester._test_but_ignore_output_diff,          # Different demangled exception name
             "Chapter06/09_tasks_processor_signals": tester._test_tasks_processor_signals,
             "Chapter07/02_regex_match": tester._test_regex_match,
             "Chapter07/03_regex_replace": tester._test_regex_replace,

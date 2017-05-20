@@ -52,11 +52,13 @@ void foo3() {
 
 #include <locale>
 void foo4() {
+try {
     std::locale::global(std::locale("ru_RU.UTF8"));
     // In Russia coma sign is used as a decimal separator.
     float f = boost::lexical_cast<float>("1,0");
     assert(f < 1.01 && f > 0.99);
     std::locale::global(std::locale::classic()); // Restoring C locale
+} catch (const std::runtime_error&) { /* locale is not supported */ }
 }
 
 
