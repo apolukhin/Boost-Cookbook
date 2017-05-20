@@ -10,4 +10,4 @@ QMAKE_CXXFLAGS += $$CPP11FLAG
 # Just install libpng into your system and add correct include paths to the build script.
 INCLUDEPATH += $$BOOST_PATH/libpng/build/native/include
 msvc:QMAKE_LFLAGS += /LIBPATH:$$BOOST_PATH/libpng/build/native/lib/x64/v140/dynamic/Release/
-msvc:LIBS += -lpng16
+msvc:LIBS += -llibpng16
