@@ -10,3 +10,4 @@ LIBS += -lpng
 # Just install libpng into your system and add correct include paths to the build script.
 INCLUDEPATH += $$BOOST_PATH/libpng
 INCLUDEPATH += $$BOOST_PATH/libpng/include
+INCLUDEPATH += $$BOOST_PATH/libpng/include/png
