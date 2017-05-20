@@ -254,7 +254,7 @@ class tester:
             "Chapter11/interprocess_queue": tester._ignore,
         }
 
-        test_name = os.path.dirname(os.path.relpath(path)).replace('\\release', '').replace('\\debug', '')
+        test_name = os.path.dirname(os.path.relpath(path)).replace('\\release', '').replace('\\debug', '').replace('\\', '/')
         print "* {}".format(test_name)
         if test_name in special_cases:
             f = special_cases[test_name]
