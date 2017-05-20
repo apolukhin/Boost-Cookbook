@@ -94,6 +94,10 @@ class tester:
         if tester.outputs[test_name][0] == '' and tester.outputs[test_name][1] == '' and tester.outputs[test_name][2] == 0:
             return
 
+        tester.outputs[test_name][0] = tester.outputs[test_name][0].replace('\r', '')
+        tester.outputs[test_name][1] = tester.outputs[test_name][1].replace('\r', '')
+        tester.outputs[test_name][2] = tester.outputs[test_name][2].replace('\r', '')
+
         if test_name not in tester.expected:
             print '"{}" must not produce output and finish with code 0. Info:'.format(test_name)
             tester._print_test_output(test_name)
@@ -149,7 +153,7 @@ class tester:
         tester._test(command, test_name + "_70")
 
         copyfile(
-            os.path.join(os.path.dirname(path), "apples_oranges.cfg")
+            os.path.join(test_name, "apples_oranges.cfg")
             , "./apples_oranges.cfg"
         )
         command = [path, '--apples=80']
