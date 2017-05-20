@@ -47,8 +47,8 @@ build_script:
     # Packages from nuget.
     - nuget install zlib -ExcludeVersion -NonInteractive
     - nuget install libpng -ExcludeVersion -NonInteractive
-    - dir
-    - dir libpng
+    - dir libpng/build
+    - dir libpng/build/native
     # Building Boost.
     - bootstrap.bat
     - b2.exe headers
