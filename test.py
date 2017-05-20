@@ -97,7 +97,7 @@ class tester:
         tester.outputs[test_name] = (
             tester.outputs[test_name][0].replace('\r', ''),
             tester.outputs[test_name][1].replace('\r', ''),
-            tester.outputs[test_name][2].replace('\r', ''),
+            tester.outputs[test_name][2],
         )
 
         if test_name not in tester.expected:

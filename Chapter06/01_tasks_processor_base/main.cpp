@@ -25,13 +25,10 @@ int func_test() {
 }
 
 int main () {
-    static const std::size_t tasks_count = 100;
-    // stop() is called at 90
-    BOOST_STATIC_ASSERT(tasks_count > 90);
-
-    for (std::size_t i =0; i < tasks_count; ++i) {
+    for (std::size_t i = 0; i < 100; ++i) {
         tasks_processor::push_task(&func_test);
     }
+
     // Processing was not started.
     assert(func_test() == 1);
 

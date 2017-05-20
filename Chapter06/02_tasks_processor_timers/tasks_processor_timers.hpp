@@ -6,7 +6,7 @@
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/system/error_code.hpp>
-#include <boost/move/make_unique.hpp>
+#include <memory>  // std::unique_ptr
 #include <iostream>
 
 namespace detail {
@@ -33,6 +33,7 @@ namespace detail {
             }
         }
     };
+
 } // namespace detail
 
 namespace tp_timers {

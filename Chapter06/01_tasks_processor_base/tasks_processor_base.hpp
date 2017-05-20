@@ -2,7 +2,6 @@
 #define BOOK_CHAPTER6_TASK_PROCESSOR_BASE_HPP
 
 #include <boost/thread/thread.hpp>
-#include <boost/asio/io_service.hpp>
 
 namespace detail {
 
@@ -17,13 +16,13 @@ public:
     {}
 
     void operator()() const {
-        // resetting interruption
+        // Resetting interruption.
         try {
             boost::this_thread::interruption_point();
         } catch(const boost::thread_interrupted&){}
 
         try {
-            // Executing task
+            // Executing task.
             task_unwrapped_();
         } catch (const std::exception& e) {
             std::cerr<< "Exception: " << e.what() << '\n';
@@ -35,6 +34,10 @@ public:
     }
 };
 
+} // namespace detail
+
+namespace detail {
+
 template <class T>
 task_wrapped<T> make_task_wrapped(const T& task_unwrapped) {
     return task_wrapped<T>(task_unwrapped);
@@ -43,6 +46,7 @@ task_wrapped<T> make_task_wrapped(const T& task_unwrapped) {
 } // namespace detail
 
 
+#include <boost/asio/io_service.hpp>
 namespace tp_base {
 
 class tasks_processor: private boost::noncopyable {
