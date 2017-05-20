@@ -94,9 +94,11 @@ class tester:
         if tester.outputs[test_name][0] == '' and tester.outputs[test_name][1] == '' and tester.outputs[test_name][2] == 0:
             return
 
-        tester.outputs[test_name][0] = tester.outputs[test_name][0].replace('\r', '')
-        tester.outputs[test_name][1] = tester.outputs[test_name][1].replace('\r', '')
-        tester.outputs[test_name][2] = tester.outputs[test_name][2].replace('\r', '')
+        tester.outputs[test_name] = (
+            tester.outputs[test_name][0].replace('\r', ''),
+            tester.outputs[test_name][1].replace('\r', ''),
+            tester.outputs[test_name][2].replace('\r', ''),
+        )
 
         if test_name not in tester.expected:
             print '"{}" must not produce output and finish with code 0. Info:'.format(test_name)
