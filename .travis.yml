@@ -108,4 +108,4 @@ after_success:
     # Sending data to Coveralls
     - cd $TRAVIS_BUILD_DIR
     - gem install coveralls-lcov
-    - coveralls-lcov coverals/coverage.info
+    - coveralls-lcov --repo-token "KaB1A2790dOD6DZ8FDfEh9Mn53G6FUs4q" coverals/coverage.info
