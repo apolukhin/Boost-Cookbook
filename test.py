@@ -62,7 +62,6 @@ class tester:
         'Chapter10/my_library': ('', '', -11),
         'Chapter10/no_rtti': ('type_index type_id() [with T = double]', '', 0),
         'Chapter11/erasing_files': ('', 'Failed to create a symlink\n', 0),
-        'Chapter11/reading_files': ('', "reading_files: main.cpp:14: int main(int, char**): Assertion `argc >= 2' failed.\n", -6),
         'Chapter12/gil': ('', "terminate called after throwing an instance of 'std::ios_base::failure'\n  what():  file_mgr: failed to open file\n", -6),
         'Chapter12/graph': ('Boost\nC++ guru\n', '', 0),
         'Chapter12/graph_vis': ('digraph G {\n0 [label="C++"];\n1 [label="STL"];\n2 [label="Boost"];\n3 [label="C++ guru"];\n4 [label="C"];\n0->1 ;\n1->2 ;\n2->3 ;\n4->3 ;\n}\n', '', 0),
@@ -268,24 +267,25 @@ class tester:
             "Chapter01/05_optional": tester._test_but_ignore_output_diff,               # Different rand() implementations
             "Chapter01/09_type_index": tester._test_but_ignore_output_diff,             # Different demangled representation of a type
             "Chapter01/12_A_noncopyable_movable": tester._test_but_ignore_output_diff,  # Different C++11 support
+            "Chapter05/02_mutex": tester._test_but_ignore_output_diff,                  # Intentionally has data race
             "Chapter06/08_exception_ptr": tester._test_but_ignore_output_diff,          # Different demangled exception name
             "Chapter06/09_tasks_processor_signals": tester._test_tasks_processor_signals,
             "Chapter07/02_regex_match": tester._test_regex_match,
             "Chapter07/03_regex_replace": tester._test_regex_replace,
-            'Chapter08/01_vector_of_types': tester._test_but_ignore_output_diff, # Different manglings
-            'Chapter08/02_manipulating_vector_of_types': tester._test_but_ignore_output_diff, # Different manglings
+            'Chapter08/01_vector_of_types': tester._test_but_ignore_output_diff,                # Different manglings
+            'Chapter08/02_manipulating_vector_of_types': tester._test_but_ignore_output_diff,   # Different manglings
             "Chapter10/export_import": tester._test_export_import,
             "Chapter11/listing_files": tester._test_but_ignore_output_diff,
-            "Chapter12/gil": tester._test_gil,
-            "Chapter05/02_mutex": tester._test_but_ignore_output_diff,
             "Chapter11/coroutines": tester._test_but_ignore_output_diff, # Sanitizers do not like coroutines and add some warnings
             "Chapter12/random": tester._test_but_ignore_output_diff,
 
+            # TODO:
             "Chapter10/no_rtti": tester._ignore,
+            "Chapter11/reading_files": tester._ignore,
             "Chapter11/interprocess_basics": tester._ignore,
             "Chapter11/interprocess_pointers": tester._ignore,
             "Chapter11/interprocess_queue": tester._ignore,
-            "Chapter11/interprocess_queue": tester._ignore,
+            "Chapter12/gil": tester._ignore, #tester._test_gil,
         }
 
         test_name = os.path.dirname(os.path.relpath(path)).replace('\\release', '').replace('\\debug', '').replace('\\', '/')
