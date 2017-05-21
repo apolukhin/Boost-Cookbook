@@ -219,6 +219,26 @@ class tester:
             tester._test_validate(test_name + "_extra")
 
     @staticmethod
+    def _test_export_import(test_name, path):
+        try:
+            copyfile(
+                "Chapter10/my_library/debug/my_library.dll",
+                "./my_library.dll"
+            )
+        except:
+            pass
+
+        try:
+            copyfile(
+                "Chapter10/my_library/release/my_library.dll",
+                "./my_library.dll"
+            )
+        except:
+            pass
+
+        tester._test(path, test_name)
+
+    @staticmethod
     def _test_gil(test_name, path):
         command = [path, 'get-boost.png']
         tester._test(command, test_name)
@@ -254,6 +274,7 @@ class tester:
             "Chapter07/03_regex_replace": tester._test_regex_replace,
             'Chapter08/01_vector_of_types': tester._test_but_ignore_output_diff, # Different manglings
             'Chapter08/02_manipulating_vector_of_types': tester._test_but_ignore_output_diff, # Different manglings
+            "Chapter10/export_import": tester._test_export_import,
             "Chapter11/listing_files": tester._test_but_ignore_output_diff,
             "Chapter12/gil": tester._test_gil,
             "Chapter05/02_mutex": tester._test_but_ignore_output_diff,
