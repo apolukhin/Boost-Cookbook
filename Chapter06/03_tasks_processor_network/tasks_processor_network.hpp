@@ -4,9 +4,6 @@
 #include "../02_tasks_processor_timers/tasks_processor_timers.hpp"
 
 #include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/write.hpp>
-#include <boost/asio/read.hpp>
-#include <boost/function.hpp>
 
 #include <memory> // std::unique_ptr
 
@@ -58,6 +55,7 @@ public:
     }
 };
 
+#include <boost/asio/write.hpp>
 template <class Functor>
 void async_write_data(connection_ptr&& c, const Functor& f) {
     boost::asio::ip::tcp::socket& s = c->socket;
@@ -70,6 +68,7 @@ void async_write_data(connection_ptr&& c, const Functor& f) {
     );
 }
 
+#include <boost/asio/read.hpp>
 template <class Functor>
 void async_read_data(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes) {
     c->data.resize(at_least_bytes);
@@ -80,7 +79,7 @@ void async_read_data(connection_ptr&& c, const Functor& f, std::size_t at_least_
 
     boost::asio::async_read(
         s,
-        boost::asio::mutable_buffers_1(p, d.size()),
+        boost::asio::buffer(p, d.size()),
         task_wrapped_with_connection<Functor>(std::move(c), f)
     );
 }
@@ -96,12 +95,13 @@ void async_read_dataat_least(connection_ptr&& c, const Functor& f, std::size_t a
 
     boost::asio::async_read(
         s,
-        boost::asio::mutable_buffers_1(p, at_most),
+        boost::asio::buffer(p, at_most),
         boost::asio::transfer_at_least(at_least_bytes),
         task_wrapped_with_connection<Functor>(std::move(c), f)
     );
 }
 
+#include <boost/function.hpp>
 namespace tp_network {
 
 class tasks_processor: public tp_timers::tasks_processor {
