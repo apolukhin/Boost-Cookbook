@@ -1,7 +1,7 @@
 #ifndef BOOK_CHAPTER6_TASK_PROCESSOR_MULTITHREAD_HPP
 #define BOOK_CHAPTER6_TASK_PROCESSOR_MULTITHREAD_HPP
 
-#include "../03_tasks_processor_network/tasks_processor_network.hpp"
+#include "../04_tasks_processor_network_accept/tasks_processor_network_accept.hpp"
 
 #include <boost/thread.hpp>
 

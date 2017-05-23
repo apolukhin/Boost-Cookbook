@@ -5,8 +5,13 @@ if (!include(../../config.txt)) {
 HEADERS += \
     ../01_tasks_processor_base/tasks_processor_base.hpp \
     ../02_tasks_processor_timers/tasks_processor_timers.hpp \
-    tasks_processor_network.hpp
+    ../03_tasks_processor_network_client/tasks_processor_network_client.hpp \
+    ../03_tasks_processor_network_client/client.hpp \
+    04_tasks_processor_network_accept.hpp
 
-SOURCES += main.cpp
+SOURCES += \
+    ../03_tasks_processor_network_client/client.cpp \
+    main.cpp
+
 QMAKE_CXXFLAGS += $$CPP11FLAG
 !msvc:LIBS += -lboost_thread -lboost_system
