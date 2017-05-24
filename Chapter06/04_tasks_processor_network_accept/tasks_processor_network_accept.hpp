@@ -10,6 +10,7 @@ class tasks_processor: public tp_network_client::tasks_processor {
     typedef boost::asio::ip::tcp::acceptor acceptor_t;
     typedef boost::function<void(connection_ptr, const boost::system::error_code&)> on_accpet_func_t;
 
+private:
     struct tcp_listener {
         acceptor_t              acceptor_;
         const on_accpet_func_t  func_;
@@ -28,6 +29,7 @@ class tasks_processor: public tp_network_client::tasks_processor {
     };
     typedef std::unique_ptr<tcp_listener> listener_ptr;
 
+private:
     struct handle_accept {
         listener_ptr listener;
 
@@ -46,6 +48,7 @@ class tasks_processor: public tp_network_client::tasks_processor {
         }
     };
 
+private:
    static void start_accepting_connection(listener_ptr&& listener) {
         if (!listener->acceptor_.is_open()) {
             return;

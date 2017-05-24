@@ -95,7 +95,7 @@ void async_read_data(connection_ptr&& c, const Functor& f, std::size_t at_least_
 
 
 template <class Functor>
-void async_read_dataat_least(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes, std::size_t at_most = 4095) {
+void async_read_data_at_least(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes, std::size_t at_most) {
     std::string& d = c->data;
     d.resize(at_most);
     char* p = (at_most == 0 ? 0 : &d[0]);
