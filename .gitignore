@@ -2,3 +2,5 @@
 build-*
 BoostBook.pro.user.2.6pre1
 example_file.txt
+save_file.txt
+symlink
