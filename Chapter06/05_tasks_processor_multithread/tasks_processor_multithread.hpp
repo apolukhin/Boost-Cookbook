@@ -17,7 +17,7 @@ public:
             );
         }
 
-        // one thread is the current thread
+        // First thread is the current thread.
         -- threads_count;
 
         boost::asio::io_service& ios = get_ios();

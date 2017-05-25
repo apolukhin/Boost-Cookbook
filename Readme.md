@@ -4,6 +4,11 @@ This repository contains all the code examples from the **[Boost C++ Application
 
 [Compile and Run Examples Online](http://apolukhin.github.io/Boost-Cookbook-4880OS/).
 
+### Testing
+Second edition: [![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS.svg?branch=second_edition)](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS) [![Build status](https://ci.appveyor.com/api/projects/status/github/apolukhin/boost-cookbook-4880os?branch=second_edition&svg=true)](https://ci.appveyor.com/project/apolukhin/boost-cookbook-4880os/branch/second_edition) [![Coverage Status](https://coveralls.io/repos/github/apolukhin/Boost-Cookbook-4880OS/badge.svg?branch=second_edition)](https://coveralls.io/github/apolukhin/Boost-Cookbook-4880OS?branch=second_edition) [![codecov.io](https://codecov.io/github/apolukhin/Boost-Cookbook-4880OS/coverage.svg?branch=second_edition)](https://codecov.io/github/apolukhin/Boost-Cookbook-4880OS?branch=second_edition)
+
+First edition: [![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS.svg?branch=first_edition)](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS) [![Coverage Status](https://coveralls.io/repos/github/apolukhin/Boost-Cookbook-4880OS/badge.svg?branch=first_edition)](https://coveralls.io/github/apolukhin/Boost-Cookbook-4880OS?branch=first_edition)
+
 ### Content
 This repository contatins project files for QtCreator IDE. `BoostBook.pro` - is the main project file.
 See config.txt file for setupping platform specific flags.
@@ -37,30 +42,30 @@ require searching all around the chapter for an answer 'In what namespace is
 this class defined?'.
 
 
-### Thanks
-Thanks to Heather Gopsill from Packt Publishing for giving a permission to make sources publicly available. 
 
-### Testing
-[![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS.svg?branch=master)](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS) [![Coverage Status](https://coveralls.io/repos/apolukhin/Boost-Cookbook-4880OS/badge.svg)](https://coveralls.io/r/apolukhin/Boost-Cookbook-4880OS)
+### Thanks
+Thanks to Heather Gopsill from Packt Publishing for giving a permission to make sources publicly available.
+Thanks to Nitin Dasan from Packt Publishing for getting all the necessary approvals for making sources publicly available for the second edition of the book.
 
 ### Notes for book update
 * Chapter 10 "Detecting RTTI support" - add Boost.TypeIndex example AND Sync code
 * Chapter07 Note about boost::string_ref(string&&) and boost::string_view
-* Boost will have an unique_ptr in 1.58
 * How about describing boost::future?
 * Coroutine interface changed in Boost 1.56
-* LexicalCast now has a try_lexical_convert method
 * Filesystem is accepted into the Standard
 * RCU example using atomics?
-* add *_pointer_cast examples?
 * sync code and book
 * Fix introduction in "Chapter09. Getting the benefits of single-linked list and memory pool"
 * Boost.DLL examples
 * flat containers were proposed for C++17
-* describe in depth changes from 135a24926a1d084e76f8f527deeee6236274e496
+* Update this README.md with a link to second edition of the book
 
 Done:
 * Optional and Variant now understand rvalue references
 * add a note to the book about source code availability at github
 * Variant is proposed for C++17. Highlight the differences.
+* Boost will have an unique_ptr in 1.58
+* LexicalCast now has a try_lexical_convert method
+* add *_pointer_cast examples?
+* describe in depth changes from 135a24926a1d084e76f8f527deeee6236274e496
 
