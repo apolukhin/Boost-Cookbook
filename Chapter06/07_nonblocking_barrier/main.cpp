@@ -1,11 +1,8 @@
-#include <cstddef>
-static const std::size_t data_length = 10000;
+void clever_implementation();
+
 
 #include <boost/array.hpp>
-struct vector_type : public boost::array<std::size_t, data_length> {
-    void* alignment;
-};
-
+typedef boost::array<std::size_t, 10000> vector_type;
 typedef boost::array<vector_type, 4> data_t;
 
 void fill_data(vector_type& data);
@@ -24,31 +21,25 @@ void runner(std::size_t thread_index, boost::barrier& data_barrier, data_t& data
     }
 }
 
-void clever_implementation();
-
 #include <boost/thread/thread.hpp>
 int main() {
     
-    // Initing barriers
+    // Initing barrier.
     boost::barrier data_barrier(data_t::static_size);
 
-    // Initing data
+    // Initing data.
     data_t data;
 
-    // Run on 4 threads
+    // Run on 4 threads.
     boost::thread_group tg;
     for (std::size_t i = 0; i < data_t::static_size; ++i) {
-        tg.create_thread(boost::bind(
-            &runner, 
-            i, 
-            boost::ref(data_barrier),
-            boost::ref(data)
-        ));
+        tg.create_thread([i, &data_barrier, &data] () {
+            runner(i, data_barrier, data);
+        });
     }
 
     tg.join_all();
 
-    // Clever implementation
     clever_implementation();
 }
 
@@ -66,58 +57,59 @@ void clever_runner(
 {
     fill_data(data.at(thread_index));
 
-    if (++counter == data_t::static_size) {
-        compute_send_data(data);
+    if (++counter != data_t::static_size) {
+        return;
+    }
 
-        ++ iteration;
-        if (iteration == 1000) {
-            // exiting, because 1000 iterations are done
-            tasks_processor::stop();
-            return;
-        }
+    compute_send_data(data);
 
-        counter = 0;
-        for (std::size_t i = 0; i < data_t::static_size; ++ i) {
-            tasks_processor::push_task(boost::bind(
-                clever_runner, 
-                i,
-                iteration, 
-                boost::ref(counter), 
-                boost::ref(data)
-            ));
-        }
+    if (++iteration == 1000) {
+        // Exiting, because 1000 iterations are done
+        tasks_processor::stop();
+        return;
+    }
+
+    counter = 0;
+    for (std::size_t i = 0; i < data_t::static_size; ++ i) {
+        tasks_processor::push_task([i, iteration, &counter, &data] () {
+            clever_runner( 
+                i, 
+                iteration,
+                counter,
+                data
+            );
+        });
     }
 }
 
 void clever_implementation() {
-    // Initing counter
+    // Initing counter.
     atomic_count_t counter(0);
 
-    // Initing data
+    // Initing data.
     data_t data;
 
-    // Run on 4 threads.
+    // Run 4 tasks.
     for (std::size_t i = 0; i < data_t::static_size; ++i) {
-        tasks_processor::push_task(boost::bind(
-            &clever_runner, 
-            i, 
-            0, // first run
-            boost::ref(counter),
-            boost::ref(data)
-        ));
+        tasks_processor::push_task([i, &counter, &data] () {
+            clever_runner( 
+                i, 
+                0, // first iteration
+                counter,
+                data
+            );
+        });
     }
 
     tasks_processor::start();
 }
 
 
-// functions implementation
+// misc implementation
 
+#include <algorithm>
 void fill_data(vector_type& data) {
-    for (std::size_t i = 0; i < vector_type::static_size; ++ i) {
-        data[i] = i;
-        data.alignment = 0;
-    }
+    std::iota(data.begin(), data.end(), 0);
 }
 
 void compute_send_data(data_t& data) {
