@@ -31,28 +31,25 @@ private:
         if (error) {
             std::cerr << "Error in signal handling: " << error << '\n';
         } else {
-            // If signals occures while there is no waiting handlers,
-            // signal notification is queued, so it won't be missed
-            // while we running users_signal_handler_
             boost::function<void(int)> h = signal_handler();
+
             detail::make_task_wrapped([h, signal_number]() {
                 h(signal_number);
             })(); // make and run task_wrapped
         }
 
     }
-public:
 
-    // This function is not threads safe!
+public:
+    // This function is not thread safe!
     // Must be called before all the `start()` calls
     // Function can be called only once
     template <class Func>
     static void register_signals_handler(
             const Func& f,
-            const std::vector<int>& signals_to_wait)
+            std::initializer_list<int> signals_to_wait)
     {
-
-        // Making shure that this is the first call
+        // Making shure that this is the first call.
         assert(!signal_handler()); 
 
         signal_handler() = f;
@@ -64,7 +61,7 @@ public:
             [&sigs](int signal) { sigs.add(signal); }
         );
 
-        signals().async_wait(&tasks_processor::handle_signals);
+        sigs.async_wait(&tasks_processor::handle_signals);
     }
 };
 

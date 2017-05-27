@@ -6,6 +6,7 @@ using namespace tp_full;
 void accept_3_signals_and_stop(int signal) {
     static int signals_count = 0;
     assert(signal == SIGINT);
+
     ++ signals_count;
     std::cout << "Captured " << signals_count << " SIGINT\n"; 
     if (signals_count == 3) {
@@ -17,7 +18,7 @@ void accept_3_signals_and_stop(int signal) {
 int main () {
     tasks_processor::register_signals_handler(
         &accept_3_signals_and_stop,
-        std::vector<int>(1, SIGINT) // vector containing 1 element
+        { SIGINT, SIGSEGV }
     );
 
     tasks_processor::start();

@@ -64,7 +64,7 @@ void clever_runner(
     compute_send_data(data);
 
     if (++iteration == 1000) {
-        // Exiting, because 1000 iterations are done
+        // Exiting, because 1000 iterations are done.
         tasks_processor::stop();
         return;
     }
@@ -107,9 +107,10 @@ void clever_implementation() {
 
 // misc implementation
 
-#include <algorithm>
 void fill_data(vector_type& data) {
-    std::iota(data.begin(), data.end(), 0);
+    for (std::size_t i = 0; i < vector_type::static_size; ++ i) {
+        data[i] = i;
+    }
 }
 
 void compute_send_data(data_t& data) {
