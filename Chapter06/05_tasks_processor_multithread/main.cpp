@@ -19,5 +19,8 @@ int main() {
     tasks_processor::start_multiple(threads_count);
     time_t t2 = time(NULL);
     // One additional second for some io_service and OS delays
-    assert(t2 - t1 < 1); 
+    assert(t2 - t1 < 1);
+
+    tasks_processor::start_multiple();
+    tasks_processor::stop();
 }
