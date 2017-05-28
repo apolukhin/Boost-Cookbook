@@ -2,11 +2,9 @@ Boost C++ Application Development Cookbook
 ===================================
 This repository contains all the code examples from the **[Boost C++ Application Development Cookbook](http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book)** `(ISBN: 9781849514880)`, [Packt Publishing](http://www.packtpub.com), by Antony Polukhin.
 
-[Compile and Run Examples Online](http://apolukhin.github.io/Boost-Cookbook-4880OS/).
+[Compile and Run Examples Online](http://apolukhin.github.io/Boost-Cookbook/).
 
-### Testing [![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS.svg?branch=second_edition)](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS) [![Build status](https://ci.appveyor.com/api/projects/status/github/apolukhin/boost-cookbook-4880os?branch=second_edition&svg=true)](https://ci.appveyor.com/project/apolukhin/boost-cookbook-4880os/branch/second_edition) [![Coverage Status](https://coveralls.io/repos/github/apolukhin/Boost-Cookbook-4880OS/badge.svg?branch=second_edition)](https://coveralls.io/github/apolukhin/Boost-Cookbook-4880OS?branch=second_edition) [![codecov.io](https://codecov.io/github/apolukhin/Boost-Cookbook-4880OS/coverage.svg?branch=second_edition)](https://codecov.io/github/apolukhin/Boost-Cookbook-4880OS?branch=second_edition)
-
-First edition: [![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS.svg?branch=first_edition)](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS) [![Coverage Status](https://coveralls.io/repos/github/apolukhin/Boost-Cookbook-4880OS/badge.svg?branch=first_edition)](https://coveralls.io/github/apolukhin/Boost-Cookbook-4880OS?branch=first_edition)
+[![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook.svg?branch=second_edition)](https://travis-ci.org/apolukhin/Boost-Cookbook) [![Build status](https://ci.appveyor.com/api/projects/status/github/apolukhin/boost-cookbook?branch=second_edition&svg=true)](https://ci.appveyor.com/project/apolukhin/boost-cookbook/branch/second_edition) [![Coverage Status](https://coveralls.io/repos/github/apolukhin/Boost-Cookbook/badge.svg?branch=second_edition)](https://coveralls.io/github/apolukhin/Boost-Cookbook?branch=second_edition) [![codecov.io](https://codecov.io/github/apolukhin/Boost-Cookbook/coverage.svg?branch=second_edition)](https://codecov.io/github/apolukhin/Boost-Cookbook?branch=second_edition)
 
 ### Content
 This repository contatins project files for QtCreator IDE. `BoostBook.pro` - is the main project file.
