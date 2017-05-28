@@ -473,7 +473,7 @@ var editor = (function() {
 		}
 		compile.val("g++ -Wall main.cpp " + c['compile'] + " -o main_prog");
 
-		$.get("https://raw.githubusercontent.com/apolukhin/Boost-Cookbook-4880OS/second_edition/" + c["source"][source_num], function(data) {
+		$.get("https://raw.githubusercontent.com/apolukhin/Boost-Cookbook/second_edition/" + c["source"][source_num], function(data) {
 			code.setValue(data);
 			code.clearSelection();
 		});
