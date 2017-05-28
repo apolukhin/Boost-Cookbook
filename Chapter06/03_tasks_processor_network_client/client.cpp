@@ -11,17 +11,17 @@ void process_server_response(
         const boost::system::error_code& err)
 {
     if (err && err != boost::asio::error::eof) {
-        std::cerr << "process_server_response: Client error on receive: " << err.message() << '\n';
+        std::cerr << "Client error on receive: " << err.message() << '\n';
         assert(false);
     }
 
     if (soc->data.size() != 2) {
-        std::cerr << "process_server_response: wrong bytes count\n";
+        std::cerr << "Wrong bytes count\n";
         assert(false);
     }
 
     if (soc->data != "OK") {
-        std::cerr << "process_server_response: wrong response: " << soc->data << '\n';
+        std::cerr << "Wrong response: " << soc->data << '\n';
         assert(false);
     }
 
@@ -30,9 +30,12 @@ void process_server_response(
     tasks_processor::stop();
 }
 
-void receive_auth_response(connection_ptr&& soc, const boost::system::error_code& err) {
+void receive_auth_response(
+    connection_ptr&& soc,
+    const boost::system::error_code& err)
+{
     if (err) {
-        std::cerr << "receive_auth_response: error on sending data: " << err.message() << '\n';
+        std::cerr << "Error on sending data: " << err.message() << '\n';
         assert(false);
     }
 
@@ -44,7 +47,9 @@ void receive_auth_response(connection_ptr&& soc, const boost::system::error_code
 }
 
 void send_auth() {
-    connection_ptr soc = tasks_processor::create_connection("127.0.0.1", g_port_num);
+    connection_ptr soc = tasks_processor::create_connection(
+        "127.0.0.1", g_port_num
+    );
     soc->data = "auth_name";
 
     async_write_data(

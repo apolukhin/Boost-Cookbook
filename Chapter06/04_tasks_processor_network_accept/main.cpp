@@ -6,7 +6,10 @@ using namespace tp_network;
 
 class authorizer {
 public:
-    static void on_connection_accpet(connection_ptr&& connection, const boost::system::error_code& error) {
+    static void on_connection_accpet(
+        connection_ptr&& connection,
+        const boost::system::error_code& error)
+    {
         assert(!error);
         async_read_data_at_least(std::move(connection), &authorizer::on_datarecieve, 1, 1024);
     }

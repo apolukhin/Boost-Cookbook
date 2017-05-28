@@ -47,9 +47,9 @@ void func_test1() {
 
 void func_test2() {
     try {
-        // Some code goes here.
+        // ...
         BOOST_THROW_EXCEPTION(std::logic_error("Some fatal logic error"));
-        // Some code goes here.
+        // ...
     } catch (...) {
         tasks_processor::push_task(
             process_exception(boost::current_exception())

@@ -20,7 +20,10 @@ struct connection_with_data: boost::noncopyable {
         }
 
         boost::system::error_code ignore;
-        socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ignore);
+        socket.shutdown(
+            boost::asio::ip::tcp::socket::shutdown_both,
+            ignore
+        );
         socket.close(ignore);
     }
 
@@ -47,7 +50,10 @@ public:
         , task_unwrapped_(f)
     {}
 
-    void operator()(const boost::system::error_code& error, std::size_t bytes_count) {
+    void operator()(
+        const boost::system::error_code& error,
+        std::size_t bytes_count)
+    {
         const auto lambda = [this, &error, bytes_count]() {
             this->c_->data.resize(bytes_count);
             this->task_unwrapped_(std::move(this->c_), error);
@@ -79,7 +85,11 @@ void async_write_data(connection_ptr&& c, const Functor& f) {
 #include <boost/asio/read.hpp>
 
 template <class Functor>
-void async_read_data(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes) {
+void async_read_data(
+    connection_ptr&& c,
+    const Functor& f,
+    std::size_t at_least_bytes)
+{
     c->data.resize(at_least_bytes);
 
     boost::asio::ip::tcp::socket& s = c->socket;
@@ -95,7 +105,12 @@ void async_read_data(connection_ptr&& c, const Functor& f, std::size_t at_least_
 
 
 template <class Functor>
-void async_read_data_at_least(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes, std::size_t at_most) {
+void async_read_data_at_least(
+    connection_ptr&& c,
+    const Functor& f,
+    std::size_t at_least_bytes,
+    std::size_t at_most)
+{
     std::string& d = c->data;
     d.resize(at_most);
     char* p = (at_most == 0 ? 0 : &d[0]);
@@ -116,7 +131,10 @@ class tasks_processor: public tp_timers::tasks_processor {
     // ...
 
 public:
-    static connection_ptr create_connection(const char* addr, unsigned short port_num) {
+    static connection_ptr create_connection(
+        const char* addr,
+        unsigned short port_num)
+    {
         connection_ptr c( new connection_with_data(get_ios()) );
 
         c->socket.connect(boost::asio::ip::tcp::endpoint(

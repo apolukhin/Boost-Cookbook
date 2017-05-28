@@ -8,7 +8,10 @@ namespace tp_network {
 
 class tasks_processor: public tp_network_client::tasks_processor {
     typedef boost::asio::ip::tcp::acceptor acceptor_t;
-    typedef boost::function<void(connection_ptr, const boost::system::error_code&)> on_accpet_func_t;
+
+    typedef boost::function<
+        void(connection_ptr, const boost::system::error_code&)
+    > on_accpet_func_t;
 
 private:
     struct tcp_listener {
@@ -38,10 +41,9 @@ private:
         {}
 
         void operator()(const boost::system::error_code& error) {
-            task_wrapped_with_connection<on_accpet_func_t> task(std::move(listener->new_c_), listener->func_);
-            if (error) {
-                std::cerr << error << '\n';
-            }
+            task_wrapped_with_connection<on_accpet_func_t> task(
+                std::move(listener->new_c_), listener->func_
+            );
 
             start_accepting_connection(std::move(listener));
             task(error, 0);

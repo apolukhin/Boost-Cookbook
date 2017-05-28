@@ -42,8 +42,8 @@ private:
 
 public:
     // This function is not thread safe!
-    // Must be called before all the `start()` calls
-    // Function can be called only once
+    // Must be called before all the `start()` calls.
+    // Function can be called only once.
     template <class Func>
     static void register_signals_handler(
             const Func& f,

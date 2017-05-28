@@ -2,30 +2,30 @@ void clever_implementation();
 
 
 #include <boost/array.hpp>
+#include <boost/thread/barrier.hpp>
+#include <boost/thread/thread.hpp>
+
 typedef boost::array<std::size_t, 10000> vector_type;
 typedef boost::array<vector_type, 4> data_t;
 
 void fill_data(vector_type& data);
 void compute_send_data(data_t& data);
 
-#include <boost/thread/barrier.hpp>
-void runner(std::size_t thread_index, boost::barrier& data_barrier, data_t& data) {
+void runner(std::size_t thread_index, boost::barrier& barrier, data_t& data) {
     for (std::size_t i = 0; i < 1000; ++ i) {
         fill_data(data.at(thread_index));
-        data_barrier.wait();
+        barrier.wait();
 
         if (!thread_index) {
             compute_send_data(data);
         }
-        data_barrier.wait();
+        barrier.wait();
     }
 }
 
-#include <boost/thread/thread.hpp>
 int main() {
-    
     // Initing barrier.
-    boost::barrier data_barrier(data_t::static_size);
+    boost::barrier barrier(data_t::static_size);
 
     // Initing data.
     data_t data;
@@ -33,8 +33,8 @@ int main() {
     // Run on 4 threads.
     boost::thread_group tg;
     for (std::size_t i = 0; i < data_t::static_size; ++i) {
-        tg.create_thread([i, &data_barrier, &data] () {
-            runner(i, data_barrier, data);
+        tg.create_thread([i, &barrier, &data] () {
+            runner(i, barrier, data);
         });
     }
 
@@ -71,8 +71,8 @@ void clever_runner(
 
     counter = 0;
     for (std::size_t i = 0; i < data_t::static_size; ++ i) {
-        tasks_processor::push_task([i, iteration, &counter, &data] () {
-            clever_runner( 
+        tasks_processor::push_task([i, iteration, &counter, &data]() {
+            clever_runner(
                 i, 
                 iteration,
                 counter,
@@ -91,7 +91,7 @@ void clever_implementation() {
 
     // Run 4 tasks.
     for (std::size_t i = 0; i < data_t::static_size; ++i) {
-        tasks_processor::push_task([i, &counter, &data] () {
+        tasks_processor::push_task([i, &counter, &data]() {
             clever_runner( 
                 i, 
                 0, // first iteration
