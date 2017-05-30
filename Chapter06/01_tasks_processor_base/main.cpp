@@ -52,8 +52,4 @@ int main () {
     // calls tasks_processor::stop().
     tasks_processor::start();
     assert(func_test() == 91);
-
-#ifndef BOOST_NO_CXX11_LAMBDAS
-    assert(sum == 4);
-#endif
 }
