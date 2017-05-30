@@ -7,4 +7,4 @@ SUBDIRS += \
     04_format \
     05_string_algo \
     06_iterator_range \
-    07_string_ref
+    07_string_view

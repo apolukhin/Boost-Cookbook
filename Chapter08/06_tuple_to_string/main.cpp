@@ -53,7 +53,7 @@ std::string stringize_tup2_example() {
     boost::tuple<cat, int, std::string> tup2(cat(), 0, "_0");
 
     std::string result;
-    
+
     // Instead of
     // boost::fusion::for_each(seq, stringize_functor(result));
     // there'll be the following:

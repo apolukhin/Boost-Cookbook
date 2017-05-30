@@ -158,7 +158,10 @@ struct connection_with_data: boost::noncopyable {
         }
 
         boost::system::error_code ignore;
-        socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ignore);
+        socket.shutdown(
+            boost::asio::ip::tcp::socket::shutdown_both,
+            ignore
+        );
         socket.close(ignore);
     }
 
@@ -185,7 +188,10 @@ public:
         , task_unwrapped_(f)
     {}
 
-    void operator()(const boost::system::error_code& error, std::size_t bytes_count) {
+    void operator()(
+        const boost::system::error_code& error,
+        std::size_t bytes_count)
+    {
         const auto lambda = [this, &error, bytes_count]() {
             this->c_->data.resize(bytes_count);
             this->task_unwrapped_(std::move(this->c_), error);
@@ -217,7 +223,11 @@ void async_write_data(connection_ptr&& c, const Functor& f) {
 #include <boost/asio/read.hpp>
 
 template <class Functor>
-void async_read_data(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes) {
+void async_read_data(
+    connection_ptr&& c,
+    const Functor& f,
+    std::size_t at_least_bytes)
+{
     c->data.resize(at_least_bytes);
 
     boost::asio::ip::tcp::socket& s = c->socket;
@@ -233,7 +243,12 @@ void async_read_data(connection_ptr&& c, const Functor& f, std::size_t at_least_
 
 
 template <class Functor>
-void async_read_dataat_least(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes, std::size_t at_most = 4095) {
+void async_read_data_at_least(
+    connection_ptr&& c,
+    const Functor& f,
+    std::size_t at_least_bytes,
+    std::size_t at_most)
+{
     std::string& d = c->data;
     d.resize(at_most);
     char* p = (at_most == 0 ? 0 : &d[0]);
@@ -254,7 +269,10 @@ class tasks_processor: public tp_timers::tasks_processor {
     // ...
 
 public:
-    static connection_ptr create_connection(const char* addr, unsigned short port_num) {
+    static connection_ptr create_connection(
+        const char* addr,
+        unsigned short port_num)
+    {
         connection_ptr c( new connection_with_data(get_ios()) );
 
         c->socket.connect(boost::asio::ip::tcp::endpoint(
@@ -274,8 +292,12 @@ namespace tp_network {
 
 class tasks_processor: public tp_network_client::tasks_processor {
     typedef boost::asio::ip::tcp::acceptor acceptor_t;
-    typedef boost::function<void(connection_ptr, const boost::system::error_code&)> on_accpet_func_t;
 
+    typedef boost::function<
+        void(connection_ptr, const boost::system::error_code&)
+    > on_accpet_func_t;
+
+private:
     struct tcp_listener {
         acceptor_t              acceptor_;
         const on_accpet_func_t  func_;
@@ -294,6 +316,7 @@ class tasks_processor: public tp_network_client::tasks_processor {
     };
     typedef std::unique_ptr<tcp_listener> listener_ptr;
 
+private:
     struct handle_accept {
         listener_ptr listener;
 
@@ -302,16 +325,16 @@ class tasks_processor: public tp_network_client::tasks_processor {
         {}
 
         void operator()(const boost::system::error_code& error) {
-            task_wrapped_with_connection<on_accpet_func_t> task(std::move(listener->new_c_), listener->func_);
-            if (error) {
-                std::cerr << error << '\n';
-            }
+            task_wrapped_with_connection<on_accpet_func_t> task(
+                std::move(listener->new_c_), listener->func_
+            );
 
             start_accepting_connection(std::move(listener));
             task(error, 0);
         }
     };
 
+private:
    static void start_accepting_connection(listener_ptr&& listener) {
         if (!listener->acceptor_.is_open()) {
             return;
@@ -368,7 +391,7 @@ public:
             );
         }
 
-        // one thread is the current thread
+        // First thread is the current thread.
         -- threads_count;
 
         boost::asio::io_service& ios = get_ios();
@@ -413,28 +436,25 @@ private:
         if (error) {
             std::cerr << "Error in signal handling: " << error << '\n';
         } else {
-            // If signals occures while there is no waiting handlers,
-            // signal notification is queued, so it won't be missed
-            // while we running users_signal_handler_
             boost::function<void(int)> h = signal_handler();
+
             detail::make_task_wrapped([h, signal_number]() {
                 h(signal_number);
             })(); // make and run task_wrapped
         }
 
     }
-public:
 
-    // This function is not threads safe!
-    // Must be called before all the `start()` calls
-    // Function can be called only once
+public:
+    // This function is not thread safe!
+    // Must be called before all the `start()` calls.
+    // Function can be called only once.
     template <class Func>
     static void register_signals_handler(
             const Func& f,
-            const std::vector<int>& signals_to_wait)
+            std::initializer_list<int> signals_to_wait)
     {
-
-        // Making shure that this is the first call
+        // Making shure that this is the first call.
         assert(!signal_handler()); 
 
         signal_handler() = f;
@@ -446,7 +466,7 @@ public:
             [&sigs](int signal) { sigs.add(signal); }
         );
 
-        signals().async_wait(&tasks_processor::handle_signals);
+        sigs.async_wait(&tasks_processor::handle_signals);
     }
 };
 
@@ -458,6 +478,7 @@ using namespace tp_full;
 void accept_3_signals_and_stop(int signal) {
     static int signals_count = 0;
     assert(signal == SIGINT);
+
     ++ signals_count;
     std::cout << "Captured " << signals_count << " SIGINT\n"; 
     if (signals_count == 3) {
@@ -469,7 +490,7 @@ void accept_3_signals_and_stop(int signal) {
 int main () {
     tasks_processor::register_signals_handler(
         &accept_3_signals_and_stop,
-        std::vector<int>(1, SIGINT) // vector containing 1 element
+        { SIGINT, SIGSEGV }
     );
 
     tasks_processor::start();

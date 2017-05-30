@@ -156,7 +156,10 @@ struct connection_with_data: boost::noncopyable {
         }
 
         boost::system::error_code ignore;
-        socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ignore);
+        socket.shutdown(
+            boost::asio::ip::tcp::socket::shutdown_both,
+            ignore
+        );
         socket.close(ignore);
     }
 
@@ -183,7 +186,10 @@ public:
         , task_unwrapped_(f)
     {}
 
-    void operator()(const boost::system::error_code& error, std::size_t bytes_count) {
+    void operator()(
+        const boost::system::error_code& error,
+        std::size_t bytes_count)
+    {
         const auto lambda = [this, &error, bytes_count]() {
             this->c_->data.resize(bytes_count);
             this->task_unwrapped_(std::move(this->c_), error);
@@ -215,7 +221,11 @@ void async_write_data(connection_ptr&& c, const Functor& f) {
 #include <boost/asio/read.hpp>
 
 template <class Functor>
-void async_read_data(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes) {
+void async_read_data(
+    connection_ptr&& c,
+    const Functor& f,
+    std::size_t at_least_bytes)
+{
     c->data.resize(at_least_bytes);
 
     boost::asio::ip::tcp::socket& s = c->socket;
@@ -231,7 +241,12 @@ void async_read_data(connection_ptr&& c, const Functor& f, std::size_t at_least_
 
 
 template <class Functor>
-void async_read_dataat_least(connection_ptr&& c, const Functor& f, std::size_t at_least_bytes, std::size_t at_most = 4095) {
+void async_read_data_at_least(
+    connection_ptr&& c,
+    const Functor& f,
+    std::size_t at_least_bytes,
+    std::size_t at_most)
+{
     std::string& d = c->data;
     d.resize(at_most);
     char* p = (at_most == 0 ? 0 : &d[0]);
@@ -252,7 +267,10 @@ class tasks_processor: public tp_timers::tasks_processor {
     // ...
 
 public:
-    static connection_ptr create_connection(const char* addr, unsigned short port_num) {
+    static connection_ptr create_connection(
+        const char* addr,
+        unsigned short port_num)
+    {
         connection_ptr c( new connection_with_data(get_ios()) );
 
         c->socket.connect(boost::asio::ip::tcp::endpoint(
@@ -272,8 +290,12 @@ namespace tp_network {
 
 class tasks_processor: public tp_network_client::tasks_processor {
     typedef boost::asio::ip::tcp::acceptor acceptor_t;
-    typedef boost::function<void(connection_ptr, const boost::system::error_code&)> on_accpet_func_t;
 
+    typedef boost::function<
+        void(connection_ptr, const boost::system::error_code&)
+    > on_accpet_func_t;
+
+private:
     struct tcp_listener {
         acceptor_t              acceptor_;
         const on_accpet_func_t  func_;
@@ -292,6 +314,7 @@ class tasks_processor: public tp_network_client::tasks_processor {
     };
     typedef std::unique_ptr<tcp_listener> listener_ptr;
 
+private:
     struct handle_accept {
         listener_ptr listener;
 
@@ -300,16 +323,16 @@ class tasks_processor: public tp_network_client::tasks_processor {
         {}
 
         void operator()(const boost::system::error_code& error) {
-            task_wrapped_with_connection<on_accpet_func_t> task(std::move(listener->new_c_), listener->func_);
-            if (error) {
-                std::cerr << error << '\n';
-            }
+            task_wrapped_with_connection<on_accpet_func_t> task(
+                std::move(listener->new_c_), listener->func_
+            );
 
             start_accepting_connection(std::move(listener));
             task(error, 0);
         }
     };
 
+private:
    static void start_accepting_connection(listener_ptr&& listener) {
         if (!listener->acceptor_.is_open()) {
             return;
@@ -360,9 +383,12 @@ using namespace tp_network;
 
 class authorizer {
 public:
-    static void on_connection_accpet(connection_ptr&& connection, const boost::system::error_code& error) {
+    static void on_connection_accpet(
+        connection_ptr&& connection,
+        const boost::system::error_code& error)
+    {
         assert(!error);
-        async_read_dataat_least(std::move(connection), &authorizer::on_datarecieve, 1);
+        async_read_data_at_least(std::move(connection), &authorizer::on_datarecieve, 1, 1024);
     }
 
     static void on_datarecieve(connection_ptr&& connection, const boost::system::error_code& error) {
@@ -417,17 +443,17 @@ void process_server_response(
         const boost::system::error_code& err)
 {
     if (err && err != boost::asio::error::eof) {
-        std::cerr << "process_server_response: Client error on receive: " << err.message() << '\n';
+        std::cerr << "Client error on receive: " << err.message() << '\n';
         assert(false);
     }
 
     if (soc->data.size() != 2) {
-        std::cerr << "process_server_response: wrong bytes count\n";
+        std::cerr << "Wrong bytes count\n";
         assert(false);
     }
 
     if (soc->data != "OK") {
-        std::cerr << "process_server_response: wrong response: " << soc->data << '\n';
+        std::cerr << "Wrong response: " << soc->data << '\n';
         assert(false);
     }
 
@@ -436,9 +462,12 @@ void process_server_response(
     tasks_processor::stop();
 }
 
-void receive_auth_response(connection_ptr&& soc, const boost::system::error_code& err) {
+void receive_auth_response(
+    connection_ptr&& soc,
+    const boost::system::error_code& err)
+{
     if (err) {
-        std::cerr << "receive_auth_response: error on sending data: " << err.message() << '\n';
+        std::cerr << "Error on sending data: " << err.message() << '\n';
         assert(false);
     }
 
@@ -450,7 +479,9 @@ void receive_auth_response(connection_ptr&& soc, const boost::system::error_code
 }
 
 void send_auth() {
-    connection_ptr soc = tasks_processor::create_connection("127.0.0.1", g_port_num);
+    connection_ptr soc = tasks_processor::create_connection(
+        "127.0.0.1", g_port_num
+    );
     soc->data = "auth_name";
 
     async_write_data(

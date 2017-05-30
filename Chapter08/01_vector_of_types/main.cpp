@@ -72,7 +72,7 @@ typedef boost::mpl::unique<
 BOOST_STATIC_ASSERT((boost::mpl::size<unique_types>::value == 5));
 
 // Without this we'll get an error:
-// use of undefined type 'non_declared'
+// "use of undefined type 'non_declared'"
 struct non_declared{};
 
 #include <boost/mpl/sizeof.hpp>

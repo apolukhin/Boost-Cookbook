@@ -63,8 +63,8 @@ BOOST_STATIC_ASSERT((
     boost::is_same<res1_t, unsigned int>::value
 ));
 
-// will fail with static assert somewhere deep in implementation
-// of boost::make_unsigned<_1> if we won't be evaluating function lazy. 
+// Will fail with static assertion somewhere deeply in the implementation
+// of boost::make_unsigned<_1> if we do not evaluate the function lazily.
 typedef apply_if<
     boost::make_unsigned<_1>,
     float,

@@ -1,23 +1,23 @@
-// Make unsigned 
-struct unsigne; // No typo: `unsigned` is a keyword, we can not use it.
+// Make unsigned.
+struct unsigne; // Not a typo: `unsigned` is a keyword, we can not use it.
 
-// Make constant
+// Make constant.
 struct constant;
 
-// Otherwise we do not change type
+// Otherwise we do not change type.
 struct no_change;
 
-// we'll need this at step 3
+// We'll need this at step 3.
 #include <boost/mpl/size.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>
 
-// we'll need this at step 4
+// We'll need this at step 4.
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 #include <boost/type_traits/add_const.hpp>
 
-// we'll need this at step 5
+// We'll need this at step 5.
 #include <boost/mpl/transform.hpp>
 
 template <class Types, class Modifiers>

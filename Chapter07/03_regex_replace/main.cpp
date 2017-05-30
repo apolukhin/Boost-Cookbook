@@ -9,7 +9,7 @@ int main() {
         << "\t[2] POSIX extended\n"
         << "\t[3] POSIX extended case insensitive\n"
         << "\t[4] POSIX basic\n"
-        << "\t[5] POSIX basic case insensitive\n"
+        << "\t[5] POSIX basic case insensitive\n\n"
         << "Choose regex syntax: ";
 
     boost::regex::flag_type flag;
@@ -33,12 +33,12 @@ int main() {
         break;
     default:
         std::cout << "Incorrect number of regex syntax. Exiting... \n";
-        return -1;
-    } 
-    // Disabling exceptions
+        return 1;
+    }
+    // Disabling exceptions.
     flag |= boost::regex::no_except;
-    
-    // Restoring std::cin
+
+    // Restoring std::cin.
     std::cin.ignore();
     std::cin.clear();
     
@@ -48,19 +48,19 @@ int main() {
         if (!std::getline(std::cin, regex)) {
             return 0;
         }
-        
-        // Without `boost::regex::no_except`flag this 
-        // constructor may throw
+
+        // Without `boost::regex::no_except`flag this
+        // constructor may throw.
         const boost::regex e(regex, flag);
         if (e.status()) {
             std::cout << "Incorrect regex pattern!\n";
             continue;
         }
-        
+
         std::cout << "String to match: ";
         while (std::getline(std::cin, str) && !str.empty()) {
             boost::smatch results;
-            bool matched = regex_search(str, results, e);
+            const bool matched = regex_search(str, results, e);
             if (matched) {
                 std::cout << "MATCH: ";
                 std::copy(
@@ -74,10 +74,12 @@ int main() {
                         std::getline(std::cin, replace_string)
                         && !replace_string.empty())
                 {
-                    //std::cout << "RESULT: " << boost::regex_replace(str, e, replace_string); 
-                    std::cout << "RESULT: " << results.format(replace_string); 
+                    std::cout << "RESULT: " << 
+                        boost::regex_replace(str, e, replace_string)
+                    ; 
+                    //std::cout << "RESULT: " << results.format(replace_string); 
                 } else {
-                    // Restoring std::cin
+                    // Restoring std::cin.
                     std::cin.ignore();
                     std::cin.clear();
                 }
@@ -87,10 +89,10 @@ int main() {
 
             std::cout << "\nString to match: ";
         } // end of `while (std::getline(std::cin, str))`
-                
+
         std::cout << '\n';
-        
-        // Restoring std::cin
+
+        // Restoring std::cin.
         std::cin.ignore();
         std::cin.clear();
     } while (1);

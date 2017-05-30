@@ -13,10 +13,10 @@ public:
         , c('!')
     {}
 
-    // fmt prameter must contain the following:
-    //  $1$ for outputting integer 'i'
-    //  $2$ for outputting string 's'
-    //  $3$ for outputting charecter 'c'
+    // `fmt` parameter may contain the following:
+    //      $1$ for outputting integer 'i'.
+    //      $2$ for outputting string 's'.
+    //      $3$ for outputting character 'c'.
     std::string to_string(const std::string& format_specifier) const {
         boost::format f(format_specifier);
         unsigned char flags = boost::io::all_error_bits;
@@ -38,14 +38,15 @@ int main() {
         "%1% == %1% && %1%%% != %1%\n\n"
     );
 
-    // Outputs 'Reader'
+    // Outputs 'Reader'.
     std::cout << class_instance.to_string("%2%\n\n");
 
     try {
         class_instance.to_string("%1% %2% %3% %4% %5%\n");
         assert(false);
     } catch (const std::exception& e) {
-        // boost::io::too_few_args exception must be catched
+        // boost::io::too_few_args exception is catched.
         std::cout << e.what() << '\n';
     }
-} // int main()
+}
+

@@ -90,6 +90,10 @@ int func_test() {
         // Caught inside task_wrapped and does not stop execution.
         throw boost::thread_interrupted();
 
+    case 30:
+        // Throwing exception not derived from std::exception.
+        throw 1;
+
     case 90:
         // Stopping the tasks_processor.
         tasks_processor::stop();
@@ -122,4 +126,8 @@ int main () {
     // calls tasks_processor::stop().
     tasks_processor::start();
     assert(func_test() == 91);
+
+#ifndef BOOST_NO_CXX11_LAMBDAS
+    assert(sum == 4);
+#endif
 }

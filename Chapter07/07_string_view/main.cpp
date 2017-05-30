@@ -5,7 +5,7 @@ std::string between_str(const std::string& input, char starts, char ends) {
     std::string::const_iterator pos_beg 
         = std::find(input.begin(), input.end(), starts);
     if (pos_beg == input.end()) {
-        return std::string(); // Empty
+        return std::string();
     }
     ++ pos_beg;
 
@@ -15,38 +15,38 @@ std::string between_str(const std::string& input, char starts, char ends) {
     return std::string(pos_beg, pos_end);
 }
 
-#include <boost/utility/string_ref.hpp>
-boost::string_ref between(
-    const boost::string_ref& input, 
-    char starts, 
-    char ends) 
+#include <boost/utility/string_view.hpp>
+boost::string_view between(
+    boost::string_view input,
+    char starts,
+    char ends)
 {
-    boost::string_ref::const_iterator pos_beg 
+    boost::string_view::const_iterator pos_beg 
         = std::find(input.cbegin(), input.cend(), starts);
     if (pos_beg == input.cend()) {
-        return boost::string_ref(); // Empty
+        return boost::string_view();
     }
     ++ pos_beg;
 
-    boost::string_ref::const_iterator pos_end 
+    boost::string_view::const_iterator pos_end 
         = std::find(pos_beg, input.cend(), ends);
     // ...
     if (pos_end == input.cend()) {
-        return boost::string_ref(pos_beg, input.end() - pos_beg);
+        return boost::string_view(pos_beg, input.end() - pos_beg);
     }
 
-    return boost::string_ref(pos_beg, pos_end - pos_beg);
-} // end of between
+    return boost::string_view(pos_beg, pos_end - pos_beg);
+}
 
 #include <vector>
-void string_ref_init_examples() {
-    boost::string_ref r0("^_^");
+void string_view_init_examples() {
+    boost::string_view r0("^_^");
 
     std::string O_O("O__O");
-    boost::string_ref r1 = O_O;
+    boost::string_view r1 = O_O;
 
     std::vector<char> chars_vec(10, '#');
-    boost::string_ref r2(&chars_vec.front(), chars_vec.size());
+    boost::string_view r2(&chars_vec.front(), chars_vec.size());
 
     (void)r0;
     (void)r1;
@@ -58,19 +58,20 @@ void string_ref_init_examples() {
 #include <boost/lexical_cast.hpp>
 #include <iterator>
 #include <iostream>
-void string_ref_algorithms_examples() {
-    boost::string_ref r("O_O");
-    // Finding symbol
+
+void string_view_algorithms_examples() {
+    boost::string_view r("O_O");
+    // Finding single symbol.
     std::find(r.cbegin(), r.cend(), '_');
 
-    // Will print 'o_o'
+    // Will print 'o_o'.
     boost::to_lower_copy(std::ostream_iterator<char>(std::cout), r);
     std::cout << '\n';
 
-    // Will print 'O_O'
+    // Will print 'O_O'.
     std::cout << r << '\n';
 
-    // Will print '^_^'
+    // Will print '^_^'.
     boost::replace_all_copy(
         std::ostream_iterator<char>(std::cout), r, "O", "^"
     );
@@ -86,6 +87,10 @@ int main() {
     std::string s("(expression)");
     std::cout << between(s, '(', ')') << '\n';
 
-    string_ref_init_examples();
-    string_ref_algorithms_examples();
+    string_view_init_examples();
+    string_view_algorithms_examples();
+
+    assert(between_str(s, '(', ')') == between(s, '(', ')'));
+    assert(between_str("(expr", '(', ')') == between("(expr", '(', ')'));
+    assert(between_str("expr)", '(', ')') == between("expr)", '(', ')'));
 }

@@ -9,18 +9,17 @@ int main() {
           "Please split this character array to sentences!"
           "Do you know, that sentences are separated using period, "
           "exclamation mark and question mark? :-)"
-          ; 
-    
-    typedef boost::split_iterator<const char*> split_iter_t; 
-    split_iter_t sentences = boost::make_split_iterator(str, 
+          ;
+
+    typedef boost::split_iterator<const char*> split_iter_t;
+    split_iter_t sentences = boost::make_split_iterator(str,
         boost::algorithm::token_finder(boost::is_any_of("?!."))
-    );    
-    
-    
+    );
+
     for (unsigned int i = 1; !sentences.eof(); ++sentences, ++i) {
         boost::iterator_range<const char*> range = *sentences;
         std::cout << "Sentence #" << i << " : \t" << range << '\n';
-        std::cout << "Sentence has " << range.size() << " characters.\n";
+        std::cout << range.size() << " characters.\n";
         std::cout 
             << "Sentence has " 
             << std::count(range.begin(), range.end(), ' ') 

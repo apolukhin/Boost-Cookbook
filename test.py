@@ -45,14 +45,18 @@ class tester:
         'Chapter06/02_tasks_processor_timers': ('', 'Exception: It works!\n', 0),
         'Chapter06/08_exception_ptr': ('Lexical cast exception detected.\n\nCan not handle such exceptions:\nmain.cpp(48): Throw in function void func_test2()\nDynamic exception type: boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::logic_error> >\nstd::exception::what: Some fatal logic error\n\n', '', 0),
         'Chapter06/09_tasks_processor_signals': ('Captured 1 SIGINT\nCaptured 2 SIGINT\nCaptured 3 SIGINT\n', '', 0),
-        'Chapter07/02_regex_match': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\nChoose regex syntax: Input regex: String to match: MATCH\nString to match: MATCH\nString to match: DOES NOT MATCH\nString to match: \nInput regex: String to match: MATCH\nString to match: MATCH\nString to match: DOES NOT MATCH\nString to match: DOES NOT MATCH\nString to match: \nInput regex: ', '', 0),
-        'Chapter07/02_regex_match_extra': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\nChoose regex syntax: Input regex: String to match: MATCH\nString to match: DOES NOT MATCH\nString to match: \nInput regex: ', '', 0),
-        'Chapter07/03_regex_replace': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\nChoose regex syntax: \nInput regex: String to match: DOES NOT MATCH\nString to match: MATCH: 4, 2, \nReplace pattern: RESULT: ###4-4-2-4-4###\nString to match: \n\nInput regex: ', '', 0),
-        'Chapter07/03_regex_replace_extra': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\nChoose regex syntax: \nInput regex: String to match: MATCH: q, w, e, \nReplace pattern: RESULT: ewq\nString to match: \n\nInput regex: ', '', 0),
+        'Chapter07/02_regex_match': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\n\nChoose regex syntax: Input regex: String to match: MATCH\nString to match: MATCH\nString to match: DOES NOT MATCH\nString to match: \nInput regex: String to match: MATCH\nString to match: MATCH\nString to match: DOES NOT MATCH\nString to match: DOES NOT MATCH\nString to match: \nInput regex: ', '', 0),
+        'Chapter07/02_regex_match_bad_num': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\n\nChoose regex syntax: Incorrect number of regex syntax. Exiting... \n', '', 1),
+        'Chapter07/02_regex_match_bad_regex': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\n\nChoose regex syntax: Input regex: Incorrect regex pattern!\nInput regex: ', '', 0),
+        'Chapter07/02_regex_match_extra': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\n\nChoose regex syntax: Input regex: String to match: MATCH\nString to match: DOES NOT MATCH\nString to match: \nInput regex: ', '', 0),
+        'Chapter07/03_regex_replace': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\n\nChoose regex syntax: \nInput regex: String to match: DOES NOT MATCH\nString to match: MATCH: 4, 2, \nReplace pattern: RESULT: ###4-4-2-4-4###\nString to match: \n\nInput regex: ', '', 0),
+        'Chapter07/03_regex_replace_bad_num': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\n\nChoose regex syntax: Incorrect number of regex syntax. Exiting... \n', '', 1),
+        'Chapter07/03_regex_replace_bad_regex': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\n\nChoose regex syntax: \nInput regex: Incorrect regex pattern!\n\nInput regex: ', '', 0),
+        'Chapter07/03_regex_replace_extra': ('Available regex syntaxes:\n\t[0] Perl\n\t[1] Perl case insensitive\n\t[2] POSIX extended\n\t[3] POSIX extended case insensitive\n\t[4] POSIX basic\n\t[5] POSIX basic case insensitive\n\nChoose regex syntax: \nInput regex: String to match: MATCH: q, w, e, \nReplace pattern: RESULT: ewq\nString to match: \n\nInput regex: ', '', 0),
         'Chapter07/04_format': ('Hello, dear Reader! Did you read the book for 100 % !\n100 == 100 && 100% != 100\n\nReader\n\nboost::too_few_args: format-string referred to more arguments than were passed\n', '', 0),
-        'Chapter07/05_string_algo': ('\n erase_all_copy   :Hello hello dear Reader.\n erase_first_copy :Hello hello, dear Reader.\n erase_last_copy  :Hello, hello dear Reader.\n ierase_all_copy  :, , dear Reader.\n ierase_nth_copy  :Hello, hello dear Reader.\n replace_all_copy  :Hello! hello! dear Reader.\n replace_first_copy  :Hello! hello, dear Reader.\n replace_head_copy  :Whaaaaaaa! hello, dear Reader.', '', 0),
-        'Chapter07/06_iterator_range': ('Sentence #1 : \tThis is a long long character array\nSentence has 35 characters.\nSentence has 6 whitespaces.\n\nSentence #2 : \tPlease split this character array to sentences\nSentence has 46 characters.\nSentence has 6 whitespaces.\n\nSentence #3 : \tDo you know, that sentences are separated using period, exclamation mark and question mark\nSentence has 90 characters.\nSentence has 13 whitespaces.\n\nSentence #4 : \t :-)\nSentence has 4 characters.\nSentence has 1 whitespaces.\n\n', '', 0),
-        'Chapter07/07_string_ref': ('between brackets\nexpression\no_o\nO_O\n^_^\n', '', 0),
+        'Chapter07/05_string_algo': ('\n erase_all_copy  :Hello hello dear Reader.\n erase_first_copy:Hello hello, dear Reader.\n erase_last_copy :Hello, hello dear Reader.\n ierase_all_copy :, , dear Reader.\n ierase_nth_copy :Hello, hello dear Reader.\n replace_all_copy  :Hello! hello! dear Reader.\n replace_first_copy  :Hello! hello, dear Reader.\n replace_head_copy  :Whaaaaaaa! hello, dear Reader.', '', 0),
+        'Chapter07/06_iterator_range': ('Sentence #1 : \tThis is a long long character array\n35 characters.\nSentence has 6 whitespaces.\n\nSentence #2 : \tPlease split this character array to sentences\n46 characters.\nSentence has 6 whitespaces.\n\nSentence #3 : \tDo you know, that sentences are separated using period, exclamation mark and question mark\n90 characters.\nSentence has 13 whitespaces.\n\nSentence #4 : \t :-)\n4 characters.\nSentence has 1 whitespaces.\n\n', '', 0),
+        'Chapter07/07_string_view': ('between brackets\nexpression\no_o\nO_O\n^_^\n', '', 0),
         'Chapter08/01_vector_of_types': ('N5boost3mpl6v_itemIN4mpl_6size_tILm32EEENS1_INS3_ILm1EEENS1_INS3_ILm4096EEENS1_INS3_ILm8EEENS1_INS3_ILm4EEENS0_7vector0INS2_2naEEELi0EEELi0EEELi0EEELi0EEELi0EEE', '', 0),
         'Chapter08/02_manipulating_vector_of_types': ('N4mpl_5long_ILl4EEE\n', '', 0),
         'Chapter08/06_tuple_to_string': ('Meow! 0_0\nMeow! 0_0\nMeow! Meow! \nMeow! Meow! Meow! Meow! Meow! Meow! Meow! Meow! Meow! Meow! \n', '', 0),
@@ -182,6 +186,23 @@ class tester:
         tester._test_validate(test_name)
 
     @staticmethod
+    def _test_regex_bad(test_name, path):
+        proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        inp = "6\n"
+        out1, out2 = proc.communicate(input=inp)
+
+        tester.outputs[test_name + "_bad_num"] = (out1, out2, proc.returncode)
+        tester._test_validate(test_name + "_bad_num")
+
+        proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        inp = "0\n(\\"
+        out1, out2 = proc.communicate(input=inp)
+
+        tester.outputs[test_name + "_bad_regex"] = (out1, out2, proc.returncode)
+        tester._test_validate(test_name + "_bad_regex")
+
+
+    @staticmethod
     def _test_regex_match(test_name, path):
         proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -191,13 +212,15 @@ class tester:
         tester.outputs[test_name] = (out1, out2, proc.returncode)
         tester._test_validate(test_name)
 
-        for i in xrange(2, 5):
+        for i in xrange(2, 6):
             proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             inp = str(i) + b"\n...\nqwe\nqwerty"
             out1, out2 = proc.communicate(input=inp)
 
             tester.outputs[test_name + "_extra"] = (out1, out2, proc.returncode)
             tester._test_validate(test_name + "_extra")
+
+        tester._test_regex_bad(test_name, path)
 
     @staticmethod
     def _test_regex_replace(test_name, path):
@@ -216,6 +239,8 @@ class tester:
 
             tester.outputs[test_name + "_extra"] = (out1, out2, proc.returncode)
             tester._test_validate(test_name + "_extra")
+
+        tester._test_regex_bad(test_name, path)
 
     @staticmethod
     def _test_export_import(test_name, path):

@@ -4,7 +4,9 @@ std::string str2 = "Thanks for reading ME!";
 
 #include <boost/algorithm/string/predicate.hpp>
 void method1() { assert(
-    boost::iequals(str1, str2)
+
+boost::iequals(str1, str2)
+
 );}
 
 #include <boost/algorithm/string/compare.hpp>
@@ -55,6 +57,6 @@ int main() {
     method5();
 
     // On some platforms std::locale::classic() works
-    // faster than std::locale()
+    // faster than std::locale().
     boost::iequals(str1, str2, std::locale::classic());
 }

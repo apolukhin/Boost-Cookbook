@@ -153,7 +153,7 @@ int main() {
 
 
 
-    //run_in_multiple_threads();
+    run_in_multiple_threads(); // Making coverage tools happy.
 }
 
 
@@ -176,7 +176,7 @@ void work_queue::run() {
         task_type t = std::move(tasks_.front());
         tasks_.pop_front();
         lock.unlock();
-        
+
         t();
     }
 }
