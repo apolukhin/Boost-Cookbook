@@ -530,12 +530,13 @@ var editor = (function() {
 			"cmd": cmd,
 		};
 
-		output.text("Executing... Please wait.");
-
         if (location.protocol === 'https:') {
             // page is secure, c
             location.href = 'http:' + window.location.href.substring(window.location.protocol.length);
         }
+
+		output.text("Executing... Please wait.");
+
 
 		$.ajax({
 		  url: "//coliru.stacked-crooked.com/compile",
