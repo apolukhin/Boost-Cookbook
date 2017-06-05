@@ -532,8 +532,13 @@ var editor = (function() {
 
 		output.text("Executing... Please wait.");
 
+        if (location.protocol === 'https:') {
+            // page is secure, c
+            location.href = 'http:' + window.location.href.substring(window.location.protocol.length);
+        }
+
 		$.ajax({
-		  url: "http://coliru.stacked-crooked.com/compile",
+		  url: "//coliru.stacked-crooked.com/compile",
 		  type: "POST",
 		  data: JSON.stringify(to_compile),
 		  contentType:"text/plain; charset=utf-8",
