@@ -39,7 +39,7 @@ namespace result_of {
 } // namespace result_of
 
 template <class T1, class T2>
-inline typename result_of::my_function_cpp03<T1, T2>::type
+typename result_of::my_function_cpp03<T1, T2>::type
     my_function_cpp03(const T1& v1, const T2& v2)
 {
     return v1 + v2;
@@ -49,11 +49,12 @@ int main() {
     s1 v1;
     s2 v2;
 
-    my_function_cpp11(v1, v2);
-    my_function_cpp11(v1, v2);
+    s3 res0 = my_function_cpp11(v1, v2);
     assert(my_function_cpp11('\0', 1) == 1);
 
-    my_function_cpp03(v1, v2);
-    my_function_cpp03(v2, v1);
+    s3 res1 = my_function_cpp03(v1, v2);
     assert(my_function_cpp03('\0', 1) == 1);
+
+    (void)res0;
+    (void)res1;
 }

@@ -26,23 +26,24 @@ struct coalesce {
 
 #include <boost/static_assert.hpp>
 #include <boost/mpl/not.hpp>
+#include <boost/mpl/next.hpp>
 
 using boost::mpl::_1;
 using boost::mpl::_2;
 
 typedef coalesce<
     boost::mpl::true_,
-    boost::mpl::true_,
+    boost::mpl::int_<5>,
     boost::mpl::not_<_1>,
-    boost::mpl::not_<_1>
+    boost::mpl::next<_1>
 >::type res1_t;
-BOOST_STATIC_ASSERT((!res1_t::value));
+BOOST_STATIC_ASSERT((res1_t::value == 6));
 
 typedef coalesce<
-    boost::mpl::true_,
     boost::mpl::false_,
+    boost::mpl::int_<5>,
     boost::mpl::not_<_1>,
-    boost::mpl::not_<_1>
+    boost::mpl::next<_1>
 >::type res2_t;
 BOOST_STATIC_ASSERT((res2_t::value));
 

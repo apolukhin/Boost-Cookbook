@@ -46,6 +46,7 @@ int main() {
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/mpl/transform.hpp>
 #include <boost/type_traits/remove_const.hpp>
+
 template <class Sequence>
 struct make_nonconst: boost::mpl::transform<
     Sequence,
@@ -60,6 +61,11 @@ typedef make_nonconst<type1>::type nc_type;
 BOOST_STATIC_ASSERT((boost::is_same<
     boost::fusion::result_of::value_at_c<nc_type, 0>::type,
     int
+>::value));
+
+BOOST_STATIC_ASSERT((boost::is_same<
+    nc_type,
+    boost::fusion::vector<int, boost::blank, boost::blank>
 >::value));
 
 BOOST_STATIC_ASSERT((boost::is_same<

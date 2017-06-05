@@ -19,6 +19,7 @@ struct apply_if {
     typedef typename boost::mpl::apply<
         Cond, Param
     >::type condition_t;
+
     typedef boost::mpl::apply<Func, Param> applied_type;
 
     typedef typename boost::mpl::eval_if_c<
@@ -32,9 +33,11 @@ struct apply_if {
 
 template <class Func, class Param, class Cond, class Fallback>
 struct apply_if {
-    typedef boost::mpl::apply<Cond, Param> condition_t;
+    typedef typename boost::mpl::apply<
+        Cond, Param
+    >::type condition_t;
 
-    // Incorrect, metafunction is evaluated when `::type` called
+    // Incorrect: metafunction is evaluated when `::type` called.
     typedef typename boost::mpl::apply<Func, Param>::type applied_type;
 
     typedef typename boost::mpl::if_c<
@@ -85,5 +88,4 @@ struct eval_if_c {
 
 */
 
-int main() {
-}
+int main() {}

@@ -66,12 +66,17 @@ void boost_mpl_transform_pseoudocode() {
 */
 
 #include <boost/mpl/vector.hpp>
-typedef boost::mpl::vector<unsigne, no_change, constant, unsigne> modifiers;
-typedef boost::mpl::vector<int, char, short, long> types;
+#include <boost/mpl/at.hpp>
+
+typedef boost::mpl::vector<
+    unsigne, no_change, constant, unsigne
+> modifiers;
+
+typedef boost::mpl::vector<
+    int, char, short, long
+> types;
 
 typedef do_modifications<types, modifiers>::type result_type;
-
-#include <boost/mpl/at.hpp>
 
 BOOST_STATIC_ASSERT((boost::is_same<
     boost::mpl::at_c<result_type, 0>::type,
