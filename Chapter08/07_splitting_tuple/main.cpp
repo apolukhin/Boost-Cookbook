@@ -64,11 +64,6 @@ BOOST_STATIC_ASSERT((boost::is_same<
 >::value));
 
 BOOST_STATIC_ASSERT((boost::is_same<
-    nc_type,
-    boost::fusion::vector<int, boost::blank, boost::blank>
->::value));
-
-BOOST_STATIC_ASSERT((boost::is_same<
     boost::fusion::result_of::value_at_c<nc_type, 1>::type,
     boost::blank
 >::value));
