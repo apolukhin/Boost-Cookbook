@@ -232,9 +232,14 @@ class tester:
         tester.outputs[test_name] = (out1, out2, proc.returncode)
         tester._test_validate(test_name)
 
-        for i in xrange(4, 6):
+        for i in xrange(6):
             proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            inp = str(i) + b"\n\\(.\\)\\(.\\)\\(.\\)\nqwe\n\\3\\2\\1"
+            inp = str(i)
+            if i >= 4:
+                inp += b"\n\\(.\\)\\(.\\)\\(.\\)\nqwe\n\\3\\2\\1"
+            else:
+                inp += b"\n(.)(.)(.)\nqwe\n\\3\\2\\1"
+
             out1, out2 = proc.communicate(input=inp)
 
             tester.outputs[test_name + "_extra"] = (out1, out2, proc.returncode)
