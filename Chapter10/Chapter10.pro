@@ -9,4 +9,4 @@ SUBDIRS += \
     06_B_export_import \
     07_version
 
-export_import.depends = 06_A_my_library
+06_B_export_import.depends = 06_A_my_library

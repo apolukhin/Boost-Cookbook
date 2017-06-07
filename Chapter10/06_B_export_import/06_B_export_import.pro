@@ -3,12 +3,12 @@ if (!include(../../config.txt)) {
 }
 
 # There is a line in parent project:
-# export_import.depends = my_library
-# that forces `my_library` project
+# 06_B_export_import.depends = 06_A_my_library
+# that forces `06_A_my_library` project
 # build before building this project.
 
 SOURCES += main.cpp
-HEADERS += ../my_library/my_library.hpp
+HEADERS += ../06_A_my_library/my_library.hpp
 DEFINES += MY_LIBRARY_LINK_DYNAMIC
 
 msvc {
