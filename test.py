@@ -60,11 +60,11 @@ class tester:
         'Chapter08/01_vector_of_types': ('N5boost3mpl6v_itemIN4mpl_6size_tILm32EEENS1_INS3_ILm1EEENS1_INS3_ILm4096EEENS1_INS3_ILm8EEENS1_INS3_ILm4EEENS0_7vector0INS2_2naEEELi0EEELi0EEELi0EEELi0EEELi0EEE', '', 0),
         'Chapter08/02_manipulating_vector_of_types': ('N4mpl_5long_ILl4EEE\n', '', 0),
         'Chapter08/06_tuple_to_string': ('Meow! 0_0\nMeow! 0_0\nMeow! Meow! \nMeow! Meow! Meow! Meow! Meow! Meow! Meow! Meow! Meow! Meow! \n', '', 0),
-        'Chapter09/bimap': ('Left:\nAnton Polukhin <=> 3\nAntony Polukhin <=> 3\nJohn Snow <=> 1\nVasya Pupkin <=> 2\n\nRight:\n1 <=> John Snow\n2 <=> Vasya Pupkin\n3 <=> Antony Polukhin\n3 <=> Anton Polukhin\n', '', 0),
-        'Chapter09/multiindex': ('0:\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\nJohn Snow, 1, 185, 80\nVasya Pupkin, 2, 165, 60\n\n1:\nJohn Snow, 1, 185, 80\nVasya Pupkin, 2, 165, 60\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\n\n2:\nVasya Pupkin, 2, 165, 60\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\nJohn Snow, 1, 185, 80\n\n3:\nVasya Pupkin, 2, 165, 60\nAntony Polukhin, 3, 183, 70\nAnton Polukhin, 3, 182, 70\nJohn Snow, 1, 185, 80\n\n', '', 0),
-        'Chapter09/unordered': ('boost::unordered_set<std::string> : B  A  CD  CZ  \nstd::set<std::string> : A  B  CD  CZ  \n', '', 0),
+        'Chapter09/04_unordered': ('boost::unordered_set<std::string> : B  A  CD  CZ  \nstd::set<std::string> : A  B  CD  CZ  \n', '', 0),
+        'Chapter09/05_bimap': ('Left:\nAnton Polukhin <=> 3\nAntony Polukhin <=> 3\nJohn Snow <=> 1\nVasya Pupkin <=> 2\n\nRight:\n1 <=> John Snow\n2 <=> Vasya Pupkin\n3 <=> Antony Polukhin\n3 <=> Anton Polukhin\n', '', 0),
+        'Chapter09/06_multiindex': ('0:\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\nJohn Snow, 1, 185, 80\nVasya Pupkin, 2, 165, 60\n\n1:\nJohn Snow, 1, 185, 80\nVasya Pupkin, 2, 165, 60\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\n\n2:\nVasya Pupkin, 2, 165, 60\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\nJohn Snow, 1, 185, 80\n\n3:\nVasya Pupkin, 2, 165, 60\nAntony Polukhin, 3, 183, 70\nAnton Polukhin, 3, 182, 70\nJohn Snow, 1, 185, 80\n\n', '', 0),
+        'Chapter10/03_no_rtti': ('type_index type_id() [with T = double]', '', 0),
         'Chapter10/my_library': ('', '', -11),
-        'Chapter10/no_rtti': ('type_index type_id() [with T = double]', '', 0),
         'Chapter11/erasing_files': ('', 'Failed to create a symlink\n', 0),
         'Chapter12/gil': ('', "terminate called after throwing an instance of 'std::ios_base::failure'\n  what():  file_mgr: failed to open file\n", -6),
         'Chapter12/graph': ('Boost\nC++ guru\n', '', 0),
@@ -304,7 +304,7 @@ class tester:
             "Chapter07/03_regex_replace": tester._test_regex_replace,
             'Chapter08/01_vector_of_types': tester._test_but_ignore_output_diff,                # Different manglings
             'Chapter08/02_manipulating_vector_of_types': tester._test_but_ignore_output_diff,   # Different manglings
-            "Chapter10/export_import": tester._test_export_import,
+            "Chapter10/06_B_export_import": tester._test_export_import,
             "Chapter11/listing_files": tester._test_but_ignore_output_diff,
             "Chapter11/coroutines": tester._test_but_ignore_output_diff, # Sanitizers do not like coroutines and add some warnings
             "Chapter12/random": tester._test_but_ignore_output_diff,

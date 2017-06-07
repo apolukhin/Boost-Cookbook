@@ -1,13 +1,12 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    int128 \
-    no_rtti \
-    extern_template \
-    constexpr_c++11 \
-    noexcept_c++11 \
-    export_import \
-    my_library \
-    version \
+    02_int128 \
+    03_no_rtti \
+    04_constexpr_c++11 \
+    05_noexcept_c++11 \
+    06_A_my_library \
+    06_B_export_import \
+    07_version
 
-export_import.depends = my_library
+export_import.depends = 06_A_my_library
