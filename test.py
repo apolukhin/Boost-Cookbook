@@ -64,11 +64,10 @@ class tester:
         'Chapter09/05_bimap': ('Left:\nAnton Polukhin <=> 3\nAntony Polukhin <=> 3\nJohn Snow <=> 1\nVasya Pupkin <=> 2\n\nRight:\n1 <=> John Snow\n2 <=> Vasya Pupkin\n3 <=> Antony Polukhin\n3 <=> Anton Polukhin\n', '', 0),
         'Chapter09/06_multiindex': ('0:\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\nJohn Snow, 1, 185, 80\nVasya Pupkin, 2, 165, 60\n\n1:\nJohn Snow, 1, 185, 80\nVasya Pupkin, 2, 165, 60\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\n\n2:\nVasya Pupkin, 2, 165, 60\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\nJohn Snow, 1, 185, 80\n\n3:\nVasya Pupkin, 2, 165, 60\nAntony Polukhin, 3, 183, 70\nAnton Polukhin, 3, 182, 70\nJohn Snow, 1, 185, 80\n\n', '', 0),
         'Chapter10/03_no_rtti': ('type_index type_id() [with T = double]', '', 0),
-        'Chapter12/gil': ('', "terminate called after throwing an instance of 'std::ios_base::failure'\n  what():  file_mgr: failed to open file\n", -6),
-        'Chapter12/graph': ('Boost\nC++ guru\n', '', 0),
-        'Chapter12/graph_vis': ('digraph G {\n0 [label="C++"];\n1 [label="STL"];\n2 [label="Boost"];\n3 [label="C++ guru"];\n4 [label="C"];\n0->1 ;\n1->2 ;\n2->3 ;\n4->3 ;\n}\n', '', 0),
-        'Chapter12/testing': ('Running 2 test cases...\n', '\n*** No errors detected\n', 0),
-        'Chapter12/testing_advanced': ('Running 2 test cases...\n', '\n*** No errors detected\n', 0),
+        'Chapter12/01_graph': ('Boost\nC++ guru\n', '', 0),
+        'Chapter12/02_graph_vis': ('digraph G {\n0 [label="C++"];\n1 [label="STL"];\n2 [label="Boost"];\n3 [label="C++ guru"];\n4 [label="C"];\n0->1 ;\n1->2 ;\n2->3 ;\n4->3 ;\n}\n', '', 0),
+        'Chapter12/05_testing': ('Running 2 test cases...\n', '\n*** No errors detected\n', 0),
+        'Chapter12/06_testing_advanced': ('Running 2 test cases...\n', '\n*** No errors detected\n', 0),
 
 
     }
@@ -306,7 +305,7 @@ class tester:
             "Chapter10/06_B_export_import": tester._test_export_import,
             "Chapter11/01_listing_files": tester._test_but_ignore_output_diff,
             "Chapter11/09_coroutines": tester._test_but_ignore_output_diff, # Sanitizers do not like coroutines and add some warnings
-            "Chapter12/random": tester._test_but_ignore_output_diff,
+            "Chapter12/03_random": tester._test_but_ignore_output_diff,
 
             # TODO:
             "Chapter11/02_erasing_files": tester._ignore,
@@ -314,7 +313,7 @@ class tester:
             "Chapter11/06_interprocess_queue": tester._ignore,
             "Chapter11/07_interprocess_pointers": tester._ignore,
             "Chapter11/08_reading_files": tester._ignore,
-            "Chapter12/gil": tester._ignore, #tester._test_gil,
+            "Chapter12/07_gil": tester._ignore, #tester._test_gil,
         }
 
         test_name = os.path.dirname(os.path.relpath(path)).replace('\\release', '').replace('\\debug', '').replace('\\', '/')
