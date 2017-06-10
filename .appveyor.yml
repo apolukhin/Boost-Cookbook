@@ -27,9 +27,8 @@ branches:
 skip_tags: true
 
 before_build:
-    - set PATH=%PATH%;C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1;C:\Qt\5.8\msvc2015_64\bin
-    - dir C:\mingw-w64
-    - dir C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1
+    - set PATH=%PATH%;C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32;C:\Qt\5.8\msvc2015_64\bin
+    - dir C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
 
     # Cloning Boost libraries (fast nondeep cloning)
