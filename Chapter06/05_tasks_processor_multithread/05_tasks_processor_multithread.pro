@@ -12,4 +12,7 @@ HEADERS += \
 
 SOURCES += main.cpp
 QMAKE_CXXFLAGS += $$CPP11FLAG
-!msvc:LIBS += -lboost_thread -lboost_system
+!msvc {
+    LIBS += -lboost_system -lboost_thread
+    win32:LIBS += -lws2_32
+}
