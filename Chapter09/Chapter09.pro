@@ -1,6 +1,8 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
+    01_small_vector \
+    02_stack_vector \
     03_hash \
     04_unordered \
     05_bimap \
