@@ -1,5 +1,17 @@
 #include <boost/gil/gil_all.hpp>
+
+#include <png.h>
+
+// MinGW workarounds:
+#ifndef png_infopp_NULL
+#   define png_infopp_NULL NULL
+#endif
+#ifndef int_p_NULL
+#   define int_p_NULL NULL
+#endif
+
 #include <boost/gil/extension/io/png_dynamic_io.hpp>
+
 #include <string>
 
 #include <cassert>
