@@ -26,7 +26,7 @@ branches:
 
 environment:
   matrix:
-    - TOOLSET_PATH: C:\Qt\5.8\mingw53_32\bin
+    - TOOLSET_PATH: C:\Qt\5.8\mingw53_32\bin;C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
       BOOST_FLAGS: toolset=gcc
       BUILD_COMMAND: mingw32-make
 
