@@ -4,5 +4,4 @@ if (!include(../../config.txt)) {
 
 SOURCES += main.cpp
 
-!msvc:LIBS += -lboost_context
-!msvc:LIBS += -lboost_coroutine -lboost_thread -lboost_system
+!msvc:LIBS += -lboost_coroutine -lboost_thread -lboost_system -lboost_context
