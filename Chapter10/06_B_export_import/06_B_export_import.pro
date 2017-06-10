@@ -22,6 +22,8 @@ msvc {
     QMAKE_LFLAGS += /LIBPATH:Chapter10/06_A_my_library/debug
 } else {
     LIBS += -L../06_A_my_library
+    LIBS += -L../06_A_my_library/release
+    LIBS += -L../06_A_my_library/debug
 }
 
 LIBS += -l06_A_my_library
