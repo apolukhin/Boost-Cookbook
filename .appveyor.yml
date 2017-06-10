@@ -24,7 +24,8 @@ branches:
   except:
     - gh-pages
 
-matrix:
+environment:
+  matrix:
     - TOOLSET_PATH: C:\Qt\5.8\msvc2015_64\bin
       BOOST_FLAGS: toolset=msvc address-model=64
       BUILD_COMMAND: nmake /NOLOGO
