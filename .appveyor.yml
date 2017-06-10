@@ -65,7 +65,7 @@ before_test:
 test_script:
     # Building examples.
     - qmake "BOOST_PATH=%BOOST%" BoostBook.pro
-    - %BUILD_COMMAND%
+    - cmd %BUILD_COMMAND%
     - python ./test.py
 
 after_test:
