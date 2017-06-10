@@ -28,8 +28,6 @@ skip_tags: true
 
 before_build:
     - set PATH=%PATH%;C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin;C:\Qt\5.8\msvc2015_64\bin
-    - dir C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
-    - dir C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\i686-w64-mingw32
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
 
     # Cloning Boost libraries (fast nondeep cloning)
@@ -51,7 +49,7 @@ build_script:
     # Building Boost.
     - bootstrap.bat
     - b2.exe headers
-    - b2.exe -j4 toolset=msvc,gcc address-model=64 architecture=x86 link=static --with-program_options --with-filesystem --with-system --with-test --with-atomic --with-thread --with-date_time --with-chrono --with-regex --with-random --with-context --with-coroutine stage
+    - b2.exe -j4 toolset=msvc,gcc architecture=x86 link=static --with-program_options --with-filesystem --with-system --with-test --with-atomic --with-thread --with-date_time --with-chrono --with-regex --with-random --with-context --with-coroutine stage
     - cd %APPVEYOR_BUILD_FOLDER%
     # Building examples.
     - qmake "BOOST_PATH=%BOOST%" BoostBook.pro
