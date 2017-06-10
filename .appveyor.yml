@@ -38,8 +38,6 @@ skip_tags: true
 
 before_build:
     - set PATH=%PATH%;%TOOLSET_PATH%
-    - dir C:\Qt\5.8\mingw53_32
-    - dir C:\Qt\5.8\mingw53_32\bin
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
 
     # Cloning Boost libraries (fast nondeep cloning)
