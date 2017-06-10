@@ -27,7 +27,8 @@ branches:
 skip_tags: true
 
 before_build:
-    - set PATH=%PATH%;C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin;C:\Qt\5.8\msvc2015_64\bin
+    - set PATH=%PATH%;C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin;C:\MinGW\msys\1.0;C:\Qt\5.8\msvc2015_64\bin
+    - dir C:\MinGW\msys\1.0
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
 
     # Cloning Boost libraries (fast nondeep cloning)
@@ -57,14 +58,15 @@ after_build:
 before_test:
 test_script:
     # Building examples.
+    - qmake -unix "BOOST_PATH=%BOOST%" BoostBook.pro
+    - make
+    - python ./test.py
+    - make distclean
+
     - qmake "BOOST_PATH=%BOOST%" BoostBook.pro
     - nmake /NOLOGO
     - python ./test.py
     - nmake distclean
-
-    - qmake -unix "BOOST_PATH=%BOOST%" BoostBook.pro
-    - mingw32-make
-    - python ./test.py
 
 after_test:
 on_success:
