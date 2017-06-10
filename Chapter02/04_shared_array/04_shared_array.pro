@@ -3,4 +3,4 @@ if (!include(../../config.txt)) {
 }
 
 SOURCES += main.cpp
-!msvc:LIBS += -lboost_thread -lboost_system
+!msvc:LIBS += -lboost_thread -lboost_system -lboost_chrono
