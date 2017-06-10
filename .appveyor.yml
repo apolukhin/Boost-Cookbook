@@ -17,18 +17,25 @@ init:
 # From this point and below code is same for all the Boost libs
 ###############################################################################################################
 
-version: 1.64.{build}-{branch}
+version: 1.65.{build}-{branch}
  
 # branches to build
 branches:
   except:
     - gh-pages
 
+matrix:
+    - TOOLSET_PATH: C:\Qt\5.8\msvc2015_64\bin
+      BOOST_FLAGS: toolset=msvc address-model=64
+      BUILD_COMMAND: nmake /NOLOGO
+    - TOOLSET_PATH: C:\Qt\5.8\mingw53_32\bin
+      BOOST_FLAGS: toolset=gcc
+      BUILD_COMMAND: mingw32-make
+
 skip_tags: true
 
 before_build:
-    - set PATH=%PATH%;C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin;C:\MinGW\msys\1.0;C:\Qt\5.8\msvc2015_64\bin
-    - dir C:\MinGW\msys\1.0
+    - set PATH=%PATH%;%TOOLSET_PATH%
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
 
     # Cloning Boost libraries (fast nondeep cloning)
@@ -50,8 +57,7 @@ build_script:
     # Building Boost.
     - bootstrap.bat
     - b2.exe headers
-    - b2.exe -j4 toolset=msvc address-model=64 architecture=x86 link=static --with-program_options --with-filesystem --with-system --with-test --with-atomic --with-thread --with-date_time --with-chrono --with-regex --with-random --with-context --with-coroutine stage
-    - b2.exe -j4 toolset=gcc architecture=x86 link=static --with-program_options --with-filesystem --with-system --with-test --with-atomic --with-thread --with-date_time --with-chrono --with-regex --with-random --with-context --with-coroutine stage
+    - b2.exe -j4 %BOOST_FLAGS% architecture=x86 link=static --with-program_options --with-filesystem --with-system --with-test --with-atomic --with-thread --with-date_time --with-chrono --with-regex --with-random --with-context --with-coroutine stage
     - cd %APPVEYOR_BUILD_FOLDER%
 
 after_build:
@@ -59,14 +65,8 @@ before_test:
 test_script:
     # Building examples.
     - qmake "BOOST_PATH=%BOOST%" BoostBook.pro
-    - mingw32-make
+    - %BUILD_COMMAND%
     - python ./test.py
-    - make distclean
-
-    - qmake "BOOST_PATH=%BOOST%" BoostBook.pro
-    - nmake /NOLOGO
-    - python ./test.py
-    - nmake distclean
 
 after_test:
 on_success:
