@@ -23,7 +23,7 @@ var editor = (function() {
 				"source":   ['Chapter01/06_array/main.cpp'],
 			}, {
 				"title":	"Combining multiple values into one",
-				"source":   ['Chapter01/07_tuple/main.cpp'],
+				"source":   ['Chapter01/07_A_tuple/main.cpp', 'Chapter01/07_B_tuple_construction_order/main.cpp'],
 			}, {
 				"title":	"Reordering the parameters of function",
 				"source":   ['Chapter01/08_bind/main.cpp'],
@@ -32,13 +32,16 @@ var editor = (function() {
 				"source":   ['Chapter01/09_type_index/main.cpp'],
 			}, {
 				"title":	"Using the C++11 move emulation",
-				"source":   ['Chapter01/10_move/main.cpp'],
+				"source":   ['Chapter01/10_A_move/main.cpp'],
 			}, {
 				"title":	"Making a noncopyable class",
 				"source":   ['Chapter01/11_noncopyable/main.cpp'],
 			}, {
 				"title":	"Making a noncopyable but movable class",
-				"source":   ['Chapter01/12_noncopyable_movable/main.cpp'],
+				"source":   ['Chapter01/12_A_noncopyable_movable/main.cpp'],
+			}, {
+				"title":	"Using C++14 and C++11 algorithms",
+				"source":   ['Chapter01/13_algorithm/main.cpp'],
 			},
 		],
 
@@ -60,7 +63,7 @@ var editor = (function() {
 				"compile":  "-lboost_thread -lboost_system",
 			}, {
 				"title":	"Storing any functional objects in a variable",
-				"source":   ['Chapter02/05_function_fobject/main.cpp', 'Chapter02/function_fpointer/main.cpp'],
+				"source":   ['Chapter02/05_function_fobject/main.cpp'],
 			}, {
 				"title":	"Passing a function pointer in a variable",
 				"source":   ['Chapter02/06_function_fpointer/main.cpp'],
@@ -96,14 +99,17 @@ var editor = (function() {
 				"title":	"Converting user-defined types to/from strings",
 				"source":   ['Chapter03/04_lexical_user_defined/main.cpp'],
 			}, {
+				"title":	"Converting smart pointers",
+				"source":   ['Chapter03/05_pointer_cast/main.cpp'],
+			}, {
 				"title":	"Casting polymorphic objects",
-				"source":   ['Chapter03/05_polymorphic_cast/main.cpp'],
+				"source":   ['Chapter03/06_polymorphic_cast/main.cpp'],
 			}, {
 				"title":	"Parsing simple input",
-				"source":   ['Chapter03/06_spirit/main.cpp'],
+				"source":   ['Chapter03/07_spirit/main.cpp'],
 			}, {
 				"title":	"Parsing input",
-				"source":   ['Chapter03/07_spirit_rules/main.cpp'],
+				"source":   ['Chapter03/08_spirit_rules/main.cpp'],
 				"issues":   "compile",
 			},
 		],
@@ -111,63 +117,70 @@ var editor = (function() {
 		"Chapter04": [
 			{
 				"title":	"Checking sizes at compile time",
-				"source":   ['Chapter04/static_assert/main.cpp'],
+				"source":   ['Chapter04/01_static_assert/main.cpp'],
 			}, {
 				"title":	"Enabling the usage of templated functions for integral types",
-				"source":   ['Chapter04/enable_if_c/main.cpp'],
+				"source":   ['Chapter04/02_enable_if_c/main.cpp'],
 			}, {
 				"title":	"Disabling templated functions' usage for real types",
-				"source":   ['Chapter04/disable_if_c/main.cpp'],
+				"source":   ['Chapter04/03_disable_if_c/main.cpp'],
 			}, {
 				"title":	"Creating a type from number",
-				"source":   ['Chapter04/mpl_int_/main.cpp'],
+				"source":   ['Chapter04/04_mpl_int_/main.cpp'],
 			}, {
 				"title":	"Implementing a type trait",
-				"source":   ['Chapter04/is_stdvector/main.cpp'],
+				"source":   ['Chapter04/05_is_stdvector/main.cpp'],
 			}, {
 				"title":	"Selecting an optimal operator for a template parameter",
-				"source":   ['Chapter04/conditional/main.cpp'],
+				"source":   ['Chapter04/06_conditional/main.cpp'],
 			}, {
 				"title":	"Getting a type of expression in C++03",
-				"source":   ['Chapter04/typeof/main.cpp'],
+				"source":   ['Chapter04/07_typeof/main.cpp'],
 			},
 		],
-
 
 
 		"Chapter05": [
 			{
 				"title":	"Creating an execution thread",
-				"source":   ['Chapter05/thread/main.cpp'],
+				"source":   ['Chapter05/01_thread/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 				"issues":   "runtime",
 			}, {
 				"title":	"Syncing access to a common resource",
-				"source":   ['Chapter05/mutex/main.cpp'],
+				"source":   ['Chapter05/02_mutex/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 			}, {
 				"title":	"Fast access to common resource using atomics",
-				"source":   ['Chapter05/atomics/main.cpp'],
+				"source":   ['Chapter05/03_atomics/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 			}, {
 				"title":	"Creating a work_queue class",
-				"source":   ['Chapter05/work_queue/main.cpp'],
+				"source":   ['Chapter05/04_work_queue/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 			}, {
 				"title":	"Multiple-readers-single-writer lock",
-				"source":   ['Chapter05/shared_lock/main.cpp'],
+				"source":   ['Chapter05/05_shared_lock/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 			}, {
 				"title":	"Creating variables that are unique per thread",
-				"source":   ['Chapter05/thread_specific_ptr/main.cpp'],
+				"source":   ['Chapter05/06_thread_specific_ptr/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 			}, {
 				"title":	"Interrupting a thread",
-				"source":   ['Chapter05/interruptions/main.cpp'],
+				"source":   ['Chapter05/07_interruptions/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 			}, {
 				"title":	"Manipulating a group of threads",
-				"source":   ['Chapter05/thread_group/main.cpp'],
+				"source":   ['Chapter05/08_thread_group/main.cpp'],
+				"compile":  "-lboost_thread -lboost_system",
+			}, {
+				"title":	"Initializing a shared variable safely",
+				"source":   ['Chapter05/09_once/main.cpp'],
+				"compile":  "-lboost_thread -lboost_system",
+			}, {
+				"title":	"Locking multiple mutexes",
+				"source":   ['Chapter05/10_locks/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 			},
 		],
@@ -176,46 +189,46 @@ var editor = (function() {
 		"Chapter06": [
 			{
 				"title":	"Registering a task for processing an arbitrary datatype",
-				"source":   ['Chapter06/tasks_processor_base/main.cpp', 'Chapter06/tasks_processor_base/tasks_processor_base.hpp'],
+				"source":   ['Chapter06/flat/01_tasks_processor_base/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 				"issues":   "compile",
 			}, {
 				"title":	"Making timers and processing timer events as tasks",
-				"source":   ['Chapter06/tasks_processor_timers/main.cpp', 'Chapter06/tasks_processor_timers/tasks_processor_timers.hpp'],
+				"source":   ['Chapter06/flat/02_tasks_processor_timers/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 				"issues":   "compile",
 			}, {
 				"title":	"Network communication as a task",
-				"source":   ['Chapter06/tasks_processor_network/main.cpp', 'Chapter06/tasks_processor_network/tasks_processor_network.hpp'],
+				"source":   ['Chapter06/flat/04_tasks_processor_network_accept/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 				"issues":   "compile",
 			}, {
 				"title":	"Accepting incoming connections",
-				"source":   ['Chapter06/tasks_processor_network/main.cpp', 'Chapter06/tasks_processor_network/tasks_processor_network.hpp'],
+				"source":   ['Chapter06/flat/04_tasks_processor_network_accept/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 				"issues":   "compile",
 			}, {
 				"title":	"Executing different tasks in parallel",
-				"source":   ['Chapter06/tasks_processor_multithread/main.cpp', 'Chapter06/tasks_processor_multithread/tasks_processor_multithread.hpp'],
+				"source":   ['Chapter06/flat/05_tasks_processor_multithread/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 				"issues":   "compile",
 			}, {
-				"title":	"Conveyor tasks processing",
-				"source":   ['Chapter06/conveyor/main.cpp'],
+				"title":	"Pipeline tasks processing",
+				"source":   ['Chapter06/06_conveyor/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 			}, {
 				"title":	"Making a nonblocking barrier",
-				"source":   ['Chapter06/nonblocking_barrier/main.cpp'],
+				"source":   ['Chapter06/flat/07_nonblocking_barrier/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 				"issues":   "compile",
 			}, {
 				"title":	"Storing an exception and making a task from it",
-				"source":   ['Chapter06/exception_ptr/main.cpp'],
+				"source":   ['Chapter06/flat/08_exception_ptr/main.cpp'],
 				"compile":  "-lboost_thread -lboost_system",
 				"issues":   "compile",
 			}, {
 				"title":	"Getting and processing system signals as tasks",
-				"source":   ['Chapter06/tasks_processor_signals/main.cpp', 'Chapter06/tasks_processor_signals/tasks_processor_signals.hpp'],
+				"source":   ['Chapter06/flat/09_tasks_processor_signals/main.cpp', 'Chapter06/tasks_processor_signals/tasks_processor_signals.hpp'],
 				"compile":  "-lboost_thread -lboost_system",
 				"issues":   "compile",
 			}, 
@@ -225,29 +238,29 @@ var editor = (function() {
 		"Chapter07": [
 			{
 				"title":	"Changing cases and case-insensitive comparison",
-				"source":   ['Chapter07/case_conv/main.cpp'],
+				"source":   ['Chapter07/01_case_conv/main.cpp'],
 			}, {
 				"title":	"Matching strings using regular expressions",
-				"source":   ['Chapter07/regex_match/main.cpp'],
+				"source":   ['Chapter07/02_regex_match/main.cpp'],
 				"compile":  "-lboost_regex",
 				"issues":   "runtime",
 			}, {
 				"title":	"Searching and replacing strings using regular expressions",
-				"source":   ['Chapter07/regex_replace/main.cpp'],
+				"source":   ['Chapter07/03_regex_replace/main.cpp'],
 				"compile":  "-lboost_regex",
 				"issues":   "runtime",
 			}, {
 				"title":	"Formatting strings using safe printf-like functions",
-				"source":   ['Chapter07/format/main.cpp'],
+				"source":   ['Chapter07/04_format/main.cpp'],
 			}, {
 				"title":	"Replacing and erasing strings",
-				"source":   ['Chapter07/string_algo/main.cpp'],
+				"source":   ['Chapter07/05_string_algo/main.cpp'],
 			}, {
 				"title":	"Representing a string with two iterators",
-				"source":   ['Chapter07/iterator_range/main.cpp'],
+				"source":   ['Chapter07/06_iterator_range/main.cpp'],
 			}, {
 				"title":	"Using a reference to string type",
-				"source":   ['Chapter07/string_ref/main.cpp'],
+				"source":   ['Chapter07/07_string_view/main.cpp'],
 			},
 		],
 
@@ -255,26 +268,29 @@ var editor = (function() {
 		"Chapter08": [
 			{
 				"title":	'Using type "vector of types"',
-				"source":   ['Chapter08/vector_of_types/main.cpp'],
+				"source":   ['Chapter08/01_vector_of_types/main.cpp'],
 			}, {
 				"title":	'Manipulating a vector of types',
-				"source":   ['Chapter08/manipulating_vector_of_types/main.cpp'],
+				"source":   ['Chapter08/02_manipulating_vector_of_types/main.cpp'],
 			}, {
 				"title":	"Getting a function's result type at compile time",
-				"source":   ['Chapter08/result_of_c++11/main.cpp'],
+				"source":   ['Chapter08/03_result_of_c++11/main.cpp'],
 				"compile":  "-std=c++11",
 			}, {
 				"title":	"Making a higher-order metafunction",
-				"source":   ['Chapter08/higher_order_metafunctions/main.cpp'],
+				"source":   ['Chapter08/04_higher_order_metafunctions/main.cpp'],
 			}, {
 				"title":	"Evaluating metafunctions lazily",
-				"source":   ['Chapter08/lazy/main.cpp'],
+				"source":   ['Chapter08/05_lazy/main.cpp'],
 			}, {
 				"title":	"Converting all the tuple elements to strings",
-				"source":   ['Chapter08/tuple_to_string/main.cpp'],
+				"source":   ['Chapter08/06_tuple_to_string/main.cpp'],
 			}, {
 				"title":	"Splitting tuples",
-				"source":   ['Chapter08/splitting_tuple/main.cpp'],
+				"source":   ['Chapter08/07_splitting_tuple/main.cpp'],
+			}, {
+				"title":	"Manipulating heterogeneous containers in C++14",
+				"source":   ['Chapter08/081_splitting_tuple_hana/main.cpp'],
 			},
 		],
 
