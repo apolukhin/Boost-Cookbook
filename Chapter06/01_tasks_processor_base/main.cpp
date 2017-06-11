@@ -51,5 +51,5 @@ int main () {
     // one of the tasks it is owning
     // calls tasks_processor::stop().
     tasks_processor::start();
-    assert(func_test() == 91);
+    assert(func_test() >= 91);
 }
