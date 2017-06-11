@@ -59,6 +59,7 @@ void process_transaction_3() {
 int main() {
     process_transaction_1();
     process_transaction_2();
+    process_transaction_3();
 }
 
 

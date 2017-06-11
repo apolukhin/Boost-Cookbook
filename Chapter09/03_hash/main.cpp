@@ -95,8 +95,7 @@ int main(int argc, char* argv[]) {
                   << test_default<std::string>();
         break;
     default:
-        assert(false);
-        return -2;
+        return 2;
     }
 
     std::cout << '\n';
