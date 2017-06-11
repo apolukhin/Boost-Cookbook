@@ -2,7 +2,7 @@
 
 #include <png.h>
 
-// MinGW workarounds:
+// MinGW workarounds for https://svn.boost.org/trac10/ticket/3908 :
 #ifndef png_infopp_NULL
 #   define png_infopp_NULL NULL
 #endif
