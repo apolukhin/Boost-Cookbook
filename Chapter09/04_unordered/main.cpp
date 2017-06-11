@@ -91,7 +91,7 @@ int main(int argc, char* argv[]) {
     switch (argv[1][0]) {
     case 'h': std::cout << "HASH matched: " << test_default< boost::unordered_map<std::string, std::size_t> >();  break;
     case 's': std::cout << "STD matched: " << test_default<std::map<std::string, std::size_t> >();  break;
-    default: assert(false); return -2;
+    default: return 2;
     }
 
     std::cout << '\n';
