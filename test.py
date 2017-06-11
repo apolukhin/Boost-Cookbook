@@ -291,17 +291,18 @@ class tester:
         special_cases = {
             "Chapter01/01_A_program_options_base": tester._test_program_options_base,
             "Chapter01/01_B_program_options_short": tester._test_program_options_short,
-            "Chapter01/05_optional": tester._test_but_ignore_output_diff,               # Different rand() implementations
-            "Chapter01/09_type_index": tester._test_but_ignore_output_diff,             # Different demangled representation of a type
-            "Chapter01/12_A_noncopyable_movable": tester._test_but_ignore_output_diff,  # Different C++11 support
-            "Chapter05/02_mutex": tester._test_but_ignore_output_diff,                  # Intentionally has data race
-            "Chapter06/08_exception_ptr": tester._test_but_ignore_output_diff,          # Different demangled exception name
+            "Chapter01/05_optional": tester._test_but_ignore_output_diff,                       # Different rand() implementations
+            "Chapter01/09_type_index": tester._test_but_ignore_output_diff,                     # Different demangled representation of a type
+            "Chapter01/12_A_noncopyable_movable": tester._test_but_ignore_output_diff,          # Different C++11 support
+            "Chapter05/02_mutex": tester._test_but_ignore_output_diff,                          # Intentionally has data race
+            "Chapter06/08_exception_ptr": tester._test_but_ignore_output_diff,                  # Different demangled exception name
             "Chapter06/09_tasks_processor_signals": tester._test_tasks_processor_signals,
             "Chapter07/02_regex_match": tester._test_regex_match,
             "Chapter07/03_regex_replace": tester._test_regex_replace,
             'Chapter08/01_vector_of_types': tester._test_but_ignore_output_diff,                # Different manglings
             'Chapter08/02_manipulating_vector_of_types': tester._test_but_ignore_output_diff,   # Different manglings
-            "Chapter10/03_no_rtti": tester._test_but_ignore_output_diff,                # Different demangled representation of a type
+            'Chapter09/04_unordered': tester._test_but_ignore_output_diff,                      # Hashing is platform dependent
+            "Chapter10/03_no_rtti": tester._test_but_ignore_output_diff,                        # Different demangled representation of a type
             "Chapter10/06_B_export_import": tester._test_export_import,
             "Chapter11/01_listing_files": tester._test_but_ignore_output_diff,
             "Chapter11/09_coroutines": tester._test_but_ignore_output_diff, # Sanitizers do not like coroutines and add some warnings
