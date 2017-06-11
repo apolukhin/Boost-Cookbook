@@ -37,7 +37,7 @@ void output_example() {
 template <class T>
 std::size_t test_default() {
     // Constants
-    const std::size_t ii_max = 20000000;
+    const std::size_t ii_max = 200000;
     const std::string s("Test string");
     
     T map;
