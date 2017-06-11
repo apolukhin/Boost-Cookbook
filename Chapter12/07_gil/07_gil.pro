@@ -14,6 +14,6 @@ msvc {
     LIBS += -llibpng16
 } else {
     unix:LIBS += -lpng
-    win32:LIBS += -lpng16
+    win32:LIBS += -llibpng16
     QMAKE_LFLAGS += -L$$BOOST_PATH/libpng/build/native/lib/x64/v140/dynamic/Release/
 }
