@@ -2,6 +2,7 @@
 #define BOOK_CHAPTER6_TASK_PROCESSOR_BASE_HPP
 
 #include <boost/thread/thread.hpp>
+#include <iostream>
 
 namespace detail {
 

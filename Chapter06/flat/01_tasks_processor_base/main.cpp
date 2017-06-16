@@ -1,6 +1,7 @@
 // Amost all the code for this example is in this header
 
 #include <boost/thread/thread.hpp>
+#include <iostream>
 
 namespace detail {
 

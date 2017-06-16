@@ -5,6 +5,7 @@
 
 
 #include <boost/thread/thread.hpp>
+#include <iostream>
 
 namespace detail {
 
