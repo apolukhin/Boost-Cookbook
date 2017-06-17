@@ -66,3 +66,10 @@ Done:
 * add *_pointer_cast examples?
 * describe in depth changes from 135a24926a1d084e76f8f527deeee6236274e496
 
+For year 2021+ :
+* Remove description of all the Boost libraries that were added into C++11
+* More recipes for unordered containers
+* Move string_view into the first chapter
+
+
+

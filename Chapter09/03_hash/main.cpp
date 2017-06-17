@@ -11,7 +11,7 @@ std::size_t test_default() {
     );
     
     // Making some data, that will be 
-    // used in comparisons
+    // used in comparisons.
     const T data1[] = {
         T(s),
         T(s + s),
@@ -69,12 +69,14 @@ inline bool operator != (const string_hash_fast& s1, const string_hash_fast& s2)
     return !(s1 == s2);
 }
 
-// Shall be in namespace of string_hash_fast class
+// Must be in the namespace of string_hash_fast class.
 inline std::size_t hash_value(const string_hash_fast& v) {
     return v.comparison_;
 }
 
 #include <iostream>
+#include <cassert>
+
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         assert(
@@ -90,10 +92,12 @@ int main(int argc, char* argv[]) {
         std::cout << "HASH matched: "
                   << test_default<string_hash_fast>();
         break;
+
     case 's':
         std::cout << "STD matched: "
                   << test_default<std::string>();
         break;
+
     default:
         return 2;
     }

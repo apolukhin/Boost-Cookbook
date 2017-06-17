@@ -1,12 +1,13 @@
 #include <boost/unordered_map.hpp>
 
-#include <string>
 #include <map>
 #include <iostream>
-#include <assert.h>
 #include <boost/lexical_cast.hpp>
 
 #include <boost/unordered_set.hpp>
+#include <string>
+#include <assert.h>
+
 void example() {
     boost::unordered_set<std::string> strings;
 
@@ -23,8 +24,10 @@ template <class T>
 void output_example() {
     T strings;
     
-    strings.insert("CZ"); strings.insert("CD");
-    strings.insert("A"); strings.insert("B");
+    strings.insert("CZ");
+    strings.insert("CD");
+    strings.insert("A");
+    strings.insert("B");
 
     std::copy(
         strings.begin(),
@@ -33,11 +36,12 @@ void output_example() {
     );
 }
 
+#include <boost/timer/timer.hpp>
 
 template <class T>
-std::size_t test_default() {
-    // Constants
-    const std::size_t ii_max = 200000;
+double test_default(const std::size_t ii_max) {
+    boost::timer::cpu_timer timer;
+
     const std::string s("Test string");
     
     T map;
@@ -46,12 +50,12 @@ std::size_t test_default() {
         map[s + boost::lexical_cast<std::string>(ii)] = ii;
     }
 
-    // Inserting once more
+    // Asserting.
     for (std::size_t ii = 0; ii < ii_max; ++ii) {
-        map[s + boost::lexical_cast<std::string>(ii)] = ii;
+        assert(map[s + boost::lexical_cast<std::string>(ii)] == ii);
     }
 
-    return map.size();
+    return timer.elapsed().wall;
 }
 
 struct my_type {
@@ -72,28 +76,35 @@ std::size_t hash_value(const my_type& v) {
     return ret;
 }
 
+#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP
+#   include <unordered_map>
+#endif
 
-int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        example();
+#include <boost/container/map.hpp>
+int main() {
+    example();
 
-        std::cout << "boost::unordered_set<std::string> : ";
-        output_example<boost::unordered_set<std::string> >();
-        std::cout << "\nstd::set<std::string> : ";
-        output_example<std::set<std::string> >();
-        std::cout << '\n';
-
-        boost::unordered_set<my_type> mt;
-        mt.insert(my_type());
-        return 0;
-    }
-
-    switch (argv[1][0]) {
-    case 'h': std::cout << "HASH matched: " << test_default< boost::unordered_map<std::string, std::size_t> >();  break;
-    case 's': std::cout << "STD matched: " << test_default<std::map<std::string, std::size_t> >();  break;
-    default: return 2;
-    }
-
+    std::cout << "boost::unordered_set<std::string> : ";
+    output_example<boost::unordered_set<std::string> >();
+    std::cout << "\nstd::set<std::string> : ";
+    output_example<std::set<std::string> >();
     std::cout << '\n';
+
+    boost::unordered_set<my_type> mt;
+    mt.insert(my_type());
+
+    for (unsigned i = 100; i < 1000000; i *= 10) {
+        std::cout << "For " << i << " elements:\n";
+    
+        const double boost_map = test_default< boost::container::map<std::string, std::size_t> >(i);
+        const double boost_unordered = test_default< boost::unordered_map<std::string, std::size_t> >(i);
+        std::cout << "Boost: map is " << boost_map / boost_unordered << " slower than unordered map\n";
+
+#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP        
+        const double std_map = test_default<std::map<std::string, std::size_t> >(i);
+        const double std_unordered = test_default<std::unordered_map<std::string, std::size_t> >(i);
+        std::cout << "Std: map is " << std_map / std_unordered << " slower than unordered map\n\n";
+#endif
+    }
 }
 
