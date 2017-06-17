@@ -23,7 +23,7 @@ int main () {
 
 boost::container::static_vector<event, 5> get_events() {
     boost::container::static_vector<event, 5> ev;
-    for (unsigned i; i < 5; ++i) {
+    for (unsigned i = 0; i < 5; ++i) {
         ev.emplace_back();
     }
     return ev;
