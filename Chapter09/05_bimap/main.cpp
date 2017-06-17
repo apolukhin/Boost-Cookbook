@@ -33,20 +33,24 @@ int main() {
 
 
     std::cout << "Left:\n";
-    typedef name_id_type::left_const_iterator  left_const_iterator;
-    for (left_const_iterator it = name_id.left.begin(),
-         iend = name_id.left.end();
-         it!= iend;
+ 
+    typedef name_id_type::left_const_iterator left_const_iterator;
+    const left_const_iterator lend = name_id.left.end();
+
+    for (left_const_iterator it = name_id.left.begin();
+         it!= lend;
          ++it)
     {
         std::cout << it->first << " <=> " << it->second << '\n';
     }
 
     std::cout << "\nRight:\n";
+
     typedef name_id_type::right_const_iterator right_const_iterator;
-    for (right_const_iterator it = name_id.right.begin(),
-         iend = name_id.right.end();
-         it!= iend;
+    const right_const_iterator rend = name_id.right.end();
+
+    for (right_const_iterator it = name_id.right.begin();
+         it!= rend;
          ++it)
     {
         std::cout << it->first << " <=> " << it->second << '\n';
@@ -89,6 +93,6 @@ typedef boost::bimap<
 void example2() {
     hash_name_id_type name_id;
 
-
+    
 
 }

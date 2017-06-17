@@ -30,6 +30,7 @@ inline bool operator < (const person& p1, const person& p2) {
 template <std::size_t IndexNo, class Indexes>
 void print(const Indexes& persons) {
     std::cout << IndexNo << ":\n";
+
     typedef typename Indexes::template nth_index<
             IndexNo
     >::type::const_iterator const_iterator_t;
@@ -60,7 +61,7 @@ void example_main() {
                 boost::multi_index::identity<person>
             >,
 
-            // IDs are not unique, but we do not need then ordered
+            // IDs are not unique, but we do not need them ordered
             boost::multi_index::hashed_non_unique<
                 boost::multi_index::member<
                     person, std::size_t, &person::id_
@@ -85,11 +86,11 @@ void example_main() {
 
     indexes_t persons;
     
-    // Inserting values
+    // Inserting values:
     persons.insert(person(1, "John Snow", 185, 80));
     persons.insert(person(2, "Vasya Pupkin", 165, 60));
     persons.insert(person(3, "Antony Polukhin", 183, 70));
-    // Same person as "Antony Polukhin"
+    // Same person as "Antony Polukhin".
     persons.insert(person(3, "Anton Polukhin", 182, 70));
 
     print<0>(persons);
@@ -105,7 +106,7 @@ void example_main() {
         )) != persons.end()
     );
 
-    // Won' compile
+    // Won't compile:
     //assert(persons.get<0>().find("John Snow")->id_ == 1);
 
     typedef indexes_t::nth_index<0>::type::const_iterator const_iterator_t;
