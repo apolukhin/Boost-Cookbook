@@ -36,7 +36,15 @@ void output_example() {
     );
 }
 
+// Boost.Timer has linkage issues on MSVC.
+#ifndef BOOST_MSVC
+
 #include <boost/timer/timer.hpp>
+
+#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP
+#   include <unordered_map>
+#endif
+#include <boost/container/map.hpp>
 
 template <class T>
 double test_default(const std::size_t ii_max) {
@@ -58,6 +66,29 @@ double test_default(const std::size_t ii_max) {
     return timer.elapsed().wall;
 }
 
+
+void measure_performance() {
+    for (unsigned i = 10; i < 1000000; i *= 10) {
+        std::cout << "For " << i << " elements:\n";
+
+        const double boost_map = test_default< boost::container::map<std::string, std::size_t> >(i);
+        const double boost_unordered = test_default< boost::unordered_map<std::string, std::size_t> >(i);
+        std::cout << "Boost: map is " << boost_map / boost_unordered << " slower than unordered map\n";
+
+#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP
+        const double std_map = test_default<std::map<std::string, std::size_t> >(i);
+        const double std_unordered = test_default<std::unordered_map<std::string, std::size_t> >(i);
+        std::cout << "Std: map is " << std_map / std_unordered << " slower than unordered map\n\n";
+#endif
+    }
+}
+
+#else // #ifndef BOOST_MSVC
+
+void measure_performance() {}
+
+#endif
+
 struct my_type {
     int         val1_;
     std::string val2_;
@@ -76,11 +107,7 @@ std::size_t hash_value(const my_type& v) {
     return ret;
 }
 
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP
-#   include <unordered_map>
-#endif
 
-#include <boost/container/map.hpp>
 int main() {
     example();
 
@@ -89,22 +116,10 @@ int main() {
     std::cout << "\nstd::set<std::string> : ";
     output_example<std::set<std::string> >();
     std::cout << '\n';
-
+    
     boost::unordered_set<my_type> mt;
     mt.insert(my_type());
 
-    for (unsigned i = 100; i < 1000000; i *= 10) {
-        std::cout << "For " << i << " elements:\n";
-    
-        const double boost_map = test_default< boost::container::map<std::string, std::size_t> >(i);
-        const double boost_unordered = test_default< boost::unordered_map<std::string, std::size_t> >(i);
-        std::cout << "Boost: map is " << boost_map / boost_unordered << " slower than unordered map\n";
-
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP        
-        const double std_map = test_default<std::map<std::string, std::size_t> >(i);
-        const double std_unordered = test_default<std::unordered_map<std::string, std::size_t> >(i);
-        std::cout << "Std: map is " << std_map / std_unordered << " slower than unordered map\n\n";
-#endif
-    }
+    measure_performance();
 }
 

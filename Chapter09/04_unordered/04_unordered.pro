@@ -3,8 +3,4 @@ if (!include(../../config.txt)) {
 }
 
 SOURCES += main.cpp
-msvc {
-    LIBS += -llibboost_timer
-} else {
-    LIBS += -lboost_timer -lboost_chrono -lboost_system
-}
+!msvc:LIBS += -lboost_timer -lboost_chrono -lboost_system
