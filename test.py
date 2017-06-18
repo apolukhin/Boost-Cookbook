@@ -60,8 +60,8 @@ class tester:
         'Chapter08/01_vector_of_types': ('N5boost3mpl6v_itemIN4mpl_6size_tILm32EEENS1_INS3_ILm1EEENS1_INS3_ILm4096EEENS1_INS3_ILm8EEENS1_INS3_ILm4EEENS0_7vector0INS2_2naEEELi0EEELi0EEELi0EEELi0EEELi0EEE', '', 0),
         'Chapter08/02_manipulating_vector_of_types': ('N4mpl_5long_ILl4EEE\n', '', 0),
         'Chapter08/06_tuple_to_string': ('Meow! 0_0\nMeow! 0_0\nMeow! Meow! \nMeow! Meow! Meow! Meow! Meow! Meow! Meow! Meow! Meow! Meow! \n', '', 0),
-        'Chapter09/03_hash_h': ('HASH matched: 800000000\n', '', 0),
-        'Chapter09/03_hash_s': ('STD matched: 800000000\n', '', 0),
+        'Chapter09/03_hash_h': ('HASH matched: 800000\n', '', 0),
+        'Chapter09/03_hash_s': ('STD matched: 800000\n', '', 0),
         'Chapter09/03_hash_x': ('', '', 2),
         'Chapter09/05_bimap': ('Left:\nAnton Polukhin <=> 3\nAntony Polukhin <=> 3\nJohn Snow <=> 1\nVasya Pupkin <=> 2\n\nRight:\n1 <=> John Snow\n2 <=> Vasya Pupkin\n3 <=> Antony Polukhin\n3 <=> Anton Polukhin\n', '', 0),
         'Chapter09/06_multiindex': ('0:\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\nJohn Snow, 1, 185, 80\nVasya Pupkin, 2, 165, 60\n\n1:\nJohn Snow, 1, 185, 80\nVasya Pupkin, 2, 165, 60\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\n\n2:\nVasya Pupkin, 2, 165, 60\nAnton Polukhin, 3, 182, 70\nAntony Polukhin, 3, 183, 70\nJohn Snow, 1, 185, 80\n\n3:\nVasya Pupkin, 2, 165, 60\nAntony Polukhin, 3, 183, 70\nAnton Polukhin, 3, 182, 70\nJohn Snow, 1, 185, 80\n\n', '', 0),
@@ -295,8 +295,14 @@ class tester:
             print 'No output in "{}" test\n'.format(test_name)
             tester.was_error = True
 
-        tester.outputs[test_name] = ('', '', proc.returncode)
-        tester._test_validate(test_name)
+        tester.outputs[test_name] = (out1, out2, proc.returncode)
+        if tester.canonize_output:
+            return
+
+        if proc.returncode != 0:
+            print 'Return code in "{}" test is {}, {} expected. Info:'.format(test_name, tester.outputs[test_name][2], tester.expected[test_name][2])
+            tester._print_test_output(test_name)
+            tester.was_error = True
 
 
     @staticmethod
@@ -365,7 +371,7 @@ class tester:
 
     ''' ****************************************** Public functions *********************************************** '''
     @staticmethod
-    def run_tests(root_directory='.'):
+    def run_tests(root_directory='.', verbose=False):
         executables = []
         for folder, _, files in os.walk(root_directory):
             for f in files:
@@ -384,8 +390,10 @@ class tester:
             tester._print_outputs_short()
             sys.exit(-3)
 
-        if tester.was_error:
+        if verbose or tester.was_error:
             tester._print_outputs()
+
+        if tester.was_error:
             print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FAILURE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
             sys.exit(-1)
 
@@ -397,6 +405,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('--dir',  default='.', help='Directory (chapter) to run tests for')
     parser.add_argument('--build', '-b', action='store_true', help='Build the recipes for Linux platform')
+    parser.add_argument('--verbose', '-v', action='store_true', help='Output all the results')
     args = parser.parse_args()
 
     if args.build:
@@ -406,7 +415,7 @@ if __name__ == "__main__":
         subprocess.check_call(['make', '-j4'])
         os.chdir(old_path)
 
-    tester.run_tests(args.dir)
+    tester.run_tests(args.dir, args.verbose)
 
     if args.build:
         old_path = os.getcwd()

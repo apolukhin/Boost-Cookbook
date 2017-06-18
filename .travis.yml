@@ -87,11 +87,11 @@ before_install:
     - cd $PROJECT_DIR
 
 script:
-    - qmake "QMAKE_CXX=$CXXTOOLSET" "QMAKE_LINK=$CXXTOOLSET" "QMAKE_CXXFLAGS+=$CXX_FLAGS" "QMAKE_LFLAGS+=$LINK_FLAGS" "LIBS+=$QLIBS" "BOOST_PATH=$BOOST" BoostBook.pro
+    - qmake "QMAKE_CXX=$CXXTOOLSET" "QMAKE_LINK=$CXXTOOLSET" "QMAKE_CXXFLAGS+=$CXX_FLAGS" "QMAKE_LFLAGS+=$LINK_FLAGS" "LIBS+=$QLIBS" "BOOST_PATH=$BOOST" "CONFIG+=debug" BoostBook.pro
     - make -j4
 
     # Executing examples
-    - python ./test.py
+    - python ./test.py -v
 
 after_success:
     - mkdir -p $TRAVIS_BUILD_DIR/coverals

@@ -3,7 +3,7 @@
 template <class T>
 std::size_t test_default() {
     // Constants
-    const std::size_t ii_max = 200000000;
+    const std::size_t ii_max = 200000;
     const std::string s(
         "Long long long string that "
         "will be used in tests to compare "
