@@ -1,4 +1,5 @@
 #include <boost/container/flat_set.hpp>
+#include <algorithm>
 #include <cassert>
 
 void test_flat() {
