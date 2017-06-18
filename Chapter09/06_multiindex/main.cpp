@@ -8,7 +8,8 @@ struct person {
     unsigned int    height_;
     unsigned int    weight_;
 
-    person(std::size_t id, const std::string& name, unsigned int height, unsigned int weight)
+    person(std::size_t id, const std::string& name,
+                unsigned int height, unsigned int weight)
         : id_(id)
         , name_(name)
         , height_(height)
