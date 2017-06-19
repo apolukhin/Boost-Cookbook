@@ -49,6 +49,8 @@ inline type_index type_id() {
 
 #endif
 
+void test();
+
 #include <cassert>
 #include <iostream>
 int main() {
@@ -56,5 +58,16 @@ int main() {
     assert(type_id<double>() != type_id<long double>());
 
     std::cout << type_id<double>().name();
+
+    test();
+}
+
+#include <boost/type_index.hpp>
+
+void test() {
+    using boost::typeindex::type_id;
+
+    assert(type_id<unsigned int>() == type_id<unsigned>());
+    assert(type_id<double>() != type_id<long double>());
 }
 

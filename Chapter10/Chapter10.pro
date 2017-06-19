@@ -1,6 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
+    01_predef \
     02_int128 \
     03_no_rtti \
     04_constexpr_c++11 \

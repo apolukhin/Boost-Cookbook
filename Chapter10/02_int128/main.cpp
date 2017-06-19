@@ -10,7 +10,7 @@ inline int_t mul(int_t v1, int_t v2, int_t v3) {
     return v1 * v2 * v3;
 }
 
-#else // BOOST_NO_LONG_LONG
+#else // #ifdef BOOST_HAS_INT128
 
 #ifdef BOOST_NO_LONG_LONG
 #error "This code requires at least int64_t support"
@@ -25,7 +25,7 @@ inline int_t mul(int_t v1, int_t v2, int_t v3) {
     return int_t();
 }
 
-#endif // BOOST_NO_LONG_LONG
+#endif // #ifdef BOOST_HAS_INT128
 
 } // namespace project
 
