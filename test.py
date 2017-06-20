@@ -2,6 +2,7 @@ import os
 import sys
 import signal
 import subprocess
+import argparse
 
 from shutil import copyfile
 from time import sleep
@@ -372,6 +373,7 @@ class tester:
     ''' ****************************************** Public functions *********************************************** '''
     @staticmethod
     def run_tests(root_directory='.', verbose=False):
+        print "Searching for executables..."
         executables = []
         for folder, _, files in os.walk(root_directory):
             for f in files:
@@ -401,7 +403,7 @@ class tester:
 
 
 if __name__ == "__main__":
-    import argparse
+    print "Initializing"
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('--dir',  default='.', help='Directory (chapter) to run tests for')
     parser.add_argument('--build', '-b', action='store_true', help='Build the recipes for Linux platform')
