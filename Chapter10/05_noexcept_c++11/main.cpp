@@ -1,17 +1,18 @@
 #include <boost/config.hpp>
 
 class move_nothrow {
-    // Some class class members go here
+    // Some class class members go here.
     // ...
+
 public:
     move_nothrow() BOOST_NOEXCEPT {}
     move_nothrow(move_nothrow&&) BOOST_NOEXCEPT
-        // : members initialization
+        // Members initialization goes here.
         // ...
     {}
 
     move_nothrow& operator=(move_nothrow&&) BOOST_NOEXCEPT {
-        // Implementation
+        // Implementation goes here.
         // ...
         return *this;
     }
@@ -20,20 +21,19 @@ public:
     move_nothrow& operator=(const move_nothrow&);
 };
 
-
-#include <vector>
-int main() {
-
-    std::vector<move_nothrow> v(10);
-    v.push_back(move_nothrow());
-
-}
-
-// In header file
+// In header file.
 int foo() BOOST_NOEXCEPT;
 
 
-// In source file
+// In source file.
 int foo() BOOST_NOEXCEPT {
     return 0;
+}
+
+#include <vector>
+int main() {
+    std::vector<move_nothrow> v(10);
+    v.push_back(move_nothrow());
+
+    foo();
 }

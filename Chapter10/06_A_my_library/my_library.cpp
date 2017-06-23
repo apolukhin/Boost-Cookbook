@@ -2,7 +2,7 @@
 #include "my_library.hpp"
 
 int MY_LIBRARY_API foo() {
-    // Implementation
+    // Implementation goes here.
     // ...
     return 0;
 }
