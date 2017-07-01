@@ -299,11 +299,10 @@ class tester:
 
     @staticmethod
     def _test_interprocess_basic(test_name, path):
-        procs = [
-            subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) for x in xrange(5)
-        ]
-
-        sleep(0.5) # Giving time for processes to start
+        procs = []
+        for x in xrange(5):
+            procs.append( subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) )
+            sleep(0.1) # Giving time for processes to start
 
         out1 = ""
         out2 = ""
@@ -327,9 +326,10 @@ class tester:
 
     @staticmethod
     def _test_interprocess_run_two_concurrently(test_name, path):
-        procs = [
-            subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) for x in xrange(2)
-        ]
+        procs = []
+        for x in xrange(2):
+            procs.append( subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) )
+            sleep(0.1) # Giving time for processes to start
 
         out1 = ""
         out2 = ""
