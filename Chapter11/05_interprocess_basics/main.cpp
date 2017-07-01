@@ -23,7 +23,7 @@ int main() {
     ;
 
     std::cout << "I have index " << ++ atomic 
-        << "\nPress any key...";
+        << ". Press any key...\n";
     std::cin.get();
 
     int snapshot = -- atomic;

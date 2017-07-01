@@ -47,15 +47,16 @@ int main(int argc, char* argv[]) {
         char c[kilobyte];
         char* begin = c;
         char* end = c + sizeof(c);
-	    char* pos;
+        char* pos;
 
         size_t i = 0;
         for (; i < filesize / kilobyte; ++i) {
-		      f.read(c, kilobyte);
-		      pos = std::find(begin, end, '\1');
-		      if (pos != end) 
-                  break;
-	    }
+            f.read(c, kilobyte);
+            pos = std::find(begin, end, '\1');
+            if (pos != end) {
+                break;
+            }
+        }
 
         assert(pos - begin == kilobyte - 1);
         assert(i == filesize / kilobyte - 1);
@@ -69,24 +70,25 @@ int main(int argc, char* argv[]) {
         char c[kilobyte];
         char* begin = c;
         char* end = c + sizeof(c);
-	    char* pos;
+        char* pos;
 
         size_t i = 0;
         for (; i < filesize / kilobyte; ++i) {
-              std::size_t res = fread(c, 1, kilobyte, f);
-		      pos = std::find(begin, end, '\1');
-		      if (pos != end) 
-                  break;
-              (void)res;
-	    }
+            std::size_t res = fread(c, 1, kilobyte, f);
+            pos = std::find(begin, end, '\1');
+            if (pos != end) {
+                break;
+            }
+            (void)res;
+        }
 
         assert(pos - begin == kilobyte - 1);
         assert(i == filesize / kilobyte - 1);
-	    fclose (f);
+        fclose (f);
     }
     break;
 
     default:
-        assert(false);
+        return 42;
     }
 }

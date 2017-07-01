@@ -5,7 +5,7 @@
 
 int main() {
     boost::system::error_code error;
-    
+
     boost::filesystem::create_directories("dir/subdir", error);
     assert(!error);
 
@@ -20,7 +20,8 @@ int main() {
         assert(boost::filesystem::exists("symlink/file.txt"));
     } else {
         std::cerr << "Failed to create a symlink\n";
-        boost::filesystem::remove("dir/subdir/file.txt", error);
+        boost::filesystem::remove_all("dir", error);
+        boost::filesystem::remove("symlink", error);
         assert(!error);
     } /*if (!error)*/
 } /*main*/

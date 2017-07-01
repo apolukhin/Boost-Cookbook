@@ -7,9 +7,6 @@ import argparse
 from shutil import copyfile
 from time import sleep
 
-# ./bootstrap.sh
-# ./b2 -j4 define=BOOST_THREAD_VERSION=4 address-model=64 architecture=x86 --with-program_options --with-filesystem --with-system --with-test --with-thread --with-chrono --with-regex --with-random --with-context --with-coroutine stage
-
 class tester:
     canonize_output = False
 
@@ -70,6 +67,17 @@ class tester:
         'Chapter09/07_slist_and_pool_s': ('slist_t:   ', '', 0),
         'Chapter09/07_slist_and_pool_x': ("Use 's' for testsing slist performance and 'l' for testsing std::list performance.", '', 0),
         'Chapter10/03_no_rtti': ('type_index type_id() [with T = double]', '', 0),
+        'Chapter11/02_erasing_files': ('', 'Symlink created\n', 0),
+        'Chapter11/02_erasing_files_second_run': ('', 'Failed to create a symlink\n', 0),
+        'Chapter11/05_interprocess_basics': ('I have index 1. Press any key...\nI have index 2. Press any key...\nI have index 3. Press any key...\nI have index 4. Press any key...\nI have index 5. Press any key...\n', '', 0),
+        'Chapter11/06_interprocess_queue': ('Filling data\nGettinging data\n', '', 0),
+        'Chapter11/07_interprocess_pointers': ('Creating structure\nStructure found\n', '', 0),
+        'Chapter11/08_reading_files_c_files': ('C:', '', 0),
+        'Chapter11/08_reading_files_create_file': ('', '', 0),
+        'Chapter11/08_reading_files_error': ('', '', 42),
+        'Chapter11/08_reading_files_ifstream': ('ifstream:', '', 0),
+        'Chapter11/08_reading_files_mmap': ('mapped_region:', '', 0),
+        'Chapter11/09_coroutines': ('OK\n', '', 0),
         'Chapter12/01_graph': ('Boost\nC++ guru\n', '', 0),
         'Chapter12/02_graph_vis': ('digraph G {\n0 [label="C++"];\n1 [label="STL"];\n2 [label="Boost"];\n3 [label="C++ guru"];\n4 [label="C"];\n0->1 ;\n1->2 ;\n2->3 ;\n4->3 ;\n}\n', '', 0),
         'Chapter12/05_testing': ('Running 2 test cases...\n', '\n*** No errors detected\n', 0),
@@ -285,6 +293,57 @@ class tester:
         tester._test([path, 'x'], test_name + '_x')
 
     @staticmethod
+    def _test_erasing_files(test_name, path):
+        tester._test(path, test_name)
+        tester._test(path, test_name + '_second_run')
+
+    @staticmethod
+    def _test_interprocess_basic(test_name, path):
+        procs = [
+            subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) for x in xrange(5)
+        ]
+
+        sleep(0.5) # Giving time for processes to start
+
+        out1 = ""
+        out2 = ""
+        retcode = 0
+        for p in procs:
+            out1_tmp, out2_tmp = p.communicate(input='any_key')
+            out1 += out1_tmp
+            out2 += out2_tmp
+            retcode += p.returncode
+
+        tester.outputs[test_name] = (out1, out2, retcode)
+        tester._test_validate(test_name)
+
+    @staticmethod
+    def _test_reading_files(test_name, path):
+        tester._test([path, 'c'], test_name + '_create_file')
+        tester._test([path, 'm'], test_name + '_mmap')
+        tester._test([path, 'r'], test_name + '_ifstream')
+        tester._test([path, 'a'], test_name + '_c_files')
+        tester._test([path, 'e'], test_name + '_error')
+
+    @staticmethod
+    def _test_interprocess_run_two_concurrently(test_name, path):
+        procs = [
+            subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) for x in xrange(2)
+        ]
+
+        out1 = ""
+        out2 = ""
+        retcode = 0
+        for p in procs:
+            out1_tmp, out2_tmp = p.communicate()
+            out1 += out1_tmp
+            out2 += out2_tmp
+            retcode += p.returncode
+
+        tester.outputs[test_name] = (out1, out2, retcode)
+        tester._test_validate(test_name)
+
+    @staticmethod
     def _test_gil(test_name, path):
         tester._test(path, test_name)
 
@@ -332,15 +391,15 @@ class tester:
             "Chapter10/03_no_rtti": tester._test_but_ignore_output_diff,                        # Different demangled representation of a type
             "Chapter10/06_B_export_import": tester._test_export_import,
             "Chapter11/01_listing_files": tester._test_but_ignore_output_diff,
+            "Chapter11/02_erasing_files": tester._test_erasing_files,
+            "Chapter11/05_interprocess_basics": tester._test_interprocess_basic,
+            "Chapter11/06_interprocess_queue": tester._test_interprocess_run_two_concurrently,
+            "Chapter11/07_interprocess_pointers": tester._test_interprocess_run_two_concurrently,
+            "Chapter11/08_reading_files": tester._test_reading_files,
             "Chapter11/09_coroutines": tester._test_but_ignore_output_diff, # Sanitizers do not like coroutines and add some warnings
             "Chapter12/03_random": tester._test_but_ignore_output_diff,
 
             # TODO:
-            "Chapter11/02_erasing_files": tester._ignore,
-            "Chapter11/05_interprocess_basics": tester._ignore,
-            "Chapter11/06_interprocess_queue": tester._ignore,
-            "Chapter11/07_interprocess_pointers": tester._ignore,
-            "Chapter11/08_reading_files": tester._ignore,
             "Chapter12/07_gil": tester._ignore, #tester._test_gil,
         }
 
@@ -425,68 +484,3 @@ if __name__ == "__main__":
         subprocess.check_call(['make', 'distclean'])
         os.chdir(old_path)
 
-
-'''
-Ancient code:
-
-
-run_arguments = {
-    "01_A_program_options_base": "--apples=10 --oranges=20",
-    "gil": "get-boost.png",
-}
-
-tasks_processor_signals_helper() {                           
-    sleep 2;                                                 
-    killall tasks_processor_signals -SIGINT; sleep 1;        
-    killall tasks_processor_signals -SIGINT; sleep 1;        
-    killall tasks_processor_signals -SIGINT; sleep 1;        
-}                                                            
-interprocess_basics_run() {                                  
-    echo "0" | ./Chapter11/interprocess_basics/interprocess_basics
-}                                                            
-                                                             
-chmod -x ./Chapter10/my_library/*                            
-for i in `find ./Chapter* -type f -executable`; do           
-    echo -e "\n************* Running $i"                     
-    progname="$(basename $i)"                                
-    case "${progname}" in                                    
-    "tasks_processor_signals")                               
-        tasks_processor_signals_helper &                     
-        ;;                                                   
-    "reading_files")                                         
-        $i c; time $i m; time $i r; time $i a; continue      
-        ;;                                                   
-    "interprocess_basics")                                   
-        mkfifo fifo1; $i<fifo1 &                             
-        sleep 1                                              
-        interprocess_basics_run &                            
-        interprocess_basics_run &                            
-        interprocess_basics_run &                            
-        interprocess_basics_run &                            
-        interprocess_basics_run &                            
-        sleep 1                                              
-        echo "0">fifo1                                       
-        rm fifo1; continue                                   
-        ;;                                                   
-    "interprocess_queue")                                    
-        $i &                                                 
-        ;;                                                   
-    "interprocess_pointers")                                 
-        $i                                                   
-        ;;                                                   
-    "regex_match" | "regex_replace")                         
-        continue                                             
-        ;;                                                   
-    "gil")                                                   
-        wget http://www.boost.org/style-v2/css_0/get-boost.png
-        ;;                                                   
-    "01_B_program_options_short")                            
-        cp Chapter01/01_B_program_options_short/apples_oranges.cfg ./
-        ;;                                                   
-    esac                                                     
-                                                             
-    ./"$i" ${run_arguments["${progname}"]}                      
-    if [ $? -ne 0 ] ; then echo "!!! FAILED !!!"; exit -1; fi
-done
-
-'''
