@@ -18,18 +18,18 @@ int main() {
 
     atomic_t& atomic 
         = *segment.find_or_construct<atomic_t> //1
-            ("shm-counter") // 2
-            (0)             // 3
+            ("shm1-counter")                   // 2
+            (0)                                // 3
     ;
 
     std::cout << "I have index " << ++ atomic 
         << ". Press any key...\n";
     std::cin.get();
 
-    int snapshot = -- atomic;
+    const int snapshot = --atomic;
     if (!snapshot) {
         segment.destroy<atomic_t>("shm1-counter");
         boost::interprocess::shared_memory_object
-                ::remove("shm-cache");
+                ::remove("shm1-cache");
     }
 } /*main*/

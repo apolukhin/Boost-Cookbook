@@ -28,7 +28,7 @@ namespace detail {
     };
 }
 
-
+#include <boost/config.hpp> // TODO: remove me after https://github.com/boostorg/type_traits/pull/37 merge
 
 #include <boost/type_traits/conditional.hpp>
 #include <boost/type_traits/has_plus_assign.hpp>

@@ -20,7 +20,10 @@ int main() {
         assert(boost::filesystem::exists("symlink/file.txt"));
     } else {
         std::cerr << "Failed to create a symlink\n";
+
         boost::filesystem::remove_all("dir", error);
+        assert(!error);
+
         boost::filesystem::remove("symlink", error);
         assert(!error);
     } /*if (!error)*/
