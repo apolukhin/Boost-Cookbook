@@ -48,7 +48,7 @@ public:
         : segment_(
               boost::interprocess::open_or_create,
               "work-queue",
-              1024 * 1024 * 64
+              1024 * 1024 * 32
         )
         , allocator_(segment_.get_segment_manager())
         , tasks_(
@@ -64,6 +64,15 @@ public:
               ("work-queue:condition")()
         )
     {}
+
+    void cleanup() {
+        segment_.destroy<condition_t>("work-queue:condition");
+        segment_.destroy<mutex_t>("work-queue:mutex");
+        segment_.destroy<deque_t>("work-queue:deque");
+
+        boost::interprocess::shared_memory_object
+            ::remove("work-queue");
+    }
 
     void push_task(const task_type& task) {
         scoped_lock_t lock(mutex_);
@@ -98,7 +107,7 @@ public:
 
 int main() {
     try {
-        static const std::size_t max_tasks_count = 10000000;
+        static const std::size_t max_tasks_count = 10000;
         work_queue queue;
 
         boost::optional<task_structure> task = queue.try_pop_task();
@@ -117,6 +126,8 @@ int main() {
             }
 
             assert(!queue.try_pop_task());
+
+            queue.cleanup();
         }
     } catch (const std::exception& e) {
         std::cout << e.what();

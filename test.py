@@ -69,6 +69,8 @@ class tester:
         'Chapter10/03_no_rtti': ('type_index type_id() [with T = double]', '', 0),
         'Chapter11/02_erasing_files': ('', 'Symlink created\n', 0),
         'Chapter11/02_erasing_files_second_run': ('', 'Failed to create a symlink\n', 0),
+        'Chapter11/03_C_dll_usage_do_not': ("They are fast. Faster than you can believe. Don't turn your back, don't look away, and don't blink. Good luck, Sally Sparrow.", '', 0),
+        'Chapter11/03_C_dll_usage_hello': ('Good to meet you, Sally Sparrow.', '', 0),
         'Chapter11/05_interprocess_basics': ('I have index 1. Press any key...\nI have index 2. Press any key...\nI have index 3. Press any key...\nI have index 4. Press any key...\nI have index 5. Press any key...\n', '', 0),
         'Chapter11/06_interprocess_queue': ('Filling data\nGettinging data\n', '', 0),
         'Chapter11/07_interprocess_pointers': ('Creating structure\nStructure found\n', '', 0),
@@ -298,11 +300,30 @@ class tester:
         tester._test(path, test_name + '_second_run')
 
     @staticmethod
+    def _test_plugins(test_name, path):
+        plugins = []
+        for folder, _, files in os.walk('Chapter11'):
+            for f in files:
+                if 'plugin' not in f:
+                    continue
+
+                plugin_path = os.path.join(folder, f)
+                if plugin_path.endswith('.so') or plugin_path.endswith('.dll'):
+                    plugins.append(plugin_path)
+
+        for p in plugins:
+            new_test_name = test_name
+            if 'hello' in p:
+                tester._test([path, p], test_name + '_hello')
+            else:
+                tester._test([path, p], test_name + '_do_not')
+
+    @staticmethod
     def _test_interprocess_basic(test_name, path):
         procs = []
         for x in xrange(5):
             procs.append( subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) )
-            sleep(0.1) # Giving time for processes to start
+            sleep(0.5) # Giving time for processes to start
 
         out1 = ""
         out2 = ""
@@ -329,7 +350,7 @@ class tester:
         procs = []
         for x in xrange(2):
             procs.append( subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) )
-            sleep(0.1) # Giving time for processes to start
+            sleep(0.5) # Giving time for processes to start
 
         out1 = ""
         out2 = ""
@@ -392,6 +413,7 @@ class tester:
             "Chapter10/06_B_export_import": tester._test_export_import,
             "Chapter11/01_listing_files": tester._test_but_ignore_output_diff,
             "Chapter11/02_erasing_files": tester._test_erasing_files,
+            "Chapter11/03_C_dll_usage": tester._test_plugins,
             "Chapter11/05_interprocess_basics": tester._test_interprocess_basic,
             "Chapter11/06_interprocess_queue": tester._test_interprocess_run_two_concurrently,
             "Chapter11/07_interprocess_pointers": tester._test_interprocess_run_two_concurrently,
