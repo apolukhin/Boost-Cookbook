@@ -59,7 +59,7 @@ build_script:
     # Building Boost.
     - bootstrap.bat
     - b2.exe headers
-    - b2.exe -j4 %BOOST_FLAGS% architecture=x86 link=static --with-program_options --with-filesystem --with-system --with-test --with-atomic --with-thread --with-timer --with-date_time --with-chrono --with-regex --with-random --with-context --with-coroutine2 stage
+    - b2.exe -j4 %BOOST_FLAGS% architecture=x86 link=static --with-program_options --with-filesystem --with-system --with-test --with-atomic --with-thread --with-timer --with-date_time --with-chrono --with-regex --with-random --with-context stage
     - cd %APPVEYOR_BUILD_FOLDER%
 
 after_build:
