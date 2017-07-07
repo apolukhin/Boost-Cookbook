@@ -414,6 +414,7 @@ class tester:
             "Chapter11/01_listing_files": tester._test_but_ignore_output_diff,
             "Chapter11/02_erasing_files": tester._test_erasing_files,
             "Chapter11/03_C_dll_usage": tester._test_plugins,
+            "Chapter11/04_stacktrace": tester._test_but_ignore_output_diff,
             "Chapter11/05_interprocess_basics": tester._test_interprocess_basic,
             "Chapter11/06_interprocess_queue": tester._test_interprocess_run_two_concurrently,
             "Chapter11/07_interprocess_pointers": tester._test_interprocess_run_two_concurrently,
