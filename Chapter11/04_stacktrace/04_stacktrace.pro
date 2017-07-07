@@ -3,7 +3,8 @@ if (!include(../../config.txt)) {
 }
 
 SOURCES += main.cpp
-DEFINES += BOOST_STACKTRACE_USE_BACKTRACE=1
+
+#DEFINES += BOOST_STACKTRACE_USE_BACKTRACE=1
 
 unix {
     !msvc:LIBS += -ldl -lbacktrace
