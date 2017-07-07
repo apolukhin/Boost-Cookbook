@@ -10,7 +10,8 @@ CONFIG += thread
 
 isEmpty(BOOST_PATH) {
     # Path to the Boost.
-    BOOST_PATH = /data/boost_1_63_0/
+    #BOOST_PATH = /data/boost_1_63_0/
+    BOOST_PATH = /data/boost/
     #BOOST_PATH = /home/antoshkka/experiments/boost_1_63_0/
 }
 
