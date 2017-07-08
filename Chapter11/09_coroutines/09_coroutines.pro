@@ -5,4 +5,4 @@ if (!include(../../config.txt)) {
 SOURCES += main.cpp
 QMAKE_CXXFLAGS += $$CPP11FLAG
 
-LIBS += -lboost_thread -lboost_system -lboost_context
+!msvc:LIBS += -lboost_thread -lboost_system -lboost_context
