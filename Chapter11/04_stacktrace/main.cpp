@@ -1,5 +1,4 @@
 #include <iostream>
-#include <boost/config.hpp>
 #include <boost/stacktrace.hpp>
 
 void report_bankruptcy() {
