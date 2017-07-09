@@ -45,16 +45,11 @@ Thanks to Heather Gopsill from Packt Publishing for giving a permission to make 
 Thanks to Nitin Dasan from Packt Publishing for getting all the necessary approvals for making sources publicly available for the second edition of the book.
 
 ### Notes for book update
-* Chapter 10 "Detecting RTTI support" - add Boost.TypeIndex example AND Sync code
-* Chapter07 Note about boost::string_ref(string&&) and boost::string_view
 * How about describing boost::future?
 * Coroutine interface changed in Boost 1.56
-* Filesystem is accepted into the Standard
 * RCU example using atomics?
 * sync code and book
 * Fix introduction in "Chapter09. Getting the benefits of single-linked list and memory pool"
-* Boost.DLL examples
-* flat containers were proposed for C++17
 * Update this README.md with a link to second edition of the book
 
 Done:
@@ -65,6 +60,11 @@ Done:
 * LexicalCast now has a try_lexical_convert method
 * add *_pointer_cast examples?
 * describe in depth changes from 135a24926a1d084e76f8f527deeee6236274e496
+* Chapter 10 "Detecting RTTI support" - add Boost.TypeIndex example AND Sync code
+* Chapter07 Note about boost::string_ref(string&&) and boost::string_view
+* Filesystem is accepted into the Standard
+* Boost.DLL examples
+* flat containers were proposed for C++17
 
 For year 2021+ :
 * Remove description of all the Boost libraries that were added into C++11
