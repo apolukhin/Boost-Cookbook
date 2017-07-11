@@ -20,7 +20,10 @@ namespace detail {
         {}
 
         template <class VertexDescriptorT>
-        void operator()(std::ostream& out, const VertexDescriptorT& d) const {
+        void operator()(
+            std::ostream& out,
+            const VertexDescriptorT& d) const
+        {
             out << " [label=\""
                 << boost::get(boost::vertex_bundle, g_)[d] 
                 << "\"]"; 
