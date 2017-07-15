@@ -190,47 +190,39 @@ var editor = (function() {
 			{
 				"title":	"Registering a task for processing an arbitrary datatype",
 				"source":   ['Chapter06/flat/01_tasks_processor_base/main.cpp'],
-				"compile":  "-lboost_thread -lboost_system",
-				"issues":   "compile",
+				"compile":  "-lboost_thread -lboost_system"
 			}, {
 				"title":	"Making timers and processing timer events as tasks",
 				"source":   ['Chapter06/flat/02_tasks_processor_timers/main.cpp'],
-				"compile":  "-lboost_thread -lboost_system",
-				"issues":   "compile",
+				"compile":  "-lboost_thread -lboost_system -DBOOST_ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS=1",
 			}, {
 				"title":	"Network communication as a task",
 				"source":   ['Chapter06/flat/04_tasks_processor_network_accept/main.cpp'],
-				"compile":  "-lboost_thread -lboost_system",
-				"issues":   "compile",
+				"compile":  "-lboost_thread -lboost_system -DBOOST_ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS=1",
 			}, {
 				"title":	"Accepting incoming connections",
 				"source":   ['Chapter06/flat/04_tasks_processor_network_accept/main.cpp'],
-				"compile":  "-lboost_thread -lboost_system",
-				"issues":   "compile",
+				"compile":  "-lboost_thread -lboost_system -DBOOST_ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS=1",
 			}, {
 				"title":	"Executing different tasks in parallel",
 				"source":   ['Chapter06/flat/05_tasks_processor_multithread/main.cpp'],
-				"compile":  "-lboost_thread -lboost_system",
-				"issues":   "compile",
+				"compile":  "-lboost_thread -lboost_system -DBOOST_ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS=1",
 			}, {
 				"title":	"Pipeline tasks processing",
 				"source":   ['Chapter06/06_conveyor/main.cpp'],
-				"compile":  "-lboost_thread -lboost_system",
+				"compile":  "-lboost_thread -lboost_system -DBOOST_ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS=1",
 			}, {
 				"title":	"Making a nonblocking barrier",
 				"source":   ['Chapter06/flat/07_nonblocking_barrier/main.cpp'],
-				"compile":  "-lboost_thread -lboost_system",
-				"issues":   "compile",
+				"compile":  "-lboost_thread -lboost_system -DBOOST_ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS=1",
 			}, {
 				"title":	"Storing an exception and making a task from it",
 				"source":   ['Chapter06/flat/08_exception_ptr/main.cpp'],
-				"compile":  "-lboost_thread -lboost_system",
-				"issues":   "compile",
+				"compile":  "-lboost_thread -lboost_system -DBOOST_ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS=1",
 			}, {
 				"title":	"Getting and processing system signals as tasks",
-				"source":   ['Chapter06/flat/09_tasks_processor_signals/main.cpp', 'Chapter06/tasks_processor_signals/tasks_processor_signals.hpp'],
-				"compile":  "-lboost_thread -lboost_system",
-				"issues":   "compile",
+				"source":   ['Chapter06/flat/09_tasks_processor_signals/main.cpp'],
+				"compile":  "-lboost_thread -lboost_system -DBOOST_ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS=1",
 			}, 
 		],
 
@@ -290,7 +282,8 @@ var editor = (function() {
 				"source":   ['Chapter08/07_splitting_tuple/main.cpp'],
 			}, {
 				"title":	"Manipulating heterogeneous containers in C++14",
-				"source":   ['Chapter08/081_splitting_tuple_hana/main.cpp'],
+				"source":   ['Chapter08/08_splitting_tuple_hana/main.cpp'],
+				"compile":  "-std=c++14",
 			},
 		],
 
@@ -298,24 +291,30 @@ var editor = (function() {
 
 		"Chapter09": [
 			{
+				"title":	'???',
+				"source":   ['Chapter09/01_small_vector/main.cpp'],
+			}, {
+				"title":	'???',
+				"source":   ['Chapter09/02_static_vector/main.cpp'],
+			}, {
 				"title":	'Comparing strings in an ultra-fast manner',
-				"source":   ['Chapter09/hash/main.cpp'],
+				"source":   ['Chapter09/03_hash/main.cpp'],
 			}, {
 				"title":	'Using an unordered set and map',
-				"source":   ['Chapter09/unordered/main.cpp'],
+				"source":   ['Chapter09/04_unordered/main.cpp'],
 			}, {
 				"title":	'Making a map, where value is also a key',
-				"source":   ['Chapter09/bimap/main.cpp'],
+				"source":   ['Chapter09/05_bimap/main.cpp'],
 			}, {
 				"title":	'Using multi-index containers',
-				"source":   ['Chapter09/multiindex/main.cpp'],
+				"source":   ['Chapter09/06_multiindex/main.cpp'],
 			}, {
 				"title":	'Getting the benefits of single-linked list and memory pool',
-				"source":   ['Chapter09/slist_and_pool/main.cpp'],
+				"source":   ['Chapter09/07_slist_and_pool/main.cpp'],
 				"compile":  "-lboost_system",
 			}, {
 				"title":	'Using flat associative containers',
-				"source":   ['Chapter09/flat/main.cpp'],
+				"source":   ['Chapter09/08_flat/main.cpp'],
 			},
 		],
 
@@ -323,31 +322,30 @@ var editor = (function() {
 
 		"Chapter10": [
 			{
+				"title":	'???',
+				"source":   ['Chapter10/01_predef/main.cpp'],
+			}, 
+			{
 				"title":	'Detecting int128 support',
-				"source":   ['Chapter10/int128/main.cpp'],
+				"source":   ['Chapter10/02_int128/main.cpp'],
 			}, {
 				"title":	'Detecting RTTI support',
-				"source":   ['Chapter10/no_rtti/main.cpp'],
-			}, {
-				"title":	'Speeding up compilation using C++11 extern templates',
-				"source":   ['Chapter10/extern_template/main.cpp', 'Chapter10/extern_template/header.hpp'],
-				"compile":  "-std=c++11",
-				"issues":   "compile",
+				"source":   ['Chapter10/03_no_rtti/main.cpp'],
 			}, {
 				"title":	'Writing metafunctions using simpler methods',
-				"source":   ['Chapter10/constexpr_c++11/main.cpp'],
+				"source":   ['Chapter10/04_constexpr_c++11/main.cpp'],
 				"compile":  "-std=c++11",
 			}, {
 				"title":	'Reducing code size and increasing performance of user-defined types (UDTs) in C++11',
-				"source":   ['Chapter10/noexcept_c++11/main.cpp'],
+				"source":   ['Chapter10/05_noexcept_c++11/main.cpp'],
 				"compile":  "-std=c++11",
 			}, {
 				"title":	'The portable way to export and import functions and classes',
-				"source":   ['Chapter10/export_import/main.cpp', 'Chapter10/my_library/my_library.cpp', 'Chapter10/my_library/my_library.hpp'],
+				"source":   ['Chapter10/06_B_export_import/main.cpp', 'Chapter10/06_A_my_library/my_library.cpp', 'Chapter10/06_A_my_library/my_library.hpp'],
 				"issues":   "compile",
 			}, {
 				"title":	'Detecting the Boost version and getting latest features',
-				"source":   ['Chapter10/version/main.cpp'],
+				"source":   ['Chapter10/07_version/main.cpp'],
 			},
 		],
 
@@ -356,36 +354,45 @@ var editor = (function() {
 		"Chapter11": [
 			{
 				"title":	'Listing files in a directory',
-				"source":   ['Chapter11/listing_files/main.cpp'],
+				"source":   ['Chapter11/01_listing_files/main.cpp'],
 				"compile":  "-lboost_system -lboost_filesystem",
 			}, {
 				"title":	'Erasing and creating files and directories',
-				"source":   ['Chapter11/erasing_files/main.cpp'],
+				"source":   ['Chapter11/02_erasing_files/main.cpp'],
 				"compile":  "-lboost_system -lboost_filesystem",
 			}, {
+				"title":	'???',
+				"source":   ['Chapter11/03_C_dll_usage/main.cpp', 'Chapter11/03_A_plugin_hello/plugin_hello.cpp', 'Chapter11/03_B_plugin_do_not/plugin_do_not.cpp'],
+				"compile":  "-ldl -lboost_filesystem",
+				"issues":   "runtime",
+			}, {
+				"title":	'???',
+				"source":   ['Chapter11/04_stacktrace/main.cpp'],
+				"compile":  "-ldl"
+			}, {
 				"title":	'Passing data quickly from one process to another',
-				"source":   ['Chapter11/interprocess_basics/main.cpp'],
+				"source":   ['Chapter11/05_interprocess_basics/main.cpp'],
 				"compile":  "-lrt -pthread",
 				"issues":   "runtime",
 			}, {
 				"title":	'Syncing interprocess communications',
-				"source":   ['Chapter11/interprocess_queue/main.cpp'],
+				"source":   ['Chapter11/06_interprocess_queue/main.cpp'],
 				"compile":  "-lrt -pthread",
 				"issues":   "runtime",
 			}, {
 				"title":	'Using pointers in shared memory',
-				"source":   ['Chapter11/interprocess_pointers/main.cpp'],
+				"source":   ['Chapter11/07_interprocess_pointers/main.cpp'],
 				"compile":  "-lrt -pthread",
 				"issues":   "runtime",
 			}, {
 				"title":	'The fastest way to read files',
-				"source":   ['Chapter11/reading_files/main.cpp'],
+				"source":   ['Chapter11/08_reading_files/main.cpp'],
 				"issues":   "runtime",
 				"run":		"c",
 			}, {
 				"title":	'Coroutines – saving the state and postponing the execution',
-				"source":   ['Chapter11/coroutines/main.cpp'],
-				"compile":  "-lboost_coroutine -lboost_thread -lboost_system",
+				"source":   ['Chapter11/09_coroutines/main.cpp'],
+				"compile":  "-lboost_thread -lboost_system",
 			},
 		],
 
@@ -393,31 +400,31 @@ var editor = (function() {
 		"Chapter12": [
 			{
 				"title":	'Working with graphs',
-				"source":   ['Chapter12/graph/main.cpp'],
+				"source":   ['Chapter12/01_graph/main.cpp'],
 			}, {
 				"title":	'Visualizing graphs',
-				"source":   ['Chapter12/graph_vis/main.cpp'],
+				"source":   ['Chapter12/02_graph_vis/main.cpp'],
 				"issues":   "compile",
 			}, {
 				"title":	'Using a true random number generator',
-				"source":   ['Chapter12/random/main.cpp'],
+				"source":   ['Chapter12/03_random/main.cpp'],
 				"compile":  "-lboost_random -lboost_system",
 			}, {
 				"title":	'Using portable math functions',
-				"source":   ['Chapter12/math/main.cpp'],
+				"source":   ['Chapter12/04_math/main.cpp'],
 			}, {
 				"title":	'Writing test cases',
-				"source":   ['Chapter12/testing/main.cpp'],
+				"source":   ['Chapter12/05_testing/main.cpp'],
 				"compile":  "-static -lboost_unit_test_framework -lboost_system",
 				"issues":   "compile",
 			}, {
 				"title":	'Combining multiple test cases in one test module',
-				"source":   ['Chapter12/testing_advanced/main.cpp', 'Chapter12/testing_advanced/developer1.cpp', 'Chapter12/testing_advanced/developer2.cpp', 'Chapter12/testing_advanced/foo.cpp', 'Chapter12/testing_advanced/foo.hpp'],
+				"source":   ['Chapter12/06_testing_advanced/main.cpp', 'Chapter12/06_testing_advanced/developer1.cpp', 'Chapter12/06_testing_advanced/developer2.cpp', 'Chapter12/06_testing_advanced/foo.cpp', 'Chapter12/06_testing_advanced/foo.hpp'],
 				"compile":  "-static -lboost_unit_test_framework -lboost_system",
 				"issues":   "compile",
 			}, {
 				"title":	'Manipulating images',
-				"source":   ['Chapter12/gil/main.cpp', 'Chapter12/testing_advanced/developer1.cpp'],
+				"source":   ['Chapter12/07_gil/main.cpp'],
 				"compile":  "-lpng",
 				"issues":   "compile",
 			},
@@ -511,7 +518,7 @@ var editor = (function() {
 		} else if (content[current_chapter][current_index + 1]) {
 			download_impl_base(current_chapter, current_index + 1);
 		} else {
-			var chapters = ["Chapter01", "Chapter03", "Chapter02", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
+			var chapters = ["Chapter01", "Chapter02", "Chapter03", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
 			var next_ind = chapters.indexOf(current_chapter) + 1;
 			if (next_ind >= chapters.length) {
 				next_ind = 0;
@@ -526,7 +533,7 @@ var editor = (function() {
 		} else if (current_index > 0) {
 			download_impl_base(current_chapter, current_index - 1, content[current_chapter][current_index - 1]["source"].length - 1);
 		} else {
-			var chapters = ["Chapter01", "Chapter03", "Chapter02", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
+			var chapters = ["Chapter01", "Chapter02", "Chapter03", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
 			var next_ind = chapters.indexOf(current_chapter) - 1;
 			if (next_ind < 0) {
 				next_ind = chapters.length - 1;
@@ -609,7 +616,7 @@ var editor = (function() {
 
 /*
 		var d = "";
-		$.each(["Chapter06"], function(ignore, chapter) {
+		$.each(["Chapter12"], function(ignore, chapter) {
 			var i = 0;
 			$.each(content[chapter], function(key, value){
 				d = d + "<li><a href=\"javascript:editor.download('" + chapter + "', " + i + ")\">" + value["title"];
@@ -619,6 +626,8 @@ var editor = (function() {
 						d = d + ", <a href=\"javascript:editor.download('" + chapter + "', " + i + ", " + (index + 1) + ")\">part " + (index + 2) + "</a>";
 					});
 					d = d + ")";
+				} else {
+				    d = d + "</a>"
 				}
 				d = d + "</li>\n";
 				++ i;
