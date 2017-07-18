@@ -95,7 +95,7 @@ void foo2() {
     const warr_t arr = boost::lexical_cast<warr_t>(n);
     assert(arr[0] == L'-');
     assert(arr[1] == L'1');
-    assert(arr[4] == 0);
+    assert(arr[2] == 0);
 }
 
 
