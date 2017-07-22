@@ -23,7 +23,7 @@ public:
     // For the simplicity of example we will assume that
     // person_info default constructor and swap are very
     // fast/cheap to call
-    person_info() {}
+    person_info();
 
     person_info(const person_info& p)
         : name_(p.name_)
@@ -85,3 +85,9 @@ int main() {
     assert(new_vasya.name_ == "Vasya");
     assert(new_vasya.second_name_ == "Snow");
 }
+
+
+// details:
+
+BOOST_DEFAULTED_FUNCTION(person_info::person_info(), {})
+

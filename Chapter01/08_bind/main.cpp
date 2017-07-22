@@ -75,7 +75,7 @@ void test5() {
         return x < s;
     });
     assert(count0 == count1);
-};
+}
 
 void test6() {
     const auto twice = boost::bind(std::plus<int>(), _1, _1);
