@@ -6,7 +6,7 @@
 #include <iostream>
 
 // This typedefs and methods will be in our header,
-// that wraps around native SQL interface
+// that wraps around native SQL interface.
 typedef boost::any cell_t;
 typedef std::vector<cell_t> db_row_t;
 
@@ -22,8 +22,8 @@ db_row_t get_row(const char* /*query*/) {
     return row;
 }
 
-// This is how a user will use your classes
-struct db_sum: public std::unary_function<boost::any, void> {
+// This is how a user will use your classes.
+struct db_sum {
 private:
     double& sum_;
 

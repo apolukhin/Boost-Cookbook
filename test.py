@@ -396,7 +396,6 @@ class tester:
         special_cases = {
             "Chapter01/01_A_program_options_base": tester._test_program_options_base,
             "Chapter01/01_B_program_options_short": tester._test_program_options_short,
-            "Chapter01/05_optional": tester._test_but_ignore_output_diff,                       # Different rand() implementations
             "Chapter01/09_type_index": tester._test_but_ignore_output_diff,                     # Different demangled representation of a type
             "Chapter01/12_A_noncopyable_movable": tester._test_but_ignore_output_diff,          # Different C++11 support
             "Chapter05/02_mutex": tester._test_but_ignore_output_diff,                          # Intentionally has data race
