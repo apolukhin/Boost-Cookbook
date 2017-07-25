@@ -291,10 +291,10 @@ var editor = (function() {
 
 		"Chapter09": [
 			{
-				"title":	'???',
+				"title":	'Storing a few elements in sequence container',
 				"source":   ['Chapter09/01_small_vector/main.cpp'],
 			}, {
-				"title":	'???',
+				"title":	'Storing at most N elements in sequence container',
 				"source":   ['Chapter09/02_static_vector/main.cpp'],
 			}, {
 				"title":	'Comparing strings in an ultra-fast manner',
@@ -322,14 +322,14 @@ var editor = (function() {
 
 		"Chapter10": [
 			{
-				"title":	'???',
+				"title":	'Detecting OS and compiler',
 				"source":   ['Chapter10/01_predef/main.cpp'],
 			}, 
 			{
 				"title":	'Detecting int128 support',
 				"source":   ['Chapter10/02_int128/main.cpp'],
 			}, {
-				"title":	'Detecting RTTI support',
+				"title":	'Detecting and bypassing disabled RTTI',
 				"source":   ['Chapter10/03_no_rtti/main.cpp'],
 			}, {
 				"title":	'Writing metafunctions using simpler methods',
@@ -361,12 +361,12 @@ var editor = (function() {
 				"source":   ['Chapter11/02_erasing_files/main.cpp'],
 				"compile":  "-lboost_system -lboost_filesystem",
 			}, {
-				"title":	'???',
+				"title":	'Writing and using plugins',
 				"source":   ['Chapter11/03_C_dll_usage/main.cpp', 'Chapter11/03_A_plugin_hello/plugin_hello.cpp', 'Chapter11/03_B_plugin_do_not/plugin_do_not.cpp'],
 				"compile":  "-ldl -lboost_filesystem",
 				"issues":   "runtime",
 			}, {
-				"title":	'???',
+				"title":	'Getting backtrace – current call sequence',
 				"source":   ['Chapter11/04_stacktrace/main.cpp'],
 				"compile":  "-ldl"
 			}, {
@@ -392,7 +392,7 @@ var editor = (function() {
 			}, {
 				"title":	'Coroutines – saving the state and postponing the execution',
 				"source":   ['Chapter11/09_coroutines/main.cpp'],
-				"compile":  "-lboost_thread -lboost_system",
+				"compile":  "-lboost_thread -lboost_system -lboost_context",
 			},
 		],
 

@@ -231,8 +231,8 @@
 									<li>
 										<a id="Chapter09_ref" href="javascript:editor.chapter_toggle('09');">Chapter 09: Containers</a>
 										<ul class="hidden" id="Chapter09">
-<li><a href="javascript:editor.download('Chapter09', 0)">???</a></li>
-<li><a href="javascript:editor.download('Chapter09', 1)">???</a></li>
+<li><a href="javascript:editor.download('Chapter09', 0)">Storing a few elements in sequence container</a></li>
+<li><a href="javascript:editor.download('Chapter09', 1)">Storing at most N elements in sequence container</a></li>
 <li><a href="javascript:editor.download('Chapter09', 2)">Comparing strings in an ultra-fast manner</a></li>
 <li><a href="javascript:editor.download('Chapter09', 3)">Using an unordered set and map</a></li>
 <li><a href="javascript:editor.download('Chapter09', 4)">Making a map, where value is also a key</a></li>
@@ -244,9 +244,9 @@
 									<li>
 										<a id="Chapter10_ref" href="javascript:editor.chapter_toggle('10');">Chapter 10: Gathering Platform and Compiler Information</a>
 										<ul class="hidden" id="Chapter10">
-<li><a href="javascript:editor.download('Chapter10', 0)">???</a></li>
+<li><a href="javascript:editor.download('Chapter10', 0)">Detecting OS and compiler</a></li>
 <li><a href="javascript:editor.download('Chapter10', 1)">Detecting int128 support</a></li>
-<li><a href="javascript:editor.download('Chapter10', 2)">Detecting RTTI support</a></li>
+<li><a href="javascript:editor.download('Chapter10', 2)">Detecting and bypassing disabled RTTI</a></li>
 <li><a href="javascript:editor.download('Chapter10', 3)">Writing metafunctions using simpler methods</a></li>
 <li><a href="javascript:editor.download('Chapter10', 4)">Reducing code size and increasing performance of user-defined types (UDTs) in C++11</a></li>
 <li><a href="javascript:editor.download('Chapter10', 5)">The portable way to export and import functions and classes (part 1</a>, <a href="javascript:editor.download('Chapter10', 5, 1)">part 2</a>, <a href="javascript:editor.download('Chapter10', 5, 2)">part 3</a>)</li>
@@ -258,12 +258,13 @@
 										<ul class="hidden" id="Chapter11">
 <li><a href="javascript:editor.download('Chapter11', 0)">Listing files in a directory</a></li>
 <li><a href="javascript:editor.download('Chapter11', 1)">Erasing and creating files and directories</a></li>
-<li><a href="javascript:editor.download('Chapter11', 2)">??? (part 1</a>, <a href="javascript:editor.download('Chapter11', 2, 1)">part 2</a>, <a href="javascript:editor.download('Chapter11', 2, 2)">part 3</a>)</li>
-<li><a href="javascript:editor.download('Chapter11', 3)">???</a></li>
+<li><a href="javascript:editor.download('Chapter11', 2)">Writing and using plugins (part 1</a>, <a href="javascript:editor.download('Chapter11', 2, 1)">part 2</a>, <a href="javascript:editor.download('Chapter11', 2, 2)">part 3</a>)</li>
+<li><a href="javascript:editor.download('Chapter11', 3)">Getting backtrace – current call sequence</a></li>
 <li><a href="javascript:editor.download('Chapter11', 4)">Passing data quickly from one process to another</a></li>
 <li><a href="javascript:editor.download('Chapter11', 5)">Syncing interprocess communications</a></li>
 <li><a href="javascript:editor.download('Chapter11', 6)">Using pointers in shared memory</a></li>
 <li><a href="javascript:editor.download('Chapter11', 7)">The fastest way to read files</a></li>
+<li><a href="javascript:editor.download('Chapter11', 8)">Coroutines – saving the state and postponing the execution</a></li>
 										</ul>
 									</li>
 									<li>
@@ -1904,7 +1905,7 @@
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.min.js"></script>
 			<script src="assets/js/ace/ace.js"></script>
-			<script src="assets/js/cppeditor_se.js"></script>
+			<script src="assets/js/cppeditor_se.js?1"></script>
 			<script>
 				$(function() {
 					editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
