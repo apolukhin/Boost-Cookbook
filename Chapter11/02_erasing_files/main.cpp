@@ -14,17 +14,17 @@ int main() {
     assert(ofs);
     ofs.close();
 
-    boost::filesystem::create_directory_symlink("./dir/subdir", "./symlink", error);
+    boost::filesystem::create_symlink("dir/subdir/file.txt", "symlink", error);
     if (!error) {
         std::cerr << "Symlink created\n";
-        assert(boost::filesystem::exists("./symlink/file.txt"));
+        assert(boost::filesystem::exists("symlink"));
     } else {
         std::cerr << "Failed to create a symlink\n";
 
-        boost::filesystem::remove_all("./dir", error);
+        boost::filesystem::remove_all("dir", error);
         assert(!error);
 
-        boost::filesystem::remove("./symlink", error);
+        boost::filesystem::remove("symlink", error);
         assert(!error);
     } /*if (!error)*/
 } /*main*/
