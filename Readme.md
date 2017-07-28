@@ -45,9 +45,6 @@ Thanks to Heather Gopsill from Packt Publishing for giving a permission to make 
 Thanks to Nitin Dasan from Packt Publishing for getting all the necessary approvals for making sources publicly available for the second edition of the book.
 
 ### Notes for book update
-* How about describing boost::future?
-* Coroutine interface changed in Boost 1.56
-* RCU example using atomics?
 * sync code and book
 * Fix introduction in "Chapter09. Getting the benefits of single-linked list and memory pool"
 * Update this README.md with a link to second edition of the book
@@ -65,11 +62,16 @@ Done:
 * Filesystem is accepted into the Standard
 * Boost.DLL examples
 * flat containers were proposed for C++17
+* Coroutine interface changed in Boost 1.56
 
-For year 2021+ :
-* Remove description of all the Boost libraries that were added into C++11
+For year 2022+ :
+* Remove description of all the Boost libraries that were added into C++11 (including Boost.Move)
 * More recipes for unordered containers
 * Move string_view into the first chapter
+* Pimpl example using ...?
+* Boost.Range recipes
+* boost::allocate_shared ?
+* Dig into the boost::function and statefull allocator support?
 
 
 

@@ -92,7 +92,7 @@ public:
 
 void base_and_derived() {
     const boost::movelib::unique_ptr<base> p1(
-        new derived("unique_ptr")
+        boost::movelib::make_unique<derived>("unique_ptr")
     );
 
     const boost::scoped_ptr<base> p2(
@@ -100,6 +100,13 @@ void base_and_derived() {
     );
 }
 
+// In header file:
+struct public_interface {
+    // ...
+private:
+    struct impl; // Forward declaration.
+    boost::movelib::unique_ptr<impl> impl_;
+};
 
 bool g_exit_on_first_function = true;
 
@@ -117,6 +124,8 @@ int main() {
     try { foo3_1(); assert(false); } catch(...){}
 
     base_and_derived();
+    public_interface pi;
+    (void)pi;
 }
 
 
