@@ -26,21 +26,19 @@ void do_process_in_background(const char* data, std::size_t size)    {
 #include <boost/make_shared.hpp>
 
 template <std::size_t Size>
-void do_process_shared_ptr(
-        const boost::shared_ptr<char[Size]>& data,
-        std::size_t size);
+void do_process_shared(const boost::shared_ptr<char[Size]>& data);
 
 template <std::size_t Size>
 void do_process_in_background_v1(const char* data) {
     // Same speed as in 'First solution'.
     boost::shared_ptr<char[Size]> data_cpy
         = boost::make_shared<char[Size]>();
-    std::memcpy(data_cpy.get(), data, size);
+    std::memcpy(data_cpy.get(), data, Size);
 
     // Starting threads of execution to process data.
-    boost::thread(boost::bind(&do_process_shared_ptr2, data_cpy, size))
+    boost::thread(boost::bind(&do_process_shared<Size>, data_cpy))
             .detach();
-    boost::thread(boost::bind(&do_process_shared_ptr2, data_cpy, size))
+    boost::thread(boost::bind(&do_process_shared<Size>, data_cpy))
             .detach();
 
     // data_cpy destructor will deallocate data when
@@ -141,13 +139,10 @@ void do_process(const char* data, std::size_t size) {
 }
 
 template <std::size_t Size>
-void do_process_shared_ptr(
-        const boost::shared_ptr<char[Size]>& data,
-        std::size_t size)
-{
+void do_process_shared(const boost::shared_ptr<char[Size]>& data) {
     data[0] = 1;
     assert(data[0]);
-    do_process(data.get(), size);
+    do_process(data.get(), Size);
 }
 
 void do_process_shared_array(

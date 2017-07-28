@@ -108,6 +108,10 @@ private:
     boost::movelib::unique_ptr<impl> impl_;
 };
 
+
+// In source file:
+struct public_interface::impl{};
+
 bool g_exit_on_first_function = true;
 
 #include <assert.h>
