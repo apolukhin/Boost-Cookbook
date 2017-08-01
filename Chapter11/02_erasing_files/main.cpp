@@ -1,3 +1,8 @@
+#include <boost/config.hpp>
+#ifdef BOOST_MSVC // Workaround for https://svn.boost.org/trac10/ticket/13135
+#   define NDEBUG 1
+#endif
+
 #include <boost/filesystem/operations.hpp>
 #include <cassert>
 #include <fstream>
