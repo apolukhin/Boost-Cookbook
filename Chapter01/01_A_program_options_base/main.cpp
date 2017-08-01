@@ -6,7 +6,7 @@ namespace opt = boost::program_options;
 int main(int argc, char *argv[])
 {
     // Constructing an options describing variable and giving it a
-    // textual description "All options"
+    // textual description "All options".
     opt::options_description desc("All options");
 
     // When we are adding options, first parameter is a name
@@ -19,13 +19,13 @@ int main(int argc, char *argv[])
         ("help", "produce help message")
     ;
 
-    // Variable to store our command line arguments
+    // Variable to store our command line arguments.
     opt::variables_map vm;
 
-    // Parsing and storing arguments
+    // Parsing and storing arguments.
     opt::store(opt::parse_command_line(argc, argv, desc), vm);
 
-    // Must be called after all the parsing and storing
+    // Must be called after all the parsing and storing.
     opt::notify(vm);
 
     if (vm.count("help")) {
@@ -36,5 +36,6 @@ int main(int argc, char *argv[])
     std::cout << "Fruits count: "
         << vm["apples"].as<int>() + vm["oranges"].as<int>()
         << std::endl;
-}
+
+} // end of `main`
 

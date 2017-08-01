@@ -9,17 +9,20 @@ int main(int argc, char *argv[])
 
     int oranges_var = 0;
     desc.add_options()
-        // ProgramOptions library stores the option value into the variable that
-        // is passed by pointer. Here value of "--oranges" option will be
-        // stored into 'oranges_var'.
-        ("oranges,o", opt::value<int>(&oranges_var)->required(), "oranges that you have")
+        // ProgramOptions stores the option value into
+        // the variable that is passed by pointer. Here value of
+        // "--oranges" option will be stored into 'oranges_var'.
+        ("oranges,o", opt::value<int>(&oranges_var)->required(),
+                                            "oranges that you have")
 
-        // 'name' option is not marked with 'required()', so user may not provide it.
+        // 'name' option is not marked with 'required()',
+        // so user may not provide it.
         ("name", opt::value<std::string>(), "your name")
 
         // 'a' is a short option name for apples. Just out '-a 10'
         // If no value provided for 'apples', the the default value is used.
-        ("apples,a", opt::value<int>()->default_value(10), "apples that you have")
+        ("apples,a", opt::value<int>()->default_value(10),
+                                            "apples that you have")
         ("help", "produce help message")
     ;
 

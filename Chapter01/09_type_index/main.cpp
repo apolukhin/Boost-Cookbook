@@ -20,7 +20,6 @@ void test1() {
 
 #include <iostream>
 #include <boost/type_index.hpp>
-namespace bti = boost::typeindex;
 
 template <class T>
 void do_something_again(const T& x) {

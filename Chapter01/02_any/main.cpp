@@ -45,7 +45,7 @@ void example_func() {
     boost::any variable(std::string("Hello world!"));
 
     // Following method may throw a boost::bad_any_cast exception
-    // if actual value in variable is not a std::string
+    // if actual value in variable is not a std::string.
     std::string s1 = boost::any_cast<std::string>(variable);
 
     // Never throws. If actual value in variable is not a std::string

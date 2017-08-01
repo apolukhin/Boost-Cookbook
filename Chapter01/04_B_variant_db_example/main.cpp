@@ -40,5 +40,7 @@ int main() {
     for (db_row_t::const_iterator it = row.begin(), end = row.end(); it != end; ++it) {
         res += boost::apply_visitor(db_sum_visitor(), *it);
     }
-    std::cout << "Sum of arithmetic types in database row is: " << res << std::endl;
+
+    std::cout << "Sum of arithmetic types in database row is: "
+              << res << std::endl;
 }

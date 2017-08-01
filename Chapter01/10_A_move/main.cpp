@@ -22,7 +22,7 @@ private:
 public:
     // For the simplicity of example we will assume that
     // person_info default constructor and swap are very
-    // fast/cheap to call
+    // fast/cheap to call.
     person_info();
 
     person_info(const person_info& p)

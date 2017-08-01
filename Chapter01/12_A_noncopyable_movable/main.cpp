@@ -78,7 +78,7 @@ public:
     }
 };
 
-// GCC compiles the following in with -std=c++0x
+// GCC compiles the following in C++11 and later modes.
 descriptor_owner1 construct_descriptor2() {
     return descriptor_owner1("Construct using this string");
 }
@@ -114,13 +114,17 @@ public:
         : descriptor_(strdup(param))
     {}
 
-    descriptor_owner_movable(BOOST_RV_REF(descriptor_owner_movable) param) BOOST_NOEXCEPT
+    descriptor_owner_movable(
+        BOOST_RV_REF(descriptor_owner_movable) param
+    ) BOOST_NOEXCEPT
         : descriptor_(param.descriptor_)
     {
         param.descriptor_ = NULL;
     }
 
-    descriptor_owner_movable& operator=(BOOST_RV_REF(descriptor_owner_movable) param) BOOST_NOEXCEPT {
+    descriptor_owner_movable& operator=(
+        BOOST_RV_REF(descriptor_owner_movable) param) BOOST_NOEXCEPT
+    {
         descriptor_owner_movable tmp(boost::move(param));
         std::swap(descriptor_, tmp.descriptor_);
         return *this;

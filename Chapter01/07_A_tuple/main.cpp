@@ -1,15 +1,14 @@
 #include <boost/tuple/tuple.hpp>
 #include <string>
 
+boost::tuple<int, std::string> almost_a_pair(10, "Hello");
+boost::tuple<int, float, double, int> quad(10, 1.0f, 10.0, 1);
+
 #include <boost/tuple/tuple_comparison.hpp>
 #include <assert.h>
 #include <set>
 
 void foo1() {
-    boost::tuple<int, std::string> almost_a_pair(10, "Hello");
-    boost::tuple<int, float, double, int> quad(10, 1.0f, 10.0, 1);
-
-
     int i = boost::get<0>(almost_a_pair);
     const std::string& str = boost::get<1>(almost_a_pair);
     double d = boost::get<2>(quad);
@@ -45,7 +44,7 @@ void foo3() {
     int i2;
 
     // Passing values from 'quad' variables
-    // to variables 'i', 'f', 'd', 'i2'
+    // to variables 'i', 'f', 'd', 'i2'.
     boost::tie(i, f, d, i2) = quad;
 
     assert(i == 10);

@@ -24,11 +24,14 @@ int main() {
 
 
 void example_func() {
-    // Default constructor will construct an instance of boost::blank
-    boost::variant<boost::blank /*empty state*/, int, const char*, std::string> var;
+    // Default constructor constructs an instance of boost::blank.
+    boost::variant<
+        boost::blank, int, const char*, std::string
+    > var;
 
-    // 'which()' method returns an index of a type currently held by variant.
-    assert(var.which() == 0); // Empty state
+    // 'which()' method returns an index of a type
+    // currently held by variant.
+    assert(var.which() == 0); // boost::blank
 
     var = "Hello, dear reader";
     assert(var.which() != 0);
@@ -38,10 +41,10 @@ void example_func1() {
     boost::variant<int, std::string> variable(0);
 
     // Following method may throw a boost::bad_get
-    // exception if actual value in variable is not an int
+    // exception if actual value in variable is not an int.
     int s1 = boost::get<int>(variable);
 
-    // If actual value in variable is not an int will return an NULL pointer.
+    // If actual value in variable is not an int will return NULL.
     int* s2 = boost::get<int>(&variable);
 
 
