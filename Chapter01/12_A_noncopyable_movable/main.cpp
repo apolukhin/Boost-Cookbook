@@ -155,7 +155,8 @@ descriptor_owner_movable construct_descriptor3() {
 #ifndef YOUR_PROJECT_VECTOR_HPP
 #define YOUR_PROJECT_VECTOR_HPP
 
-#include <boost/config.hpp> // contains BOOST_NO_CXX11_RVALUE_REFERENCES macro
+// Contains BOOST_NO_CXX11_RVALUE_REFERENCES macro.
+#include <boost/config.hpp>
 
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 // We do have rvalues
