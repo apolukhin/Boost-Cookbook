@@ -45,7 +45,7 @@ void to_hex_test2() {
     std::cout << '\n';
 }
 
-#include <assert.h>
+#include <cassert>
 int main() {
     assert(chars_65_125_pre11() == chars_65_125());
     to_hex_test1();

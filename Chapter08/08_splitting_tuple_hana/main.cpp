@@ -1,6 +1,6 @@
 #if __cplusplus >= 201300
 
-#include <assert.h>
+#include <cassert>
 
 #include <boost/hana/traits.hpp>
 
@@ -29,7 +29,7 @@ constexpr auto get_arithmetics = [](const auto& seq) {
 #include <boost/hana/tuple.hpp>
 #include <boost/hana/integral_constant.hpp>
 #include <boost/hana/equal.hpp>
-#include <assert.h>
+#include <cassert>
 
 struct foo {
     bool operator==(const foo&) const { return true; }

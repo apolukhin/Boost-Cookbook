@@ -1,7 +1,7 @@
 #include <boost/noncopyable.hpp>
 #include <algorithm>
 #include <iostream>
-#include <assert.h>
+#include <cassert>
 
 class descriptor_owner: private boost::noncopyable {
     void* descriptor_;

@@ -103,7 +103,7 @@ void once_printer(int i) {
 }
 
 
-#include <assert.h>
+#include <cassert>
 int main() {
     last_attempt::postprocessor pp;
     assert(pp.act(std::string()).size() == 5);

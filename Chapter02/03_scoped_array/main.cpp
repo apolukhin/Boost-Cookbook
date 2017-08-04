@@ -45,7 +45,7 @@ void foo_fixed2() {
 }
 
 #include <stdexcept>
-#include <assert.h>
+#include <cassert>
 
 int main() {
     // foo(); // Leaks memory

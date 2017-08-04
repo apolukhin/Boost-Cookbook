@@ -68,6 +68,8 @@ void do_process_in_background_v2(const char* data, std::size_t size) {
     // reference count is zero.
 }
 
+#include <boost/shared_ptr.hpp>
+
 void do_process_shared_ptr2(
         const boost::shared_ptr<char>& data,
         std::size_t size);

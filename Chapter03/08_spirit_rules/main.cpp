@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include <assert.h>
+#include <cassert>
 
 struct datetime {
     enum zone_offsets_t {

@@ -55,9 +55,11 @@ int main() {
 
 
 
-// Details...
+// Implementation details:
 
-#include <assert.h>
+#include <cassert>
+#include <boost/make_shared.hpp>
+
 bool g_derived_was_called = false;
 base::~base() {
     assert(g_derived_was_called);
@@ -71,7 +73,6 @@ void derived::some_methods() {}
 
 derived::~derived() {}
 
-#include <boost/make_shared.hpp>
 boost::shared_ptr<const base> construct_derived() {
     return boost::make_shared<derived>();
 }

@@ -1,29 +1,36 @@
-#include <assert.h>
+// Boost.LexicalCast way of converting to strings:
+#include <cassert>
 #include <boost/lexical_cast.hpp>
 
-void foo1() {
+void lexical_cast_example() {
     const std::string s = boost::lexical_cast<std::string>(100);
     assert(s == "100");
 }
 
+
+
+// C++ way of converting to strings:
+#include <cassert>
 #include <sstream>
-void foo2() {
-    // C++ way of converting to strings.
-    std::stringstream ss;
+
+void cpp_convert_example() {
+    std::stringstream ss; // Slow/heravy default constructor.
     ss << 100;
     std::string s;
     ss >> s;
 
     // Variable 'ss' will dangle all the way, till the end
-    // of scope.
-    // Multiple virtual methods were called during
-    // conversion.
+    // of scope. Multiple virtual methods and heavy 
+    // operations were called during the conversion.
     assert(s == "100");
 }
 
+
+// C way of converting to strings:
+#include <cassert>
 #include <cstdlib>
-void foo3() {
-     // C way of converting to strings.
+
+void c_convert_example() {
      char buffer[100];
      std::sprintf(buffer, "%i", 100);
 
@@ -40,8 +47,9 @@ void foo3() {
 }
 
 
+
 int main() {
-    foo1();
-    foo2();
-    foo3();
+    lexical_cast_example();
+    cpp_convert_example();
+    c_convert_example();
 }

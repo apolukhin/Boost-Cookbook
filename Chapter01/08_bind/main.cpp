@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <functional>
 #include <string>
-#include <assert.h>
+#include <cassert>
 
 void test1() {
     const boost::array<int, 12> v = {{

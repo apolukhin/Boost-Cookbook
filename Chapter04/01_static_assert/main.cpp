@@ -23,6 +23,7 @@ void serialize_bad(const T& value, boost::array<byte_t, BufSizeV>& buffer) {
 } // namespace example 2
 
 
+
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/has_trivial_copy.hpp>
 
@@ -44,6 +45,13 @@ struct some_templated_struct {
     enum enum_t { value = (sizeof(T1) == sizeof(T2))};
 };
 BOOST_STATIC_ASSERT((some_templated_struct<int, unsigned int>::value));
+
+template<class T1, class T2>
+struct some_template { 
+    BOOST_STATIC_ASSERT(sizeof(T1) == sizeof(T2));
+};
+
+
 
 
 #include <iostream>

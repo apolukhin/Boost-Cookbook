@@ -72,7 +72,7 @@ namespace modern_cpp {
 
 #endif
 
-#include <assert.h>
+#include <cassert>
 int main () {
     assert(add(1, 2) == 3);
 

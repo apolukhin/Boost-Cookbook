@@ -4,7 +4,7 @@ typedef boost::function<void(int)> fobject_t;
 // Now this function may accept functional objects
 void process_integers(const fobject_t& f);
 
-#include <assert.h>
+#include <cassert>
 #include <deque>
 int main() {
     // lambda function with no parameters that does nothing

@@ -42,7 +42,7 @@ inline std::istream& operator>>(std::istream& is, negative_number& num)
 
 #include <boost/lexical_cast.hpp>
 #include <boost/array.hpp>
-#include <assert.h>
+#include <cassert>
 
 void foo1() {
     const negative_number n

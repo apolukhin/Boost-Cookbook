@@ -125,7 +125,7 @@ void inc_cpp17(T& value) {
 
 #endif
 
-#include <assert.h>
+#include <cassert>
 int main() {
     int i = 0;
     inc(i);

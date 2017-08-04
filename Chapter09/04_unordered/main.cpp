@@ -6,7 +6,7 @@
 
 #include <boost/unordered_set.hpp>
 #include <string>
-#include <assert.h>
+#include <cassert>
 
 void example() {
     boost::unordered_set<std::string> strings;

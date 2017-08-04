@@ -1,5 +1,4 @@
-
-namespace intro0 {
+namespace intro {
 
 // Generic implementation.
 template <class T>
@@ -7,32 +6,26 @@ class data_processor {
     double process(const T& v1, const T& v2, const T& v3);
 };
 
-} // namespace intro0
-namespace intro1 {
 
 // Integral types optimized version.
 template <class T>
-class data_processor {
+class data_processor_integral {
     typedef int fast_int_t;
     double process(fast_int_t v1, fast_int_t v2, fast_int_t v3);
 };
 
-} // namespace intro1
-namespace intro2 {
-
 // SSE optimized version for float types.
 template <class T>
-class data_processor {
+class data_processor_sse {
     double process(double v1, double v2, double v3);
 };
 
-} // namespace intro2
-
+} // namespace intro
 
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_float.hpp>
 

@@ -12,7 +12,7 @@ T process_data_plus_assign(const T& v1, const T& v2, const T& v3){
     return v1;
 }
 
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/type_traits/has_plus_assign.hpp>
 
 // Modified generic version of process_data

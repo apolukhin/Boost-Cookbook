@@ -114,7 +114,7 @@ struct public_interface::impl{};
 
 bool g_exit_on_first_function = true;
 
-#include <assert.h>
+#include <cassert>
 int main() {
     try { foo1(); } catch(...){ assert(false); }
 

@@ -3,7 +3,7 @@ class event {};
 #include <boost/container/static_vector.hpp>
 boost::container::static_vector<event, 5> get_events();
 
-#include <assert.h>
+#include <cassert>
 
 int main () {
     boost::container::static_vector<event, 5> ev = get_events();

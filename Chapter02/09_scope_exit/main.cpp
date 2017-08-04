@@ -50,6 +50,6 @@ void unique_ptr_example() {
     tme.func();
 }
 
-#include <assert.h>
+#include <cassert>
 void theres_more_example::close(std::FILE* f) { assert(!f); }
 

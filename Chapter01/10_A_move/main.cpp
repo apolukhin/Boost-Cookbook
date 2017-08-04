@@ -1,7 +1,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include <assert.h>
+#include <cassert>
 
 #include <boost/move/move.hpp>
 

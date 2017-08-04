@@ -17,7 +17,7 @@ int something(std::string&&){ return 0; }
 #endif
 
 
-#include <assert.h>
+#include <cassert>
 void my_ints_function(int i) { assert(i == 10); }
 void process_integers(const fobject_t& fun) {
     fun(10);

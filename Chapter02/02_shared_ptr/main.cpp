@@ -109,7 +109,7 @@ int main() {
     process3(p.get());
 }
 
-#include <assert.h>
+#include <cassert>
 
 foo_class* get_data() {
     static int i = 0;
