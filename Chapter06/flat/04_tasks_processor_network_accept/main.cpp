@@ -328,9 +328,7 @@ private:
                 std::move(listener->new_c_), listener->func_
             );
 
-            if (!error) {
-                start_accepting_connection(std::move(listener));
-            }
+            start_accepting_connection(std::move(listener));
             task(error, 0);
         }
     };
@@ -390,7 +388,7 @@ public:
         connection_ptr&& connection,
         const boost::system::error_code& error)
     {
-        assert(!error);
+        if (error) return;
         async_read_data_at_least(std::move(connection), &authorizer::on_datarecieve, 1, 1024);
     }
 

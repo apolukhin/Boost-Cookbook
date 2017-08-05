@@ -10,7 +10,7 @@ public:
         connection_ptr&& connection,
         const boost::system::error_code& error)
     {
-        assert(!error);
+        if (error) return;
         async_read_data_at_least(std::move(connection), &authorizer::on_datarecieve, 1, 1024);
     }
 
