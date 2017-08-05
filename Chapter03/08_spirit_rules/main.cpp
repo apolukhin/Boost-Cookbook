@@ -155,12 +155,12 @@ datetime parse_datetime(const std::string& s) {
         );
 
     boost::spirit::qi::rule<const char*, void()> date_parser =
-           u4_ [ bind(&datetime::set_year, &ret, _1) ]  >> char_('-')
-        >> u2_ [ bind(&datetime::set_month, &ret, _1) ] >> char_('-')
+           u4_ [ bind(&datetime::set_year, &ret, _1) ]  >> '-'
+        >> u2_ [ bind(&datetime::set_month, &ret, _1) ] >> '-'
         >> u2_ [ bind(&datetime::set_day, &ret, _1) ];
 
     boost::spirit::qi::rule<const char*, void()> time_parser =
-            u2_ [ bind(&datetime::set_hours, &ret, _1) ] >> char_(':')
+            u2_ [ bind(&datetime::set_hours, &ret, _1) ] >> ':'
          >> u2_ [ bind(&datetime::set_minutes, &ret, _1) ] >> ':'
          >> u2_ [ bind(&datetime::set_seconds, &ret, _1) ];
 
@@ -168,7 +168,7 @@ datetime parse_datetime(const std::string& s) {
     const char* const end = first + s.size();
     const bool success = boost::spirit::qi::parse(first, end,
         (
-            (date_parser >> char_('T') >> time_parser)
+            (date_parser >> 'T' >> time_parser)
             | date_parser
             | time_parser
         )
