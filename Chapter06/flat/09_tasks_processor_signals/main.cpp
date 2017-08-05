@@ -330,7 +330,9 @@ private:
                 std::move(listener->new_c_), listener->func_
             );
 
-            start_accepting_connection(std::move(listener));
+            if (!error) {
+                start_accepting_connection(std::move(listener));
+            }
             task(error, 0);
         }
     };
