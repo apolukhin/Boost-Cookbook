@@ -45,6 +45,7 @@ Thanks to Heather Gopsill from Packt Publishing for giving a permission to make 
 Thanks to Nitin Dasan from Packt Publishing for getting all the necessary approvals for making sources publicly available for the second edition of the book.
 
 ### Notes for book update
+* TODO: update all the smart_ptr urls after 1.65 release: http://boost.org/libs/smart_ptr/smart_ptr.html#pointer_cast
 * sync code and book
 * Fix introduction in "Chapter09. Getting the benefits of single-linked list and memory pool"
 * Update this README.md with a link to second edition of the book

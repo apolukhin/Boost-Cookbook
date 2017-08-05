@@ -4,6 +4,8 @@ void sample1() {
     std::istringstream iss("100");
     int i;
     iss >> i;
+
+    // ...
 }
 
 
@@ -14,6 +16,7 @@ void sample2() {
     char * end;
     const int i = std::strtol ("100", &end, 10);
 
+    // ...
     (void)i; // Supressing warning about unused variable.
 }
 
@@ -23,6 +26,7 @@ void sample2() {
 
 void sample3() {
     const int i = boost::lexical_cast<int>("100");
+    // ...
     (void)i; // Supressing warning about unused variable.
 }
 
@@ -62,14 +66,13 @@ void sample6() {
         const int i = boost::lexical_cast<int>("This is not a number!");
         assert(false); // Must not reach this line.
         (void)i; // Supressing warning about unused variable.
-    } catch (const boost::bad_lexical_cast& e) {
-        std::cout << e.what() << '\n';
-    }
+    } catch (const boost::bad_lexical_cast& /*e*/) {}
 }
 
 
 
 #include <boost/lexical_cast.hpp>
+#include <cassert>
 
 void sample7() {
     int i = 0;

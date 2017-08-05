@@ -78,18 +78,7 @@ TargetT my_numeric_cast(const SourceT& in) {
     return converter::convert(in);
 }
 
-
-int main() {
-    foo1();
-    foo2();
-
-    test_function();
-    std::cout << "\n\n\n";
-    test_function1();
-
-    std::cout << "\n\n\n";
-
-    // Somewhere in ...
+void example_with_my_numeric_cast() {
     short v = 0;
     try {
         v = my_numeric_cast<short>(100000);
@@ -97,6 +86,19 @@ int main() {
         std::cout << "It works! " << e.what() << std::endl;
     }
     (void)v;
+}
+
+int main() {
+    foo1();
+    foo2();
+
+    test_function();
+    std::cout << "\n\n\n";
+
+    test_function1();
+    std::cout << "\n\n\n";
+
+    example_with_my_numeric_cast();
 }
 
 void some_function(unsigned short param) {

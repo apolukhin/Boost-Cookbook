@@ -31,7 +31,6 @@ private:
     }
 
 public:
-
     datetime()
         : year_(0), month_(0), day_(0)
         , hours_(0), minutes_(0), seconds_(0)
@@ -53,10 +52,11 @@ public:
     unsigned int zone_offset_in_min() const { return zone_offset_in_min_; }
 
 
-    // Setters: set_year(unsigned short), set_month(unsigned short), ...
-    // void set_*(unsigned short val) {
+    // Setters: set_year(unsigned short), set_day(unsigned short), ...
+    //
+    // void set_*(unsigned short v) {
     //     Some dt_assert.
-    //     Setting the '*_' to 'val'.
+    //     Setting the '*_' to 'v'.
     // }
     // ...
     void set_year(unsigned short val) {
@@ -88,7 +88,7 @@ public:
         seconds_ = val;
     }
 
-    void set_zone_offset_type(zone_offsets_t val) {
+    void set_zone_offset(zone_offsets_t val) {
         // We do not get over paranoid, so we won't check val range
         zone_offset_type_ = val;
     }
@@ -101,7 +101,7 @@ public:
 void set_zone_offset(datetime& dt, char sign, unsigned short hours
     , unsigned short minutes)
 {
-    dt.set_zone_offset_type(
+    dt.set_zone_offset(
         sign == '+'
         ? datetime::OFFSET_UTC_PLUS
         : datetime::OFFSET_UTC_MINUS
@@ -110,13 +110,13 @@ void set_zone_offset(datetime& dt, char sign, unsigned short hours
 }
 
 
-//Default includes for Boost.Spirit
+// Default includes for Boost.Spirit.
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 
 // We'll use bind() function from Boost.Spirit,
-// because it interates better with parsers
+// because it interates better with parsers.
 #include <boost/spirit/include/phoenix_bind.hpp>
 
 datetime parse_datetime(const std::string& s) {
@@ -143,7 +143,7 @@ datetime parse_datetime(const std::string& s) {
 
             // Zero offset
             char_('Z')[ bind(
-                &datetime::set_zone_offset_type, &ret, datetime::OFFSET_Z
+                &datetime::set_zone_offset, &ret, datetime::OFFSET_Z
             ) ]
 
             |  // OR
@@ -161,7 +161,7 @@ datetime parse_datetime(const std::string& s) {
 
     boost::spirit::qi::rule<const char*, void()> time_parser =
             u2_ [ bind(&datetime::set_hours, &ret, _1) ] >> char_(':')
-         >> u2_ [ bind(&datetime::set_minutes, &ret, _1) ] >> char_(':')
+         >> u2_ [ bind(&datetime::set_minutes, &ret, _1) ] >> ':'
          >> u2_ [ bind(&datetime::set_seconds, &ret, _1) ];
 
     const char* first = s.data();
@@ -178,7 +178,6 @@ datetime parse_datetime(const std::string& s) {
     if (!success || first != end) {
         throw std::logic_error("Parsing of '" + s + "' failed");
     }
-
     return ret;
 } // end of parse_datetime() function
 

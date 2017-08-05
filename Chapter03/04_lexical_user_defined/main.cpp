@@ -29,7 +29,7 @@ inline std::istream& operator>>(std::istream& is, negative_number& num)
     is >> ch;
     if (ch != '-') {
         throw std::logic_error(
-            "negative_number class designed to store ONLY negative values"
+            "negative_number class stores ONLY negative values"
         );
     }
 
@@ -44,7 +44,7 @@ inline std::istream& operator>>(std::istream& is, negative_number& num)
 #include <boost/array.hpp>
 #include <cassert>
 
-void foo1() {
+void example1() {
     const negative_number n
         = boost::lexical_cast<negative_number>("-100");
     assert(n.value_without_sign() == 100);
@@ -78,7 +78,7 @@ std::basic_istream<CharT>&
     is >> ch;
     if (ch != static_cast<CharT>('-')) {
         throw std::logic_error(
-            "negative_number class designed to store ONLY negative values"
+            "negative_number class stores ONLY negative values"
         );
     }
     unsigned short s;
@@ -87,7 +87,7 @@ std::basic_istream<CharT>&
     return is;
 }
 
-void foo2() {
+void example2() {
     const negative_number n = boost::lexical_cast<negative_number>(L"-1");
     assert(n.value_without_sign() == 1);
 
@@ -100,6 +100,6 @@ void foo2() {
 
 
 int main() {
-    foo1();
-    foo2();
+    example1();
+    example2();
 }

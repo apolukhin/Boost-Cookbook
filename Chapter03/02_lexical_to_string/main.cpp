@@ -14,7 +14,7 @@ void lexical_cast_example() {
 #include <sstream>
 
 void cpp_convert_example() {
-    std::stringstream ss; // Slow/heravy default constructor.
+    std::stringstream ss; // Slow/heavy default constructor.
     ss << 100;
     std::string s;
     ss >> s;
