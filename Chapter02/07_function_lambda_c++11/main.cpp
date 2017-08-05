@@ -4,9 +4,13 @@ typedef boost::function<void(int)> fobject_t;
 // Now this function may accept functional objects
 void process_integers(const fobject_t& f);
 
+
+
 #include <cassert>
 #include <deque>
-int main() {
+//#include <your_project/process_integers.h>
+
+void sample() {
     // lambda function with no parameters that does nothing
     process_integers([](int /*i*/){});
 
@@ -26,8 +30,12 @@ int main() {
     });
 
     assert(match_count == 6);
+}
 
 
+
+int main() {
+    sample();
 
     std::deque<int> v = {10, 20, 30, 40, 50};
 

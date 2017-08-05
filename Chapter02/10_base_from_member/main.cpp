@@ -33,7 +33,7 @@ public:
 
 #ifdef NEWER_DEFINED1
     fake_tasks_processor()
-        : logger_() // Oops! logger_ still will be constructed AFTER tasks_processor
+        : logger_() // Oops! It is still constructed AFTER tasks_processor.
         , tasks_processor(logger_)
     {}
 #endif
@@ -41,6 +41,7 @@ public:
 };
 
 #include <boost/utility/base_from_member.hpp>
+
 class fake_tasks_processor_fixed
     : boost::base_from_member<std::ostringstream>
     , public tasks_processor

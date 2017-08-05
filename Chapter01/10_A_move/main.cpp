@@ -62,7 +62,6 @@ void person_info::swap(person_info& rhs) {
 
 
 int main() {
-
     person_info vasya;
     vasya.name_ = "Vasya";
     vasya.second_name_ = "Snow";

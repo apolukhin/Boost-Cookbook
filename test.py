@@ -21,7 +21,7 @@ class tester:
         'Chapter01/01_B_program_options_short_70': ("Error: can not read options configuration file 'apples_oranges.cfg'\nError: the option '--oranges' is required but missing\n", '', 2),
         'Chapter01/01_B_program_options_short_80_cfg': ('Fruits count: 100\n', '', 0),
         'Chapter01/01_B_program_options_short_cfg': ('Fruits count: 30\n', '', 0),
-        'Chapter01/01_B_program_options_short_help': ('All options:\n  -o [ --oranges ] arg      oranges that you have\n  --name arg                your name\n  -a [ --apples ] arg (=10) apples that you have\n  --help                    produce help message\n\n', '', 1),
+        'Chapter01/01_B_program_options_short_help': ('All options:\n  -o [ --oranges ] arg      oranges that you have\n  --name arg                your name\n  --help                    produce help message\n  -a [ --apples ] arg (=10) apples that you have\n\n', '', 1),
         'Chapter01/01_B_program_options_short_no_params': ("Error: can not read options configuration file 'apples_oranges.cfg'\nError: the option '--oranges' is required but missing\n", '', 2),
         'Chapter01/02_any': ('Wow! That is great!\n', '', 0),
         'Chapter01/03_variant': ('Wow! That is great!\n', '', 0),

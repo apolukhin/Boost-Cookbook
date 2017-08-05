@@ -1,11 +1,16 @@
-#include <boost/array.hpp>
+// Contains boost::bind and placeholders.
 #include <boost/bind.hpp>
+
+// Utility stuff required by samples.
+#include <boost/array.hpp>
 #include <algorithm>
 #include <functional>
 #include <string>
 #include <cassert>
 
-void test1() {
+
+
+void sample1() {
     const boost::array<int, 12> v = {{
         1, 2, 3, 4, 5, 6, 7, 100, 99, 98, 97, 96
     }};
@@ -19,7 +24,9 @@ void test1() {
     assert(count0 == count1);
 }
 
-void test2() {
+
+
+void sample2() {
     const boost::array<std::string, 3> v = {{
         "We ", "are", " the champions!"
     }};
@@ -33,7 +40,9 @@ void test2() {
     assert(count0 == count1);
 }
 
-void test3() {
+
+
+void sample3() {
     const boost::array<std::string, 3> v = {{
         "We ", "are", " the champions!"
     }};
@@ -51,7 +60,9 @@ void test3() {
     assert(count0 == count1);  
 }
 
-void test4() {
+
+
+void sample4() {
     const boost::array<std::string, 3> v = {{
         "We ", "are", " the champions!"
     }}; 
@@ -69,9 +80,10 @@ void test4() {
 }
 
 
+
 #include <boost/ref.hpp>
 
-void test5() {
+void sample5() {
     const boost::array<std::string, 3> v = {{
         "We ", "are", " the champions!"
     }}; 
@@ -82,6 +94,7 @@ void test5() {
     const std::size_t count1 = std::count_if(v.begin(), v.end(), 
         boost::bind(std::less<std::string>(), _1, boost::cref(s))
     ); 
+    // ...
 
 
 
@@ -91,25 +104,29 @@ void test5() {
     assert(count0 == count1);
 }
 
-void test6() {
+
+
+void sample6() {
     const auto twice = boost::bind(std::plus<int>(), _1, _1);
     assert(twice(2) == 4);
 
     const auto minus_from_second = boost::bind(std::minus<int>(), _2, _1);
     assert(minus_from_second(2, 4) == 2);
 
-    const auto sum_second_and_third = boost::bind(std::plus<int>(), _2, _3);
+    const auto sum_second_and_third = boost::bind(
+        std::plus<int>(), _2, _3
+    );
     assert(sum_second_and_third(10, 20, 30) == 50);
 }
 
 
 int main () {
-    test1();
-    test2();
-    test3();
-    test4();
-    test5();
-    test6();
+    sample1();
+    sample2();
+    sample3();
+    sample4();
+    sample5();
+    sample6();
 }
 
 

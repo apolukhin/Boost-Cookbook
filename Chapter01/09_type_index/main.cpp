@@ -9,7 +9,7 @@ void do_something(const T& x) {
 }
 
 
-void test1() {
+void sample1() {
     auto&& x = 42;
     std::cout << "x is "
               << typeid(decltype(x)).name()
@@ -29,7 +29,10 @@ void do_something_again(const T& x) {
 }
 
 
-void test2() {
+
+#include <boost/type_index.hpp>
+
+void sample2() {
     auto&& x = 42;
     std::cout << "x is "
               << boost::typeindex::type_id_with_cvr<decltype(x)>()
@@ -41,9 +44,9 @@ void test2() {
 
 int main () {
     do_something(1.0);
-    test1();
+    sample1();
     do_something_again(1.0);
-    test2();
+    sample2();
 }
 
 

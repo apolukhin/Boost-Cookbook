@@ -18,12 +18,12 @@ int main(int argc, char *argv[])
         // 'name' option is not marked with 'required()',
         // so user may not provide it.
         ("name", opt::value<std::string>(), "your name")
+        ("help", "produce help message")
 
-        // 'a' is a short option name for apples. Just out '-a 10'
-        // If no value provided for 'apples', the the default value is used.
+        // 'a' is a short option name for apples. Use as '-a 10'.
+        // If no value provided, then the default value is used.
         ("apples,a", opt::value<int>()->default_value(10),
                                             "apples that you have")
-        ("help", "produce help message")
     ;
 
     opt::variables_map vm;
@@ -31,7 +31,8 @@ int main(int argc, char *argv[])
     // Parsing command line options and storing values to 'vm'
     opt::store(opt::parse_command_line(argc, argv, desc), vm);
 
-    // We can also parse environment variables using 'parse_environment' method
+    // We can also parse environment variables. Just use
+    // 'opt::store with' 'opt::parse_environment' function.
 
     if (vm.count("help")) {
         std::cout << desc << "\n";
@@ -40,7 +41,10 @@ int main(int argc, char *argv[])
 
     // Adding missing options from "apples_oranges.cfg" config file.
     try {
-        opt::store(opt::parse_config_file<char>("apples_oranges.cfg", desc), vm);
+        opt::store(
+            opt::parse_config_file<char>("apples_oranges.cfg", desc),
+            vm
+        );
     } catch (const opt::reading_file& e) {
         std::cout << "Error: " << e.what() << std::endl;
     }

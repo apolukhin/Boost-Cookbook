@@ -1,5 +1,5 @@
-void example_func();
-void example_func1();
+void example1();
+void example2();
 
 #include <boost/variant.hpp>
 #include <iostream>
@@ -17,13 +17,13 @@ int main() {
     s += " That is great!\n";
     std::cout << s;
 
-    example_func();
-    example_func1();
+    example1();
+    example2();
 }
 
 
 
-void example_func() {
+void example1() {
     // Default constructor constructs an instance of boost::blank.
     boost::variant<
         boost::blank, int, const char*, std::string
@@ -37,7 +37,9 @@ void example_func() {
     assert(var.which() != 0);
 }
 
-void example_func1() {
+
+
+void example2() {
     boost::variant<int, std::string> variable(0);
 
     // Following method may throw a boost::bad_get

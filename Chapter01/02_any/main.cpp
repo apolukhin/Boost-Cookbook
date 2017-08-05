@@ -20,7 +20,7 @@
 //    return 0;
 //}
 
-void example_func();
+void example();
 
 #include <boost/any.hpp>
 #include <iostream>
@@ -38,10 +38,10 @@ int main() {
     s += " That is great!\n";
     std::cout << s;
 
-    example_func();
+    example();
 }
 
-void example_func() {
+void example() {
     boost::any variable(std::string("Hello world!"));
 
     // Following method may throw a boost::bad_any_cast exception

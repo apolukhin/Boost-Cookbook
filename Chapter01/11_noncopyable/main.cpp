@@ -12,7 +12,7 @@ public:
 descriptor_owner::descriptor_owner(const char* ){}
 
 
-void foo() {
+void i_am_bad() {
     descriptor_owner d1("O_o");
     descriptor_owner d2("^_^");
 
@@ -31,7 +31,7 @@ public:
     descriptor_owner_fixed(const char* params){ (void)params; }
 };
 
-void foo2() {
+void i_am_good() {
     descriptor_owner_fixed d1("O_o");
     descriptor_owner_fixed d2("^_^");
 
@@ -42,7 +42,7 @@ void foo2() {
 
 
 int main() {
-    foo();
-    foo2();
+    i_am_bad();
+    i_am_good();
 }
 

@@ -148,6 +148,8 @@ descriptor_owner_movable construct_descriptor3() {
     return descriptor_owner_movable("Construct using this string");
 }
 
+
+
 // your_project/vector.hpp
 // Copyright and other stuff goes here
 
@@ -177,6 +179,9 @@ namespace your_project_namespace {
 #endif // !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 #endif // YOUR_PROJECT_VECTOR_HPP
 
+
+#include <boost/container/vector.hpp>
+// #include <your_project/descriptor_owner_movable.h>
 
 int main() {
     foo_rv();

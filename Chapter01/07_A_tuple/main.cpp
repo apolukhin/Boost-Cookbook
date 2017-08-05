@@ -4,19 +4,28 @@
 boost::tuple<int, std::string> almost_a_pair(10, "Hello");
 boost::tuple<int, float, double, int> quad(10, 1.0f, 10.0, 1);
 
-#include <boost/tuple/tuple_comparison.hpp>
-#include <cassert>
-#include <set>
 
-void foo1() {
-    int i = boost::get<0>(almost_a_pair);
+
+#include <boost/tuple/tuple.hpp>
+
+void sample1() {
+    const int i = boost::get<0>(almost_a_pair);
     const std::string& str = boost::get<1>(almost_a_pair);
-    double d = boost::get<2>(quad);
+    const double d = boost::get<2>(quad);
 
     (void) i;
     (void) str;
     (void) d;
+}
 
+
+
+#include <boost/tuple/tuple.hpp>
+#include <boost/tuple/tuple_comparison.hpp>
+#include <set>
+#include <cassert>
+
+void sample2() {
     // Tuple comparison operators are
     // defined in header "boost/tuple/tuple_comparison.hpp"
     // Don't forget to include it!
@@ -24,9 +33,7 @@ void foo1() {
     s.insert(boost::make_tuple(1, 1.0, 2));
     s.insert(boost::make_tuple(2, 10.0, 2));
     s.insert(boost::make_tuple(3, 100.0, 2));
-}
 
-void foo2() {
 #ifndef BOOST_NO_CXX11_AUTO_DECLARATIONS
     // Requires C++11
     const auto t = boost::make_tuple(0, -1.0, 2);
@@ -36,7 +43,11 @@ void foo2() {
 #endif
 }
 
-void foo3() {
+
+#include <boost/tuple/tuple.hpp>
+#include <cassert>
+
+void sample3() {
     boost::tuple<int, float, double, int> quad(10, 1.0f, 10.0, 1);
     int i;
     float f;
@@ -57,7 +68,7 @@ struct id_name_pair {
 };
 
 int main () {
-    foo1();
-    foo2();
-    foo3();
+    sample1();
+    sample2();
+    sample3();
 }

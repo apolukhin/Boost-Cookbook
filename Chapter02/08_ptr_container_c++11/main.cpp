@@ -30,6 +30,8 @@ void example1() {
     std::for_each(s.begin(), s.end(), [](int* p) { delete p; });
 }
 
+
+
 #include <memory>
 #include <set>
 
@@ -45,6 +47,8 @@ void example2_cpp11() {
 
     // Resources will be deallocated by unique_ptr<>.
 }
+
+
 
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
@@ -62,6 +66,8 @@ void example3() {
     // Resources will be deallocated by shared_ptr<>.
 }
 
+
+
 #include <boost/ptr_container/ptr_set.hpp>
 
 void correct_impl() {
@@ -76,20 +82,27 @@ void correct_impl() {
     // Resources will be deallocated by container itself.
 }
 
+
+
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
+#include <cassert>
 
 void theres_more_example() {
     // Creating vector of 10 elements with values 100
     boost::ptr_vector<int> v;
     int value = 100;
     v.resize(10, &value); // Beware! No ownership of pointer!
+
     assert(v.size() == 10);
     assert(v.back() == 100);
 }
 
+
+
 #include <boost/container/set.hpp>
 #include <boost/move/make_unique.hpp>
+#include <cassert>
 
 void example2_cpp03() {
     typedef boost::movelib::unique_ptr<int> int_uptr_t;
@@ -99,6 +112,8 @@ void example2_cpp03() {
     // ...
     assert(**s.begin() == 0);
 }
+
+
 
 int main() {
     example1();
