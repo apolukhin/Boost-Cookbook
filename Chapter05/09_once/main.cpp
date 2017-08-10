@@ -57,7 +57,7 @@ public:
 
 #include <boost/thread/once.hpp>
 
-namespace last_attempt {
+namespace right_solution {
 
 struct postprocessor {
     typedef std::vector<std::string> answer_t;
@@ -74,6 +74,7 @@ public:
 
     // Concurrent calls on the same variable are safe.
     answer_t act(const std::string& in) const {
+        answer_t ret;
         if (in.empty()) {
             // Extremely rare condition.
             boost::call_once(default_flag_, [this]() {
@@ -83,12 +84,11 @@ public:
         }
 
         // ...
-        answer_t ret;
         return ret;
     }
 };
 
-} // namespace last_attempt
+} // namespace right_solution
 
 #include <iostream>
 void once_printer(int i) {
@@ -105,7 +105,7 @@ void once_printer(int i) {
 
 #include <cassert>
 int main() {
-    last_attempt::postprocessor pp;
+    right_solution::postprocessor pp;
     assert(pp.act(std::string()).size() == 5);
     assert(pp.act("Hello").size() == 0);
 

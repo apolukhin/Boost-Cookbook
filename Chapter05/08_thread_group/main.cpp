@@ -1,10 +1,12 @@
-#include <cassert>
-#include <boost/atomic.hpp>
-boost::atomic_int g_counter(0);
-void some_function(){ ++ g_counter; }
+void do_assert(int threads_joined);
+
+
 
 #include <boost/thread.hpp>
-int main() {
+
+void some_function();
+
+void sample() {
     boost::thread t1(&some_function);
     boost::thread t2(&some_function);
     boost::thread t3(&some_function);
@@ -13,11 +15,16 @@ int main() {
     t1.join();
     t2.join();
     t3.join();
+}
 
-    assert(g_counter == 3);
+
+
+#include <boost/thread.hpp>
+
+int main() {
+    boost::thread_group threads;
 
     // Launching 10 threads.
-    boost::thread_group threads;
     for (unsigned i = 0; i < 10; ++i) {
         threads.create_thread(&some_function);
     }
@@ -28,5 +35,21 @@ int main() {
     // We can also interrupt all of them
     // by calling threads.interrupt_all();
 
-    assert(g_counter == 13);
+    do_assert(10);
+    sample();
+    do_assert(13);
+}
+
+
+// details:
+
+#include <boost/atomic.hpp>
+boost::atomic_int g_counter(0);
+
+void do_assert(int threads_joined) {
+    assert(g_counter == threads_joined);
+}
+
+void some_function() {
+    ++g_counter;
 }
