@@ -1,22 +1,12 @@
-void example_with_raii();
+#include <cstddef> // for std::size_t
 
-#include <algorithm>
-#include <fstream>
-#include <iterator>
-
-void set_not_first_run();
 bool is_first_run();
 
 // Function that executes for a long time.
-void fill_file(char fill_char, std::size_t size, const char* filename) {
-    std::ofstream ofs(filename);
-    std::fill_n(std::ostreambuf_iterator<char>(ofs), size, fill_char);
-    set_not_first_run();
-}
+void fill_file(char fill_char, std::size_t size, const char* filename);
 
+// Called in thread that draws a user interface:
 void example_without_threads() {
-    // ...
-    // Somewhere in thread that draws a user interface:
     if (is_first_run()) {
         // This will be executing for a long time during which
         // users interface freezes...
@@ -24,10 +14,13 @@ void example_without_threads() {
     }
 }
 
+
+
+
 #include <boost/thread.hpp>
+
+// Called in thread that draws a user interface:
 void example_with_threads() {
-    // ...
-    // Somewhere in thread that draws a user interface:
     if (is_first_run()) {
         boost::thread(boost::bind(
             &fill_file,
@@ -38,9 +31,9 @@ void example_with_threads() {
     }
 }
 
+
+
 void example_with_joining_threads() {
-    // ...
-    // Somewhere in thread that draws a user interface:
     if (is_first_run()) {
         boost::thread t(boost::bind(
             &fill_file,
@@ -57,6 +50,24 @@ void example_with_joining_threads() {
     }
 }
 
+
+
+#include <boost/thread/scoped_thread.hpp>
+
+void some_func();
+
+void example_with_raii() {
+    boost::scoped_thread<boost::join_if_joinable> t(
+        boost::thread(&some_func)
+    );
+
+    // 't' will be joined at scope exit.
+}
+
+
+
+void set_not_first_run();
+
 int main() {
     example_with_threads();
     example_with_joining_threads();
@@ -65,14 +76,15 @@ int main() {
     example_without_threads();
 }
 
-#include <boost/thread/scoped_thread.hpp>
-void some_func();
-void example_with_raii() {
-    boost::scoped_thread<boost::join_if_joinable> t(
-        boost::thread(&some_func)
-    );
+// details:
 
-    // 't' will be joined at scope exit.
+#include <algorithm>
+#include <fstream>
+#include <iterator>
+void fill_file(char fill_char, std::size_t size, const char* filename) {
+    std::ofstream ofs(filename);
+    std::fill_n(std::ostreambuf_iterator<char>(ofs), size, fill_char);
+    set_not_first_run();
 }
 
 static bool g_is_first_run = true;

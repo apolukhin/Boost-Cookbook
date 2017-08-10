@@ -31,7 +31,7 @@ public:
 
     void set_online(const std::string& username, user_info&& data) {
         boost::lock_guard<mutex_t> lock(users_mutex_);
-        users_.insert(std::make_pair(username, std::move(data)));
+        users_.emplace(username, std::move(data));
     }
 
     // Other methods:
@@ -66,7 +66,7 @@ public:
 
     void set_online(const std::string& username, const user_info& data) {
         boost::lock_guard<mutex_t> lock(users_mutex_);
-        users_.insert(std::make_pair(username, data));
+        users_.emplace(username, std::move(data));
     }
 
     // Other methods:
