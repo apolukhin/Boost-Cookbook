@@ -56,9 +56,9 @@ private:
             return;
         }
 
-        listener->new_c_.reset(
-            new connection_with_data(listener->acceptor_.get_io_service())
-        );
+        listener->new_c_.reset(new connection_with_data(
+            listener->acceptor_.get_io_service()
+        ));
 
         boost::asio::ip::tcp::socket& s = listener->new_c_->socket;
         acceptor_t& a = listener->acceptor_;

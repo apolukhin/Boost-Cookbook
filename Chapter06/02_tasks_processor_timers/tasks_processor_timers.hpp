@@ -39,10 +39,10 @@ namespace detail {
 namespace tp_timers {
 
 class tasks_processor: public tp_base::tasks_processor {
+    // ...
 public:
-
-    template <class Time, class Functor>
-    static void run_delayed(Time duration_or_time, const Functor& f) {
+    template <class Time, class Func>
+    static void run_delayed(Time duration_or_time, const Func& f) {
         std::unique_ptr<boost::asio::deadline_timer> timer(
             new boost::asio::deadline_timer(
                 get_ios(), duration_or_time
@@ -52,7 +52,7 @@ public:
         boost::asio::deadline_timer& timer_ref = *timer;
 
         timer_ref.async_wait(
-            detail::timer_task<Functor>(
+            detail::timer_task<Func>(
                 std::move(timer),
                 f
             )
