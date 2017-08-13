@@ -66,7 +66,7 @@ int main() {
                 std::copy(
                     results.begin() + 1, 
                     results.end(), 
-                    std::ostream_iterator<std::string>( std::cout, ", ")
+                    std::ostream_iterator<std::string>(std::cout, ", ")
                 );
 
                 std::cout << "\nReplace pattern: ";

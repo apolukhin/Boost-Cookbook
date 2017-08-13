@@ -74,6 +74,7 @@ For year 2022+ :
 * boost::allocate_shared ?
 * Dig into the boost::function and statefull allocator support?
 * Boost.Convert ecamples
+* Add a very simple example on regexes.
 
 
 

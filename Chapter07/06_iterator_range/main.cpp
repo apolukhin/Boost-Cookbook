@@ -4,12 +4,12 @@
 #include <algorithm>
 
 int main() {
-    const char str[] 
-        = "This is a long long character array."
-          "Please split this character array to sentences!"
-          "Do you know, that sentences are separated using period, "
-          "exclamation mark and question mark? :-)"
-          ;
+    const char str[] =
+        "This is a long long character array."
+        "Please split this character array to sentences!"
+        "Do you know, that sentences are separated using period, "
+        "exclamation mark and question mark? :-)"
+    ;
 
     typedef boost::split_iterator<const char*> split_iter_t;
     split_iter_t sentences = boost::make_split_iterator(str,

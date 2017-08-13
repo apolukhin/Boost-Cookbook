@@ -17,8 +17,8 @@ public:
     //      $1$ for outputting integer 'i'.
     //      $2$ for outputting string 's'.
     //      $3$ for outputting character 'c'.
-    std::string to_string(const std::string& format_specifier) const {
-        boost::format f(format_specifier);
+    std::string to_string(const std::string& fmt) const {
+        boost::format f(fmt);
         unsigned char flags = boost::io::all_error_bits;
         flags ^= boost::io::too_many_args_bit;
         f.exceptions(flags);
