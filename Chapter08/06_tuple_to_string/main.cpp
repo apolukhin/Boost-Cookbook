@@ -1,4 +1,3 @@
-
 #include <boost/lexical_cast.hpp>
 #include <boost/noncopyable.hpp>
 
@@ -63,9 +62,13 @@ int main() {
     std_tuple_example();
 }
 
-#include <boost/tuple/tuple.hpp>
 #include <string>
 #include <cassert>
+
+#include <boost/tuple/tuple.hpp>
+
+#include <boost/fusion/include/vector.hpp>
+#include <boost/fusion/include/at_c.hpp>
 
 void tuple_example() {
     boost::tuple<int, int, std::string> tup(1, 2, "Meow");
@@ -73,8 +76,6 @@ void tuple_example() {
     assert(boost::get<2>(tup) == "Meow");
 }
 
-#include <boost/fusion/include/vector.hpp>
-#include <boost/fusion/include/at_c.hpp>
 void fusion_tuple_example() {
     boost::fusion::vector<int, int, std::string> tup(1, 2, "Meow");
     assert(boost::fusion::at_c<0>(tup) == 1);

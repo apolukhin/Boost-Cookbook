@@ -49,7 +49,7 @@ void print(const Indexes& persons) {
             << v.weight_ << '\n'
         ;
     }
-    
+
     std::cout << '\n';
 }
 
@@ -86,7 +86,7 @@ void example_main() {
     > indexes_t;
 
     indexes_t persons;
-    
+
     // Inserting values:
     persons.insert(person(1, "John Snow", 185, 80));
     persons.insert(person(2, "Vasya Pupkin", 165, 60));

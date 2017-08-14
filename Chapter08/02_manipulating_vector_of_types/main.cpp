@@ -53,8 +53,7 @@ struct do_modifications {
 };
 
 /*
-void boost_mpl_transform_pseoudocode() {
-
+void boost_mpl_transform_pseoudo_code() {
     vector result;
     for (std::size_t i = 0; i < Types.size(); ++i) {
         result.push_back(

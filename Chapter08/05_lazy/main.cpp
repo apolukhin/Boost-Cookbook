@@ -62,9 +62,11 @@ typedef apply_if<
     int,
     boost::is_integral<_1>
 >::type res1_t;
+
 BOOST_STATIC_ASSERT((
     boost::is_same<res1_t, unsigned int>::value
 ));
+
 
 // Will fail with static assertion somewhere deeply in the implementation
 // of boost::make_unsigned<_1> if we do not evaluate the function lazily.
@@ -73,6 +75,7 @@ typedef apply_if<
     float,
     boost::is_integral<_1>
 >::type res2_t;
+
 BOOST_STATIC_ASSERT((
     boost::is_same<res2_t, fallback>::value
 ));

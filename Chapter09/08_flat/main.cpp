@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <cassert>
 
-void test_flat() {
+int main() {
     boost::container::flat_set<int> set;
     set.reserve(4096);
 
@@ -28,9 +28,5 @@ void test_flat() {
         == 
         set.find(500)
     );
-}
-
-int main() {
-    test_flat();
-}
+} // end of main() function
 

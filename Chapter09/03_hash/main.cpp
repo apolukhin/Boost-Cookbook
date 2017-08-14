@@ -61,11 +61,15 @@ struct string_hash_fast {
     {}
 };
 
-inline bool operator == (const string_hash_fast& s1, const string_hash_fast& s2) {
+inline bool operator == (
+    const string_hash_fast& s1, const string_hash_fast& s2)
+{
     return s1.comparison_ == s2.comparison_ && s1.str_ == s2.str_;
 }
 
-inline bool operator != (const string_hash_fast& s1, const string_hash_fast& s2) {
+inline bool operator != (
+    const string_hash_fast& s1, const string_hash_fast& s2)
+{
     return !(s1 == s2);
 }
 

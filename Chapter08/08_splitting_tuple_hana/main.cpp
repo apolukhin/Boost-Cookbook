@@ -4,7 +4,7 @@
 
 #include <boost/hana/traits.hpp>
 
-constexpr auto is_arithmetic_ = [] (const auto& v) {
+constexpr auto is_arithmetic_ = [](const auto& v) {
     assert(false);
     auto type = boost::hana::typeid_(v);
     return boost::hana::traits::is_arithmetic(type);

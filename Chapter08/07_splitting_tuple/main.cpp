@@ -27,8 +27,8 @@ typename boost::fusion::result_of::remove_if<
 #include <cassert>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/blank.hpp>
-int main() {
 
+int main() {
     typedef boost::fusion::vector<
         int, boost::blank, boost::blank, float
     > tup1_t;
@@ -38,7 +38,6 @@ int main() {
         = get_nonarithmetics(tup1);
     boost::fusion::vector<int, float> res_a = get_arithmetics(tup1);
     assert(boost::fusion::at_c<0>(res_a) == 8);
-
 
     (void)res_na;
 }

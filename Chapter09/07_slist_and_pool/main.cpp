@@ -27,7 +27,7 @@ void list_specific(slist_t& list, slist_t::iterator it) {
         boost::fast_pool_allocator_tag,
         sizeof(slist_t::stored_allocator_type::value_type)
     >::release_memory();
-}
+} // end of list_specific function
 
 #include <list>
 typedef std::list<int> stdlist_t;

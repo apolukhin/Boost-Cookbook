@@ -66,7 +66,7 @@ int main() {
     
     example1();
     example2();
-}
+} /* end of main() */
 
 #include <boost/bimap/set_of.hpp>
 typedef boost::bimap<
@@ -92,7 +92,4 @@ typedef boost::bimap<
 
 void example2() {
     hash_name_id_type name_id;
-
-    
-
 }

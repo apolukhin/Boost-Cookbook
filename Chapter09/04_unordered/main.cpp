@@ -51,9 +51,9 @@ double test_default(const std::size_t ii_max) {
     boost::timer::cpu_timer timer;
 
     const std::string s("Test string");
-    
+
     T map;
-    
+
     for (std::size_t ii = 0; ii < ii_max; ++ii) {
         map[s + boost::lexical_cast<std::string>(ii)] = ii;
     }
