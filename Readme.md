@@ -75,7 +75,10 @@ For year 2022+ :
 * Dig into the boost::function and statefull allocator support?
 * Boost.Convert ecamples
 * Add a very simple example on regexes.
-
+* MPL11 example (Something like "Finding the sequential layout ordering of N different types that would minimize padding due to
+alignment between them").
+* Add an example on stateful allocators in Boost.
+* Add an example on Boost.PolyCollection.
 
 
 
