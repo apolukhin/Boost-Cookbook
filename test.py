@@ -92,9 +92,22 @@ class tester:
 
     ''' ****************************************** Main functions for testing ************************************* '''
     @staticmethod
+    def safe_wait(task, timeout = 15.0):
+        # Appveyor may hang on some test. This is a way to early abort
+        delay = 0.5
+        while task.poll() is None and timeout > 0:
+             sleep(delay)
+             timeout -= delay
+        if timeout == 0:
+            task.kill()
+            print '!!! Test timeout !!!'
+            sys.exit(-4)
+        return task.communicate()
+
+    @staticmethod
     def _test(command, test_name):
         proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out1, out2 = proc.communicate()
+        out1, out2 = tester.safe_wait(proc)
         tester.outputs[test_name] = (out1, out2, proc.returncode)
         tester._test_validate(test_name)
 
@@ -148,7 +161,7 @@ class tester:
         command = [path, '--apples=70']
         # Test throws bad_any_cast as there's no '--oranges' parameter
         proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out1, out2 = proc.communicate()
+        out1, out2 = tester.safe_wait(proc)
         if proc.returncode == 0:
             print '"01_A_program_options_base_70" must finish with code != 0.'
             tester.was_error = True
@@ -195,7 +208,7 @@ class tester:
         sleep(0.5)
         proc.send_signal(signal.SIGINT)
 
-        out1, out2 = proc.communicate()
+        out1, out2 = tester.safe_wait(proc)
         tester.outputs[test_name] = (out1, out2, proc.returncode)
         tester._test_validate(test_name)
 
@@ -357,7 +370,7 @@ class tester:
         out2 = ""
         retcode = 0
         for p in procs:
-            out1_tmp, out2_tmp = p.communicate()
+            out1_tmp, out2_tmp = tester.safe_wait(p)
             out1 += out1_tmp
             out2 += out2_tmp
             retcode += p.returncode
@@ -372,7 +385,7 @@ class tester:
     @staticmethod
     def _test_but_ignore_output_diff(test_name, path):
         proc = subprocess.Popen(path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        out1, out2 = proc.communicate()
+        out1, out2 = tester.safe_wait(proc)
         if out1 == '' and out2 == '':
             print 'No output in "{}" test\n'.format(test_name)
             tester.was_error = True

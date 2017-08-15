@@ -20,7 +20,7 @@ struct int_t { boost::long_long_type hi, lo; };
 struct uint_t { boost::ulong_long_type hi, lo; };
 
 inline int_t mul(int_t v1, int_t v2, int_t v3) {
-    // Some hand written math
+    // Some hand written math.
     // ...
     return int_t();
 }

@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
     static const std::size_t filesize = 1024 * 1024 * 128;
     const char filename[] = "test_file.txt";
 
-    assert(argc >= 2);
+    assert(argc >= 2); // Run with c,m,r or a parameter: ./this_program c
     switch (argv[1][0]) {
     case 'c': {
         // Not effective, but this is not a place that we measure
@@ -33,8 +33,12 @@ int main(int argc, char* argv[]) {
         boost::interprocess::mapped_region region(fm, mode, 0, 0);
         //region.advise(boost::interprocess::mapped_region::advice_sequential);
 
-        const char* begin = reinterpret_cast<const char*>(region.get_address());
-        const char* pos = std::find(begin, begin + region.get_size(), '\1');
+        const char* begin = static_cast<const char*>(
+            region.get_address()
+        );
+        const char* pos = std::find(
+            begin, begin + region.get_size(), '\1'
+        );
         assert(pos == begin + filesize - 1);
         assert(region.get_size() == filesize);
     }

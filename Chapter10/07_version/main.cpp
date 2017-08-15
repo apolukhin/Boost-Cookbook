@@ -20,7 +20,10 @@ int to_int(const char* str, std::size_t length) {
 
 #endif
 
+
+
 #include <cassert>
+
 int main() {
     assert(to_int("10000000", 3) == 100);
 }

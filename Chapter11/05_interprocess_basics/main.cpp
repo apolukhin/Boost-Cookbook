@@ -17,7 +17,7 @@ int main() {
         segment(boost::interprocess::open_or_create, "shm1-cache", 1024);
 
     atomic_t& atomic 
-        = *segment.find_or_construct<atomic_t> //1
+        = *segment.find_or_construct<atomic_t> // 1
             ("shm1-counter")                   // 2
             (0)                                // 3
     ;

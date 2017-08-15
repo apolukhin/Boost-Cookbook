@@ -24,16 +24,12 @@ char array[integral_constant<int, 10>()];
 
 
 #include <array>
-#include <cassert>
+
 int main() {
-
     std::array<short, 5> arr;
-    assert(get_size(arr) == 5 * sizeof(short));
-
+    static_assert(get_size(arr) == 5 * sizeof(short), "");
 
     unsigned char data[get_size(arr)];
-
-    assert(sizeof(array) == 10);
     (void)data;
 }
 

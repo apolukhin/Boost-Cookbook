@@ -16,9 +16,10 @@ type_index type_id() {
 
 #include <cstring>
 #include <iosfwd> // std::basic_ostream
+#include <boost/current_function.hpp>
 
 struct type_index {
-    const char * name_;
+    const char* name_;
 
     explicit type_index(const char* name)
         : name_(name)
@@ -27,13 +28,12 @@ struct type_index {
     const char* name() const { return name_; }
 };
 
-inline bool operator == (const type_index& v1, const type_index& v2) {
+inline bool operator == (type_index v1, type_index v2) {
     return !std::strcmp(v1.name_, v2.name_);
 }
 
-inline bool operator != (const type_index& v1, const type_index& v2) {
-    // '!!' to supress warnings
-    return !!std::strcmp(v1.name_, v2.name_);
+inline bool operator != (type_index v1, type_index v2) {
+    return !(v1 == v2);
 }
 
 template <class Char, class Trait>
@@ -41,7 +41,6 @@ inline std::basic_ostream<Char, Trait>& operator << (std::basic_ostream<Char, Tr
     return os << t.name_;
 }
 
-#include <boost/current_function.hpp>
 template <class T>
 inline type_index type_id() {
     return type_index(BOOST_CURRENT_FUNCTION);
@@ -51,8 +50,9 @@ inline type_index type_id() {
 
 void test();
 
-#include <cassert>
 #include <iostream>
+#include <cassert>
+
 int main() {
     assert(type_id<unsigned int>() == type_id<unsigned>());
     assert(type_id<double>() != type_id<long double>());

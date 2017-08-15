@@ -19,7 +19,9 @@ int main() {
     assert(ofs);
     ofs.close();
 
-    boost::filesystem::create_symlink("dir/subdir/file.txt", "symlink", error);
+    boost::filesystem::create_symlink(
+        "dir/subdir/file.txt", "symlink", error);
+
     if (!error) {
         std::cerr << "Symlink created\n";
         assert(boost::filesystem::exists("symlink"));

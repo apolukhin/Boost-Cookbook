@@ -75,8 +75,10 @@ public:
     }
 
     void push_task(const task_type& task) {
-        scoped_lock_t lock(mutex_);
-        tasks_.push_back(task);
+        {
+            scoped_lock_t lock(mutex_);
+            tasks_.push_back(task);
+        }
         cond_.notify_one();
     }
 

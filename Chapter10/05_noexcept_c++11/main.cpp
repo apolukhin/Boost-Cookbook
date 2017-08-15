@@ -5,7 +5,7 @@ class move_nothrow {
     // ...
 
 public:
-    move_nothrow() BOOST_NOEXCEPT {}
+    move_nothrow() BOOST_NOEXCEPT;
     move_nothrow(move_nothrow&&) BOOST_NOEXCEPT
         // Members initialization goes here.
         // ...
@@ -31,9 +31,14 @@ int foo() BOOST_NOEXCEPT {
 }
 
 #include <vector>
+
 int main() {
     std::vector<move_nothrow> v(10);
     v.push_back(move_nothrow());
 
     foo();
 }
+
+
+// details:
+move_nothrow::move_nothrow() BOOST_NOEXCEPT {}
