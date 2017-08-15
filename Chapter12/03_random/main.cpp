@@ -15,7 +15,7 @@ int main() {
     boost::random_device device(provider);
     boost::random::uniform_int_distribution<unsigned short> random(1000);
 
-    for (unsigned int i = 0; i < 10000; ++i) {
+    for (unsigned int i = 0; i < 100; ++i) {
         std::cerr << random(device) << '\t';
     }
 }

@@ -80,7 +80,7 @@ public:
 #include <boost/bind.hpp>
 #include <boost/ref.hpp>
 
-const std::size_t users_count = 1000000;
+const std::size_t users_count = 1000;
 
 template <class T>
 void log_in(T& u, std::size_t count) {
