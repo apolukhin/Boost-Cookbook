@@ -415,8 +415,7 @@ var editor = (function() {
 			}, {
 				"title":	'Writing test cases',
 				"source":   ['Chapter12/05_testing/main.cpp'],
-				"compile":  "-static -lboost_unit_test_framework -lboost_system",
-				"issues":   "compile",
+				"compile":  "-DBOOST_TEST_DYN_LINK -lboost_unit_test_framework -lboost_system",
 			}, {
 				"title":	'Combining multiple test cases in one test module',
 				"source":   ['Chapter12/06_testing_advanced/main.cpp', 'Chapter12/06_testing_advanced/developer1.cpp', 'Chapter12/06_testing_advanced/developer2.cpp', 'Chapter12/06_testing_advanced/foo.cpp', 'Chapter12/06_testing_advanced/foo.hpp'],
