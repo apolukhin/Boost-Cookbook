@@ -8,7 +8,7 @@
 #include <algorithm>
 
 int main(int argc, char* argv[]) {
-    static const std::size_t filesize = 1024 * 1024 * 128;
+    static const std::size_t filesize = 1024 * 1024 /** 128*/;
     const char filename[] = "test_file.txt";
 
     assert(argc >= 2); // Run with c,m,r or a parameter: ./this_program c
