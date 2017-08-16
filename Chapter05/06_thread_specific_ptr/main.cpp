@@ -49,7 +49,7 @@ void connection::open() {
 void connection::send_result(int /*result*/) {}
 
 void run_tasks() {
-    for (std::size_t i = 0; i < 10000000; ++i) {
+    for (std::size_t i = 0; i < 1000 /*0000*/; ++i) {
         task();
     }
 }
