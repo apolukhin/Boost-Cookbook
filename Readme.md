@@ -46,8 +46,6 @@ Thanks to Nitin Dasan from Packt Publishing for getting all the necessary approv
 
 ### Notes for book update
 * TODO: update all the smart_ptr urls after 1.65 release: http://boost.org/libs/smart_ptr/smart_ptr.html#pointer_cast
-* sync code and book
-* Fix introduction in "Chapter09. Getting the benefits of single-linked list and memory pool"
 * Update this README.md with a link to second edition of the book
 
 Done:
@@ -63,9 +61,11 @@ Done:
 * Filesystem is accepted into the Standard
 * Boost.DLL examples
 * flat containers were proposed for C++17
+* Fix introduction in "Chapter09. Getting the benefits of single-linked list and memory pool"
 * Coroutine interface changed in Boost 1.56
 
 For year 2022+ :
+* Separate chapters on Graphs/Testing/Image processinggit
 * Remove description of all the Boost libraries that were added into C++11 (including Boost.Move)
 * More recipes for unordered containers
 * Move string_view into the first chapter
@@ -79,6 +79,7 @@ For year 2022+ :
 alignment between them").
 * Add an example on stateful allocators in Boost.
 * Add an example on Boost.PolyCollection.
+
 
 
 
