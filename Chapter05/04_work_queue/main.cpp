@@ -62,7 +62,7 @@ public:
 work_queue g_queue;
 
 void some_task();
-const std::size_t tests_tasks_count = 1500 /*000*/;
+const std::size_t tests_tasks_count = 300 /*0000*/;
 
 void pusher() {
     for (std::size_t i = 0; i < tests_tasks_count; ++i) {
