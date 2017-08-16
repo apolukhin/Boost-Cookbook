@@ -46,15 +46,12 @@ for (unsigned int y = 0; y < source.height(); ++y) {
 }; // negate
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        assert(false);
-    }
+    assert(argc == 2);
 
     typedef boost::mpl::vector<
             boost::gil::gray8_image_t,
             boost::gil::gray16_image_t,
-            boost::gil::rgb8_image_t,
-            boost::gil::rgb16_image_t
+            boost::gil::rgb8_image_t
     > img_types;
 
     std::string file_name(argv[1]);

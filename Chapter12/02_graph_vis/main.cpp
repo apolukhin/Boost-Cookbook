@@ -9,6 +9,8 @@ typedef boost::adjacency_list<
     , vertex_t
 > graph_type;
 
+#include <iosfwd>
+
 namespace detail {
     template <class GraphT>
     class vertex_writer {
@@ -32,6 +34,7 @@ namespace detail {
 } // namespace detail
 
 #include <boost/graph/graphviz.hpp>
+
 std::ostream& operator<<(std::ostream& out, const graph_type& g) {
     detail::vertex_writer<graph_type> vw(g);
     boost::write_graphviz(out, g, vw);
