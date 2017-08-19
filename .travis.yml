@@ -24,12 +24,12 @@ env:
 
     matrix:
         - CXX_FLAGS="--coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage" QLIBS="-lasan -lubsan" TOOLSET=gcc-6 CXXTOOLSET=g++-6 GCOV="--gcov-tool gcov-6"
-        - CXX_FLAGS="--coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage" QLIBS="-lasan -lubsan" TOOLSET=gcc-5 CXXTOOLSET=g++-5 GCOV="--gcov-tool gcov-5"
+        - CXX_FLAGS="--coverage -fsanitize=leak" LINK_FLAGS="--coverage" TOOLSET=gcc-5 CXXTOOLSET=g++-5 GCOV="--gcov-tool gcov-5"
         
         # Coroutine2 has issue with this compiler
         #- CXX_FLAGS="--coverage -O0" LINK_FLAGS="--coverage" TOOLSET=gcc CXXTOOLSET=g++
 
-        - CXX_FLAGS="-Wno-c++11-narrowing -fsanitize=address,leak" LINK_FLAGS="-fsanitize=address,leak" TOOLSET=clang-3.9 CXXTOOLSET=clang++-3.9
+        - CXX_FLAGS="-Wno-c++11-narrowing -fsanitize=leak" LINK_FLAGS="-fsanitize=leak" TOOLSET=clang-3.9 CXXTOOLSET=clang++-3.9
         - CXX_FLAGS="-Wno-c++11-narrowing" TOOLSET=clang-3.6 CXXTOOLSET=clang++-3.6
 
         #- CXX_FLAGS="-std=c++11 -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang
