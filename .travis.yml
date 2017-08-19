@@ -30,6 +30,7 @@ env:
         #- CXX_FLAGS="--coverage -O0" LINK_FLAGS="--coverage" TOOLSET=gcc CXXTOOLSET=g++
 
         - CXX_FLAGS="-Wno-c++11-narrowing" TOOLSET=clang-3.9 CXXTOOLSET=clang++-3.9
+        # Requires 'libc++-dev'
         - CXX_FLAGS="-std=c++14 -Wno-c++11-narrowing -fsanitize=address,leak -stdlib=libc++" LINK_FLAGS="-stdlib=libc++ -fsanitize=address,leak" TOOLSET=clang-3.9 CXXTOOLSET=clang++-3.9
         - CXX_FLAGS="-Wno-c++11-narrowing" TOOLSET=clang-3.6 CXXTOOLSET=clang++-3.6
 
@@ -61,6 +62,7 @@ addons:
     - qt4-qmake
     - language-pack-ru
     - gdb
+    - libc++-dev
 
 before_install:
     # Set this to the name of the library
