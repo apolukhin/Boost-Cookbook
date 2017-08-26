@@ -299,8 +299,8 @@
 
 
 <div class="code-intro" id="Chapter01-0">
-	<p>Take a look at some of the console programs, such as <code>cp</code> in Linux. They all have a fancy help,
-	their input parameters do not depend on any position, and have a human readable syntax,
+	<p>Take a look at some of the console programs, such as <code>cp</code> in Linux. They all have a fancy help;
+	their input parameters do not depend on any position, and have a human-readable syntax,
 	for example:</p>
 	<pre><code>
     $ cp --help
@@ -321,12 +321,17 @@
 </div>
 
 <div class="code-intro" id="Chapter01-2">
-	<p>Are you aware of the concept of unrestricted unions in C++11? Let me tell you about it in
-	short. C++03 unions can only hold extremely simple types of data called POD (plain old data).
-	So in C++03, you cannot, for example, store <code>std::string</code> or <code>std::vector</code> in a union.
-	C++11 relaxes this requirement, but you'll have to manage the construction and destruction
-	of such types by yourself, call in-place construction/destruction, and remember what type is
-	stored in a union. A huge amount of work, isn't it?</p>
+	<p>C++03 unions can only hold extremely simple types called Plain Old Data (POD). For
+    example in C++03, you cannot store <code>std::string</code> or <code>std::vector</code> in a union.</p>
+
+    <p>Are you aware of the concept of unrestricted unions in C++11? Let me tell you about it
+    briefly. C++11 relaxes requirements for unions, but you have to manage the construction
+    and destruction of non POD types by yourself. You have to call in-place
+    construction/destruction and remember what type is stored in a union. A huge amount of
+    work, isn't it?</p>
+
+    <p>Can we have an unrestricted union like variable in C++03 that manages the object lifetime
+    and remembers the type it has?</p>
 </div>
 
 <div class="code-intro" id="Chapter01-3">
@@ -334,6 +339,9 @@
 	that <code>boost::any</code> will perfectly match the requirements for a single cell of the database
 	table. Some other programmer will be using your classes, and his task would be to get a
 	row from the database and count the sum of the arithmetic types in a row.</p>
+	
+	<p>This is what such a code would look like:</p>
+	
 </div>
 
 <div class="code-intro" id="Chapter01-4">
@@ -351,37 +359,50 @@
 </code></pre>
 
 	<p>Should return values be deallocated by the programmer or not? Does the function attempt
-	to deallocate the input parameter? Should the input parameter be zero-terminated, or should
-	the function assume that the input parameter has a specified width?
-	And now, let's make the task harder! Take a look at the following line:</p>
+    to deallocate the input parameter? Should the input parameter be zero-terminated, or
+    should the function assume that the input parameter has a specified width?</p>
+	<p>Now, let's make the task harder! Take a look at the following line:</p>
 	<pre><code>
     char ( &amp;vector_advance( char (&amp;val)[4] ) )[4];
 </code></pre>
-	<p>Please do not worry; I've also been scratching my head for half an hour before getting an idea
-	of what is happening here. <code>vector_advance</code> is a function that accepts and returns an array
-	of four elements. Is there a way to write such a function clearly?</p>
+	<p>Do not worry. I've also been scratching my head for half an hour before getting an idea of
+    what is happening here. vector_advance is a function that accepts and returns an array of
+    four elements. Is there a way to write such a function clearly?</p>
 </div>
 
 <div class="code-intro" id="Chapter01-6">
-	<p>There is a very nice present for those who like <code>std::pair</code>. Boost has a library called Boost.Tuple,
-	and it is just like <code>std::pair</code>, but it can also work with triples, quads, and even bigger
-	collections of types.</p>
+	<p>There is a very nice present for those who like <code>std::pair</code>. Boost has a library called Boost.Tuple.
+	It is just like std::pair , but it can also work with triples, quads, and even
+    bigger collections of types.</p>
 </div>
 
 <div class="code-intro" id="Chapter01-7">
-	<p>This recipe and the next one are devoted to a very interesting library, whose functionality at
-	first glance looks like some kind of magic. This library is called Boost.Bind and it allows
-	you to easily create new functional objects from functions, member functions, and functional
-	objects, also allowing the reordering of the initial function's input parameters and binding
-	some values or references as function parameters.</p>
+	<p>If you work with the standard library a lot and use the &lt;algorithm&gt; header, you definitely
+    write a lot of functional objects. In C++14, you can use generic lambdas for that. In C++11,
+    you only have non generic lambdas. In the earlier versions of the C++ standard, you can
+    construct functional objects using adapter functions such as bind1st , bind2nd , ptr_fun ,
+    mem_fun , mem_fun_ref , or you can write them by hand (because adapter functions look
+    scary). Here is some good news: Boost.Bind can be used instead of ugly adapter functions,
+    and it provides a more human-readable syntax.</p>
 </div>
 
 <div class="code-intro" id="Chapter01-8">
-	<p>If you work with the STL library a lot and use the <code>&lt;algorithm&gt;</code> header, you will definitely
-	write a lot of functional objects. You can construct them using a set of STL adapter functions
-	such as <code>bind1st</code>, <code>bind2nd</code>, <code>ptr_fun</code>, <code>mem_fun</code>, and <code>mem_fun_ref</code>, or you can write them
-	by hand (because adapter functions look scary). Here is some good news: Boost.Bind can
-	be used instead of all of those functions and it provides a more human-readable syntax.</p>
+	<p>There is often a need to get a readable type name at runtime:</p>
+	<pre><code>
+	#include &lt;iostream&gt;
+    #include &lt;typeinfo&gt;
+
+    template &lt;class T&gt;
+    void do_something(const T&amp; x) {
+        std::cout << "T is " << typeid(T).name() << std::endl;
+
+        // ...
+    }
+</code></pre>
+    <p>However, the example from earlier is not very portable. It does not work when RTTI is
+    disabled, and it does not always produce a nice human-readable name. On some platforms,
+    code from earlier will output just <code>i</code> or <code>d</code>.</p>
+    <p>Things get worse if we need a type name without stripping the const , volatile , and references...</p>
 </div>
 
 <div class="code-intro" id="Chapter01-9">
@@ -393,9 +414,8 @@
 </div>
 
 <div class="code-intro" id="Chapter01-10">
-	<p>You must have almost certainly encountered situations where providing a copy constructor
-	and move assignment operator for a class will require too much work, or where a class owns
-	some resources that must not be copied for technical reasons:</p>
+	<p>You have almost certainly encountered certain situations, where a class owns some
+    resources that must not be copied for technical reasons:</p>
 	<pre><code>
     class descriptor_owner {
         void* descriptor_;
@@ -408,9 +428,9 @@
         }
     };
 </code></pre>
-	<p>The C++ compiler, in the case of the previous example, will generate a copy constructor and
-	an assignment operator, so the potential user of the descriptor_owner class will be able
-	to create the following awful things:</p>
+	<p>The C++ compiler in the preceding example generates a copy constructor and an assignment
+    operator, so the potential user of the descriptor_owner class will be able to create the
+    following awful things:</p>
 	<pre><code>
     descriptor_owner d1("O_o");
     descriptor_owner d2("^_^");
@@ -440,6 +460,13 @@
 </code></pre>
 	<p>But such a workaround won't allow us to use descriptor_owner in STL or Boost containers.
 	And by the way, it looks awful!</p>
+</div>
+
+<div class="code-intro" id="Chapter01-12">
+	<p>C++11 has a bunch of new cool algorithms in &lt;algorithm&gt; header. C++14 has even more
+    algorithms. If you're stuck with the pre-C++11 compiler, you have to write those from
+    scratch. For example, if you wish to output characters from 65 to 125 code points, you have
+    to write the following code on a pre-C++11 compiler:</p>
 </div>
 
 
