@@ -45,25 +45,6 @@ Thanks to Heather Gopsill from Packt Publishing for giving a permission to make 
 Thanks to Nitin Dasan from Packt Publishing for getting all the necessary approvals for making sources publicly available for the second edition of the book.
 
 ### Notes for book update
-* TODO: update all the smart_ptr urls after 1.65 release: http://boost.org/libs/smart_ptr/smart_ptr.html#pointer_cast
-* Update this README.md with a link to second edition of the book
-
-Done:
-* Optional and Variant now understand rvalue references
-* add a note to the book about source code availability at github
-* Variant is proposed for C++17. Highlight the differences.
-* Boost will have an unique_ptr in 1.58
-* LexicalCast now has a try_lexical_convert method
-* add *_pointer_cast examples?
-* describe in depth changes from 135a24926a1d084e76f8f527deeee6236274e496
-* Chapter 10 "Detecting RTTI support" - add Boost.TypeIndex example AND Sync code
-* Chapter07 Note about boost::string_ref(string&&) and boost::string_view
-* Filesystem is accepted into the Standard
-* Boost.DLL examples
-* flat containers were proposed for C++17
-* Fix introduction in "Chapter09. Getting the benefits of single-linked list and memory pool"
-* Coroutine interface changed in Boost 1.56
-
 For year 2022+ :
 * Separate chapters on Graphs/Testing/Image processinggit
 * Remove description of all the Boost libraries that were added into C++11 (including Boost.Move)
