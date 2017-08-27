@@ -945,21 +945,26 @@
     #include &lt;cstring&gt;
     #include &lt;boost/array.hpp&gt;
 
+    // C++17 has std::byte out of the box!
+    // Unfortunately this is as C++03 example.
+    typedef unsigned char byte_t;
+
     template &lt;class T, std::size_t BufSizeV&gt;
-    void serialize(const T&amp; value, boost::array&lt;unsigned char, BufSizeV&gt;&amp; buffer) {
-        // TODO: fixme
+    void serialize_bad(const T& value, boost::array&lt;byte_t, BufSizeV&gt;&amp; buffer)
+    {
+        // TODO: check buffer size.
         std::memcpy(&amp;buffer[0], &amp;value, sizeof(value));
     }
 </code></pre>
 
-	<p>This code has the following troubles:</p>
+	<p>This code has the following problems:</p>
 	<p>* The size of the buffer is not checked, so it may overflow</p>
 	<p>* This function can be used with non-plain old data (POD) types, which would lead to incorrect behavior</p>
 
 	<p>We may partially fix it by adding some asserts, for example:</p>
 	<pre><code>
     template &lt;class T, std::size_t BufSizeV&gt;
-    void serialize(const T&amp; value, boost::array&lt;unsigned char, BufSizeV&gt;&amp; buffer) {
+    void serialize(const T&amp; value, boost::array&lt;byte_t, BufSizeV&gt;&amp; buffer) {
         assert(BufSizeV &gt;= sizeof(value));
         // TODO: fixme
         std::memcpy(&amp;buffer[0], &amp;value, sizeof(value));
@@ -997,8 +1002,8 @@
         double process(double v1, double v2, double v3);
     };
 </code></pre>
-	<p>Now the question, how to make the compiler to automatically choose the correct class for a
-	specified type, arises.</p>
+	<p>Now the question: How to make the compiler to automatically choose the correct class for a
+    specified type?</p>
 </div>
 
 <div class="code-intro" id="Chapter04-2">
@@ -1055,8 +1060,9 @@
 	<pre><code>
     template &lt;class T&gt;
     void inc(T&amp; value) {
+        // TODO:
         // call ++value
-        // or call value ++
+        // or call value++
         // or value += T(1);
         // or value = value + T(1);
     }
