@@ -394,7 +394,7 @@
 
     template &lt;class T&gt;
     void do_something(const T&amp; x) {
-        std::cout << "T is " << typeid(T).name() << std::endl;
+        std::cout &lt;&lt; "T is " &lt;&lt; typeid(T).name() &lt;&lt; std::endl;
 
         // ...
     }
@@ -470,146 +470,8 @@
 </div>
 
 
-
 <div class="code-intro" id="Chapter02-0">
-	<p>Converting strings to numbers in C++ makes a lot of people depressed because of its
-	inefficiency and user unfriendliness. Let's see how string 100 can be converted to <code>int</code>:</p>
-	<pre><code>
-    #include &lt;sstream&gt;
-    std::istringstream iss("100");
-    int i;
-    iss >> i;
-    // And now, 'iss' variable will get in the way all the time,
-    // till end of the scope
-    // It is better not to think, how many unnecessary operations,
-    // virtual function calls and memory allocations occurred
-    // during those operations
-</code></pre>
-	<p>C methods are not much better:</p>
-	<pre><code>
-    #include &lt;cstdlib&gt;
-    char * end;
-    int i = std::strtol ("100", &amp;end, 10);
-    // Did it converted all the value to int, or stopped somewhere
-    // in the middle?
-    // And now we have 'end' variable will getting in the way
-    // By the way, we want an integer, but strtol returns long
-    // int... Did the converted value fit in int?
-</code></pre>
-</div>
-
-<div class="code-intro" id="Chapter02-1">
-	<p>In this recipe we will continue discussing lexical conversions, but now we will be converting
-	numbers to strings using Boost.LexicalCast . And as usual, <code>boost::lexical_cast</code>
-	will provide a very simple way to convert the data.</p>
-</div>
-
-<div class="code-intro" id="Chapter02-2">
-	<p>You might remember situations where you wrote something like the following code:</p>
-	<pre><code>
-    void some_function(unsigned short param);
-    int foo();
-    // Somewhere in code
-    // Some compilers may warn that int is being converted to
-    // unsigned short and that there is a possibility of losing
-    // data
-    some_function(foo());
-</code></pre>
-	<p>Usually, programmers just ignore such warnings by implicitly casting to unsigned short
-	datatype, as demonstrated in the following code snippet:</p>
-    <pre><code>
-    // Warning suppressed. Looks like a correct code
-    some_function(
-        static_cast&lt;unsigned short&gt;(foo())
-    );
-</code></pre>
-	<p>But this may make it extremely hard to detect errors. Such errors may exist in code for years
-	before they get caught:</p>
-	<pre><code>
-    // Returns -1 if error occurred
-    int foo() {
-        if (some_extremely_rare_condition()) {
-            return -1;
-        } else if (another_extremely_rare_condition()) {
-            return 1000000;
-        }
-        return 65535;
-    }
-</code></pre>
-</div>
-
-
-<div class="code-intro" id="Chapter02-3">
-	<p>There is a feature in Boost.LexicalCast that allows users to use their own types in
-	lexical_cast . This feature just requires the user to write the correct <code>std::ostream</code>
-	and <code>std::istream</code> operators for their types.</p>
-</div>
-
-<div class="code-intro" id="Chapter02-4">
-	<p>Imagine that some programmer designed an awful interface as follows (this is a good example
-	of how interfaces should not be written):</p>
-	<pre><code>
-    struct object {
-        virtual ~object() {}
-    };
-
-    struct banana: public object {
-        void eat() const {}
-        virtual ~banana(){}
-    };
-
-    struct pidgin: public object {
-        void fly() const {}
-        virtual ~pidgin(){}
-    };
-
-    object* try_produce_banana();
-</code></pre>
-	<p>Our task is to make a function that eats bananas, and throws exceptions if something
-	instead of banana came along (eating pidgins gross!). If we dereference a value returned
-	by the <code>try_produce_banana()</code> function, we are getting in danger of dereferencing
-	a null pointer.</p>
-</div>
-
-
-<div class="code-intro" id="Chapter02-5">
-	<p>It is a common task to parse a small text. And such situations are always a dilemma: shall we
-	use some third-party professional tools for parsing such as Bison or ANTLR, or shall we try to
-	write it by hand using only C++ and STL? The third-party tools are good for handling the parsing
-	of complex texts and it is easy to write parsers using them, but they require additional tools
-	for creating C++ or C code from their grammar, and add more dependencies to your project.
-	Handwritten parsers are usually hard to maintain, but they require nothing except C++ compiler.</p>
-
-	<p>Let's start with a very simple task to parse a date in ISO format as follows:</p>
-	<pre><code>
-        YYYY-MM-DD
-</code></pre>
-	<p>The following are the examples of possible input:</p>
-	<pre><code>
-        2013-03-01
-        2012-12-31 // (woo-hoo, it almost a new year!)
-</code></pre>
-</div>
-
-<div class="code-intro" id="Chapter02-6">
-	<p>In the previous recipe we were writing a simple parser for dates. Imagine that some time
-	has passed and the task has changed. Now we need to write a date-time parser that will
-	support multiple input formats plus zone offsets. So now our parser should understand the
-	following inputs:</p>
-	<pre><code>
-        2012-10-20T10:00:00Z        // date time with zero zone offset
-        2012-10-20T10:00:00         // date time with unspecified zone offset
-        2012-10-20T10:00:00+09:15   // date time with zone offset
-        2012-10-20-09:15            // date time with zone offset
-        10:00:09+09:15              // time with zone offset
-</code></pre>
-</div>
-
-
-
-
-<div class="code-intro" id="Chapter03-0">
-	<p>There are situations where we are required to dynamically allocate memory and construct a
+	<p>Sometimes we are required to dynamically allocate memory and construct a
 	class in that memory. And, that's where the troubles start. Have a look at the following code:</p>
     <pre><code>
     void foo1() {
@@ -652,7 +514,7 @@
 </div>
 
 
-<div class="code-intro" id="Chapter03-1">
+<div class="code-intro" id="Chapter02-1">
 	<p>Imagine that you have some dynamically allocated structure containing data, and you want
 	to process it in different execution threads. The code to do this is as follows:</p>
 	<pre><code>
@@ -684,7 +546,7 @@
 	other threads are not using it anymore.</p>
 </div>
 
-<div class="code-intro" id="Chapter03-2">
+<div class="code-intro" id="Chapter02-2">
 	<p>We already saw how to manage pointers to a resource in the Managing pointers to classes
 	that do not leave scope recipe. But, when we deal with arrays, we need to call <code>delete[]</code>
 	instead of a simple delete , otherwise there will be a memory leak. Have a look at the
@@ -707,7 +569,7 @@
 </code></pre>
 </div>
 
-<div class="code-intro" id="Chapter03-3">
+<div class="code-intro" id="Chapter02-3">
 	<p>We continue coping with pointers, and our next task is to reference count an array. Let's
 	take a look at a program that gets some data from the stream and processes it in different
 	threads. The code to do this is as follows:</p>
@@ -735,12 +597,10 @@
 	recipe.</p>
 </div>
 
-<div class="code-intro" id="Chapter03-4">
-	<p>C++ has a syntax to work with pointers to functions and member functions' pointers. And,
-	that is good! However, this mechanism is hard to use with functional objects. Consider the
-	situation when you are developing a library that has its API declared in the header files and
-	implementation in the source files. This library shall have a function that accepts any functional
-	objects. How would you pass a functional object to it? Have a look at the following code:</p>
+<div class="code-intro" id="Chapter02-4">
+	<p>Consider the situation when you are developing a library that has its API declared in the
+    header files and implementation in the source files. This library shall have a function that
+    accepts any functional objects. Take a look at the following code:</p>
 	<pre><code>
     // Required for std::unary_function&lt;&gt; template
     #include &lt;functional&gt;
@@ -776,18 +636,18 @@
 </code></pre>
 </div>
 
-<div class="code-intro" id="Chapter03-5">
+<div class="code-intro" id="Chapter02-5">
 	<p>We are continuing with the previous example, and now we want to pass a pointer to a function
 	in our <code>process_integeres()</code> method. Shall we add an overload for just function pointers,
 	or is there a more elegant way?</p>
 </div>
 
-<div class="code-intro" id="Chapter03-6">
+<div class="code-intro" id="Chapter02-6">
 	<p>We are continuing with the previous example, and now we want to use a lambda function with
 	our <code>process_integers()</code> method.</p>
 </div>
 
-<div class="code-intro" id="Chapter03-7">
+<div class="code-intro" id="Chapter02-7">
 	<p>There are such cases when we need to store pointers in the container. The examples are:
 	storing polymorphic data in containers, forcing fast copy of data in containers, and strict
 	exception requirements for operations with data in containers. In such cases, the C++
@@ -806,7 +666,7 @@
 	and its increments/decrements are not as fast as nonatomic operations).</p>
 </div>
 
-<div class="code-intro" id="Chapter03-8">
+<div class="code-intro" id="Chapter02-8">
 	<p>If you were dealing with languages such as Java, C#, or Delphi, you were obviously using the
 	<code>try{} finally{}</code> construction or <code>scope(exit)</code> in the D programming language. Let me
 	briefly describe to you what do these language constructions do.</p>
@@ -831,12 +691,8 @@
 	<p>Is there a way to do such a thing in C++?</p>
 </div>
 
-<div class="code-intro" id="Chapter03-9">
-	<p>We are continuing with the previous example, and now we want to use a lambda function with
-	our <code>process_integers()</code> method.</p>
-</div>
 
-<div class="code-intro" id="Chapter03-10">
+<div class="code-intro" id="Chapter02-9">
 	<p>Let's take a look at the following example. We have some base class that has virtual functions
 	and must be initialized with reference to the <code>std::ostream</code> object:</p>
 	<pre><code>
@@ -874,6 +730,211 @@
 </code></pre>
 	<p>It won't work as they expect because direct base classes are initialized before nonstatic
 	data members, regardless of the order of the member initializers.</p>
+</div>
+
+
+
+
+<div class="code-intro" id="Chapter03-0">
+	<p>Converting strings to numbers in C++ makes a lot of people depressed because of its
+	inefficiency and user unfriendliness. Let's see how string 100 can be converted to <code>int</code>:</p>
+	<pre><code>
+    #include &lt;sstream&gt;
+    std::istringstream iss("100");
+    int i;
+    iss >> i;
+    // And now, 'iss' variable will get in the way all the time,
+    // till end of the scope
+    // It is better not to think, how many unnecessary operations,
+    // virtual function calls and memory allocations occurred
+    // during those operations
+</code></pre>
+	<p>C methods are not much better:</p>
+	<pre><code>
+    #include &lt;cstdlib&gt;
+    char * end;
+    int i = std::strtol ("100", &amp;end, 10);
+    // Did it converted all the value to int, or stopped somewhere
+    // in the middle?
+    // And now we have 'end' variable will getting in the way
+    // By the way, we want an integer, but strtol returns long
+    // int... Did the converted value fit in int?
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter03-1">
+	<p>In this recipe we will continue discussing lexical conversions, but now we will be converting
+	numbers to strings using Boost.LexicalCast . And as usual, <code>boost::lexical_cast</code>
+	will provide a very simple way to convert the data.</p>
+</div>
+
+<div class="code-intro" id="Chapter03-2">
+	<p>You might remember situations where you wrote something like the following code:</p>
+	<pre><code>
+    void some_function(unsigned short param);
+    int foo();
+    // Somewhere in code
+    // Some compilers may warn that int is being converted to
+    // unsigned short and that there is a possibility of losing
+    // data
+    some_function(foo());
+</code></pre>
+	<p>Usually, programmers just ignore such warnings by implicitly casting to unsigned short
+	datatype, as demonstrated in the following code snippet:</p>
+    <pre><code>
+    // Warning suppressed. Looks like a correct code
+    some_function(
+        static_cast&lt;unsigned short&gt;(foo())
+    );
+</code></pre>
+	<p>But this may make it extremely hard to detect errors. Such errors may exist in code for years
+	before they get caught:</p>
+	<pre><code>
+    // Returns -1 if error occurred
+    int foo() {
+        if (some_extremely_rare_condition()) {
+            return -1;
+        } else if (another_extremely_rare_condition()) {
+            return 1000000;
+        }
+        return 65535;
+    }
+</code></pre>
+</div>
+
+
+<div class="code-intro" id="Chapter03-3">
+	<p>There is a feature in Boost.LexicalCast that allows users to use their own types in
+	lexical_cast . This feature just requires the user to write the correct <code>std::ostream</code>
+	and <code>std::istream</code> operators for their types.</p>
+</div>
+
+<div class="code-intro" id="Chapter03-4">
+	<p>Imagine that some programmer designed an awful interface as follows (this is a good example
+	of how interfaces should not be written):</p>
+	<pre><code>
+    struct object {
+        virtual ~object() {}
+    };
+
+    struct banana: public object {
+        void eat() const {}
+        virtual ~banana(){}
+    };
+
+    struct pidgin: public object {
+        void fly() const {}
+        virtual ~pidgin(){}
+    };
+
+    object* try_produce_banana();
+</code></pre>
+	<p>Our task is to make a function that eats bananas, and throws exceptions if something
+	instead of banana came along (eating pidgins gross!). If we dereference a value returned
+	by the <code>try_produce_banana()</code> function, we are getting in danger of dereferencing
+	a null pointer.</p>
+</div>
+
+
+<div class="code-intro" id="Chapter03-5">
+	<p>Here's a problem:</p>
+	<p>* You have a class named some_class :</p>
+
+	<pre><code>
+    struct base {
+        virtual void some_methods() = 0;
+        virtual ~base();
+    };
+    
+    struct derived: public base {
+        void some_methods() /*override*/;
+        virtual void derived_method() const;
+        ~derived() /*override*/;
+    };
+</code></pre>
+	<p>You have a third-party API that returns constructed derived by shared pointer
+    to base and accepts shared pointer to const derived in other functions:</p>
+	<pre><code>
+    #include &lt;boost/shared_ptr.hpp&gt;
+    boost::shared_ptr&lt;const base&gt; construct_derived();
+    void im_accepting_derived(boost::shared_ptr&lt;const derived&gt; p);
+</code></pre>
+	<p>You have a third-party API that returns constructed derived by shared pointer
+    to base and accepts shared pointer to const derived in other functions:</p>
+	<pre><code>
+    void trying_hard_to_pass_derived() {
+        boost::shared_ptr&lt;const base&gt; d = construct_derived();
+
+        // Oops! Compile time error:
+        // ‘const struct base’ has no member named ‘derived_method’.
+        d-&gt;derived_method();
+
+        // Oops! Compile time error:
+        // could not convert ‘d’ to ‘boost::shared_ptr&lt;const derived&gt;’.
+        im_accepting_derived(d);
+    }
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter03-6">
+	<p>Imagine that some programmer designed such an awful interface as follows (this is a good
+    example of how interfaces should not be written):</p>
+	<pre><code>
+    struct object {
+        virtual ~object() {}
+    };
+
+    struct banana: public object {
+        void eat() const {}
+        virtual ~banana(){}
+    };
+
+    struct penguin: public object {
+        bool try_to_fly() const {
+            return false; // penguins do not fly
+        }
+        virtual ~penguin(){}
+    };
+
+    object* try_produce_banana();
+</code></pre>
+    <p>Our task is to make a function that eats bananas, and throws exceptions if something
+    different came instead of banana ( try_produce_banana() may return nullptr )so if we
+    dereference a value returned by it without checking we are in danger of dereferencing a
+    null pointer.</p>
+</div>
+
+<div class="code-intro" id="Chapter03-7">
+	<p>It is a common task to parse a small text. And such situations are always a dilemma: shall we
+	use some third-party professional tools for parsing such as Bison or ANTLR, or shall we try to
+	write it by hand using only C++ and STL? The third-party tools are good for handling the parsing
+	of complex texts and it is easy to write parsers using them, but they require additional tools
+	for creating C++ or C code from their grammar, and add more dependencies to your project.
+	Handwritten parsers are usually hard to maintain, but they require nothing except C++ compiler.</p>
+
+	<p>Let's start with a very simple task to parse a date in ISO format as follows:</p>
+	<pre><code>
+        YYYY-MM-DD
+</code></pre>
+	<p>The following are the examples of possible input:</p>
+	<pre><code>
+        2013-03-01
+        2012-12-31 // (woo-hoo, it almost a new year!)
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter03-8">
+	<p>In the previous recipe we were writing a simple parser for dates. Imagine that some time
+	has passed and the task has changed. Now we need to write a date-time parser that will
+	support multiple input formats plus zone offsets. So now our parser should understand the
+	following inputs:</p>
+	<pre><code>
+        2012-10-20T10:00:00Z        // date time with zero zone offset
+        2012-10-20T10:00:00         // date time with unspecified zone offset
+        2012-10-20T10:00:00+09:15   // date time with zone offset
+        2012-10-20-09:15            // date time with zone offset
+        10:00:09+09:15              // time with zone offset
+</code></pre>
 </div>
 
 
