@@ -1,6 +1,6 @@
 Free for personal and commercial use under the CCA 3.0 license
 
-This branch contains sources for the **[Boost C++ Application Development Cookbook Online Examples](http://apolukhin.github.io/Boost-Cookbook-4880OS/).
+This branch contains sources for the **[Boost C++ Application Development Cookbook Online Examples](http://apolukhin.github.io/Boost-Cookbook/).
 
 Credits:
 	Template:
