@@ -1,6 +1,7 @@
-Boost C++ Application Development Cookbook
+Boost C++ Application Development Cookbook,
+Second Edition
 ===================================
-This repository contains all the code examples from the **[Boost C++ Application Development Cookbook](https://www.packtpub.com/application-development/boost-c-application-development-cookbook-second-edition)** `(ISBN: 9781787282247)`, [Packt Publishing](http://www.packtpub.com), by Antony Polukhin.
+This repository contains all the code examples from the **[Boost C++ Application Development Cookbook, Second Edition](https://www.packtpub.com/application-development/boost-c-application-development-cookbook-second-edition)** `(ISBN: 9781787282247)`, [Packt Publishing](http://www.packtpub.com), by Antony Polukhin.
 
 [Compile and Run Examples Online](http://apolukhin.github.io/Boost-Cookbook/).
 
