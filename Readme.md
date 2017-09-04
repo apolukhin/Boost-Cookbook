@@ -2,7 +2,7 @@ Boost C++ Application Development Cookbook
 ===================================
 This repository contains all the code examples from the **[Boost C++ Application Development Cookbook](http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book)** `(ISBN: 9781849514880)`, [Packt Publishing](http://www.packtpub.com), by Antony Polukhin.
 
-[Compile and Run Examples Online](http://apolukhin.github.io/Boost-Cookbook-4880OS/).
+[Compile and Run Examples Online](http://apolukhin.github.io/Boost-Cookbook/first_edition.html).
 
 ### Content
 This repository contatins project files for QtCreator IDE. `BoostBook.pro` - is the main project file.
@@ -41,22 +41,5 @@ this class defined?'.
 Thanks to Heather Gopsill from Packt Publishing for giving a permission to make sources publicly available. 
 
 ### Testing
-[![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS.svg?branch=master)](https://travis-ci.org/apolukhin/Boost-Cookbook-4880OS) [![Coverage Status](https://coveralls.io/repos/apolukhin/Boost-Cookbook-4880OS/badge.svg)](https://coveralls.io/r/apolukhin/Boost-Cookbook-4880OS)
+[![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook.svg?branch=first_edition)](https://travis-ci.org/apolukhin/Boost-Cookbook) [![Coverage Status](https://coveralls.io/repos/apolukhin/Boost-Cookbook/badge.svg?branch=first_edition)](https://coveralls.io/r/apolukhin/Boost-Cookbook)
 
-### Notes for book update
-* Chapter 10 "Detecting RTTI support" - add Boost.TypeIndex example
-* Optional and Variant now understand rvalue references
-* Boost will have an unique_ptr in 1.58
-* How about describing boost::future?
-* Coroutine interface changed in Boost 1.56
-* LexicalCast now has a try_lexical_convert method
-* Filesystem is accepted into the Standard
-* RCU example using atomics?
-* add *_pointer_cast examples?
-* add a note to the book about source code availability at github
-* sync code and book
-* Fix introduction in "Chapter09. Getting the benefits of single-linked list and memory pool"
-* Boost.DLL examples
-* Variant is proposed for C++17. Highlight the differences.
-* flat containers were proposed for C++17
-* describe in depth changes from 135a24926a1d084e76f8f527deeee6236274e496
