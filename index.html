@@ -1357,31 +1357,34 @@ to lock <code>user1.loot_mutex_</code>.</p>
 <div class="code-intro" id="Chapter06-1">
 	<p>It is a common task to check something at specified intervals; for example, we need to check
 	some session for an activity once every 5 seconds. There are two popular solutions to such
-	a problem: creating a thread or sleeping for 5 seconds. This is a very lame solution that
-	consumes a lot of system resources and scales badly. We could instead use system specific
-	APIs for manipulating timers asynchronously. This is a better solution, but it requires a lot of
-	work and is not very portable (until you write many wrappers for different platforms). It also
-	makes you work with OS APIs that are not always very nice.</p>
+	a problem:</p>
+	<p>* The bad solution creates a thread that does the checking and then sleeps for 5
+seconds. This is a lame solution that eats a lot of system resources and scales
+badly.</p>
+	<p>* The right solution uses system specific APIs for manipulating timers
+asynchronously. This is a better solution, that requires some work and is not
+portable, unless you use Boost.Asio.</p>
 </div>
 
 <div class="code-intro" id="Chapter06-2">
 	<p>Receiving or sending data by network is a slow operation. While packets are received by the
-	machine, and while the OS verifies them and copies the data to the user-specified buffer,
-	multiple seconds may pass. And we may be able to do a lot of work instead of waiting. Let's
-	modify our tasks_processor class so that it will be capable of sending and receiving
-	data in an asynchronous manner. In nontechnical terms, we ask it to "receive at least N
-	bytes from the remote host and after that is done, call our functor. And by the way, do not
-	block on this call". Those readers who know about libev , libevent , or Node.js will find
-	a lot of familiar things in this recipe.</p>
+machine, and while OS verifies them and copies the data to the user-specified buffer,
+multiple seconds may pass.</p>
+	<p>We may do a lot of work rather than waiting! Let's modify our tasks_processor class so
+that it would be capable of sending and receiving data in an asynchronous manner. In
+nontechnical terms, we ask it to receive at least N bytes from the remote host and after that
+is done, call our functor. By the way, do not block on this call. Those readers who know
+about libev, libevent, or Node.js may find a lot of familiar things in this recipe.</p>
 </div>
 
 <div class="code-intro" id="Chapter06-3">
-	<p>A server side working with a network usually looks like a sequence where we first get
-	data, then process it, and then send the result. Imagine that we are creating some kind of
-	authorization server that will process a huge number of requests per second. In that case,
-	we will need to receive and send data asynchronously and process tasks in multiple threads.</p>
+	<p>A server-side working with a network often looks like a sequence where we first get the
+new connection, read data, then process it, and then send the result. Imagine that we are
+creating some kind of authorization server that must process huge amount of requests per
+second. In that case, we need to accept, receive, send asynchronously, and process tasks in
+multiple threads.</p>
 	<p>In this recipe, we'll see how to extend our tasks_processor class to accept and process
-	incoming connections, and in the next recipe, we'll see how to make it multithreaded.</p>
+incoming connections, and, in the next recipe, we'll see how to make it multithreaded.</p>
 </div>
 
 <div class="code-intro" id="Chapter06-4">
@@ -1428,17 +1431,17 @@ to lock <code>user1.loot_mutex_</code>.</p>
 </div>
 
 <div class="code-intro" id="Chapter06-7">
-	<p>Processing exceptions is not always trivial and may take a lot of time. Consider the situation
-	where an exception must be serialized and sent by the network. This may take milliseconds
-	and a few thousand lines of code. After the exception is caught is not always the best time
-	and place to process it.</p>
-	<p>So, can we store exceptions and delay their processing?</p>
+	<p>Processing exceptions is not always trivial and may consume a lot of time. Consider the
+situation when an exception must be serialized and sent by the network. This may take
+milliseconds and a few thousands of lines of code. After the exception is caught, it is not
+always the best time and place to process it.</p>
+	<p>Can we store exceptions and delay their processing?</p>
 </div>
 
 <div class="code-intro" id="Chapter06-8">
-	<p>When writing some server applications (especially for Linux OS), catching and processing
-	signals is required. Usually, all the signal handlers are set up at server start and do not
-	change during the application's execution.</p>
+	<p>When writing some server application (especially for Linux OS), catching and processing
+the signals is required. Usually, all the signal handlers are set up at server start and do not
+change during the application's execution.</p>
 	<p>The goal of this recipe is to make our <code>tasks_processor</code> class capable of processing signals.</p>
 </div>
 
