@@ -2224,15 +2224,21 @@ negates any picture.</p>
 			<script src="assets/js/cppeditor_fe.min.js"></script-->
 			<script>
 				$(function() {
-			        $.getScript("assets/js/social-likes.min.js");
-			        $.getScript("assets/js/jquery.scrolly.min.js");
-			        $.getScript("assets/js/jquery.scrollzer.min.js");
-			        $.getScript("assets/js/skel.min.js");
-			        $.getScript("assets/js/util.min.js");
-			        $.getScript("assets/js/main.min.js");
-			        $.getScript("assets/js/ace/ace.js");
-			        $.getScript("assets/js/cppeditor_fe.min.js");
-					editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
+				    $.when(
+			            $.getScript("assets/js/social-likes.min.js"),
+			            $.getScript("assets/js/jquery.scrolly.min.js"),
+			            $.getScript("assets/js/jquery.scrollzer.min.js"),
+			            $.getScript("assets/js/skel.min.js"),
+			            $.getScript("assets/js/util.min.js"),
+			            $.getScript("assets/js/main.min.js"),
+			            $.getScript("assets/js/ace/ace.js"),
+			            $.getScript("assets/js/cppeditor_fe.min.js"),
+                        $.Deferred(function( deferred ){
+                            $( deferred.resolve );
+                        })
+                    ).done(function(){
+                        editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
+                    });
 				});
 			</script>
 	</body>
