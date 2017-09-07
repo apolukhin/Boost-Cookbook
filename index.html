@@ -1274,25 +1274,25 @@
 	<p>Imagine that we are designing a safety-critical class that is used from multiple threads,
 receives answers from a server, postprocesses them, and outputs the response:</p>
 	<pre><code>
-struct postprocessor {
-    typedef std::vector&lt;std::string&gt; answer_t;
+    struct postprocessor {
+        typedef std::vector&lt;std::string&gt; answer_t;
 
-    // Concurrent calls on the same variable are safe.
-    answer_t act(const std::string&amp; in) const {
-        if (in.empty()) {
-            // Extremely rare condition.
-            return read_defaults();
+        // Concurrent calls on the same variable are safe.
+        answer_t act(const std::string&amp; in) const {
+            if (in.empty()) {
+                // Extremely rare condition.
+                return read_defaults();
+            }
+            // ...
         }
-        // ...
-    }
-};
+    };
 </code></pre>
 	<p>Note the <code>return read_defaults();</code> line. There may be situations when server does not
 respond because of networking issues or some other problems. In those cases, we attempt to
 read defaults from file:</p>
 	<pre><code>
-// Executes for a long time.
-std::vector&lt;std::string&gt; read_defaults();
+    // Executes for a long time.
+    std::vector&lt;std::string&gt; read_defaults();
 </code></pre>
 	<p>From the preceding code, we hit the problem: the server may be unreachable for some
 noticeable time, and for all that time we'll be rereading the file on each act call. This
@@ -1308,24 +1308,24 @@ you can play at work!</p>
 	<p>You're developing a server and you have to write code for exchanging loot between two
 users:</p>
 	<pre><code>
-class user {
-    boost::mutex loot_mutex_;
-    std::vector&lt;item_t&gt; loot_;
-public:
-    // ...
-    void exchange_loot(user&amp; u);
-};
+    class user {
+        boost::mutex loot_mutex_;
+        std::vector&lt;item_t&gt; loot_;
+    public:
+        // ...
+        void exchange_loot(user&amp; u);
+    };
 </code></pre>
 	<p>Each user action could be concurrently processed by different threads on a server, so you
 have to guard the resources by mutexes. The junior developer tried to deal with the
 problem, but his solution does not work:</p>
 	<pre><code>
-void user::exchange_loot(user& u) {
-    // Terribly wrong!!! ABBA deadlocks.
-    boost::lock_guard&lt;boost::mutex&gt; l0(loot_mutex_);
-    boost::lock_guard&lt;boost::mutex&gt; l1(u.loot_mutex_);
-    loot_.swap(u.loot_);
-}
+    void user::exchange_loot(user& u) {
+        // Terribly wrong!!! ABBA deadlocks.
+        boost::lock_guard&lt;boost::mutex&gt; l0(loot_mutex_);
+        boost::lock_guard&lt;boost::mutex&gt; l1(u.loot_mutex_);
+        loot_.swap(u.loot_);
+    }
 </code></pre>
 	<p>The issue in the preceding code is a well-known ABBA deadlock problem. Imagine that
 thread 1 locks mutex A and thread 2 locks mutex B. And now thread 1 attempts to lock the
@@ -1336,7 +1336,7 @@ thread.</p>
 	<p>Now, if user1 and user2 call <code>exchange_loot</code> for each other concurrently, then we may end
 up with a situation that <code>user1.exchange_loot(user2)</code> has locked
 <code>user1.loot_mutex_</code> and <code>user2.exchange_loot(user1)</code> has locked
-<code>user2.loot_mutex_</code>. <code>user1.exchange_loot(user2)</code> waits for infinity in attempt to lock
+<code>user2.loot_mutex_</code>. Now <code>user1.exchange_loot(user2)</code> waits for infinity in attempt to lock
 <code>user2.loot_mutex_</code> and <code>user2.exchange_loot(user1)</code> waits for infinity in an attempt
 to lock <code>user1.loot_mutex_</code>.</p>
 </div>
@@ -1453,26 +1453,27 @@ change during the application's execution.</p>
     std::string str2 = "Thanks for reading ME!";
 </code></pre>
 	<p>We need to compare them in a case-insensitive manner. There are a lot of methods to do
-	that; let's take a look at Boost's.</p>
+that, let's take a look at Boost's.</p>
 </div>
 
 <div class="code-intro" id="Chapter07-1">
-	<p>Let's do something useful! It's common that the user's input must be checked using some
-	regular expression-specific pattern that provides a flexible means of match. The problem is
-	that there are a lot of regex syntaxes; expressions written using one syntax are not handled
-	well by the other syntax. Another problem is that long regexes are not easy to write.</p>
+	<p>Let's do something useful! It is a common case when the user's input must be checked using
+some regular expression. The problem is that there are a lot of regular expression syntaxes,
+expressions written using one syntax are not treated well by the other syntaxes. Another
+problem is that long regexes are not so easy to write.</p>
 
-	<p>So in this recipe, we'll write a program that may use different types of regular expression
-	syntaxes and checks that the input strings match the specified regexes.</p>
+	<p>So in this recipe, we are going to write a program that supports different regular expression
+syntaxes and checks that the input strings match the specified regexes.</p>
 </div>
 
 <div class="code-intro" id="Chapter07-2">
-	<p>My wife enjoyed the <a href="javascript:editor.download('Chapter07', 1)">Matching strings using regular expressions</a> recipe very much and told me
-	that I'll get no food until I improve it to be able to replace parts of the input string according
-	to a regex match. Each matched subexpression (part of the regex in parenthesis) must get
-	a unique number starting from 1; this number will be used to create a new string.</p>
-	<p>This is how an updated program will work like:</p>
+	<p>My wife enjoyed the <a href="javascript:editor.download('Chapter07', 1)">Matching strings using regular expressions</a> recipe very much. But, she
+wanted more and told me that I'll get no food until I promote the recipe to be able to replace
+parts of the input string according to a regex match.</p>
+	<p>Ok, here it comes. Each matched sub-expression (part of the regex in parenthesis) must get a
+unique number starting from 1; this number would be used to create a new string.</p>
 
+	<p>This is how an updated program should work like:</p>
 	<pre><code>
     Available regex syntaxes:
             [0] Perl
@@ -1513,8 +1514,8 @@ change during the application's execution.</p>
 
 <div class="code-intro" id="Chapter07-4">
 	<p>Situations where we need to erase something in a string, replace a part of the string, or erase
-	the first or last occurrence of some substring are very common. STL allows us to do most of
-	this, but it usually involves writing too much code.</p>
+the first or last occurrence of some sub-string are very common. Standard library allows us
+to do more parts of this, but it usually involves too much code writing.</p>
 	<p>We saw the Boost.StringAlgorithm library in action in the <a href="javascript:editor.download('Chapter07', 0)">Changing cases and case-
 	insensitive comparison</a> recipe. Let's see how it can be used to simplify our lives when we need
 	to modify some strings:</p>
@@ -1526,14 +1527,14 @@ change during the application's execution.</p>
 
 <div class="code-intro" id="Chapter07-5">
 	<p>There are situations when we need to split some strings into substrings and do something
-	with those substrings. For example, count whitespaces along with characters in each sentence and, of course, we want
-	to use Boost and be as efficient as possible.</p>
+with those substrings. In this recipe, we want to split string into sentences, count characters,
+and white-spaces and, of course, we want to use Boost and be as efficient as possible.</p>
 </div>
 
 <div class="code-intro" id="Chapter07-6">
 	<p>This recipe is the most important recipe in this chapter! Let's take a look at a very common
-	case, where we write a function that accepts a string and returns the part of the string
-	between character values passed in the <code>starts</code> and <code>ends</code> arguments:</p>
+case, where we write some function that accepts a string and returns a part of the string
+between character values passed in the <code>starts</code> and <code>ends</code> arguments:</p>
 	<pre><code>
     #include &lt;string&gt;
     #include &lt;algorithm&gt;
@@ -1551,29 +1552,29 @@ change during the application's execution.</p>
         return std::string(pos_beg, pos_end);
     }
 </code></pre>
-	<p>Do you like this implementation? In my opinion, it looks awful; consider the following call to it:</p>
+	<p>Do you like this implementation? In my opinion, it looks awful. Consider the following call to it:</p>
 	<pre><code>
     between_str("Getting expression (between brackets)", '(', ')');
 </code></pre>
 
-	<p>In that call, a temporary <code>std::string</code> variable will be constructed from <code>"Getting
-	expression (between brackets)"</code>. The character array is long enough, so there is a big
-	chance that dynamic memory allocation will be called inside the <code>std::string</code> constructor
-	and the character array will be copied into it. Then, somewhere inside the <code>between_str</code>
-	function, new <code>std::string</code> will be constructed, which may also lead to another dynamic
-	memory allocation and result in copying.</p>
+	<p>In this example, a temporary<code>std::string</code> variable is constructed from <code>"Getting
+expression (between brackets)"</code>. The character array is long enough, so there is a big
+chance that dynamic memory allocation is called inside the <code>std::string</code> constructor and
+the character array is copied into it. Then, somewhere inside the<code>between_str</code>
+function, new <code>std::string</code> is being constructed, which may also lead to another dynamic memory
+allocation and copying.</p>
 	<p>So, this simple function may, and in most cases will:</p>
-	<p> * Call dynamic memory allocation (twice)</p>
-	<p> * Copy string (twice)</p>
-	<p> * Deallocate memory (twice)</p>
+	<p> * Call dynamic memory allocation (two times)</p>
+	<p> * Copy string (two times)</p>
+	<p> * Deallocate memory (two times)</p>
 
 	<br><p>Can we do better?</p>
 </div>
 
 
 <div class="code-intro" id="Chapter08-0">
-	<p>There are situations when it would be great to work with all the template parameters as if
-	they were in a container. Imagine that we are writing something such as Boost.Variant:</p>
+	<p>There are situations when it would be great to work with all the template parameters like
+they were in a container. Imagine that we are writing something, such as Boost.Variant:</p>
 	<pre><code>
     #include &lt;boost/mpl/aux_/na.hpp&gt;  // boost::mpl::na == n.a. == not available
 
@@ -1591,7 +1592,7 @@ change during the application's execution.</p>
     &gt;
     struct variant;
 </code></pre>
-	<p>And the preceding code is where all the following interesting tasks start to happen:</p>
+	<p>The preceding code is the place where all the following interesting tasks start to happen:</p>
 	<p> * How can we remove constant and volatile qualifiers from all the types?</p>
 	<p> * How can we remove duplicate types?</p>
 	<p> * How can we get the sizes of all the types?</p>
@@ -1601,10 +1602,10 @@ change during the application's execution.</p>
 
 
 <div class="code-intro" id="Chapter08-1">
-	<p>The task of this recipe will be to modify the content of one <code>boost::mpl::vector</code> function
-	depending on the content of a second <code>boost::mpl::vector</code> function. We'll be calling
-	the second vector as the vector of modifiers and each of those modifiers can have the
-	following type:</p>
+	<p>The task of this recipe is to modify the content of one <code>boost::mpl::vector</code> type
+depending on the content of a second <code>boost::mpl::vector</code> type. We'll be calling
+the second vector as the vector of modifiers and each of those modifiers can have the
+following type:</p>
 	<pre><code>
     // Make unsigned
     struct unsigne; // No typo: 'unsigned' is a keyword, we cannot use it.
@@ -1613,13 +1614,13 @@ change during the application's execution.</p>
     // Otherwise we do not change type
     struct no_change;
 </code></pre>
-	<p>So where shall we start?</p>
+	<p>So where shall we start from?</p>
 </div>
 
 <div class="code-intro" id="Chapter08-2">
-	<p>Many features were added to C++11 to simplify the metaprogramming. One such feature
-	is the alternative function syntax. It allows deducing the result type of a template function.
-	Here is an example:</p>
+	<p>Many good features were added to C++11 to simplify the metaprogramming. One such
+feature is the alternative function syntax. It allows deducing the result type of a template
+function. Here is an example:</p>
 	<pre><code>
     template &lt;class T1, class T2&gt;
     auto my_function_cpp11(const T1&amp; v1, const T2&amp; v2)
@@ -1628,7 +1629,7 @@ change during the application's execution.</p>
         return v1 + v2;
     }
 </code></pre>
-	<p>It allows us to write generic functions more easily and work in difficult situations:</p>
+	<p>It allows us to write generic functions more easily:</p>
 	<pre><code>
     #include &lt;cassert&gt;
     struct s1 {};
@@ -1651,9 +1652,9 @@ change during the application's execution.</p>
         assert(my_function_cpp11('\0', 1) == 1);
     }
 </code></pre>
-	<p>But Boost has a lot of functions like these and it does not require C++11 to work.
-	How is that possible and how can we make a C++03 version of the
-	<code>my_function_cpp11</code> function?</p>
+	<p>But, Boost has a lot of functions like these and it does not require C++11 to work. How is
+that possible and how can we make a C++03 version of the
+<code>my_function_cpp11</code> function?</p>
 </div>
 
 
@@ -1682,12 +1683,13 @@ change during the application's execution.</p>
 </div>
 
 <div class="code-intro" id="Chapter08-4">
-	<p>Lazy evaluation means that the function won't be called until we really need its result.
-	Knowledge of this recipe is highly recommended for writing good metafunctions.
-	The importance of lazy evaluation will be shown in the following example.</p>
-	<p>Imagine that we are writing a metafunction that accepts a function, a parameter, and a
-	condition. The resulting type of that function must be a fallback type if the condition
-	is false otherwise the result will be as follows:</p>
+	<p>Lazy evaluation means that the function is not called until we really need its result.
+Knowledge of this recipe is highly recommended for writing good metafunctions. The
+importance of lazy evaluation will be shown in the following example.</p>
+	<p>Imagine that we are writing some metafunction that accepts a function Func , a parameter
+Param , and a condition Cond . The resulting type of that function must be a fallback type
+if applying the Cond to Param returns false , otherwise the result must be a Func applied
+to Param :</p>
 	<pre><code>
     struct fallback;
     template &lt;
@@ -1697,54 +1699,131 @@ change during the application's execution.</p>
         class Fallback = fallback&gt;
     struct apply_if;
 </code></pre>
-	<p>And the preceding code is the place where we cannot live without lazy evaluation.</p>
+	<p>This metafunction is the place where we cannot live without lazy evaluation, because it may
+be impossible to apply Func to Param if the Cond is not met. Such attempts will always
+result in compilation failure and Fallback is never returned.</p>
 </div>
 
 <div class="code-intro" id="Chapter08-5">
-	<p>This recipe and the next one are devoted to a mix of compile time and runtime features. We'll
-	be using the Boost.Fusion library to see what it can do.</p>
-
-	<p>Remember that we were talking about tuples and arrays in the first chapter. Now we want to
-	write a single function that can stream elements of tuples and arrays to strings.</p>
+	<p>This recipe and the next one are devoted to a mix of compile time and runtime features.
+We'll be using the Boost.Fusion library and see what it can do.</p>
+	<p>Remember that we were talking about tuples and arrays in the first chapter? Now, we want
+to write a single function that can stream elements of tuples and arrays to strings.</p>
 </div>
 
 
 <div class="code-intro" id="Chapter08-6">
-	<p>This recipe will show a tiny piece of the Boost.Fusion library's abilities. We'll be splitting a
-	single tuple into two tuples, one with arithmetic types and the other with all the other types.</p>
+	<p>This recipe will show a tiny piece of the Boost.Fusion library's abilities. We'll be splitting
+a single tuple into two tuples, one with arithmetic types and the other with all other types.</p>
+</div>
+
+<div class="code-intro" id="Chapter08-7">
+	<p>Most of the metaprogramming tricks that we saw in this chapter were invented long before
+C++11. Probably, you've already heard about some of that stuff.</p>
+	<p>How about something brand new? How about implementing the previous recipe in C++14
+with a library that puts the metaprogramming upside down and makes your eyebrows go
+up? Fasten your seatbelts, we're diving into the world of Boost.Hana .</p>
+</div>
+
+
+
+
+<div class="code-intro" id="Chapter09-0">
+	<p>For the past two decades, C++ programmers were using std::vector as a default
+sequence container. It is a fast container that does not do a lot of allocations, stores elements
+in a CPU cache friendly way and because container stores the elements contiguously
+<code>std::vector::data()</code> like functions allows to inter-operate with pure C functions.</p>
+	<p>But, we want more! There are cases when we do know the typical elements count to store in
+the vector, and we need to improve the performance of the vector by totally eliminating the
+memory allocations for that case.</p>
+	<p>Imagine that we are writing a high performance system for processing bank transactions.
+Transaction is a sequence of operations that must all succeed or fail if at least one of the
+operations failed. We know that the 99% of transactions consist of 8 or less operations and
+wish to speed up things:</p>
+	<pre><code>
+    #include &lt;vector&gt;
+
+    class operation;
+    template &lt;class T&gt;
+    void execute_operations(const T&amp;);
+
+    bool has_operation();
+    operation get_operation();
+
+    void process_transaction_1() {
+        std::vector&lt;operation&gt; ops;
+        ops.reserve(8); // TODO: Memory allocation. Not good!
+
+        while (has_operation()) {
+            ops.push_back(get_operation());
+        }
+
+        execute_operations(ops);
+        // ...
+    }
+</code></pre>
+</div>
+
+<div class="code-intro" id="Chapter09-1">
+	<p>Here's a question: what container should we use to return the sequence from function if we
+know that the sequence never has more than N elements and N is not big. For example, how
+we must write the <code>get_events()</code> function that returns at most five events:</p>
+	<pre><code>
+    #include &lt;vector&gt;
+
+    std::vector&lt;event&gt; get_events();
+</code></pre>
+	<p>The <code>std::vector&lt;event&gt;</code> allocates memory, so the code from earlier is not a good
+solution.</p>
+	<pre><code>
+    #include &lt;boost/array.hpp&gt;
+
+    boost::array&lt;event, 5&gt; get_events();
+</code></pre>
+	<p><code>boost::array&lt;event, 5&gt;</code>does not allocate memory, but it constructs all the five
+elements. There's no way to return less than five elements.</p>
+	<pre><code>
+    #include &lt;boost/container/small_vector.hpp&gt;
+
+    boost::container::small_vector&lt;event, 5&gt; get_events();
+</code></pre>
+	<p>The <code>boost::container::small_vector&lt;event, 5&gt;</code> does not allocate memory for five
+or less elements and allows us to return less than five elements. However, the solution is
+not perfect, because it is not obvious from the function interface that it never returns more
+than five elements.</p>
 </div>
 
 <div class="code-intro" id="Chapter09-2">
-	<p>It is a common task to manipulate strings. Here we'll see how the operation of string
-	comparison can be done quickly using some simple tricks. This recipe is a trampoline
-	for the next one, where the techniques described here will be used to achieve constant
-	time-complexity searches.</p>
-	<p>So, we need to make a class that is capable of quickly comparing strings for equality.</p>
+	<p>It is a common task to manipulate strings. Here, we'll see how an operation of string
+comparison can be done quickly using some simple tricks. This recipe is a trampoline for
+the next one, where the techniques described here will be used to achieve constant time-
+complexity searches.</p>
+	<p>So, we need to make some class that is capable of quickly comparing strings for equality.</p>
 </div>
 
 <div class="code-intro" id="Chapter09-3">
-	<p>In the previous recipe, we saw how string comparison can be optimized using hashing. After
-	reading it, the following question may arise, "Can we make a container that will cache hashed
-	values to use faster comparison?".</p>
-	<p>The answer is yes, and we can do much more. We can achieve almost constant time
-	complexities for search, insertion, and removal of elements.</p>
+	<p>In the previous recipe, we saw how string comparison can be optimized using hashing.
+After reading it, the following question may arise: can we make a container that will cache
+hashed values to use faster comparison?</p>
+	<p>The answer is yes, and we can do much more. We may achieve almost constant search,
+insertion, and removal times for elements.</p>
 </div>
 
 <div class="code-intro" id="Chapter09-4">
-	<p>Several times in a year, we need something that can store and index a pair of values.
-	Moreover, we need to get the first part of the pair using the second, and get the second part
-	using the first. Confused? Let me show you an example. We are creating a vocabulary class,
-	wherein when the users put values into it, the class must return identifiers and when the
-	users put identifiers into it, the class must return values.</p>
-	<p>To be more practical, users will be entering login names into our vocabulary, and wish to get the
-	unique identifier of a person. They will also wish to get all the persons' names using identifiers.</p>
+	<p>Several times in a year, we need something that may store and index a pair of values.
+Moreover, we need to get the first part of the pair using the second, and get the second part
+using the first. Confused? Let me show you an example. We create a vocabulary class.
+When the users put values into it, the class must return identifiers, and when the users put
+identifiers into it, the class must return values.</p>
+	<p>To be more practical, users are putting login names in our vocabulary and wish to get the
+unique identifier out of it. They also wish to get all the logins for an identifier.</p>
 	<p>Let's see how it can be implemented using Boost.</p>
 </div>
 
 <div class="code-intro" id="Chapter09-5">
 	<p>In the previous recipe, we made some kind of vocabulary, which is good when we need to
-	work with pairs. But, what if we need much more advanced indexing? Let's make a program
-	that indexes persons:</p>
+work with pairs. But, what if we need much more advanced indexing? Let's make a
+program that indexes persons:</p>
 	<pre><code>
     struct person {
         std::size_t     id_;
@@ -1764,53 +1843,67 @@ change during the application's execution.</p>
         return p1.name_ &lt; p2.name_;
     }
 </code></pre>
-	<p>We will need a lot of indexes; for example, by name, ID, height, and weight.</p>
+	<p>We will need a lot of indexes, for example, by name, ID, height, and weight.</p>
 </div>
 
 <div class="code-intro" id="Chapter09-6">
 	<p>Nowadays, we usually use <code>std::vector</code> when we need nonassociative and nonordered
-	containers. This is recommended by Andrei Alexandrescu and Herb Sutter in the book
-	C++ Coding Standards, and even those users who did not read the book usually use
-	<code>std::vector</code>. Why? Well, <code>std::list</code> is slower, and uses much more resources than
-	<code>std::vector</code>. The <code>std::deque</code> container is very close to <code>std::vector</code>, but stores
-	values noncontinuously.</p>
-	<p><code>std::vector</code> is good! But if there's a need in a container that does not invalidate iterators on <code>erase</code> and
-	<code>insert</code> we are forced to choose the slower <code>std::list</code>.</p>
-	<p>But wait, there is a good solution in Boost for such cases!
-	Let's see how it can be done using Boost.</p>
+containers. This is recommended by Andrei Alexandrescu and Herb Sutter in the book
+C++ Coding Standards. Even those users who did not read the book usually use
+<code>std::vector</code>. Why? Well, <code>std::list</code> is slower, and uses much more resources than
+<code>std::vector</code>. The <code>std::deque</code> container is very close to <code>std::vector</code>, but does not store values
+continuously.</p>
+	<p>If we need a container where erasing and inserting elements does not invalidate iterators,
+then we are forced to choose a slow <code>std::list</code>.</p>
+	<p>But wait, we may assemble a better solution using Boost!</p>
 </div>
 
 <div class="code-intro" id="Chapter09-7">
 	<p>After reading the previous recipe, some of the readers may start using fast pool allocators
-	everywhere; especially, for <code>std::set</code> and <code>std::map</code>. Well, I'm not going to stop you
-	from doing that, but let's at least take a look at an alternative: flat associative containers.
-	These containers are implemented on top of the traditional vector container and store the
-	values ordered.</p>
+everywhere; especially, for <code>std::set</code> and <code>std::map</code>. Well, I'm not going to stop you from
+doing that, but at least let's take a look at an alternative: flat associative containers. These
+containers are implemented on top of the traditional vector container and store the values
+ordered.</p>
 </div>
 
+
+
+
 <div class="code-intro" id="Chapter10-0">
-	<p>Some compilers have support for extended arithmetic types such as 128-bit floats or integers.
-	Let's take a quick glance at how to use them using Boost. We'll be creating a method that
-	accepts three parameters and returns the multiplied value of those methods.</p>
+	<p>I'm guessing you've seen a bunch of ugly macros to detect the compiler on which the code is
+compiled. Something like this is a typical practice in C word:</p>
+<pre><code>
+    #include &lt;something_that_defines_macros&gt;
+
+    #if !defined(__clang__) \
+        &amp;&amp; !defined(__ICC) \
+        &amp;&amp; !defined(__INTEL_COMPILER) \
+        &amp;&amp; (defined(__GNUC__) || defined(__GNUG__))
+
+    // GCC specific
+
+    #endif
+</code></pre>
+	<p>Now, try to come up with a good macro to detect the GCC compiler. Try to make that
+macro usage as short as possible.</p>
+	<p>Take a look at the following recipe to verify your guess.</p>
 </div>
 
 <div class="code-intro" id="Chapter10-1">
-	<p>Some companies and libraries have specific requirements for their C++ code, such as
-	successful compilation without Runtime type information (RTTI). In this small recipe, we'll
-	take a look at how we can detect disabled RTTI, how to store information about types, and
-	compare types at runtime, even without <code>typeid</code>.</p>
+	<p>Some compilers have support for extended arithmetic types such as 128 bit floats or
+integers. Let's take a quick glance at how to use them using Boost.</p>
+	<p>We'll be creating a method that accepts three parameters and returns the multiplied value of
+those methods. If compiler supports 128-bit integers, then we use them. If compiler
+supports <code>long long</code>,then we use it; otherwise, we need to issue a compile-time error.</p>
 </div>
 
 <div class="code-intro" id="Chapter10-2">
-	<p>Remember some situations where you were using some complicated template class declared
-	in the header file? Examples of such classes would be <code>boost::variant</code>, containers from
-	Boost.Container, or Boost.Spirit parsers. When we use such classes or methods,
-	they are usually compiled (instantiated) separately in each source file that is using them,
-	and duplicates are thrown away during linking. On some compilers, that may lead to slow
-	compilation speed.</p>
-	<p>If only there was some way to tell the compiler in which source file to instantiate it!</p>
+	<p>Some companies and libraries have specific requirements for their C++ code, such as
+successful compilation without RTTI.</p>
+	<p>In this small recipe, we'll not just detect disabled RTTI, but also write a Boost like library
+from scratch that stores information about types, and compares types at runtime, even
+without <code>typeid</code>.</p>
 </div>
-
 
 <div class="code-intro" id="Chapter10-3">
 	<p><a href='javascript:$("#chapters-link").click();'>Chapter 4, Compile-time Tricks</a>, and <a href='javascript:$("#chapters-link").click();'>Chapter 8, Metaprogramming</a>, were devoted to
@@ -1818,42 +1911,48 @@ change during the application's execution.</p>
 	have noticed that writing a metafunction can take a lot of time. So it may be a good idea
 	to experiment with metafunctions using more user-friendly methods, such as C++11
 	constexpr , before writing a portable implementation.</p>
-	<p>In this recipe, we'll take a look at how to detect constexpr support.</p>
+	<p>In this recipe, we'll take a look at how to detect <code>constexpr</code> support.</p>
 </div>
 
 <div class="code-intro" id="Chapter10-4">
-	<p>C++11 has very specific logic when user-defined types (UDTs) are used in STL containers.
-	Containers will use move assignment and move construction only if the move constructor
-	does not throw exceptions or there is no copy constructor.</p>
-	<p>Let's see how we can ensure the move_nothrow assignment operator and move_nothrow
-	constructor of our type do not throw exceptions.</p>
+	<p>C++11 has very specific logic when user-defined types (UDTs) are used in standard library
+containers. Some containers use move assignment and move construction only if the move
+constructor does not throw exceptions or there is no copy constructor.</p>
+	<p>Let's see how we can ensure the compiler that the out class move_nothrow has a non-
+throwing move assignment operator and a non-throwing move constructor.</p>
 </div>
 
 
 <div class="code-intro" id="Chapter10-5">
-	<p>Almost all modern languages have the ability to make libraries, which is a collection of classes
-	and methods that have a well-defined interface. C++ is no exception to this rule. We have two
-	types of libraries: runtime (also called shared or dynamic load) and static. But writing libraries
-	is not a trivial task in C++. Different platforms have different methods for describing which
-	symbols must be exported from the shared library.</p>
-	<p>Let's have a look at how to manage symbol visibility in a portable way using Boost.</p>
+	<p>Almost all modern languages have the ability to make libraries, a collection of classes, and
+methods that have a well-defined interface. C++ is no exception to this rule. We have two
+types of libraries: runtime (also called shared or dynamic) and static. But, writing libraries is
+not a simple task in C++. Different platforms have different methods for describing which
+symbols must be exported from the shared library.</p>
+	<p>Let's take a look at how to manage symbol visibility in a portable way using Boost.</p>
 </div>
 
 <div class="code-intro" id="Chapter10-6">
 	<p>Boost is being actively developed, so each release contains new features and libraries. Some
-	people wish to have libraries that compile for different versions of Boost and also want to use
-	some of the features of the new versions.</p>
+people wish to have libraries that compile for different versions of Boost and also want to
+use some of the features of the new versions.</p>
 	<p>Let's take a look at the <code>boost::lexical_cast</code> change log. According to it, Boost 1.53 has
-	a <code>lexical_cast(const CharType* chars, std::size_t count)</code> function overload.
-	Our task for this recipe will be to use that function overload for new versions of Boost, and
-	work around that missing function overload for older versions.</p>
+a <code>lexical_cast(const CharType* chars, std::size_t count)</code> function overload.
+Our task for this recipe will be to use that function overload for new versions of Boost, and
+work around that missing function overload for older versions.</p>
 </div>
 
+
+
+
+
+
 <div class="code-intro" id="Chapter11-0">
-	<p>There are STL functions and classes to read and write data to files. But there are no functions
-	to list files in a directory, to get the type of a file, or to get access rights for a file.</p>
-	<p>Let's see how such iniquities can be fixed using Boost. We'll be creating a program that lists
-	names, write accesses, and types of files in the current directory.</p>
+	<p>There are standard library functions and classes to read and write data to files. But before
+C++17, there were no functions to list files in a directory, get the type of a file, or get access
+rights for a file.</p>
+	<p>Let's see how such iniquities can be fixed using Boost. We'll be doing a program that lists
+names, write accesses, and types of files in the current directory.</p>
 </div>
 
 <div class="code-intro" id="Chapter11-1">
@@ -1863,37 +1962,76 @@ change during the application's execution.</p>
     ofs &lt;&lt; "Boost.Filesystem is fun!";
 </code></pre>
 	<p>In these lines, we attempt to write something to file.txt in the dir/subdir directory.
-	This attempt will fail if there is no such directory. The ability to work with filesystems is
-	necessary for write a good working code.</p>
+This attempt will fail if there is no such directory. The ability to work with filesystems is
+necessary for writing a good working code.</p>
 
-	<p>In this recipe we'll construct a directory and a subdirectory, write some data to a file, and
-	try to create symlink , and if the symbolic link's creation fails, erase the created file. We
-	will also avoid using exceptions as a mechanism of error reporting, preferring some form
-	of return codes.</p>
+	<p>In this recipe, we'll construct a directory and a subdirectory, write some data to a file, and
+try to create symlink . If the symbolic link's creation fails, erase the created entities. We
+should also avoid using exceptions as a mechanism of error reporting, preferring some kind
+of return codes.</p>
 	<p>Let's see how that can be done in an elegant way using Boost.</p>
 </div>
 
+<div class="code-intro" id="Chapter11-2">
+	<p>Here's a tricky question: we want to allow users to write extensions to the functionality of
+our program, but we do not want to give them the source codes. In other words we'd like to
+say, "Write a function X and pack it into a shared library. We may use your function along with
+functions of some other users!"</p>
+	<p>You meet this technique in everyday life: your browser uses it to allow
+third-party plugins, your text editor may use it for syntax highlighting,
+games use dynamic library loading for downloadable content (DLCs)
+and for adding gamer's content, web pages are returned by servers that
+use modules/plugins for encryption/authentication and so forth.</p>
+	<p>What are the requirements for a user's function and how can we use that function at some
+point without linking it to the shared library?</p>
+</div>
+
+
+<div class="code-intro" id="Chapter11-3">
+	<p>When reporting errors or failures, it is more important to report the steps that lead to the
+error rather than the error itself. Consider the naive trading simulator:</p>
+	<pre><code>
+    int main() {
+        int money = 1000;
+        start_trading(money);
+    }
+</code></pre>
+	<p>All it reports is a line:</p>
+	<pre><code>
+    Sorry, you're bankrupt!
+</code></pre>
+	<p>That's a no go. We want to know how did it happened, what were the steps that led to
+bankruptcy!</p>
+	<p>Okay. Let's fix the following function and make it report the steps that led to bankruptcy:</p>
+	<pre><code>
+    void report_bankruptcy() {
+        std::cout &lt;&lt; "Sorry, you're bankrupt!\n";
+        std::exit(0);
+    }
+</code></pre>
+</div>
+
 <div class="code-intro" id="Chapter11-4">
-	<p>Sometimes we write programs that will communicate with each other a lot. When
-	programs are run on different machines, using sockets is the most common technique for
-	communication. But if multiple processes run on a single machine, we can do much better!</p>
-	<p>Let's take a look at how to make a single memory fragment available from different processes
-	using the Boost.Interprocess library.</p>
+	<p>Sometimes, we write programs that communicate with each other a lot. When programs are
+run on different machines, using sockets is the most common technique for communication.
+But if multiple processes run on a single machine, we can do much better!</p>
+	<p>Let's take a look at how to make a single memory fragment available from different
+processes using the Boost.Interprocess library.</p>
 </div>
 
 <div class="code-intro" id="Chapter11-5">
 	<p>In the previous recipe, we saw how to create shared memory and how to place some objects in
-	it. Now it's time to do something useful. Let's take an example from the <a href="javascript:editor.download('Chapter05', 3)">Creating a work_queue class</a>
-	recipe, and make it work for multiple processes. At the end of
-	this example, we'll get a class that can store different tasks and pass them between processes.</p>
+it. Now it's time to do something useful. Let's take an example from the <a href="javascript:editor.download('Chapter05', 3)">Creating a work_queue class</a>
+recipe, and make it work for multiple processes. At the end of
+this example, we'll get a class that can store different tasks and pass them between processes.</p>
 </div>
 
 <div class="code-intro" id="Chapter11-6">
 	<p>It is hard to imagine writing some C++ core classes without pointers. Pointers and references
-	are everywhere in C++, and they do not work in shared memory! So if we have a structure like
-	this in shared memory and assign the address of some integer variable in shared memory
-	to <code>pointer_</code>, we won't get the correct address in the other process that will attempt to use
-	<code>pointer_</code> from that instance of <code>with_pointer</code>:</p>
+are everywhere in C++, and they do not work in shared memory! So if we have a structure like
+this in shared memory and assign the address of some integer variable in shared memory
+to <code>pointer_</code>, we won't get the correct address in the other process that will attempt to use
+<code>pointer_</code> from that instance of <code>with_pointer</code>:</p>
 	<pre><code>
     struct with_pointer {
         int* pointer_;
@@ -1906,74 +2044,83 @@ change during the application's execution.</p>
 
 <div class="code-intro" id="Chapter11-7">
 	<p>All around the Internet, people are asking "What is the fastest way to read files?". Let's
-	make our task for this recipe even harder: "What is the fastest and most portable way to
-	read binary files?"</p>
+make our task for this recipe even harder: "What is the fastest and most portable way to
+read binary files?"</p>
 </div>
 
 
 <div class="code-intro" id="Chapter11-8">
-	<p>Nowadays, plenty of embedded devices still have only a single core. Developers write
-	for those devices, trying to squeeze maximum performance out of them. Using Boost.
-	Threads or some other thread library for such devices is not effective; the OS will be forced
-	to schedule threads for execution, manage resources, and so on, as the hardware cannot
-	run them in parallel.</p>
-	<p>So how can we make a program switch to the execution of a subprogram while waiting for
-	some resource in the main part?</p>
+	<p>Nowadays, plenty of embedded devices still have only a single core. Developers write for
+those devices, trying to squeeze maximum performance out of them.</p>
+	<p>Using Boost.Threads or some other thread library for such devices is not effective. The
+OS will be forced to schedule threads for execution, manage resources, and so on, as the
+hardware cannot run them in parallel.</p>
+	<p>So, how can we force a program to switch to the execution of a subprogram while waiting
+for some resource in the main part? Moreover, how can we control the time of the
+subprogram's execution?</p>
 </div>
 
+
+
 <div class="code-intro" id="Chapter12-0">
-	<p>Some tasks require a graphical representation of data. Boost.Graph is a library that was
-	designed to provide a flexible way of constructing and representing graphs in memory. It also
-	contains a lot of algorithms to work with graphs, such as topological sort, breadth first search,
-	depth first search, and Dijkstra shortest paths.</p>
+	<p>Some tasks require representing data as a graph. The Boost.Graph is a library that was
+designed to provide a flexible way of constructing and representing graphs in memory. It
+also contains a lot of algorithms to work with graphs, such as topological sort, breadth first
+search, depth first search, and Dijkstra shortest paths.</p>
 	<p>Well, let's perform some basic tasks with Boost.Graph !</p>
 </div>
 
 <div class="code-intro" id="Chapter12-1">
-	<p>Making programs that manipulate graphs was never easy because of issues with visualization.
-	When we work with STL containers such as std::map and std::vector , we can always
-	print the container's contents and see what is going on inside. But when we work with
-	complex graphs, it is hard to visualize the content in a clear way: too many vertexes and too
-	many edges.</p>
-	<p>In this recipe, we'll take a look at the visualization of Boost.Graph using the Graphviz tool.</p>
+	<p>Making programs that manipulate graphs was never easy because of issues with
+visualization. When we work with standard library containers such as <code>std::map</code> and
+<code>std::vector</code>, we can always print the container's contents and see what is going on inside.
+But when we work with complex graphs, it is hard to visualize the content in a clear way;
+textual representation is not human friendly because it typically contains too many vertexes
+and edges.</p>
+	<p>In this recipe, we'll take a look at the visualization of Boost.Graph using the Graphviz
+tool.</p>
 </div>
 
 <div class="code-intro" id="Chapter12-2">
 	<p>I know of many examples of commercial products that use incorrect methods for getting
-	random numbers. It's a shame that some companies still use <code>rand()</code> in cryptography and
-	banking software.</p>
-	<p>Let's see how to get a fully random uniform distribution using Boost.Random that is suitable
-	for banking software.</p>
+random numbers. It's a shame that some companies still use rand() in cryptography and
+banking software.</p>
+	<p>Let's see how to get a fully random uniform distribution using Boost.Random that is
+suitable for banking software.</p>
 </div>
 
 <div class="code-intro" id="Chapter12-3">
 	<p>Some projects require specific trigonometric functions, a library for numerically solving
-	ordinary differential equations, and working with distributions and constants. All of those
-	parts of Boost.Math would be hard to fit into even a separate book. A single recipe definitely
-	won't be enough. So let's focus on very basic everyday-use functions to work with float types.</p>
+ordinary differential equations and working with distributions and constants. All those
+parts of Boost.Math will be hard to fit even in a separate book. A single recipe definitely
+won't be enough. So, let's focus on very basic everyday-use functions to work with float
+types.</p>
 	<p>We'll write a portable function that checks an input value for infinity and not-a-number (<code>NaN</code>)
-	values and changes the sign if the value is negative.</p>
+values and changes the sign if the value is negative.</p>
 </div>
 
 <div class="code-intro" id="Chapter12-4">
-	<p>This recipe and the next one are devoted to auto-testing the Boost.Test library, which is used
-	by many Boost libraries. Let's get hands-on with it and write some tests for our own class.</p>
+	<p>This recipe and the next one are devoted to auto-testing using the Boost.Test library,
+which is used by many Boost libraries. Let's get hands-on with it and write some tests for
+our own class.</p>
 </div>
 
 <div class="code-intro" id="Chapter12-5">
-	<p>Writing auto tests is good for your project. But managing test cases is hard when the project
-	is large and many developers are working on it. In this recipe, we'll take a look at how to run
-	individual tests and how to combine multiple test cases in a single module.</p>
-	<p>Let's pretend that two developers are testing the <code>foo</code> structure declared in the <code>foo.hpp</code>
-	header and we wish to give them separate source files to write a test to. In that way, the
-	developers won't bother each other and can work in parallel. However, the default test run
-	must execute the tests of both developers.</p>
+	<p>Writing auto tests is good for your project. However, managing test cases is hard when the
+project is big and many developers work on it. In this recipe, we'll take a look at how to run
+individual tests and how to combine multiple test cases in a single module.</p>
+	<p>Let's pretend that two developers are testing the foo structure declared in the foo.hpp
+header and we wish to give them separate source files to write tests to. In that case, both
+developers won't bother each other and may work in parallel. However, the default test run
+must execute tests of both developers.</p>
 </div>
 
 <div class="code-intro" id="Chapter12-6">
-	<p>I've left you something really tasty for dessert – Boost's Generic Image Library (GIL), which
-	allows you to manipulate images and not care much about image formats.</p>
-	<p>Let's do something simple and interesting with it; let's make a program that negates any picture.</p>
+	<p>I've left you something really tasty for dessert - Boost's Generic Image Library or just
+Boost.GIL , which allows you to manipulate images without worrying too much about
+image formats.</p>
+	<p>Let's do something simple and interesting with it. For example, let's make a program that
+negates any picture.</p>
 </div>
 							</div>
 						</div>
