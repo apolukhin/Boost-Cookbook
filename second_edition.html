@@ -2243,8 +2243,8 @@ negates any picture.</p>
 		            onDemandScript("assets/js/main.min.js"),
 		            onDemandScript("assets/js/ace/ace.js"),
 		            onDemandScript("assets/js/cppeditor_fe.min.js"),
-                    onDemandScript(function( deferred ){
-                        $( deferred.resolve );
+                    $.Deferred(function(deferred){
+                        $(deferred.resolve);
                     })
                 ).done(function(){
                     editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
