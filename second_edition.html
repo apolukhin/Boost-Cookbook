@@ -2213,8 +2213,6 @@ negates any picture.</p>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/social-likes.min.js"></script>
-			<script src="assets/js/ace/ace.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script>
 		        function onDemandScript(url, callback ) {
@@ -2228,6 +2226,8 @@ negates any picture.</p>
                          cache: true
                     });    
                 }
+		        
+		        onDemandScript("assets/js/social-likes.min.js");
 			
 			    $.when(
 		            onDemandScript("assets/js/jquery.scrolly.min.js"),
@@ -2238,10 +2238,14 @@ negates any picture.</p>
 		            onDemandScript("assets/js/main.min.js");
                 })
                 
-		        onDemandScript("assets/js/cppeditor_se.js", function(){
-		            $(function(){
-                        editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
-                    });
+                $.when(
+		            onDemandScript("assets/js/ace/ace.js"),
+		            onDemandScript("assets/js/cppeditor_se.js"),
+		            $.Defered(function(defer) {
+		                $(defer.resolve);
+		            })
+                ).done(function(){
+		            editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
                 })
 			</script>
 	</body>
