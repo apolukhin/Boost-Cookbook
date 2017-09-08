@@ -2213,14 +2213,14 @@ negates any picture.</p>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
-			<!--script src="assets/js/social-likes.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/social-likes.min.js"></script>
+			<script src="assets/js/ace/ace.js"></script>
+			<!--script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/jquery.scrollzer.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.min.js"></script-->
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<!--script src="assets/js/main.min.js"></script>
-			<script src="assets/js/ace/ace.js"></script>
 			<script src="assets/js/cppeditor_fe.min.js"></script-->
 			<script>
 		        function onDemandScript ( url, callback ) {
@@ -2241,14 +2241,12 @@ negates any picture.</p>
 		            onDemandScript("assets/js/skel.min.js"),
 		            onDemandScript("assets/js/util.min.js"),
 		            onDemandScript("assets/js/main.min.js"),
-		            onDemandScript("assets/js/ace/ace.js"),
 		            onDemandScript("assets/js/cppeditor_fe.min.js"),
                     $.Deferred(function(deferred){
                         $(deferred.resolve);
                     })
                 ).done(function(){
                     editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
-                    onDemandScript("assets/js/social-likes.min.js");
                 });
 			</script>
 	</body>
