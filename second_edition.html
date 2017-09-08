@@ -2213,6 +2213,7 @@ negates any picture.</p>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/ace/ace.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script>
 		        function onDemandScript(url, callback ) {
@@ -2239,12 +2240,11 @@ negates any picture.</p>
                 })
                 
                 $.when(
-		            onDemandScript("assets/js/ace/ace.js"),
 		            onDemandScript("assets/js/cppeditor_se.js"),
 		            $.Defered(function(defer) {
 		                $(defer.resolve);
 		            })
-                ).done(function(){
+		        ).done(function(){
 		            editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
                 })
 			</script>
