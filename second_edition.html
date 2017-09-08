@@ -2233,16 +2233,16 @@ negates any picture.</p>
 		            onDemandScript("assets/js/jquery.scrolly.min.js"),
 		            onDemandScript("assets/js/jquery.scrollzer.min.js"),
 		            onDemandScript("assets/js/skel.min.js"),
-		            onDemandScript("assets/js/util.min.js"),
-		            onDemandScript("assets/js/cppeditor_se.js"),
-                    $.Deferred(function(deferred){
-                        $(deferred.resolve);
-                    })
+		            onDemandScript("assets/js/util.min.js")
                 ).done(function(){
 		            onDemandScript("assets/js/main.min.js");
-                }).done(function(){
-                    editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
-                });
+                })
+                
+		        onDemandScript("assets/js/cppeditor_se.js", function(){
+		            $(function(){
+                        editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
+                    });
+                })
 			</script>
 	</body>
 </html>
