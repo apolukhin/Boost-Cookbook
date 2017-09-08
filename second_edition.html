@@ -20,18 +20,28 @@
 
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.min.css" />
-		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="assets/css/social-likes_flat.css">
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 		<style type="text/css" media="screen">
-			#code { 
-				width: 100%;
-				float:left;
-				min-height:100px;
-				overflow: hidden;
-			}
+#code { 
+	width: 100%;
+	float:left;
+	min-height:100px;
+	overflow: hidden;
+}
+.utf-home:before {content: "⌂";}
+.utf-info:before {content: "ℹ";}
+.utf-gear:before {content: "⚙";}
+.utf-auth:before {content: "✒";}
+.utf-love:before {content: "♥";}
+.utf-start:before {content: "😲";}
+.utf-left:before {content: "←";}
+.utf-right:before {content: "→";}
+.utf-toggle-up:before {content: "⊟";}
+.utf-toggle-down:before {content: "⊞";}
+.utf-bookmark-o:before {content: "⚐ ";}
 		</style>
 	</head>
 	<body>
@@ -51,17 +61,17 @@
 							<!--
 								Prologue's nav expects links in one of two formats:
 								1. Hash link (scrolls to a different section within the page)
-								   <li><a href="#foobar" id="foobar-link" class="icon fa-whatever-icon-you-want skel-layers-ignoreHref"><span class="label">Foobar</span></a></li>
+								   <li><a href="#foobar" id="foobar-link" class="icon utf-whatever-icon-you-want skel-layers-ignoreHref"><span class="label">Foobar</span></a></li>
 								2. Standard link (sends the user to another page/site)
-								   <li><a href="http://foobar.tld" id="foobar-link" class="icon fa-whatever-icon-you-want"><span class="label">Foobar</span></a></li>
+								   <li><a href="http://foobar.tld" id="foobar-link" class="icon utf-whatever-icon-you-want"><span class="label">Foobar</span></a></li>
 							-->
 							<ul>
-								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-book">Heading</span></a></li>
-								<li><a href="#chapters" id="chapters-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Chapters</span></a></li>
-								<li><a href="#intros" id="intros-link" class="skel-layers-ignoreHref"><span class="icon fa-info">Recipe's Intro</span></a></li>
-								<li><a href="#online_run" id="online_run-link" class="skel-layers-ignoreHref"><span class="icon fa-gear">Compile &amp; Run</span></a></li>
-								<li><a href="#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-user">About</span></a></li>
-								<li><a href="#acknowledgements" id="acknowledgements-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Thanks</span></a></li>
+								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon utf-start">Heading</span></a></li>
+								<li><a href="#chapters" id="chapters-link" class="skel-layers-ignoreHref"><span class="icon utf-home">Chapters</span></a></li>
+								<li><a href="#intros" id="intros-link" class="skel-layers-ignoreHref"><span class="icon utf-info">Recipe's Intro</span></a></li>
+								<li><a href="#online_run" id="online_run-link" class="skel-layers-ignoreHref"><span class="icon utf-gear">Compile &amp; Run</span></a></li>
+								<li><a href="#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon utf-auth">About</span></a></li>
+								<li><a href="#acknowledgements" id="acknowledgements-link" class="skel-layers-ignoreHref"><span class="icon utf-love">Thanks</span></a></li>
 							</ul>
 						</nav>
 
@@ -104,9 +114,9 @@
 						<div class="container">
 
 							<div class="right" style="margin: 0.5em 0.5em 0 3em">
-								<p><button title="Expand TOC and show all recipes" id="show_all_button" onclick='editor.chapter_show_all();'><span class="icon fa-toggle-down"></span></button>
+								<p><button title="Expand TOC and show all recipes" id="show_all_button" onclick='editor.chapter_show_all();'><span class="icon utf-toggle-down"></span></button>
 										- Show all recipes</p>
-								<p><button title="Show only chapters in TOC" id="hide_all_button" onclick='editor.chapter_hide_all();'><span class="icon fa-toggle-up"></span></button>
+								<p><button title="Show only chapters in TOC" id="hide_all_button" onclick='editor.chapter_hide_all();'><span class="icon utf-toggle-up"></span></button>
 										- Hide all recipes</p>
 							</div>
 
@@ -291,12 +301,12 @@
 							<div class="width100 left" id="online_example">
 
 								<div id="intros" class="right" style="margin: 0.5em 0.5em">
-									<button title="To previous recipe" onclick='editor.prev(); editor.set_local_url();'><span class="icon fa-angle-left"></span></button>
-									<button title="To chapters list" onclick='$("#chapters-link").click();'><span class="icon fa-home"></span></button>
-									<button title="To next recipe" onclick='editor.next(); editor.set_local_url();'><span class="icon fa-angle-right"></span></button>
+									<button title="To previous recipe" onclick='editor.prev(); editor.set_local_url();'><span class="icon utf-left"></span></button>
+									<button title="To chapters list" onclick='$("#chapters-link").click();'><span class="icon utf-home"></span></button>
+									<button title="To next recipe" onclick='editor.next(); editor.set_local_url();'><span class="icon utf-right"></span></button>
 								</div>
 								<h3>Recipe's Intro</h3>
-								<h4 id="recipe_title" class="width100"><span class="icon fa-bookmark-o"></span> Recipe: Getting configuration options</h4><br>
+								<h4 id="recipe_title" class="width100"><span class="icon utf-bookmark-o"></span> Recipe: Getting configuration options</h4><br>
 
 
 <div class="code-intro" id="Chapter01-0">
@@ -2213,37 +2223,19 @@ negates any picture.</p>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/ace/ace.js"></script>
+			<script src="assets/js/social-likes.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollzer.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.min.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.min.js"></script>
+			<script src="assets/js/ace/ace.js"></script>
+			<script src="assets/js/cppeditor_se.js?1"></script>
 			<script>
-		        function onDemandScript(url, callback ) {
-                    callback = (typeof callback != 'undefined') ? callback : {};
-
-                    return $.ajax({
-                         type: "GET",
-                         url: url,
-                         success: callback,
-                         dataType: "script",
-                         cache: true
-                    });    
-                }
-			
-			    onDemandScript("assets/js/social-likes.min.js");
-			    
-		        onDemandScript("assets/js/jquery.scrolly.min.js", function(){
-		            onDemandScript("assets/js/jquery.scrollzer.min.js", function(){
-		                onDemandScript("assets/js/skel.min.js", function(){
-		                    onDemandScript("assets/js/util.min.js", function(){
-		                        onDemandScript("assets/js/cppeditor_se.js", function(){
-		                            onDemandScript("assets/js/main.min.js");
-		                            $(function(){
-                                        editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
-                                    });
-                                });
-		                    });
-		                });
-		            });
-		        });
+				$(function() {
+					editor.init(ace.edit("code"), $("#input"), $("#output"), $("#recipe_title"), $("#compile_command"));
+				});
 			</script>
 	</body>
 </html>
