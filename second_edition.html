@@ -17,20 +17,19 @@
 		<meta property="og:site_name" content="Boost C++ Online Examples"/>
 		<meta property="og:type" content="website"/>
 		<meta property="og:description" content="Compile, modify and run examples from the 'Boost Application Development Cookbook, Second Edition' online. Write your own C++ code, tune compilation flags and do online experiments without any need to install C++ compiler or Boost C++ Libraries."/>
-
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.min.css" />
-		<link rel="stylesheet" href="assets/css/social-likes_flat.css">
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <!-- Preloading images and imitating FontAwesome functionality -->
 		<style type="text/css" media="screen">
+body::after{
+    position:absolute; width:0; height:0; overflow:hidden; z-index:-1;
+    content:url(assets/css/images/overlay.png) url(images/banner.jpg);
+}
 #code { 
 	width: 100%;
 	float:left;
 	min-height:100px;
 	overflow: hidden;
 }
+
 .utf-home:before {content: "≣";}
 .utf-info:before {content: "ℹ";}
 .utf-gear:before {content: "⚙";}
@@ -44,6 +43,14 @@
 .utf-toggle:before {content: "↹";}
 .utf-bookmark-o:before {content: "⚐ ";}
 		</style>
+
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.min.css" />
+		<link rel="stylesheet" href="assets/css/social-likes_flat.css">
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
 	</head>
 	<body>
 
@@ -114,6 +121,13 @@
 					<section id="chapters" class="two">
 						<div class="container">
 
+							<div class="right" style="margin: 0.5em 0.5em 0 3em">
+								<p><button title="Expand TOC and show all recipes" id="show_all_button" onclick='editor.chapter_show_all();'><span class="icon utf-toggle-down"></span></button>
+										- Show all recipes</p>
+								<p><button title="Show only chapters in TOC" id="hide_all_button" onclick='editor.chapter_hide_all();'><span class="icon utf-toggle-up"></span></button>
+										- Hide all recipes</p>
+							</div>
+
 							<h2 id="Chapter00_ref">Chapters</h2>
 							<h4>Click on the recipe to see it's sources.</h4>
 
@@ -121,7 +135,7 @@
 							<div class="left">
 								<ul>
 									<li>
-										Chapter 01: Starting to Write Your Application
+										<a id="Chapter01_ref" href="javascript:editor.chapter_toggle('01');">Chapter 01: Starting to Write Your Application</a>
 										<ul id="Chapter01">
 <li><a href="javascript:editor.download('Chapter01', 0)">Getting configuration options (part 1</a>, <a href="javascript:editor.download('Chapter01', 0, 1)">part 2</a>)</li>
 <li><a href="javascript:editor.download('Chapter01', 1)">Storing any value in a container/variable</a></li>
@@ -139,7 +153,7 @@
 										</ul>
 									</li>
 									<li>
-										Chapter 02: Managing Resources
+										<a id="Chapter02_ref" href="javascript:editor.chapter_toggle('02');">Chapter 02: Managing Resources</a>
 										<ul id="Chapter02">
 <li><a href="javascript:editor.download('Chapter02', 0)">Managing pointers to classes that do not leave scope</a></li>
 <li><a href="javascript:editor.download('Chapter02', 1)">Reference counting of pointers to classes used across methods</a></li>
@@ -154,7 +168,7 @@
 										</ul>
 									</li>
 									<li>
-										Chapter 03: Converting Data
+										<a id="Chapter03_ref" href="javascript:editor.chapter_toggle('03');">Chapter 03: Converting Data</a>
 										<ul id="Chapter03">
 <li><a href="javascript:editor.download('Chapter03', 0)">Converting strings to numbers</a></li>
 <li><a href="javascript:editor.download('Chapter03', 1)">Converting numbers to strings</a></li>
@@ -167,7 +181,7 @@
 										</ul>
 									</li>
 									<li>
-										Chapter 04: Compile-time Tricks
+										<a id="Chapter04_ref" href="javascript:editor.chapter_toggle('04');">Chapter 04: Compile-time Tricks</a>
 										<ul id="Chapter04">
 <li><a href="javascript:editor.download('Chapter04', 0)">Checking sizes at compile time</a></li>
 <li><a href="javascript:editor.download('Chapter04', 1)">Enabling the usage of templated functions for integral types</a></li>
@@ -179,7 +193,7 @@
 										</ul>
 									</li>
 									<li>
-										Chapter 05: Multithreading
+										<a id="Chapter05_ref" href="javascript:editor.chapter_toggle('05');">Chapter 05: Multithreading</a>
 										<ul id="Chapter05">
 <li><a href="javascript:editor.download('Chapter05', 0)">Creating an execution thread</a></li>
 <li><a href="javascript:editor.download('Chapter05', 1)">Syncing access to a common resource</a></li>
@@ -194,7 +208,7 @@
 										</ul>
 									</li>
 									<li>
-										Chapter 06: Manipulating Tasks
+										<a id="Chapter06_ref" href="javascript:editor.chapter_toggle('06');">Chapter 06: Manipulating Tasks</a>
 										<ul id="Chapter06">
 <li><a href="javascript:editor.download('Chapter06', 0)">Registering a task for processing an arbitrary datatype</a></li>
 <li><a href="javascript:editor.download('Chapter06', 1)">Making timers and processing timer events as tasks</a></li>
@@ -209,7 +223,7 @@
 									</li>
 
 									<li>
-										Chapter 07: Manipulating Strings
+										<a id="Chapter07_ref" href="javascript:editor.chapter_toggle('07');">Chapter 07: Manipulating Strings</a>
 										<ul id="Chapter07">
 <li><a href="javascript:editor.download('Chapter07', 0)">Changing cases and case-insensitive comparison</a></li>
 <li><a href="javascript:editor.download('Chapter07', 1)">Matching strings using regular expressions</a></li>
@@ -221,7 +235,7 @@
 										</ul>
 									</li>
 									<li>
-										Chapter 08: Metaprogramming
+										<a id="Chapter08_ref" href="javascript:editor.chapter_toggle('08');">Chapter 08: Metaprogramming</a>
 										<ul id="Chapter08">
 <li><a href="javascript:editor.download('Chapter08', 0)">Using type "vector of types"</a></li>
 <li><a href="javascript:editor.download('Chapter08', 1)">Manipulating a vector of types</a></li>
@@ -234,7 +248,7 @@
 										</ul>
 									</li>
 									<li>
-										Chapter 09: Containers
+										<a id="Chapter09_ref" href="javascript:editor.chapter_toggle('09');">Chapter 09: Containers</a>
 										<ul id="Chapter09">
 <li><a href="javascript:editor.download('Chapter09', 0)">Storing a few elements in sequence container</a></li>
 <li><a href="javascript:editor.download('Chapter09', 1)">Storing at most N elements in sequence container</a></li>
@@ -247,7 +261,7 @@
 										</ul>
 									</li>
 									<li>
-										Chapter 10: Gathering Platform and Compiler Information
+										<a id="Chapter10_ref" href="javascript:editor.chapter_toggle('10');">Chapter 10: Gathering Platform and Compiler Information</a>
 										<ul id="Chapter10">
 <li><a href="javascript:editor.download('Chapter10', 0)">Detecting OS and compiler</a></li>
 <li><a href="javascript:editor.download('Chapter10', 1)">Detecting int128 support</a></li>
@@ -259,7 +273,7 @@
 										</ul>
 									</li>
 									<li>
-										Chapter 11: Working with the System
+										<a id="Chapter11_ref" href="javascript:editor.chapter_toggle('11');">Chapter 11: Working with the System</a>
 										<ul id="Chapter11">
 <li><a href="javascript:editor.download('Chapter11', 0)">Listing files in a directory</a></li>
 <li><a href="javascript:editor.download('Chapter11', 1)">Erasing and creating files and directories</a></li>
@@ -273,7 +287,7 @@
 										</ul>
 									</li>
 									<li>
-										Chapter 12: Scratching the Tip of the Iceberg
+										<a id="Chapter12_ref" href="javascript:editor.chapter_toggle('12');">Chapter 12: Scratching the Tip of the Iceberg</a>
 										<ul id="Chapter12">
 <li><a href="javascript:editor.download('Chapter12', 0)">Working with graphs</a></li>
 <li><a href="javascript:editor.download('Chapter12', 1)">Visualizing graphs</a></li>
