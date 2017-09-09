@@ -438,22 +438,50 @@ content = {
 
 };
 
-'''
-def next_impl():
-	if (content[current_chapter][current_index]["source"][current_source + 1]) {
-		download_impl_base(current_chapter, current_index, current_source + 1);
-	} else if (content[current_chapter][current_index + 1]) {
-		download_impl_base(current_chapter, current_index + 1);
-	} else {
-		var chapters = ["Chapter01", "Chapter02", "Chapter03", "Chapter04", "Chapter05", "Chapter06", "Chapter07", "Chapter08", "Chapter09", "Chapter10", "Chapter11", "Chapter12", ];
-		var next_ind = chapters.indexOf(current_chapter) + 1;
-		if (next_ind >= chapters.length) {
-			next_ind = 0;
-		}
-		download_impl_base(chapters[next_ind], 0);
-	}
-}
 
+def get_next_url(current_chapter, current_recipe):
+    next_chapter = current_chapter
+    next_recipe = current_recipe
+
+    if current_recipe + 1 < len(content[current_chapter]):
+        next_recipe = current_recipe + 1
+    else:
+        next_recipe = 0
+
+        m = re.match('Chapter(\d+)', current_chapter)
+        next_chapter = int(m.group(1)) + 1
+        if next_chapter > 12:
+            next_chapter = 1
+
+        if next_chapter < 10:
+            next_chapter = 'Chapter0' + str(next_chapter)
+        else:
+            next_chapter = 'Chapter' + str(next_chapter)
+
+    return 'download_impl_base("{chapter}", {recipe})'.format(chapter=next_chapter, recipe=next_recipe)
+
+def get_prev_url(current_chapter, current_recipe):
+    prev_chapter = current_chapter
+    prev_recipe = current_recipe
+
+    if current_recipe - 1 >= 0:
+        prev_recipe = current_recipe - 1
+    else:
+        m = re.match('Chapter(\d+)', current_chapter)
+        prev_chapter = int(m.group(1)) - 1
+        if prev_chapter < 1:
+            prev_chapter = 12
+
+        if prev_chapter < 10:
+            prev_chapter = 'Chapter0' + str(prev_chapter)
+        else:
+            prev_chapter = 'Chapter' + str(prev_chapter)
+
+        prev_recipe = len(content[prev_chapter]) - 1
+
+    return 'download_impl_base("{chapter}", {recipe})'.format(chapter=prev_chapter, recipe=prev_recipe)
+
+'''
 	function prev_impl() {
 		if (current_source > 0) {
 			download_impl_base(current_chapter, current_index, current_source - 1);
@@ -483,12 +511,14 @@ with open('generator_template.html', 'r') as f:
     template = f.read()
 
 for key, value in data.iteritems():
-    with open(os.path.join('../second_edition', key) + ".html", 'w') as f:
-        m = re.match('Chapter(\d+)-(\d+)', key)
-        f.write(
-            template.replace('<!-- {python_intro_body} -->', value).replace('<!-- {python_prev_url} -->', '').replace('<!-- {python_next_url} -->', '')
-        )
+    with open(os.path.join('./second_edition', key) + ".html", 'w') as f:
+        m = re.match('(Chapter\d+)-(\d+)', key)
+        chapter = m.group(1)
+        recipe = int(m.group(2))
 
+        result = template.replace('<!-- {python_intro_body} -->', value)
+        result = result.replace('<!-- {python_prev_url} -->', get_prev_url(chapter, recipe))
+        result = result.replace('<!-- {python_next_url} -->', get_next_url(chapter, recipe))
 
-
+        f.write(result)
 
