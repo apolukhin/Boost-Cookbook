@@ -25,10 +25,10 @@ var editor = (function() {
 				"title":	"Combining multiple values into one",
 				"source":   ['Chapter01/07_A_tuple/main.cpp', 'Chapter01/07_B_tuple_construction_order/main.cpp'],
 			}, {
-				"title":	"Reordering the parameters of function",
+				"title":	"Binding and reordering function parameters",
 				"source":   ['Chapter01/08_bind/main.cpp'],
 			}, {
-				"title":	"Binding a value as a function parameter",
+				"title":	"Getting a human-readable type name",
 				"source":   ['Chapter01/09_type_index/main.cpp'],
 			}, {
 				"title":	"Using the C++11 move emulation",
