@@ -14,7 +14,7 @@
 #if (BOOST_VERSION < 106800)
 #   include <boost/gil/extension/io/png_dynamic_io.hpp>
 #else
-#   include <boost/gil/extension/io/png.hpp>
+#   include <boost/gil/extension/io/png/old.hpp>
 #endif
 
 #include <string>
