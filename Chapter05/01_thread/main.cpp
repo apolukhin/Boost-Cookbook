@@ -74,9 +74,6 @@ int main() {
     example_with_raii();
 
     example_without_threads();
-
-    // Giving time to detached threads to finish.
-    boost::this_thread::sleep_for(boost::chrono::seconds(2));
 }
 
 // details:
@@ -87,16 +84,10 @@ int main() {
 void fill_file(char fill_char, std::size_t size, const char* filename) {
     std::ofstream ofs(filename);
     std::fill_n(std::ostreambuf_iterator<char>(ofs), size, fill_char);
-    set_not_first_run();
-}
-
-static bool g_is_first_run = true;
-void set_not_first_run() {
-    g_is_first_run = false;
 }
 
 bool is_first_run() {
-    return g_is_first_run;
+    return true;
 }
 
 void some_func(){}
