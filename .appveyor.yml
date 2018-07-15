@@ -56,12 +56,10 @@ build_script:
     - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
     # Packages from nuget.
     - nuget install libpng -ExcludeVersion -NonInteractive
-    - dir
-    - dir libpng
-    - dir libpng\build
-    - dir libpng\build\native
-    - dir libpng\build\native\include
-    - dir zlib
+    - dir zlib.v140.windesktop.msvcstl.dyn.rt-dyn
+    - dir zlib.v140.windesktop.msvcstl.dyn.rt-dyn\build
+    - dir zlib.v140.windesktop.msvcstl.dyn.rt-dyn\build\native
+    - dir zlib.v140.windesktop.msvcstl.dyn.rt-dyn\build\native\include
     # Building Boost.
     - bootstrap.bat
     - b2.exe headers
