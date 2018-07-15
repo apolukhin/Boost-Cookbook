@@ -57,6 +57,7 @@ build_script:
     # Packages from nuget.
     - nuget install libpng -ExcludeVersion -NonInteractive
     - nuget install zlib.greedy -ExcludeVersion -NonInteractive
+    - dir
     # Building Boost.
     - bootstrap.bat
     - b2.exe headers
