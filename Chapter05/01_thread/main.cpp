@@ -74,6 +74,9 @@ int main() {
     example_with_raii();
 
     example_without_threads();
+
+    // Giving time to detached threads to finish.
+    boost::this_thread::sleep_for(boost::chrono::seconds(2));
 }
 
 // details:
