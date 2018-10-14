@@ -45,7 +45,7 @@ task_wrapped<T> make_task_wrapped(const T& task_unwrapped) {
 
 } // namespace detail
 
-
+#include <boost/noncopyable.hpp>
 #include <boost/asio/io_service.hpp>
 namespace tp_base {
 
