@@ -50,7 +50,7 @@ void type_traits_examples(T1& /*v1*/, T2& /*v2*/) {
     // int => int
     // int const volatile => int volatile
     // const int& => const int&
-    typedef typename boost::remove_const<T1>::type t1_nonconst_t;
+    //typedef typename boost::remove_const<T1>::type t1_nonconst_t;
 }
 
 template <class T, std::size_t BufSizeV>

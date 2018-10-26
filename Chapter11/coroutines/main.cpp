@@ -75,9 +75,9 @@ int main() {
 
 #else
 
-#include <boost/coroutine/coroutine.hpp>
+#include <boost/coroutine2/coroutine.hpp>
 
-typedef boost::coroutines::asymmetric_coroutine<std::size_t> corout_t;
+typedef boost::coroutines2::asymmetric_coroutine<std::size_t> corout_t;
 
 struct coroutine_task {
     std::string& result;

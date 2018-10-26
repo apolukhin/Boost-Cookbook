@@ -1,5 +1,6 @@
 #include <cassert>
 #include <cstddef>
+#include <iostream>
 
 // In previous recipe we included
 // <boost/thread.hpp>, which includes all
