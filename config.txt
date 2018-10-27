@@ -10,20 +10,13 @@ CONFIG += thread
 
 # Flag to set your compiler into C++11 mode
 # (required for GCC and Clang, comment out in MSVC)
-#CPP11FLAG = -std=c++0x
-CONFIG += g++-8
-QMAKE_CXXFLAGS += -Wall -std=c++11 -pthread
-
+CPP11FLAG = -std=c++11
 
 # Paths to boost headers and libraries
 # (is you are using Linux and installed Boost 1.53 from repository
 # you may comment out those lines)
-#INCLUDEPATH += /home/antoshkka/boost_maintain/boost_1_53_0
-#LIBS += -L/home/antoshkka/boost_maintain/boost_1_53_0/stage/lib
-# the typical path for boost installed from latest GitHub repository is given below 'gordon'
-# should be replace with your login folder
-INCLUDEPATH += /home/gordon/boost
-LIBS += -L/home/gordon/stage/lib
+INCLUDEPATH += /home/antoshkka/boost_maintain/boost_1_53_0
+LIBS += -L/home/antoshkka/boost_maintain/boost_1_53_0/stage/lib
 
 # Compiler to use (comment out to use default one)
 #QMAKE_CXX = clang++

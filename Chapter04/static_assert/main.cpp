@@ -37,7 +37,7 @@ BOOST_STATIC_ASSERT((some_templated_struct<int, unsigned int>::value));
 #include <boost/type_traits/remove_const.hpp>
 
 template <class T1, class T2>
-void type_traits_examples(T1& /*v1*/, T2& /*v2*/) {
+int type_traits_examples(T1& /*v1*/, T2& /*v2*/) {
     // Returns true if T1 is an unsigned number
     std::cout << boost::is_unsigned<T1>::value;
 
@@ -50,7 +50,10 @@ void type_traits_examples(T1& /*v1*/, T2& /*v2*/) {
     // int => int
     // int const volatile => int volatile
     // const int& => const int&
-    //typedef typename boost::remove_const<T1>::type t1_nonconst_t;
+    typedef typename boost::remove_const<T1>::type t1_nonconst_t;
+
+    t1_nonconst_t res = 0;
+    return res;
 }
 
 template <class T, std::size_t BufSizeV>

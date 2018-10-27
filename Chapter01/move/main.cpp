@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include <auto_ptr.h>
+#include <memory>
 #include <assert.h>
 
 #include <boost/swap.hpp>

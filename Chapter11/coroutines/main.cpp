@@ -75,9 +75,13 @@ int main() {
 
 #else
 
+#if BOOST_VERSION < 105900
+#include <boost/coroutine/coroutine.hpp>
+typedef boost::coroutines::asymmetric_coroutine<std::size_t> corout_t;
+#else
 #include <boost/coroutine2/coroutine.hpp>
-
 typedef boost::coroutines2::asymmetric_coroutine<std::size_t> corout_t;
+#endif
 
 struct coroutine_task {
     std::string& result;
