@@ -1,5 +1,12 @@
-#include <boost/gil/gil_all.hpp>
-#include <boost/gil/extension/io/png_dynamic_io.hpp>
+#include <boost/version.hpp>
+#if (BOOST_VERSION < 106800)
+#   include <boost/gil/gil_all.hpp>
+#   include <boost/gil/extension/io/png_dynamic_io.hpp>
+#else
+#   include <boost/gil.hpp>
+#   include <boost/gil/extension/io/png/old.hpp>
+#endif
+
 #include <string>
 
 #include <cassert>
