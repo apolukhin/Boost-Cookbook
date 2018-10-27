@@ -1,5 +1,3 @@
-#include <boost/gil/gil_all.hpp>
-
 #include <png.h>
 
 // MinGW workarounds for https://svn.boost.org/trac10/ticket/3908 :
@@ -12,8 +10,10 @@
 
 #include <boost/version.hpp>
 #if (BOOST_VERSION < 106800)
+#   include <boost/gil/gil_all.hpp>
 #   include <boost/gil/extension/io/png_dynamic_io.hpp>
 #else
+#   include <boost/gil.hpp>
 #   include <boost/gil/extension/io/png/old.hpp>
 #endif
 
