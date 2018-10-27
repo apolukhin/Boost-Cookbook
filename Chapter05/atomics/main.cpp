@@ -1,5 +1,6 @@
 #include <cassert>
 #include <cstddef>
+#include <iostream>
 
 #include <boost/thread/thread.hpp>
 #include <boost/atomic.hpp>

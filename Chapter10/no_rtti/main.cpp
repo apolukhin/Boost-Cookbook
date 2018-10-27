@@ -46,7 +46,11 @@ inline type_index type_id() {
 int main() {
     assert(type_id<unsigned int>() == type_id<unsigned>());
     assert(type_id<double>() != type_id<long double>());
-
+#if !defined(BOOST_NO_RTTI) \
+    && !defined(BOOST_NO_CXX11_HDR_TYPEINDEX)
+    std::cout << type_id<double>().name();
+#else
     std::cout << type_id<double>().name_;
+#endif
 }
 
