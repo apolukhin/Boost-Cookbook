@@ -89,7 +89,8 @@ void correct_impl() {
 void theres_more_example() {
     // Creating vector of 10 elements with values 100
     boost::ptr_vector<int> v;
-    v.resize(10, new int(100));
+    int value = 100;
+    v.resize(10, &value); // Beware! No ownership of pointer!
     assert(v.size() == 10);
     assert(v.back() == 100);
 }
