@@ -1,8 +1,7 @@
 
 #include <boost/lexical_cast.hpp>
-#include <boost/noncopyable.hpp>
 
-struct stringize_functor: boost::noncopyable {
+struct stringize_functor {
 private:
     std::string& result;
 
