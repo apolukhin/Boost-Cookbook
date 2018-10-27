@@ -19,7 +19,7 @@ os:
 
 env:
     global:
-        - BRANCH_TO_TEST=
+        - BRANCH_TO_TEST=develop
         - IGNORE_COVERAGE='*/boost-local/*'
 
     matrix:
