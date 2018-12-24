@@ -55,7 +55,7 @@ For year 2022+ :
 * Boost.Range recipes
 * boost::allocate_shared ?
 * Dig into the boost::function and statefull allocator support?
-* Boost.Convert ecamples
+* Boost.Convert examples
 * Add a very simple example on regexes.
 * MPL11 example (Something like "Finding the sequential layout ordering of N different types that would minimize padding due to
 alignment between them").
