@@ -14,6 +14,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/function.hpp>
 #include <boost/enable_shared_from_this.hpp>
+#include <boost/version.hpp>
 
 #include <boost/lexical_cast.hpp>
 
@@ -94,7 +95,11 @@ namespace detail {
 
             typedef boost::asio::ip::tcp::socket socket_t;
             boost::shared_ptr<socket_t> socket = boost::make_shared<socket_t>(
+#if BOOST_VERSION >= 106600
+                boost::ref(acceptor_.get_executor())
+#else
                 boost::ref(acceptor_.get_io_service())
+#endif
             );
             
             acceptor_.async_accept(*socket, boost::bind(
