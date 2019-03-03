@@ -3,6 +3,8 @@
 
 #include "../03_tasks_processor_network_client/tasks_processor_network_client.hpp"
 
+#include <boost/version.hpp>
+
 #include <boost/function.hpp>
 namespace tp_network {
 
@@ -57,7 +59,11 @@ private:
         }
 
         listener->new_c_.reset(new connection_with_data(
+#if BOOST_VERSION >= 106600
+            listener->acceptor_.get_executor()
+#else
             listener->acceptor_.get_io_service()
+#endif
         ));
 
         boost::asio::ip::tcp::socket& s = listener->new_c_->socket;
