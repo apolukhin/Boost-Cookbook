@@ -96,7 +96,7 @@ namespace detail {
             typedef boost::asio::ip::tcp::socket socket_t;
             boost::shared_ptr<socket_t> socket = boost::make_shared<socket_t>(
 #if BOOST_VERSION >= 106600
-                boost::ref(acceptor_.get_executor())
+                boost::ref(acceptor_.get_executor().context())
 #else
                 boost::ref(acceptor_.get_io_service())
 #endif
