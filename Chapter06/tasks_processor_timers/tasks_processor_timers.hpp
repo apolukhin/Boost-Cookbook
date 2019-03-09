@@ -30,7 +30,7 @@ namespace detail {
                 const Functor& task_unwrapped)
             : base_t(task_unwrapped)
             , timer_(boost::make_shared<boost::asio::deadline_timer>(
-                ios,
+                boost::ref(ios),
                 duration_or_time
             ))
         {}
