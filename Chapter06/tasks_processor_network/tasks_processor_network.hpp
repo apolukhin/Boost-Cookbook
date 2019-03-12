@@ -98,11 +98,13 @@ namespace detail {
 #if BOOST_VERSION >= 106600
             #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
                 boost::make_shared<socket_t>(
-            #else
-                new socket_t(
-            #endif
                     acceptor_.get_executor().context()
                 );
+            #else
+                boost::shared_ptr<socket_t>(new socket_t(
+                    acceptor_.get_executor().context()
+                ));
+            #endif            
 #else
                 boost::make_shared<socket_t>(
                     boost::ref(acceptor_.get_io_service())
