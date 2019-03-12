@@ -94,13 +94,20 @@ namespace detail {
             }
 
             typedef boost::asio::ip::tcp::socket socket_t;
-            boost::shared_ptr<socket_t> socket = boost::make_shared<socket_t>(
+            boost::shared_ptr<socket_t> socket =
 #if BOOST_VERSION >= 106600
-                acceptor_.get_executor().context()
+            #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
+                boost::make_shared<socket_t>(
+            #else
+                new socket_t(
+            #endif
+                    acceptor_.get_executor().context()
+                );
 #else
-                boost::ref(acceptor_.get_io_service())
+                boost::make_shared<socket_t>(
+                    boost::ref(acceptor_.get_io_service())
+                );
 #endif
-            );
             
             acceptor_.async_accept(*socket, boost::bind(
                 &tcp_listener::handle_accept,
