@@ -11,6 +11,7 @@
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/make_shared.hpp>
+#include <boost/version.hpp>
 #include <iostream>
 
 namespace detail {
@@ -29,10 +30,21 @@ namespace detail {
                 const Time& duration_or_time,
                 const Functor& task_unwrapped)
             : base_t(task_unwrapped)
-            , timer_(boost::make_shared<boost::asio::deadline_timer>(
-                boost::ref(ios),
-                duration_or_time
-            ))
+            , timer_(
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
+              boost::make_shared<boost::asio::deadline_timer>(
+                ios, duration_or_time
+              )
+#elif BOOST_VERSION >= 106900
+              new boost::asio::deadline_timer(
+                ios, duration_or_time
+              )
+#else
+              boost::make_shared<boost::asio::deadline_timer>(
+                boost::ref(ios), duration_or_time
+              )
+#endif
+            )
         {}
 
         void push_task() const {
