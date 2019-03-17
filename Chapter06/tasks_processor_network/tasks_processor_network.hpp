@@ -29,9 +29,19 @@ public:
     explicit tcp_connection_ptr(
             boost::asio::io_service& ios,
             const boost::asio::ip::tcp::endpoint& endpoint)
+    #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
         : socket_(boost::make_shared<boost::asio::ip::tcp::socket>(
-             boost::ref(ios)
+            ios
         ))
+    #elif BOOST_VERSION < 107000
+        : socket_(boost::make_shared<boost::asio::ip::tcp::socket>(
+            boost::ref(ios)
+        ))
+    #else
+        : socket_(new boost::asio::ip::tcp::socket(
+            ios // boost::ref(ios) stopped working after Boost 1.70 and the compiler has no forwarding references
+        ))
+    #endif
     {
         socket_->connect(endpoint);
     }
@@ -95,22 +105,20 @@ namespace detail {
 
             typedef boost::asio::ip::tcp::socket socket_t;
             boost::shared_ptr<socket_t> socket =
-#if BOOST_VERSION >= 106600
-            #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
-                boost::make_shared<socket_t>(
-                    acceptor_.get_executor().context()
-                );
-            #else
-                boost::shared_ptr<socket_t>(new socket_t(
-                    acceptor_.get_executor().context()
-                ));
-            #endif            
-#else
+            #if BOOST_VERSION < 107000 // ASIO has `.get_io_service()`
                 boost::make_shared<socket_t>(
                     boost::ref(acceptor_.get_io_service())
                 );
-#endif
-            
+            #elif !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
+                boost::make_shared<socket_t>( // `boost::make_shared` forwards parameters
+                    acceptor_.get_executor()
+                );
+            #else // ASIO has `get_executor()` that does not work with `boost::ref` and compiler has no forwarding references
+                boost::shared_ptr<socket_t>(new socket_t(
+                    acceptor_.get_executor()
+                ));
+            #endif            
+
             acceptor_.async_accept(*socket, boost::bind(
                 &tcp_listener::handle_accept,
                 this->shared_from_this(),
