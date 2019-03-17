@@ -151,6 +151,11 @@ struct connection_with_data: boost::noncopyable {
         : socket(ios) 
     {}
 
+    template <class Executor> // sine Boost 1.70 IO types can construct from executors
+    explicit connection_with_data(Executor executor)
+        : socket(executor)
+    {}
+
     void shutdown() {
         if (!socket.is_open()) {
             return;
@@ -342,7 +347,7 @@ private:
         }
 
         listener->new_c_.reset(new connection_with_data(
-#if BOOST_VERSION >= 106600
+#if BOOST_VERSION >= 107000
             listener->acceptor_.get_executor()
 #else
             listener->acceptor_.get_io_service()
