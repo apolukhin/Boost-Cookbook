@@ -30,8 +30,8 @@ environment:
       BOOST_FLAGS: toolset=gcc --layout=system variant=release address-model=32
       BUILD_COMMAND: mingw32-make -j2
 
-    - TOOLSET_PATH: C:\Qt\5.10\msvc2017_64\bin
-      BOOST_FLAGS: toolset=msvc address-model=64
+    - TOOLSET_PATH: C:\Qt\5.10\msvc2015_64\bin
+      BOOST_FLAGS: toolset=msvc #address-model=64
       BUILD_COMMAND: nmake /NOLOGO
 
 skip_tags: true
