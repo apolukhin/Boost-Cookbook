@@ -76,3 +76,13 @@ void process_integers(const fobject_t& f) {
     static const int data[] = {1, 2, 3, 4, 5, 200};
     std::for_each(data, data + sizeof(data), f);
 }
+
+// detail
+int test_all_the_functions() {
+    fobject_t f;
+    set_functional_object(f);
+    foo(f);
+    foo1();
+}
+
+int test_all_the_functions_var = test_all_the_functions();
