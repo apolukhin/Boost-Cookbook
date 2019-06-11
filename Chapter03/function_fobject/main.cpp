@@ -83,6 +83,7 @@ int test_all_the_functions() {
     set_functional_object(f);
     foo(f);
     foo1();
+    return 0;
 }
 
-int test_all_the_functions_var = test_all_the_functions();
+int test_all_the_functions_helper = test_all_the_functions();
