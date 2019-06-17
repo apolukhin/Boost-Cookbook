@@ -197,6 +197,81 @@ example_1::example_1() {
     some_rule_ = /* ... a lot of parser code ... */ boost::spirit::qi::char_('!');
 }
 
+#ifndef BOOST_NO_CXX11_AUTO_DECLARATIONS
+
+// WARNING! For the pre-x3 versions of Boost.Spirit you must use 
+// `boost::proto::deep_copy` for saving a parser into an `auto` variable!
+//
+// See the description and comments at
+// http://boost-spirit.com/home/articles/qi-example/zero-to-60-mph-in-2-seconds/
+// for more info.
+datetime parse_datetime_cxx11(const std::string& s) {
+    using boost::spirit::qi::_1;
+    using boost::spirit::qi::_2;
+    using boost::spirit::qi::_3;
+    using boost::spirit::qi::uint_parser;
+    using boost::spirit::qi::char_;
+    using boost::phoenix::bind;
+    using boost::phoenix::ref;
+
+    datetime ret;
+
+    // Use unsigned short as output type; require Radix 10 and
+    // from 2 to 2 digits.
+    uint_parser<unsigned short, 10, 2, 2> u2_;
+
+    // Use unsigned short as output type; require Radix 10 and
+    // from 4 to 4 digits.
+    uint_parser<unsigned short, 10, 4, 4> u4_;
+
+    const auto timezone_parser = boost::proto::deep_copy(
+        -(  // unary minus means optional rule
+
+            // Zero offset
+            char_('Z')[ bind(
+                &datetime::set_zone_offset, &ret, datetime::OFFSET_Z
+            ) ]
+
+            |  // OR
+
+            // Specific zone offset
+            ((char_('+')|char_('-')) >> u2_ >> ':' >> u2_) [
+                bind(&set_zone_offset, ref(ret), _1, _2, _3)
+            ]
+        )
+    );
+
+    const auto date_parser = boost::proto::deep_copy(
+           u4_ [ bind(&datetime::set_year, &ret, _1) ]  >> '-'
+        >> u2_ [ bind(&datetime::set_month, &ret, _1) ] >> '-'
+        >> u2_ [ bind(&datetime::set_day, &ret, _1) ]
+    );
+
+    const auto time_parser = boost::proto::deep_copy(
+            u2_ [ bind(&datetime::set_hours, &ret, _1) ] >> ':'
+         >> u2_ [ bind(&datetime::set_minutes, &ret, _1) ] >> ':'
+         >> u2_ [ bind(&datetime::set_seconds, &ret, _1) ]
+    );
+
+    const char* first = s.data();
+    const char* const end = first + s.size();
+    const bool success = boost::spirit::qi::parse(first, end,
+        (
+            (date_parser >> 'T' >> time_parser)
+            | date_parser
+            | time_parser
+        )
+        >> timezone_parser
+    );
+
+    if (!success || first != end) {
+        throw std::logic_error("Parsing of '" + s + "' failed");
+    }
+    return ret;
+} // end of parse_datetime_cxx11() function
+
+#endif
+
 
 int main () {
     datetime d1  = parse_datetime("2012-10-20T10:00:00Z");
@@ -248,5 +323,17 @@ int main () {
     assert(d5.seconds() == 9);
     assert(d5.zone_offset_type() == datetime::OFFSET_UTC_PLUS);
     assert(d5.zone_offset_in_min() ==  9 * 60 + 15);
+
+#ifndef BOOST_NO_CXX11_AUTO_DECLARATIONS
+    datetime d6  = parse_datetime_cxx11("2012-10-20T10:00:00Z");
+    assert(d6.year() == 2012);
+    assert(d6.month() == 10);
+    assert(d6.day() == 20);
+    assert(d6.hours() == 10);
+    assert(d6.minutes() == 0);
+    assert(d6.seconds() == 0);
+    assert(d6.zone_offset_type() == datetime::OFFSET_Z);
+    assert(d6.zone_offset_in_min() == 0);
+#endif
 }
 
