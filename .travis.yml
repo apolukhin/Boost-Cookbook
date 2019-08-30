@@ -26,7 +26,7 @@ env:
         - CXX_FLAGS="--coverage -fsanitize=address,leak,undefined" LINK_FLAGS="--coverage" QLIBS="-lasan -lubsan" TOOLSET=gcc-6 CXXTOOLSET=g++-6 GCOV="--gcov-tool gcov-6"
         - CXX_FLAGS="--coverage -fsanitize=leak" LINK_FLAGS="--coverage" TOOLSET=gcc-5 CXXTOOLSET=g++-5 GCOV="--gcov-tool gcov-5"
         - CXX_FLAGS="-Wno-c++11-narrowing" TOOLSET=clang-3.9 CXXTOOLSET=clang++-3.9
-        - CXX_FLAGS="-Wno-c++11-narrowing" TOOLSET=clang-8 CXXTOOLSET=clang++-8
+        - CXX_FLAGS="-Wno-c++11-narrowing -std=c++17" TOOLSET=clang-8 CXXTOOLSET=clang++-8
 
         # Hits linker issue
         #- CXX_FLAGS="-std=c++14 -Wno-c++11-narrowing -fsanitize=address,leak -stdlib=libc++" LINK_FLAGS="-stdlib=libc++ -fsanitize=address,leak" TOOLSET=clang-3.9 CXXTOOLSET=clang++-3.9
