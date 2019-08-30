@@ -1,4 +1,4 @@
-#if __cplusplus >= 201300
+#if __cplusplus >= 201600
 
 #include <cassert>
 
@@ -50,6 +50,6 @@ int main() {
     assert(res_na == res_na_expected);
 }
 
-#else // #if __cplusplus >= 201300
+#else // #if __cplusplus >= 201600
 int main() {}
-#endif // #if __cplusplus >= 201300
+#endif // #if __cplusplus >= 201600
