@@ -45,7 +45,7 @@ addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - llvm-toolchain-precise-8
+    - llvm-toolchain-trusty-8
     - llvm-toolchain-precise-3.9
     - git-core
     packages:
