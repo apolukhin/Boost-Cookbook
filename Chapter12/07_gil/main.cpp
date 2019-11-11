@@ -16,6 +16,7 @@
 #   include <boost/gil.hpp>
 #   include <boost/gil/extension/io/png/old.hpp>
 #endif
+#include <boost/mpl/vector.hpp>
 
 #include <string>
 
