@@ -6,6 +6,7 @@
 #   include <boost/gil.hpp>
 #   include <boost/gil/extension/io/png/old.hpp>
 #endif
+#include <boost/mpl/vector.hpp>
 
 #include <string>
 
@@ -45,7 +46,7 @@ int main(int argc, char *argv[]) {
         assert(false);
     }
 
-    typedef boost::mpl::vector<
+    typedef boost::mpl::vector4<
             boost::gil::gray8_image_t,
             boost::gil::gray16_image_t,
             boost::gil::rgb8_image_t,
