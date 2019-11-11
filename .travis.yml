@@ -2,7 +2,7 @@
 # subject to the Boost Software License, Version 1.0. (See accompanying
 # file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #
-# Copyright Antony Polukhin 2014-2018.
+# Copyright Antony Polukhin 2014-2019.
 
 #
 # See https://svn.boost.org/trac/boost/wiki/TravisCoverals for description of this file
@@ -108,15 +108,9 @@ before_install:
     - git init $BOOST
     - cd $BOOST
     - git remote add --no-tags -t master origin https://github.com/boostorg/boost.git
-    - git fetch --depth=1
+    - git fetch --depth=10
     - git checkout master
     - git submodule update --init --merge >/dev/null
-    - git remote set-branches --add origin master
-    - git pull --recurse-submodules
-    - git submodule update --init >/dev/null
-    - git checkout master
-    - git submodule foreach "git reset --quiet --hard; git clean -fxd"
-    - git reset --hard; git clean -fxd
     - git status
     - ./bootstrap.sh
     - ./b2 headers
