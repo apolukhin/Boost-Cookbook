@@ -54,7 +54,7 @@ for (unsigned int y = 0; y < source.height(); ++y) {
 int main(int argc, char *argv[]) {
     assert(argc == 2);
 
-    typedef boost::mpl::vector<
+    typedef boost::mpl::vector3<
             boost::gil::gray8_image_t,
             boost::gil::gray16_image_t,
             boost::gil::rgb8_image_t
