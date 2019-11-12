@@ -92,9 +92,9 @@ class tester:
 
     ''' ****************************************** Main functions for testing ************************************* '''
     @staticmethod
-    def safe_wait(task, timeout = 25.0):
+    def safe_wait(task, timeout = 15.0):
         # Appveyor may hang on some test. This is a way to early abort
-        delay = 1.0
+        delay = 0.5
         while task.poll() is None and timeout > 0:
              sleep(delay)
              timeout -= delay
@@ -413,6 +413,7 @@ class tester:
             "Chapter01/01_B_program_options_short": tester._test_program_options_short,
             "Chapter01/09_type_index": tester._test_but_ignore_output_diff,                     # Different demangled representation of a type
             "Chapter01/12_A_noncopyable_movable": tester._test_but_ignore_output_diff,          # Different C++11 support
+            "Chapter03/01_lexical_to_number": tester._ignore,                                   # std::locale problems in Appveyor for debug version of MSVC-14. CI hangs
             "Chapter05/02_mutex": tester._test_but_ignore_output_diff,                          # Intentionally has data race
             "Chapter06/08_exception_ptr": tester._test_but_ignore_output_diff,                  # Different demangled exception name
             "Chapter06/09_tasks_processor_signals": tester._test_tasks_processor_signals,
