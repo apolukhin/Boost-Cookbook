@@ -92,9 +92,9 @@ class tester:
 
     ''' ****************************************** Main functions for testing ************************************* '''
     @staticmethod
-    def safe_wait(task, timeout = 15.0):
+    def safe_wait(task, timeout = 25.0):
         # Appveyor may hang on some test. This is a way to early abort
-        delay = 0.5
+        delay = 1.0
         while task.poll() is None and timeout > 0:
              sleep(delay)
              timeout -= delay
