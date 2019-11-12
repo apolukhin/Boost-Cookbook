@@ -101,7 +101,8 @@ class tester:
         if timeout == 0:
             task.kill()
             print '!!! Test timeout !!!'
-            sys.exit(-4)
+            a, b = task.communicate()
+            return '!!! Test timeout !!!:' + a, '!!! Test timeout !!!:' + b
         return task.communicate()
 
     @staticmethod
