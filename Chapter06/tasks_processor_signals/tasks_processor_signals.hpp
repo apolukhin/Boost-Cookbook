@@ -65,6 +65,8 @@ public:
             const Func& f,
             const std::vector<int>& signals_to_wait)
     {
+        using namespace boost::asio::placeholders; // for _1, _2
+
         // Making shure that this is the first call
         assert(!users_signal_handler_); 
 
