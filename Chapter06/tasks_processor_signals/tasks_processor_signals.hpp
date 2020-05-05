@@ -40,6 +40,8 @@ private:
             const boost::system::error_code& error,
             int signal_number)
     {
+        using namespace boost::asio::placeholders; // for _1, _2
+
         if (error) {
             std::cerr << "Error in signal handling: " << error << '\n';
         } else {
