@@ -5,6 +5,8 @@
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
+#include <boost/bind.hpp>
+
 #include "../tasks_processor_multithread/tasks_processor_multithread.hpp"
 
 
