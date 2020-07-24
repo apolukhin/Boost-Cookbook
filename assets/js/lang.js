@@ -49,5 +49,5 @@ function select_language3(language) {
     }
 }
 
-//select_language3()
+select_language3()
 
