@@ -16,7 +16,6 @@
 #   include <boost/gil.hpp>
 #   include <boost/gil/extension/io/png/old.hpp>
 #endif
-#include <boost/mpl/vector.hpp>
 
 #include <string>
 
@@ -54,14 +53,11 @@ for (unsigned int y = 0; y < source.height(); ++y) {
 int main(int argc, char *argv[]) {
     assert(argc == 2);
 
-    typedef boost::mpl::vector3<
-            boost::gil::gray8_image_t,
-            boost::gil::gray16_image_t,
-            boost::gil::rgb8_image_t
-    > img_types;
-
     std::string file_name(argv[1]);
-    boost::gil::any_image<img_types> source;
+    boost::gil::any_image<
+        boost::gil::gray8_image_t,
+        boost::gil::gray16_image_t,
+        boost::gil::rgb8_image_t> source;
     boost::gil::png_read_image(file_name, source);
 
     boost::gil::apply_operation(
