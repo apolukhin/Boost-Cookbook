@@ -1,9 +1,11 @@
 Boost C++ Application Development Cookbook,
 Second Edition
 ===================================
-This repository contains all the code examples from the **[Boost C++ Application Development Cookbook, Second Edition](https://www.packtpub.com/application-development/boost-c-application-development-cookbook-second-edition)** `(ISBN: 9781787282247)`, [Packt Publishing](http://www.packtpub.com), by Antony Polukhin.
+This repository contains all the code examples from the
+* **[Boost C++ Application Development Cookbook, Second Edition](https://www.packtpub.com/application-development/boost-c-application-development-cookbook-second-edition)** `(ISBN: 9781787282247)`, [Packt Publishing](http://www.packtpub.com), by Antony Polukhin.
+* **[Разработка приложений на C++ с использованием Boost](https://dmkpress.com/catalog/computer/programming/c/978-5-97060-868-5/)** `(ISBN: 9785970608685)`, [ДМК Пресс](https://dmkpress.com/), by Антон Полухин (Antony Polukhin).
 
-[Compile and Run Examples Online](http://apolukhin.github.io/Boost-Cookbook/).
+[Compile and Run Examples Online](https://apolukhin.github.io/Boost-Cookbook/).
 
 [![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook.svg?branch=second_edition)](https://travis-ci.org/apolukhin/Boost-Cookbook) [![Build status](https://ci.appveyor.com/api/projects/status/github/apolukhin/boost-cookbook?branch=second_edition&svg=true)](https://ci.appveyor.com/project/apolukhin/boost-cookbook/branch/second_edition) [![Coverage Status](https://coveralls.io/repos/github/apolukhin/Boost-Cookbook/badge.svg?branch=second_edition)](https://coveralls.io/github/apolukhin/Boost-Cookbook?branch=second_edition) [![codecov.io](https://codecov.io/github/apolukhin/Boost-Cookbook/coverage.svg?branch=second_edition)](https://codecov.io/github/apolukhin/Boost-Cookbook?branch=second_edition)
 
