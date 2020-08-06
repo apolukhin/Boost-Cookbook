@@ -2,7 +2,7 @@ Boost C++ Application Development Cookbook
 ===================================
 This repository contains all the code examples from the **[Boost C++ Application Development Cookbook](http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book)** `(ISBN: 9781849514880)`, [Packt Publishing](http://www.packtpub.com), by Antony Polukhin.
 
-[Compile and Run Examples Online](http://apolukhin.github.io/Boost-Cookbook/first_edition.html).
+[Compile and Run Examples Online](https://apolukhin.github.io/Boost-Cookbook/first_edition.html).
 
 ### Content
 This repository contatins project files for QtCreator IDE. `BoostBook.pro` - is the main project file.
