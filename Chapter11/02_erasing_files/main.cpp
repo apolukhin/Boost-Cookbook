@@ -1,6 +1,6 @@
 #include <boost/config.hpp>
 
-#if defefined(BOOST_MSVC) || defined(__MINGW32__)
+#if defined(BOOST_MSVC) || defined(__MINGW32__)
     // Workarounds for https://svn.boost.org/trac10/ticket/13135
     // and https://github.com/boostorg/filesystem/issues/168
 #   define NDEBUG 1
