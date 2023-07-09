@@ -37,7 +37,7 @@ void run() {
     t1.join();
     t2.join();
 
-    // assert(global_i == 0); // Oops!
+    // assert(shared_i == 0); // Oops!
     std::cout << "shared_i == " << shared_i;
 }
 
