@@ -35,7 +35,7 @@ jobs:
           - name: Install deps
             run: |
                 sudo apt update
-                sudo apt install --allow-downgrades -y git python3-yaml gcc-12 g++-12 qt5-qmake qtcreator language-pack-ru gdb libc++-dev
+                sudo apt install --allow-downgrades -y git python3-yaml gcc-12 g++-12 qt5-qmake language-pack-ru gdb libc++-dev
 
           - name: Install Boost
             run: |
@@ -54,7 +54,7 @@ jobs:
 
           - name: Run qmake
             run: |
-                qmake "QMAKE_CXX=${{ matrix.CXXTOOLSET }}" "QMAKE_LINK=${{ matrix.CXXTOOLSET }}" "QMAKE_CXXFLAGS+=${{ matrix.CXX_FLAGS }}" "QMAKE_LFLAGS+=${{ matrix.LINK_FLAGS }}" "LIBS+=${{ matrix.QLIBS }}" "BOOST_PATH=$HOME/boost-local" "CONFIG+=debug" BoostBook.pro
+                QT_SELECT=qt5 qmake "QMAKE_CXX=${{ matrix.CXXTOOLSET }}" "QMAKE_LINK=${{ matrix.CXXTOOLSET }}" "QMAKE_CXXFLAGS+=${{ matrix.CXX_FLAGS }}" "QMAKE_LFLAGS+=${{ matrix.LINK_FLAGS }}" "LIBS+=${{ matrix.QLIBS }}" "BOOST_PATH=$HOME/boost-local" "CONFIG+=debug" BoostBook.pro
 
           - name: Build
             run: |
