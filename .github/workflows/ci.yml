@@ -35,7 +35,7 @@ jobs:
           - name: Install deps
             run: |
                 sudo apt update
-                sudo apt install --allow-downgrades -y git python3-yaml gcc-12 g++-12 qt5-qmake language-pack-ru gdb libc++-dev
+                sudo apt install --allow-downgrades -y git python3-yaml gcc-12 g++-12 qt5-qmake qt5-default language-pack-ru gdb libc++-dev
 
           - name: Install Boost
             run: |
