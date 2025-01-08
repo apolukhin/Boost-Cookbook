@@ -49,7 +49,7 @@ jobs:
                 git status
                 ./bootstrap.sh
                 ./b2 headers
-                ./b2 -j4 toolset=${{ matrix.CXXTOOLSET }} address-model=64 architecture=x86 link=shared --with-program_options --with-filesystem --with-system --with-test --with-atomic --with-thread --with-timer --with-chrono --with-regex --with-random --with-context stage
+                ./b2 -j4 toolset=${{ matrix.TOOLSET }} address-model=64 architecture=x86 link=shared --with-program_options --with-filesystem --with-system --with-test --with-atomic --with-thread --with-timer --with-chrono --with-regex --with-random --with-context stage
                 cd $PROJECT_DIR
 
           - name: Run qmake
