@@ -40,17 +40,16 @@ jobs:
           - name: Install Boost
             run: |
                 PROJECT_DIR=`pwd`
-                BOOST=$HOME/boost-local
-                git init $BOOST
-                cd $BOOST
-                git remote add --no-tags -t $BRANCH_TO_TEST origin https://github.com/boostorg/boost.git
+                git init $HOME/boost-local
+                cd $HOME/boost-local
+                git remote add --no-tags -t master origin https://github.com/boostorg/boost.git
                 git fetch --depth=10
-                git checkout $BRANCH_TO_TEST
+                git checkout master
                 git submodule update --init --merge >/dev/null
                 git status
                 ./bootstrap.sh
                 ./b2 headers
-                ./b2 -j4 toolset=$TOOLSET address-model=64 architecture=x86 link=shared --with-program_options --with-filesystem --with-system --with-test --with-atomic --with-thread --with-timer --with-chrono --with-regex --with-random --with-context stage
+                ./b2 -j4 toolset=${{ matrix.CXXTOOLSET }} address-model=64 architecture=x86 link=shared --with-program_options --with-filesystem --with-system --with-test --with-atomic --with-thread --with-timer --with-chrono --with-regex --with-random --with-context stage
                 cd $PROJECT_DIR
 
           - name: Run qmake
