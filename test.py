@@ -217,14 +217,14 @@ class tester:
     def _test_regex_bad(test_name, path):
         proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         inp = "6\n"
-        out1, out2 = proc.communicate(input=inp)
+        out1, out2 = proc.communicate(input=inp.encode('utf-8'))
 
         tester.outputs[test_name + "_bad_num"] = (out1, out2, proc.returncode)
         tester._test_validate(test_name + "_bad_num")
 
         proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         inp = "0\n(\\"
-        out1, out2 = proc.communicate(input=inp)
+        out1, out2 = proc.communicate(input=inp.encode('utf-8'))
 
         tester.outputs[test_name + "_bad_regex"] = (out1, out2, proc.returncode)
         tester._test_validate(test_name + "_bad_regex")
@@ -242,8 +242,8 @@ class tester:
 
         for i in range(2, 6):
             proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            inp = str(i) + b"\n...\nqwe\nqwerty"
-            out1, out2 = proc.communicate(input=inp)
+            inp = str(i) + "\n...\nqwe\nqwerty"
+            out1, out2 = proc.communicate(input=inp.encode('utf-8'))
 
             tester.outputs[test_name + "_extra"] = (out1, out2, proc.returncode)
             tester._test_validate(test_name + "_extra")
@@ -264,11 +264,11 @@ class tester:
             proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             inp = str(i)
             if i >= 4:
-                inp += b"\n\\(.\\)\\(.\\)\\(.\\)\nqwe\n\\3\\2\\1"
+                inp += "\n\\(.\\)\\(.\\)\\(.\\)\nqwe\n\\3\\2\\1"
             else:
-                inp += b"\n(.)(.)(.)\nqwe\n\\3\\2\\1"
+                inp += "\n(.)(.)(.)\nqwe\n\\3\\2\\1"
 
-            out1, out2 = proc.communicate(input=inp)
+            out1, out2 = proc.communicate(input=inp.encode('utf-8'))
 
             tester.outputs[test_name + "_extra"] = (out1, out2, proc.returncode)
             tester._test_validate(test_name + "_extra")
@@ -344,12 +344,12 @@ class tester:
         out2 = ""
         retcode = 0
         for p in procs:
-            out1_tmp, out2_tmp = p.communicate(input='any_key')
-            out1 += out1_tmp
-            out2 += out2_tmp
+            out1_tmp, out2_tmp = p.communicate(input=b'any_key')
+            out1 += out1_tmp.decode('utf-8')
+            out2 += out2_tmp.decode('utf-8')
             retcode += p.returncode
 
-        tester.outputs[test_name] = (out1, out2, retcode)
+        tester.outputs[test_name] = (out1.encode('utf-8'), out2.encode('utf-8'), retcode)
         tester._test_validate(test_name)
 
     @staticmethod
@@ -372,11 +372,11 @@ class tester:
         retcode = 0
         for p in procs:
             out1_tmp, out2_tmp = tester.safe_wait(p)
-            out1 += out1_tmp
-            out2 += out2_tmp
+            out1 += out1_tmp.decode('utf-8')
+            out2 += out2_tmp.decode('utf-8')
             retcode += p.returncode
 
-        tester.outputs[test_name] = (out1, out2, retcode)
+        tester.outputs[test_name] = (out1.encode('utf-8'), out2.encode('utf-8'), retcode)
         tester._test_validate(test_name)
 
     @staticmethod
