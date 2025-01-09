@@ -122,7 +122,7 @@ class tester:
         if tester.canonize_output:
             return
 
-        if tester.outputs[test_name][0] == '' and tester.outputs[test_name][1] == '' and tester.outputs[test_name][2] == 0:
+        if tester.outputs[test_name][0] == b'' and tester.outputs[test_name][1] == b'' and tester.outputs[test_name][2] == 0:
             return
 
         tester.outputs[test_name] = (
