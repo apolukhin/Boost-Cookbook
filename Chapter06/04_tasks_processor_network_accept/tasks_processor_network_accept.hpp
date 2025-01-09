@@ -21,9 +21,9 @@ private:
         const on_accpet_func_t  func_;
         connection_ptr          new_c_;
 
-        template <class Functor>
+        template <class Ios, class Functor>
         tcp_listener(
-                boost::asio::io_service& io_service,
+                Ios& io_service,
                 unsigned short port,
                 const Functor& task_unwrapped)
             : acceptor_(io_service, boost::asio::ip::tcp::endpoint(

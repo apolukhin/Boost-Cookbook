@@ -343,9 +343,9 @@ private:
         const on_accpet_func_t  func_;
         connection_ptr          new_c_;
 
-        template <class Functor>
+        template <class Ios, class Functor>
         tcp_listener(
-                boost::asio::io_service& io_service,
+                Ios& io_service,
                 unsigned short port,
                 const Functor& task_unwrapped)
             : acceptor_(io_service, boost::asio::ip::tcp::endpoint(
@@ -440,7 +440,7 @@ public:
 
         boost::thread_group tg;
         for (std::size_t i = 0; i < threads_count; ++i) {
-            tg.create_thread([this]() { get_ios().run(); });
+            tg.create_thread([]() { get_ios().run(); });
         }
 
         get_ios().run();

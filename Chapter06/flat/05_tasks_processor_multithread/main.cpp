@@ -438,7 +438,7 @@ public:
 
         boost::thread_group tg;
         for (std::size_t i = 0; i < threads_count; ++i) {
-            tg.create_thread([this]() { get_ios().run(); });
+            tg.create_thread([]() { get_ios().run(); });
         }
 
         get_ios().run();
