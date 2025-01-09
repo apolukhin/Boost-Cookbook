@@ -126,8 +126,8 @@ class tester:
             return
 
         tester.outputs[test_name] = (
-            tester.outputs[test_name][0].replace('\r', ''),
-            tester.outputs[test_name][1].replace('\r', ''),
+            tester.outputs[test_name][0].decode("utf-8").replace('\r', ''),
+            tester.outputs[test_name][1].decode("utf-8").replace('\r', ''),
             tester.outputs[test_name][2],
         )
 
