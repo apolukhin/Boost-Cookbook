@@ -1,4 +1,4 @@
-#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem.hpp>
 #include <iostream>
 
 int main() {
