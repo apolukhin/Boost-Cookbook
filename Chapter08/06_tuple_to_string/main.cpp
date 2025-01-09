@@ -36,6 +36,8 @@ void std_tuple_example();
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/adapted/boost_tuple.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
+
+#include <boost/array.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 
 struct cat{};

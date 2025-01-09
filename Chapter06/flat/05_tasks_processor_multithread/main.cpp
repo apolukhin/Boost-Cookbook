@@ -312,7 +312,7 @@ public:
         connection_ptr c( new connection_with_data(get_ios()) );
 
         c->socket.connect(boost::asio::ip::tcp::endpoint(
-            boost::asio::ip::address_v4::from_string(addr),
+            boost::asio::ip::address_v4::make_address_v4(addr),
             port_num
         ));
 
@@ -408,7 +408,7 @@ public:
         connection_ptr c( new connection_with_data(get_ios()) );
 
         c->socket.connect(boost::asio::ip::tcp::endpoint(
-            boost::asio::ip::address_v4::from_string(addr),
+            boost::asio::ip::address_v4::make_address_v4(addr),
             port_num
         ));
 
