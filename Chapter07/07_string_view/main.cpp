@@ -56,6 +56,7 @@ void string_view_init_examples() {
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/lexical_cast.hpp>
+#include <cassert>
 #include <iterator>
 #include <iostream>
 

@@ -33,6 +33,7 @@ void sample3() {
 
 
 #include <boost/lexical_cast.hpp>
+#include <cassert>
 
 void sample4() {
     char chars[] = {'x', '1', '0', '0', 'y' }; 
@@ -43,6 +44,7 @@ void sample4() {
 
 
 #include <boost/lexical_cast.hpp>
+#include <cassert>
 #include <iostream>
 
 void sample5() {
@@ -59,6 +61,7 @@ void sample5() {
 
 
 #include <boost/lexical_cast.hpp>
+#include <cassert>
 #include <iostream>
 
 void sample6() {
