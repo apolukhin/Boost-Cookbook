@@ -50,11 +50,6 @@ task_wrapped<T> make_task_wrapped(const T& task_unwrapped) {
 
 #if __has_include(<boost/asio/io_service.hpp>)
 #   include <boost/asio/io_service.hpp>
-#else
-#   include <boost/asio/io_context.hpp>
-    // io_service was deprecated and removed, use io_context
-    namespace boost::asio { using io_service = io_context; }
-#endif
 
 namespace tp_base {
 
@@ -83,5 +78,40 @@ public:
 }; // tasks_processor
 
 } // namespace tp_base
+
+#else
+#   include <boost/asio/io_context.hpp>
+#   include <boost/asio/executor_work_guard.hpp>
+#   include <boost/asio/post.hpp>
+
+namespace tp_base {
+
+class tasks_processor: private boost::noncopyable {
+protected:
+    static boost::asio::io_context& get_ios() {
+        static boost::asio::io_context ios;
+        static auto work = boost::asio::make_work_guard(ios);
+
+        return ios;
+    }
+
+public:
+    template <class T>
+    static void push_task(const T& task_unwrapped) {
+        boost::asio::post(get_ios(), detail::make_task_wrapped(task_unwrapped));
+    }
+
+    static void start() {
+        get_ios().run();
+    }
+
+    static void stop() {
+        get_ios().stop();
+    }
+}; // tasks_processor
+
+} // namespace tp_base
+
+#endif  // #if __has_include(<boost/asio/io_service.hpp>)
 
 #endif // BOOK_CHAPTER6_TASK_PROCESSOR_BASE_HPP
