@@ -52,7 +52,9 @@ task_wrapped<T> make_task_wrapped(const T& task_unwrapped) {
 } // namespace detail
 
 #include <boost/noncopyable.hpp>
-#include <boost/asio/io_service.hpp>
+#if __has_include(<boost/asio/io_service.hpp>)
+#   include <boost/asio/io_service.hpp>
+
 namespace tp_base {
 
 class tasks_processor: private boost::noncopyable {
@@ -81,8 +83,42 @@ public:
 
 } // namespace tp_base
 
+#else
+#   include <boost/asio/io_context.hpp>
+#   include <boost/asio/executor_work_guard.hpp>
+#   include <boost/asio/post.hpp>
 
-#include <boost/asio/io_service.hpp>
+namespace tp_base {
+
+class tasks_processor: private boost::noncopyable {
+protected:
+    static boost::asio::io_context& get_ios() {
+        static boost::asio::io_context ios;
+        static auto work = boost::asio::make_work_guard(ios);
+
+        return ios;
+    }
+
+public:
+    template <class T>
+    static void push_task(const T& task_unwrapped) {
+        boost::asio::post(get_ios(), detail::make_task_wrapped(task_unwrapped));
+    }
+
+    static void start() {
+        get_ios().run();
+    }
+
+    static void stop() {
+        get_ios().stop();
+    }
+}; // tasks_processor
+
+} // namespace tp_base
+
+#endif  // #if __has_include(<boost/asio/io_service.hpp>)
+
+
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/system/error_code.hpp>
 #include <memory>  // std::unique_ptr
@@ -149,13 +185,9 @@ struct connection_with_data: boost::noncopyable {
     boost::asio::ip::tcp::socket socket;
     std::string data;
 
-    explicit connection_with_data(boost::asio::io_service& ios)
-        : socket(ios) 
-    {}
-
-    template <class Executor> // sine Boost 1.70 IO types can construct from executors
-    explicit connection_with_data(Executor executor)
-        : socket(executor)
+    template <class ExecutorOrIos> // sine Boost 1.70 IO types can construct from executors
+    explicit connection_with_data(ExecutorOrIos&& executor)
+        : socket(std::forward<ExecutorOrIos>(executor))
     {}
 
     void shutdown() {
