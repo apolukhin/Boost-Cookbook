@@ -38,6 +38,7 @@ skip_tags: true
 
 before_build:
     - set PATH=%PATH%;%TOOLSET_PATH%
+    - dir C:\Qt\
     - dir %TOOLSET_PATH%
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
 
