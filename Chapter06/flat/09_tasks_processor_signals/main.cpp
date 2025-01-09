@@ -438,13 +438,12 @@ public:
         // First thread is the current thread.
         -- threads_count;
 
-        boost::asio::io_service& ios = get_ios();
         boost::thread_group tg;
         for (std::size_t i = 0; i < threads_count; ++i) {
-            tg.create_thread([&ios]() { ios.run(); });
+            tg.create_thread([this]() { get_ios().run(); });
         }
 
-        ios.run();
+        get_ios().run();
         tg.join_all();
     }
 };
