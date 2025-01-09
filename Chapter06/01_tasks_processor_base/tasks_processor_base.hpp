@@ -47,7 +47,15 @@ task_wrapped<T> make_task_wrapped(const T& task_unwrapped) {
 } // namespace detail
 
 #include <boost/noncopyable.hpp>
-#include <boost/asio/io_service.hpp>
+
+#if __has_include(<boost/asio/io_service.hpp>)
+#   include <boost/asio/io_service.hpp>
+#else
+#   include <boost/asio/io_context.hpp>
+    // io_service was deprecated and removed, use io_context
+    namespace boost::asio { using io_service = io_context; }
+#endif
+
 namespace tp_base {
 
 class tasks_processor: private boost::noncopyable {
