@@ -10,13 +10,9 @@ struct connection_with_data: boost::noncopyable {
     boost::asio::ip::tcp::socket socket;
     std::string data;
 
-    explicit connection_with_data(boost::asio::io_service& ios)
-        : socket(ios) 
-    {}
-
-    template <class Executor> // sine Boost 1.70 IO types can construct from executors
-    explicit connection_with_data(Executor executor)
-        : socket(executor)
+    template <class ExecutorOrIos> // sine Boost 1.70 IO types can construct from executors
+    explicit connection_with_data(ExecutorOrIos&& executor)
+        : socket(std::forward<ExecutorOrIos>(executor))
     {}
 
     void shutdown() {
@@ -143,7 +139,7 @@ public:
         connection_ptr c( new connection_with_data(get_ios()) );
 
         c->socket.connect(boost::asio::ip::tcp::endpoint(
-            boost::asio::ip::address_v4::from_string(addr),
+            boost::asio::ip::make_address_v4(addr),
             port_num
         ));
 

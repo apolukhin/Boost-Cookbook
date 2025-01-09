@@ -15,7 +15,7 @@ int main () {
     try {
         // The following line always throws:
         ints.push_back(3);
-    } catch (const std::bad_alloc& ) {
+    } catch (const std::exception& ) {
         // ...
     }
 }

@@ -3,7 +3,6 @@
 
 #include "../01_tasks_processor_base/tasks_processor_base.hpp"
 
-#include <boost/asio/io_service.hpp>
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/system/error_code.hpp>
 #include <memory>  // std::unique_ptr

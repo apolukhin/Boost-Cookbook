@@ -100,7 +100,7 @@ class tester:
              timeout -= delay
         if timeout == 0:
             task.kill()
-            print '!!! Test timeout !!!'
+            print('!!! Test timeout !!!')
             a, b = task.communicate()
             return '!!! Test timeout !!!:' + a, '!!! Test timeout !!!:' + b
         return task.communicate()
@@ -115,35 +115,35 @@ class tester:
     @staticmethod
     def _print_test_output(test_name):
         out = tester.outputs[test_name]
-        print '--- Stdout:\n{}\n--- Stderr:\n{}\n--- Ret code: {}\n'.format(out[0], out[1], out[2])
+        print('--- Stdout:\n{}\n--- Stderr:\n{}\n--- Ret code: {}\n'.format(out[0], out[1], out[2]))
 
     @staticmethod
     def _test_validate(test_name):
         if tester.canonize_output:
             return
 
-        if tester.outputs[test_name][0] == '' and tester.outputs[test_name][1] == '' and tester.outputs[test_name][2] == 0:
+        if tester.outputs[test_name][0] == b'' and tester.outputs[test_name][1] == b'' and tester.outputs[test_name][2] == 0:
             return
 
         tester.outputs[test_name] = (
-            tester.outputs[test_name][0].replace('\r', ''),
-            tester.outputs[test_name][1].replace('\r', ''),
+            tester.outputs[test_name][0].decode("utf-8").replace('\r', ''),
+            tester.outputs[test_name][1].decode("utf-8").replace('\r', ''),
             tester.outputs[test_name][2],
         )
 
         if test_name not in tester.expected:
-            print '"{}" must not produce output and finish with code 0. Info:'.format(test_name)
+            print('"{}" must not produce output and finish with code 0. Info:'.format(test_name))
             tester._print_test_output(test_name)
             tester.was_error = True
             return
 
         if tester.outputs[test_name][2] != tester.expected[test_name][2]:
-            print 'Return code in "{}" test is {}, {} expected. Info:'.format(test_name, tester.outputs[test_name][2], tester.expected[test_name][2])
+            print('Return code in "{}" test is {}, {} expected. Info:'.format(test_name, tester.outputs[test_name][2], tester.expected[test_name][2]))
             tester._print_test_output(test_name)
             tester.was_error = True
 
         if tester.outputs[test_name][0] != tester.expected[test_name][0]:
-            print 'Output in "{}" test is {}, {} expected. Info:'.format(test_name, tester.outputs[test_name][0], tester.expected[test_name][0])
+            print('Output in "{}" test is {}, {} expected. Info:'.format(test_name, tester.outputs[test_name][0], tester.expected[test_name][0]))
             tester._print_test_output(test_name)
             tester.was_error = True
 
@@ -164,7 +164,7 @@ class tester:
         proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out1, out2 = tester.safe_wait(proc)
         if proc.returncode == 0:
-            print '"01_A_program_options_base_70" must finish with code != 0.'
+            print('"01_A_program_options_base_70" must finish with code != 0.')
             tester.was_error = True
             return
 
@@ -217,14 +217,14 @@ class tester:
     def _test_regex_bad(test_name, path):
         proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         inp = "6\n"
-        out1, out2 = proc.communicate(input=inp)
+        out1, out2 = proc.communicate(input=inp.encode('utf-8'))
 
         tester.outputs[test_name + "_bad_num"] = (out1, out2, proc.returncode)
         tester._test_validate(test_name + "_bad_num")
 
         proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         inp = "0\n(\\"
-        out1, out2 = proc.communicate(input=inp)
+        out1, out2 = proc.communicate(input=inp.encode('utf-8'))
 
         tester.outputs[test_name + "_bad_regex"] = (out1, out2, proc.returncode)
         tester._test_validate(test_name + "_bad_regex")
@@ -240,10 +240,10 @@ class tester:
         tester.outputs[test_name] = (out1, out2, proc.returncode)
         tester._test_validate(test_name)
 
-        for i in xrange(2, 6):
+        for i in range(2, 6):
             proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            inp = str(i) + b"\n...\nqwe\nqwerty"
-            out1, out2 = proc.communicate(input=inp)
+            inp = str(i) + "\n...\nqwe\nqwerty"
+            out1, out2 = proc.communicate(input=inp.encode('utf-8'))
 
             tester.outputs[test_name + "_extra"] = (out1, out2, proc.returncode)
             tester._test_validate(test_name + "_extra")
@@ -260,15 +260,15 @@ class tester:
         tester.outputs[test_name] = (out1, out2, proc.returncode)
         tester._test_validate(test_name)
 
-        for i in xrange(6):
+        for i in range(6):
             proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             inp = str(i)
             if i >= 4:
-                inp += b"\n\\(.\\)\\(.\\)\\(.\\)\nqwe\n\\3\\2\\1"
+                inp += "\n\\(.\\)\\(.\\)\\(.\\)\nqwe\n\\3\\2\\1"
             else:
-                inp += b"\n(.)(.)(.)\nqwe\n\\3\\2\\1"
+                inp += "\n(.)(.)(.)\nqwe\n\\3\\2\\1"
 
-            out1, out2 = proc.communicate(input=inp)
+            out1, out2 = proc.communicate(input=inp.encode('utf-8'))
 
             tester.outputs[test_name + "_extra"] = (out1, out2, proc.returncode)
             tester._test_validate(test_name + "_extra")
@@ -336,7 +336,7 @@ class tester:
     @staticmethod
     def _test_interprocess_basic(test_name, path):
         procs = []
-        for x in xrange(5):
+        for x in range(5):
             procs.append( subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) )
             sleep(0.5) # Giving time for processes to start
 
@@ -344,12 +344,12 @@ class tester:
         out2 = ""
         retcode = 0
         for p in procs:
-            out1_tmp, out2_tmp = p.communicate(input='any_key')
-            out1 += out1_tmp
-            out2 += out2_tmp
+            out1_tmp, out2_tmp = p.communicate(input=b'any_key')
+            out1 += out1_tmp.decode('utf-8')
+            out2 += out2_tmp.decode('utf-8')
             retcode += p.returncode
 
-        tester.outputs[test_name] = (out1, out2, retcode)
+        tester.outputs[test_name] = (out1.encode('utf-8'), out2.encode('utf-8'), retcode)
         tester._test_validate(test_name)
 
     @staticmethod
@@ -363,7 +363,7 @@ class tester:
     @staticmethod
     def _test_interprocess_run_two_concurrently(test_name, path):
         procs = []
-        for x in xrange(2):
+        for x in range(2):
             procs.append( subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) )
             sleep(0.5) # Giving time for processes to start
 
@@ -372,11 +372,11 @@ class tester:
         retcode = 0
         for p in procs:
             out1_tmp, out2_tmp = tester.safe_wait(p)
-            out1 += out1_tmp
-            out2 += out2_tmp
+            out1 += out1_tmp.decode('utf-8')
+            out2 += out2_tmp.decode('utf-8')
             retcode += p.returncode
 
-        tester.outputs[test_name] = (out1, out2, retcode)
+        tester.outputs[test_name] = (out1.encode('utf-8'), out2.encode('utf-8'), retcode)
         tester._test_validate(test_name)
 
     @staticmethod
@@ -388,7 +388,7 @@ class tester:
         proc = subprocess.Popen(path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         out1, out2 = tester.safe_wait(proc)
         if out1 == '' and out2 == '':
-            print 'No output in "{}" test\n'.format(test_name)
+            print('No output in "{}" test\n'.format(test_name))
             tester.was_error = True
 
         tester.outputs[test_name] = (out1, out2, proc.returncode)
@@ -396,7 +396,7 @@ class tester:
             return
 
         if proc.returncode != 0:
-            print 'Return code in "{}" test is {}, {} expected. Info:'.format(test_name, tester.outputs[test_name][2], tester.expected[test_name][2])
+            print('Return code in "{}" test is {}, {} expected. Info:'.format(test_name, tester.outputs[test_name][2], tester.expected[test_name][2]))
             tester._print_test_output(test_name)
             tester.was_error = True
 
@@ -442,7 +442,7 @@ class tester:
         }
 
         test_name = os.path.dirname(os.path.relpath(path)).replace('\\release', '').replace('\\debug', '').replace('\\', '/')
-        print "* {}".format(test_name)
+        print("* {}".format(test_name))
         test_name = test_name.replace('/flat', '').replace('\\flat', '')
         if test_name in special_cases:
             f = special_cases[test_name]
@@ -452,16 +452,16 @@ class tester:
 
     @staticmethod
     def _print_outputs():
-        print "\n\nOutput"
+        print("\n\nOutput")
         for o in sorted(tester.outputs):
-            print "        '{}': {},".format(o, tester.outputs[o])
+            print("        '{}': {},".format(o, tester.outputs[o]))
 
     @staticmethod
     def _print_outputs_short():
-        print "\n\nOutput"
+        print("\n\nOutput")
         for o in sorted(tester.outputs):
             if tester.outputs[o][0] != '' or tester.outputs[o][1] != '' or tester.outputs[o][2] != 0:
-                print "        '{}': {},".format(o, tester.outputs[o])
+                print("        '{}': {},".format(o, tester.outputs[o]))
 
     @staticmethod
     def _is_exe(path):
@@ -470,7 +470,7 @@ class tester:
     ''' ****************************************** Public functions *********************************************** '''
     @staticmethod
     def run_tests(root_directory='.', verbose=False):
-        print "Searching for executables..."
+        print("Searching for executables...")
         executables = []
         for folder, _, files in os.walk(root_directory):
             for f in files:
@@ -480,10 +480,10 @@ class tester:
 
         executables.sort()
 
-        print "\nStarting tests..."
+        print("\nStarting tests...")
         for e in executables:
             tester._test_recipe(e)
-        print "... tests finished"
+        print("... tests finished")
 
         if tester.canonize_output:
             tester._print_outputs_short()
@@ -493,14 +493,14 @@ class tester:
             tester._print_outputs()
 
         if tester.was_error:
-            print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FAILURE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FAILURE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             sys.exit(-1)
 
-        print "\n*** SUCESS ***"
+        print("\n*** SUCESS ***")
 
 
 if __name__ == "__main__":
-    print "Initializing"
+    print("Initializing")
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('--dir',  default='.', help='Directory (chapter) to run tests for')
     parser.add_argument('--build', '-b', action='store_true', help='Build the recipes for Linux platform')

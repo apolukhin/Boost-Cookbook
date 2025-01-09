@@ -7,7 +7,7 @@ This repository contains all the code examples from the
 
 [Compile and Run Examples Online](https://apolukhin.github.io/Boost-Cookbook/).
 
-[![Build Status](https://travis-ci.org/apolukhin/Boost-Cookbook.svg?branch=second_edition)](https://travis-ci.org/apolukhin/Boost-Cookbook) [![Build status](https://ci.appveyor.com/api/projects/status/github/apolukhin/boost-cookbook?branch=second_edition&svg=true)](https://ci.appveyor.com/project/apolukhin/boost-cookbook/branch/second_edition) [![Coverage Status](https://coveralls.io/repos/github/apolukhin/Boost-Cookbook/badge.svg?branch=second_edition)](https://coveralls.io/github/apolukhin/Boost-Cookbook?branch=second_edition) [![codecov.io](https://codecov.io/github/apolukhin/Boost-Cookbook/coverage.svg?branch=second_edition)](https://codecov.io/github/apolukhin/Boost-Cookbook?branch=second_edition)
+[![CI](https://github.com/apolukhin/Boost-Cookbook/actions/workflows/ci.yml/badge.svg?branch=second_edition)](https://github.com/apolukhin/Boost-Cookbook/actions/workflows/ci.yml)
 
 ### Content
 This repository contatins project files for QtCreator IDE. `BoostBook.pro` - is the main project file.

@@ -79,6 +79,7 @@ public:
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
 #include <boost/ref.hpp>
+#include <cassert>
 
 const std::size_t users_count = 1000;
 
