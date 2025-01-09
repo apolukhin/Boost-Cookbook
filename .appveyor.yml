@@ -26,11 +26,11 @@ branches:
 
 environment:
   matrix:
-    - TOOLSET_PATH: C:\Qt\5.13.2\msvc2017_64
+    - TOOLSET_PATH: C:\Qt\5.13.2\msvc2017_64\bin
       BOOST_FLAGS: toolset=msvc #address-model=64
       BUILD_COMMAND: nmake /NOLOGO
 
-    - TOOLSET_PATH: C:\Qt\5.15.2\msvc2019_64
+    - TOOLSET_PATH: C:\Qt\5.15.2\msvc2019_64\bin
       BOOST_FLAGS: toolset=msvc #address-model=64
       BUILD_COMMAND: nmake /NOLOGO
 
@@ -38,6 +38,7 @@ skip_tags: true
 
 before_build:
     - set PATH=%PATH%;%TOOLSET_PATH%
+    - dir %TOOLSET_PATH%
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
 
     # Cloning Boost libraries (fast nondeep cloning)
