@@ -240,7 +240,7 @@ class tester:
         tester.outputs[test_name] = (out1, out2, proc.returncode)
         tester._test_validate(test_name)
 
-        for i in xrange(2, 6):
+        for i in range(2, 6):
             proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             inp = str(i) + b"\n...\nqwe\nqwerty"
             out1, out2 = proc.communicate(input=inp)
@@ -260,7 +260,7 @@ class tester:
         tester.outputs[test_name] = (out1, out2, proc.returncode)
         tester._test_validate(test_name)
 
-        for i in xrange(6):
+        for i in range(6):
             proc = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             inp = str(i)
             if i >= 4:
@@ -336,7 +336,7 @@ class tester:
     @staticmethod
     def _test_interprocess_basic(test_name, path):
         procs = []
-        for x in xrange(5):
+        for x in range(5):
             procs.append( subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) )
             sleep(0.5) # Giving time for processes to start
 
@@ -363,7 +363,7 @@ class tester:
     @staticmethod
     def _test_interprocess_run_two_concurrently(test_name, path):
         procs = []
-        for x in xrange(2):
+        for x in range(2):
             procs.append( subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) )
             sleep(0.5) # Giving time for processes to start
 
