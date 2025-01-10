@@ -27,7 +27,7 @@ branches:
 environment:
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
-      TOOLSET_PATH: C:\Qt\6.8\msvc2019_64\bin
+      TOOLSET_PATH: C:\Qt\6.8\msvc2022_64\bin
       BOOST_FLAGS: toolset=msvc address-model=64
       BUILD_COMMAND: nmake /NOLOGO
 
@@ -42,7 +42,7 @@ before_build:
     - set PATH=%PATH%;%TOOLSET_PATH%
     - dir C:\Qt\
     - dir C:\Qt\6.8\
-    - dir C:\Qt\6.8\msvc2019_64\bin
+    - dir C:\Qt\6.8\msvc2022_64\bin
     - dir C:\Qt\6.8\mingw_64\bin
     - dir %TOOLSET_PATH%
     - dir "C:\Program Files (x86)\"
