@@ -40,12 +40,6 @@ skip_tags: true
 
 before_build:
     - set PATH=%PATH%;%TOOLSET_PATH%
-    - dir C:\Qt\
-    - dir C:\Qt\6.8\
-    - dir C:\Qt\6.8\msvc2022_64\bin
-    - dir C:\Qt\6.8\mingw_64\bin
-    - dir %TOOLSET_PATH%
-    - dir "C:\Program Files (x86)\"
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
 
     # Cloning Boost libraries (fast nondeep cloning)
@@ -64,10 +58,6 @@ build_script:
     - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
     # Packages from nuget.
     - nuget install libpng -ExcludeVersion -NonInteractive
-    - dir zlib.v140.windesktop.msvcstl.dyn.rt-dyn
-    - dir zlib.v140.windesktop.msvcstl.dyn.rt-dyn\build
-    - dir zlib.v140.windesktop.msvcstl.dyn.rt-dyn\build\native
-    - dir zlib.v140.windesktop.msvcstl.dyn.rt-dyn\build\native\include
     # Building Boost.
     - bootstrap.bat
     - b2.exe headers
