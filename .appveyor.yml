@@ -26,24 +26,26 @@ branches:
 
 environment:
   matrix:
-    - TOOLSET_PATH: C:\Qt\5.13.2\msvc2017_64\bin
-      BOOST_FLAGS: toolset=msvc #address-model=64
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+      TOOLSET_PATH: C:\Qt\6.8\msvc2019_64\bin
+      BOOST_FLAGS: toolset=msvc address-model=64
       BUILD_COMMAND: nmake /NOLOGO
 
-    - TOOLSET_PATH: C:\Qt\5.13.2\msvc2019_64\bin
-      BOOST_FLAGS: toolset=msvc #address-model=64
-      BUILD_COMMAND: nmake /NOLOGO
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+      TOOLSET_PATH: C:\Qt\6.8\mingw_64\bin
+      BOOST_FLAGS: toolset=gcc--layout=system variant=release address-model=64
+      BUILD_COMMAND: mingw32-make -j2
 
 skip_tags: true
 
 before_build:
     - set PATH=%PATH%;%TOOLSET_PATH%
     - dir C:\Qt\
-    - dir C:\Qt\5.13.2\
-    - dir C:\Qt\5.12.6\
-    - dir C:\Qt\5.11.3\
-    - dir C:\Qt\5.10.1\
+    - dir C:\Qt\6.8\
+    - dir C:\Qt\6.8\msvc2019_64\bin
+    - dir C:\Qt\6.8\mingw_64\bin
     - dir %TOOLSET_PATH%
+    - dir "C:\Program Files (x86)\"
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
 
     # Cloning Boost libraries (fast nondeep cloning)
