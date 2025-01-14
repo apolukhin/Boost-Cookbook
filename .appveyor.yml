@@ -58,7 +58,7 @@ build_script:
     - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
     # Packages from nuget.
     - nuget install libpng-v142 -ExcludeVersion -NonInteractive
-    - dir libpng-v142\build\native\lib\x64\
+    - dir libpng-v142\build\native\lib\x64\v142\dynamic\Release\
     # Building Boost.
     - bootstrap.bat
     - b2.exe headers

@@ -14,7 +14,7 @@ INCLUDEPATH += $$BOOST_PATH/zlib/build/native/include
 INCLUDEPATH += $$BOOST_PATH/zlib.v140.windesktop.msvcstl.dyn.rt-dyn/build/native/include
 msvc {
     QMAKE_LFLAGS += /LIBPATH:$$BOOST_PATH/libpng/build/native/lib/x64/v140/dynamic/Release/
-    QMAKE_LFLAGS += /LIBPATH:$$BOOST_PATH/libpng-v142/build/native/lib/x64/v140/dynamic/Release/
+    QMAKE_LFLAGS += /LIBPATH:$$BOOST_PATH/libpng-v142/build/native/lib/x64/v142/dynamic/Release/
     LIBS += -llibpng16
 } else {
     unix {
