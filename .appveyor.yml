@@ -42,11 +42,6 @@ before_build:
     - set PATH=%PATH%;%TOOLSET_PATH%
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
 
-    - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
-    # Packages from nuget.
-    - nuget install libpng-v142 -ExcludeVersion -NonInteractive
-    - dir libpng-v142\build\native\include
-
     # Cloning Boost libraries (fast nondeep cloning)
     - set BOOST=C:/boost-local
     - git init %BOOST%
@@ -58,6 +53,10 @@ before_build:
     - git remote set-branches --add origin %BRANCH_TO_TEST%
     #- git pull --recurse-submodules        # Updaes submodules to most recent version. Not required
 
+    - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+    # Packages from nuget.
+    - nuget install libpng-v142 -ExcludeVersion -NonInteractive
+    - dir libpng-v142\build\native\include
 
 build_script: 
     # Building Boost.
