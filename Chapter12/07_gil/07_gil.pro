@@ -12,10 +12,11 @@ INCLUDEPATH += $$BOOST_PATH/libpng/build/native/include
 INCLUDEPATH += $$BOOST_PATH/libpng-v142/build/native/include
 INCLUDEPATH += $$BOOST_PATH/zlib/build/native/include
 INCLUDEPATH += $$BOOST_PATH/zlib.v140.windesktop.msvcstl.dyn.rt-dyn/build/native/include
-INCLUDEPATH += $$BOOST_PATH/zlib.v142.windesktop.msvcstl.dyn.rt-dyn/build/native/include
+INCLUDEPATH += $$BOOST_PATH/zlib_static/build/native/include
 msvc {
     QMAKE_LFLAGS += /LIBPATH:$$BOOST_PATH/libpng/build/native/lib/x64/v140/dynamic/Release/
     QMAKE_LFLAGS += /LIBPATH:$$BOOST_PATH/libpng-v142/build/native/lib/x64/v142/Release/
+    QMAKE_LFLAGS += /LIBPATH:$$BOOST_PATH/zlib_static/build/native/lib/Win32/v142/Release/MultiThreaded
     LIBS += -llibpng16
 } else {
     unix {
