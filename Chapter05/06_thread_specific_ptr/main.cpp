@@ -19,7 +19,7 @@ connection& get_connection();
 // In source file:
 #include <boost/thread/tss.hpp>
 #include <cassert>
-#include <cstdint>
+#include <cstddef>
 
 boost::thread_specific_ptr<connection> connection_ptr;
 
