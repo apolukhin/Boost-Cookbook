@@ -102,7 +102,7 @@ class tester:
             task.kill()
             print('!!! Test timeout !!!')
             a, b = task.communicate()
-            return '!!! Test timeout !!!:' + a, '!!! Test timeout !!!:' + b
+            return '!!! Test timeout !!!:' + a.decode("utf-8"), '!!! Test timeout !!!:' + b.decode("utf-8")
         return task.communicate()
 
     @staticmethod
