@@ -43,6 +43,9 @@ before_build:
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
     - dir "C:\Program Files (x86)\"
     - dir "C:\Program Files (x86)\Microsoft Visual Studio\"
+    - dir "C:\Program Files (x86)\Microsoft Visual Studio\Installer"
+    - dir "C:\Program Files (x86)\Microsoft Visual Studio\Shared"
+    - dir "C:\Program Files (x86)\Microsoft Visual Studio 14.0\"
     - dir "C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\"
 
     # Cloning Boost libraries (fast nondeep cloning)
