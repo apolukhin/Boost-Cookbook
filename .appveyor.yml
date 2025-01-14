@@ -41,6 +41,8 @@ skip_tags: true
 before_build:
     - set PATH=%PATH%;%TOOLSET_PATH%
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
+    - dir "C:\Program Files (x86)\Microsoft Visual Studio\"
+    - dir "C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\"
 
     # Cloning Boost libraries (fast nondeep cloning)
     - set BOOST=C:/boost-local
@@ -55,7 +57,7 @@ before_build:
 
 
 build_script:
-    - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+    - call "C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
     # Packages from nuget.
     - nuget install libpng-v142 -ExcludeVersion -NonInteractive
     # Building Boost.
