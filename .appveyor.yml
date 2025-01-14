@@ -59,7 +59,8 @@ build_script:
     # Packages from nuget.
     - nuget install libpng-v142 -ExcludeVersion -NonInteractive
     - dir .
-    - dir libpng\build\
+    - dir libpng-v142\build\
+    - dir libpng-v142/build/native/lib/x64/
     # Building Boost.
     - bootstrap.bat
     - b2.exe headers
