@@ -56,7 +56,10 @@ before_build:
     - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
     # Packages from nuget.
     - nuget install libpng-v142 -ExcludeVersion -NonInteractive
-    - dir libpng-v142\build\native\include
+    - nuget install zlib_static -ExcludeVersion -NonInteractive
+    - dir .
+    - dir /s zlib_static\
+    - dir zlib_static\build\native\include
 
 build_script: 
     # Building Boost.
