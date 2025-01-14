@@ -31,17 +31,16 @@ environment:
       BOOST_FLAGS: toolset=msvc address-model=64
       BUILD_COMMAND: nmake /NOLOGO
 
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
-      TOOLSET_PATH: C:\Qt\6.8\mingw_64\bin
-      BOOST_FLAGS: toolset=gcc --layout=system variant=release address-model=64
-      BUILD_COMMAND: mingw32-make -j2
+    #- APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+    #  TOOLSET_PATH: C:\Qt\6.8\mingw_64\bin
+    #  BOOST_FLAGS: toolset=gcc --layout=system variant=release address-model=64
+    #  BUILD_COMMAND: mingw32-make -j2
 
 skip_tags: true
 
 before_build:
     - set PATH=%PATH%;%TOOLSET_PATH%
     - echo "Testing %APPVEYOR_PROJECT_NAME%"
-    - dir "C:\Qt\6.8\mingw_64\bin"
 
     # Cloning Boost libraries (fast nondeep cloning)
     - set BOOST=C:/boost-local
