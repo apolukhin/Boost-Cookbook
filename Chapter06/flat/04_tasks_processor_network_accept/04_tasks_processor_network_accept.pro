@@ -6,6 +6,6 @@ SOURCES += main.cpp
 
 QMAKE_CXXFLAGS += $$CPP11FLAG
 !msvc {
-    LIBS += -lboost_system -lboost_thread
+    LIBS += $$BOOST_SYSTEM_LIBRARY -lboost_thread
     win32:LIBS += -lws2_32 -lwsock32
 }
