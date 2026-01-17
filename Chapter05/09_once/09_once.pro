@@ -4,4 +4,4 @@ if (!include(../../config.txt)) {
 
 QMAKE_CXXFLAGS += $$CPP11FLAG
 SOURCES += main.cpp
-!msvc:LIBS += -lboost_thread -lboost_system
+!msvc:LIBS += -lboost_thread $$BOOST_SYSTEM_LIBRARY

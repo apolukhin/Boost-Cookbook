@@ -49,3 +49,7 @@ msvc {
     LIBS += -L$$BOOST_PATH/stage/lib
     QMAKE_CXXFLAGS += -Wno-deprecated-declarations -Wno-unused-variable
 }
+
+# The `boost_system` library is removed in new versions of Boost.
+# BOOST_SYSTEM_LIBRARY = -lboost_system
+BOOST_SYSTEM_LIBRARY =

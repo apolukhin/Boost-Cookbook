@@ -4,6 +4,6 @@ if (!include(../../../config.txt)) {
 
 SOURCES += main.cpp
 !msvc {
-    LIBS += -lboost_system -lboost_thread
+    LIBS += $$BOOST_SYSTEM_LIBRARY -lboost_thread
     win32:LIBS += -lws2_32
 }
